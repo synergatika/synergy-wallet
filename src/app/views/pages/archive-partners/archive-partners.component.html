@@ -1,7 +1,13 @@
-<div class="row" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
+<div class="archive-partners">
+
+  <app-partners-list-scroll></app-partners-list-scroll>
+
+</div>
+
+<!-- <div class="row" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
   *ngIf="partners">
   <div class="col-md-4" *ngFor="let partner of (partners)">
-    <app-card-partner [partner]="partner">
-    </app-card-partner>
+    <app-partner-card [partner]="partner">
+    </app-partner-card>
   </div>
-</div>
+</div> -->

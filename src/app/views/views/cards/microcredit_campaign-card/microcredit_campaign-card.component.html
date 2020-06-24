@@ -1,0 +1,60 @@
+<div class="synergy-card">
+
+  <mat-card class="item-card" *ngIf="campaign">
+    <mat-card-content>
+
+      <!--begin::Content-->
+      <div class="wallet_microcredit_wrapper s_archive_wrapper">
+        <div class="microcredit s_archive row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-sm-12 s_archive-img-container">
+                <div class="s_archive-img">
+                  <img src={{campaign.campaign_imageURL}} alt={{campaign.title}} />
+                  <div class="s_archive-date">
+                    {{flag}}
+                    <span *ngIf="canSupport"> {{campaign.expiresAt | date: 'd.M'}}</span>
+                    <span *ngIf="canRedeem"> {{campaign.redeemEnds | date: 'd.M'}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="s_archive-content container-fluid">
+              <div class="s_archive-heading row">
+                <h4 class="s_archive-title col-9">{{campaign.title}}</h4>
+                <div class="s_archive-points col-3">
+                  <span class="from" *ngIf="campaign.quantitative==true">
+                    {{'GENERAL.FROM' | translate}}
+                  </span>
+                  <span class="amount">
+                    {{campaign.minAllowed | currency:'EUR' }}
+                  </span>
+                </div>
+              </div>
+              <div class="s_archive-subtitle row">
+                <div class="col-md-12">
+                  <p [innerHTML]="campaign.subtitle"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 s_archive-info">
+                  <div class="s_archive-partner" *ngIf="type!='single'">
+                    <div class="s_archive-merch-name">
+                      <span class="mdi mdi-shopping"></span> {{campaign.partner_name}}
+                    </div>
+                    <div class="s_archive-merch-adress" *ngIf="campaign.partner_address">
+                      <span class="mdi mdi-pin"></span> {{campaign.partner_address.street}} ,
+                      {{campaign.partner_address.city}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end::Content-->
+
+    </mat-card-content>
+  </mat-card>
+</div>

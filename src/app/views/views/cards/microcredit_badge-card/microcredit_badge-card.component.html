@@ -1,0 +1,23 @@
+<!-- <div class="dashboard">
+  <div class="row">
+    <div class="col-md-6"> -->
+
+<!--begin::Microcredit Badge-->
+<div class="row">
+  <div *ngIf="microcredit_badge" class="badge-container">
+    <div class="mr-4">
+      <img *ngIf="microcredit_badge.image" [src]="microcredit_badge.image">
+    </div>
+    <div *ngIf="microcredit_badge.text" class="bagde-text">
+      <div *ngIf="translate.currentLang == 'en'">
+        <h2>{{microcredit_badge.text.en_title}}</h2>
+        <p [innerHTML]="microcredit_badge.text.en_content"></p>
+      </div>
+      <div *ngIf="translate.currentLang == 'el'">
+        <h2>{{microcredit_badge.text.el_title}}</h2>
+        <p [innerHTML]="microcredit_badge.text.el_content"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end::Microcredit Badge-->

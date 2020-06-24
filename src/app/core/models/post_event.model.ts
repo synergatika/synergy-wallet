@@ -19,6 +19,7 @@ export interface PostEvent {
 
     createdAt: string;
 
-    description?: any;
-    name?: any;
+    post_imageURL?: string;
+    event_imageURL?: string;
+    description?: string;
 }

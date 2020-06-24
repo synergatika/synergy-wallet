@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-// Common
 import { HttpClient } from '@angular/common/http';
-
-// Rxjs
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-// Env
+/**
+ * Environments
+ */
 import { environment } from '../../../environments/environment';
 
-// Models
+
+/**
+ * Models & Interfaces
+ */
 import { Content } from '../models/content.model';
 import { Message } from '../models/message.model';
 

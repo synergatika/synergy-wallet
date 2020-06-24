@@ -6,6 +6,15 @@ import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule,
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
+/**
+ * Guards
+ */
+import { AuthGuard } from '../core/guards/auth.guard';
+import { SubConfigGuard } from '../core/guards/subConfig.guard';
+
+/**
+ * Components
+ */
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -17,12 +26,13 @@ import { NeedVerificationComponent } from './need_verification/need_verification
 import { PasswordRestorationComponent } from './password_restoration/password_restoration.component';
 import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
 import { TermsComponent } from './terms/synergy_terms.component';
+// import { LanguageSwitcherComponent } from './language-switcher/language-switcher.component';
 
+/**
+ * Services
+ */
 import { AuthenticationService } from '../core/services/authentication.service';
-import { AuthGuard } from '../core/helpers/auth.guard';
-import { SubConfigGuard } from '../core/helpers/subConfig.guard';
-
-import { LanguageSwitcherComponent } from './language-switcher/language-switcher.component';
+import { ViewsModule } from '../views/views/views.module';
 
 const routes: Routes = [
     {
@@ -91,7 +101,8 @@ const routes: Routes = [
         MatProgressSpinnerModule,
         MatSelectModule,
         NgbModalModule,
-        NgbDropdownModule
+        NgbDropdownModule,
+        ViewsModule
     ],
     providers: [
     ],
@@ -108,7 +119,6 @@ const routes: Routes = [
         PasswordRestorationComponent,
         AuthNoticeComponent,
         TermsComponent,
-        LanguageSwitcherComponent
     ],
     entryComponents: [
         TermsComponent

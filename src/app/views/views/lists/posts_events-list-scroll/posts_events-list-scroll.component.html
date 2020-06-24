@@ -1,0 +1,19 @@
+<!--begin::Posts/Events List-->
+<div *ngIf="posts_events && posts_events.length" class="row" infiniteScroll [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+  <div class="col-md-4 item-wrapper" *ngFor="let post_event of (posts_events)">
+    <app-post_event-card [post_event]="post_event" (mousedown)="mousedown()" (mousemove)="mousemove()"
+      (mouseup)="mouseup(post_event)"></app-post_event-card>
+  </div>
+</div>
+<!--end::Posts/Events List-->
+
+<!--begin::Post/Event Modal-->
+<ng-template #postEventModal let-c="close" let-d="dismiss">
+  <button type="button" class="close-btn" aria-label="Close" (click)="d('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <app-post_event-single [post_event]="post_event">
+  </app-post_event-single>
+</ng-template>
+<!--end::Post/Event Modal-->

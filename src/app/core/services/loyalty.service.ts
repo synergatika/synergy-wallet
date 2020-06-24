@@ -1,22 +1,20 @@
-// Core
 import { Injectable } from '@angular/core';
-
-// Common
 import { HttpClient } from '@angular/common/http';
-
-// Rxjs
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 
-// Env
+/**
+ * Environment
+ */
 import { environment } from '../../../environments/environment';
 
-// Models
-import { Message } from '../models/message.model';
+/**
+ * Models & Interfaces
+ */
 import { Points } from '../models/points.model';
 import { Activity } from '../models/activity.model';
 import { LoyaltyTransaction } from '../models/loyalty_transaction.model';
-import { RegistrationStatus } from '../models/registration_status.model';
+import { Message } from '../models/message.model';
 
 @Injectable({
   providedIn: 'root'

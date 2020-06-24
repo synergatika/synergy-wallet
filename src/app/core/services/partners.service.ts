@@ -1,17 +1,16 @@
-// Core
 import { Injectable } from '@angular/core';
-
-// Common
 import { HttpClient } from '@angular/common/http';
-
-// Rxjs
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-// Env
+/**
+ * Environment
+ */
 import { environment } from '../../../environments/environment';
 
-// Models
+/**
+ * Models & Interfaces
+ */
 import { Partner } from '../models/partner.model'
 
 @Injectable({

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 @Component({
-    selector: 'kt-modal3',
+    selector: 'app-terms',
     templateUrl: './synergy_terms.component.html',
 })
 export class TermsComponent implements OnInit, OnDestroy {

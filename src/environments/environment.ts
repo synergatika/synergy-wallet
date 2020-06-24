@@ -46,7 +46,6 @@ export const environment = {
     'whenRedeemStarts': 361, //days 
     'whenRedeemEnds': 720, //days 
   }
-
 };
 
 /*

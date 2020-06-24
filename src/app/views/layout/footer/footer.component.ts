@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 /**
  * Services
  */
-import { StaticDataService } from '../../../core/services/static-data.service';
+import { MenuService } from '../../../core/helpers/menu.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 
 /**
@@ -27,11 +27,11 @@ export class FooterComponent implements OnInit {
 		private cdr: ChangeDetectorRef,
 		private router: Router,
 		private translate: TranslateService,
-		private staticDataService: StaticDataService,
+		private menuService: MenuService,
 		private authenticationService: AuthenticationService
 	) {
 		const currentUser = this.authenticationService.currentUserValue;
-		this.menu = (currentUser.user["access"] === 'member') ? this.staticDataService.getMemberMenu : [];
+		this.menu = (currentUser.user["access"] === 'member') ? this.menuService.getMemberMenu : [];
 	}
 
 	/**

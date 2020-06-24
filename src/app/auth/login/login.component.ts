@@ -10,22 +10,24 @@ import { TranslateService } from '@ngx-translate/core';
 // Services
 import { MessageNoticeService } from '../../core/helpers/message-notice/message-notice.service';
 import { AuthenticationService } from '../../core/services/authentication.service';
-import { StaticDataService } from '../../core/services/static-data.service';
+import { StaticDataService } from '../../core/helpers/static-data.service';
 
 
 @Component({
-	selector: 'kt-login',
+	selector: 'app-login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.scss'],
 	encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-
+	/**
+	 * Form
+	 */
+	authForm: FormGroup;
 	validator: any;
-	loginForm: FormGroup;
+
 	returnUrl: string;
-	// test: string = 'No error yet';
 
 	private unsubscribe: Subject<any>;
 	loading: boolean = false;
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		private authenticationService: AuthenticationService,
 		private staticDataService: StaticDataService,
 	) {
-		this.validator = this.staticDataService.getUserValidator;
+		this.validator = this.staticDataService.getValidators.user;
 		this.unsubscribe = new Subject();
 	}
 
@@ -66,7 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	 * On Init
 	 */
 	ngOnInit(): void {
-		this.initLoginForm();
+		this.initializeForm();
 
 		// redirect back to the returnUrl before login
 		this.activatedRoute.queryParams.subscribe(params => {
@@ -85,12 +87,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * Form initalization
-	 * Default params, validators
+	 * Form Initialization
 	 */
-	initLoginForm() {
-
-		this.loginForm = this.fb.group({
+	initializeForm() {
+		this.authForm = this.fb.group({
 			email: ['', Validators.compose([
 				Validators.required,
 				Validators.email,
@@ -108,28 +108,28 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * Form Submit
+	 * On Submit Form
 	 */
-	submit() {
+	submitForm() {
 		if (this.loading) return;
-		this.loading = true;
 		this.authNoticeService.setNotice(null);
 
-		const controls = this.loginForm.controls;
+		const controls = this.authForm.controls;
 		/** check form */
-		if (this.loginForm.invalid) {
+		if (this.authForm.invalid) {
 			Object.keys(controls).forEach(controlName =>
 				controls[controlName].markAsTouched()
 			);
 			return;
 		}
+		this.loading = true;
 
 		const authData = {
 			email: (controls.email.value).toLowerCase(),
 			password: controls.password.value
 		};
-		this.authenticationService
-			.authenticate(authData.email, authData.password)
+
+		this.authenticationService.authenticate(authData.email, authData.password)
 			.pipe(
 				tap(
 					data => {
@@ -138,23 +138,22 @@ export class LoginComponent implements OnInit, OnDestroy {
 								this.translate.instant('AUTH.LOGIN.EMAIL_NEEDS_VERIFICATION'), 'warning');
 							this.router.navigateByUrl('auth/need-verification');
 						}
-						else if ((data.action) && (data.action === 'need_account_activation')) {
-							this.authNoticeService.setNotice(
-								this.translate.instant('AUTH.LOGIN.ACCOUNT_NEEDS_ACTIVATION'), 'warning');
-						}
 						else if ((data.action) && (data.action === 'need_password_verification')) {
 							this.authNoticeService.setNotice(
 								this.translate.instant('AUTH.LOGIN.PASSWORD_NEEDS_UPDATE'), 'warning');
 							this.router.navigateByUrl('auth/verify-password/' + authData.email);
 						}
+
+						else if ((data.action) && (data.action === 'need_account_activation')) {
+							this.authNoticeService.setNotice(
+								this.translate.instant('AUTH.LOGIN.ACCOUNT_NEEDS_ACTIVATION'), 'warning');
+						}
 						else if (data.user) {
 							this.authenticationService.setCurrentUserValue(data);
 							this.router.navigateByUrl('/');
 						};
-
 					}, error => {
-						// this.test = error;
-						this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
+						this.authNoticeService.setNotice(this.translate.instant(error), 'danger');
 					}),
 				takeUntil(this.unsubscribe),
 				finalize(() => {
@@ -172,7 +171,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	 * @param validationType: string => Equals to valitors name
 	 */
 	isControlHasError(controlName: string, validationType: string): boolean {
-		const control = this.loginForm.controls[controlName];
+		const control = this.authForm.controls[controlName];
 		if (!control) {
 			return false;
 		}

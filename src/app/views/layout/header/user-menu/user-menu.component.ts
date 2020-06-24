@@ -1,17 +1,15 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { MenuService } from '../../../../core/services/menu.service';
-// RxJS
-import { Observable } from 'rxjs';
-import { AuthenticationService } from '../../../../core/services/authentication.service';
-// Models
-import { AuthUser } from '../../../../core/models/auth.model';
-import { StaticDataService } from '../../../../core/services/static-data.service';
 
-interface Menu {
-	title: string,
-	link: string,
-	icon: string
-}
+/**
+ * Services
+ */
+import { MenuService } from '../../../../core/helpers/menu.service';
+import { AuthenticationService } from '../../../../core/services/authentication.service';
+
+/**
+ * Models & Interfaces
+ */
+import { Menu } from 'src/app/core/interfaces/menu.interface';
 
 @Component({
 	selector: 'app-user-menu',
@@ -27,12 +25,11 @@ export class UserMenuComponent implements OnInit {
 	userAvatar: string;
 
 	constructor(
-		private menuService: MenuService,
-		private authenticationService: AuthenticationService,
 		private cDRef: ChangeDetectorRef,
-		private staticDataService: StaticDataService
+		private menuService: MenuService,
+		private authenticationService: AuthenticationService
 	) {
-		this.menu = this.staticDataService.getUserSubMenu;
+		this.menu = this.menuService.getUserMenu;
 	}
 
 	ngOnInit(): void {

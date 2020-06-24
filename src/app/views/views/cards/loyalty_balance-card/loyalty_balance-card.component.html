@@ -1,0 +1,59 @@
+<div class="wallet_single_wrapper">
+  <!--begin::Loyalty Points (Balance)-->
+  <!-- <div *ngIf="configAccess[1]"> -->
+  <div *ngIf="balance" class="single row wallet-row" (click)="openBalance()">
+    <div class="col-9 single-content" *ngIf="balance.text">
+      <span class="wallet-img">
+        <img src="../../../assets/media/images/Synergy-Icon.png" alt="Synergy" />
+      </span>
+      <div class="" *ngIf="translate.currentLang == 'en'">
+        <div class="single-title">{{balance.text.en_title}}</div>
+        <div class="single-subtitle"><span
+            class="mdi mdi-shopping"></span>{{'MEMBER.DASHBOARD.WALLET_SUBTITLE' | translate}}
+        </div>
+      </div>
+      <div class="" *ngIf="translate.currentLang == 'el'">
+        <div class="single-title">{{balance.text.el_title}}</div>
+        <div class="single-subtitle"><span
+            class="mdi mdi-shopping"></span>{{'MEMBER.DASHBOARD.WALLET_SUBTITLE' | translate}}
+        </div>
+      </div>
+    </div>
+    <div class="col-3 single-amount">
+      <div *ngIf="balance">
+        <span class="points">{{balance.points}}</span>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</div>
+
+<!--begin::Loyalty Balance Modal-->
+<ng-template #balanceModal let-c=" close" let-d="dismiss">
+  <div class="container wallet-popup">
+    <button type="button" class="close-btn" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="single row-flex">
+      <div class="">
+        <span class="wallet-img">
+          <img src="../../../assets/media/images/Synergy-Icon.png" alt="Synergy" />
+        </span>
+      </div>
+      <div *ngIf="balance.text" class="">
+        <h3 *ngIf="translate.currentLang == 'en'" class="balance-title">{{balance.text.en_title}}</h3>
+        <h3 *ngIf="translate.currentLang == 'el'" class="balance-title">{{balance.text.el_title}}</h3>
+      </div>
+      <div *ngIf="balance.points" class="balance-amount">
+        <div>
+          <span class="points">{{balance.points}}</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="balance.text" class="balance-text mt-3">
+      <p *ngIf="translate.currentLang == 'en'" [innerHTML]="balance.text.en_content"></p>
+      <p *ngIf="translate.currentLang == 'el'" [innerHTML]="balance.text.el_content"></p>
+    </div>
+  </div>
+</ng-template>
+<!--end::Loyalty Balance Modal-->

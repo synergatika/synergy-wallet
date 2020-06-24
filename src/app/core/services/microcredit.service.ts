@@ -1,22 +1,21 @@
-// Core
 import { Injectable } from '@angular/core';
-
-// Common
 import { HttpClient } from '@angular/common/http';
-
-// Rxjs
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 
-// Env
+/**
+ * Environment
+ */
 import { environment } from '../../../environments/environment';
 
-// Models
-import { Message } from '../models/message.model';
+/**
+ * Models & Interfaces
+ */
 import { MicrocreditSupport } from '../models/microcredit_support.model';
 import { PaymentDetails } from '../models/payment_details.model';
 import { MicrocreditTransaction } from '../models/microcredit_transaction.model';
 import { Activity } from '../models/activity.model';
+import { Message } from '../models/message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -63,13 +62,6 @@ export class MicrocreditService {
         return response.data;
       }));
   }
-
-  // unConfirmPayment(partner_id: string, campaign_id: string, payment: string, payment_id: string[]): Observable<PaymentDetails> {
-  //   return this.http.put<any>(`${environment.apiUrl}/microcredit/supports/${partner_id}/${campaign_id}/${payment}`, { payment_id: payment_id })
-  //     .pipe(map(response => {
-  //       return response.data;
-  //     }));
-  // }
 
   readTransactions(offset: string): Observable<MicrocreditTransaction[]> {
     return this.http.get<any>(`${environment.apiUrl}/microcredit/transactions/${offset}`)

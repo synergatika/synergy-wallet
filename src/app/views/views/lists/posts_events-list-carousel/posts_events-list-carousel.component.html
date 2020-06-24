@@ -1,0 +1,25 @@
+<!--begin::Posts/Events List-->
+<div *ngIf="posts_events && posts_events.length" class="row section-list">
+  <div class="col-md-12">
+    <h3 class="list-tiltle">{{ 'POST_EVENT.PLURAL' | translate }}</h3>
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let post_event of (posts_events)">
+        <app-post_event-card [post_event]="post_event" type={{type}} (mousedown)="mousedown()" (mousemove)="mousemove()"
+          (mouseup)="mouseup(post_event)"></app-post_event-card>
+      </ng-template>
+    </owl-carousel-o>
+    <div *ngIf="type==='all'" class="section-list-footer"><a
+        [routerLink]="['/posts']">{{ 'POST_EVENT.ALL' | translate }}</a>
+    </div>
+  </div>
+</div>
+<!--end::Posts/Events List-->
+
+<!--begin::Post/Event Modal-->
+<ng-template #postEventModal let-c="close" let-d="dismiss">
+  <button type="button" class="close-btn" aria-label="Close" (click)="d('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <app-post_event-single [post_event]="post_event"> </app-post_event-single>
+</ng-template>
+<!--end::Post/Event Modal-->

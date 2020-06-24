@@ -10,7 +10,7 @@ export interface Event {
     title: string;
     subtitle: string;
     description: string;
-    dateTime: string;
+    dateTime: number;
     location: string;
     access: string;
 

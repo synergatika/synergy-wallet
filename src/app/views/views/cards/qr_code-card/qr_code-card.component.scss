@@ -1,0 +1,41 @@
+@import "../../../../../variables.scss";
+
+.wallet-card {
+  &-header {
+    border-bottom: 2px solid #eee;
+    margin-bottom: 10px;
+  }
+
+  &-icon {
+    position: absolute;
+    top: -25px;
+    right: -8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: box-shadow 0.3s;
+    color: #fff;
+    background-color: $tertiary;
+    font-size: 51px;
+    width: 75px;
+    height: 75px;
+    text-align: center;
+
+    &:hover {
+      box-shadow: 0 3px 11px -2px #d1cbcb;
+    }
+  }
+}
+
+.qr-container {
+  overflow: visible !important;
+  text-align: center;
+  box-shadow: none !important;
+
+  .heading {
+    margin-bottom: 10px;
+  }
+}
+
+.qr-text {
+  text-align: center;
+}

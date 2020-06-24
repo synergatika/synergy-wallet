@@ -1,18 +1,18 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { MenuService } from '../../../../core/services/menu.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-// Translate
 import { TranslateService } from '@ngx-translate/core';
 
+/**
+ * Services
+ */
+import { MenuService } from '../../../../core/helpers/menu.service';
 import { AuthenticationService } from '../../../../core/services/authentication.service';
-import { StaticDataService } from '../../../../core/services/static-data.service';
 
-interface Menu {
-	title: string,
-	link: string,
-	icon: string
-}
+/**
+ * Models & Interfaces
+ */
+import { Menu } from '../../../../core/interfaces/menu.interface';
 
 @Component({
 	selector: 'app-menu',
@@ -28,12 +28,11 @@ export class MenuComponent implements OnInit {
 		private router: Router,
 		private translate: TranslateService,
 		private menuService: MenuService,
-		private authenticationService: AuthenticationService,
-		private staticDataService: StaticDataService
+		private authenticationService: AuthenticationService
 	) {
 		const currentUser = this.authenticationService.currentUserValue;
 		this.menu = (currentUser.user["access"] === 'partner') ?
-			this.staticDataService.getPartnerMenu : this.staticDataService.getAdminMenu;
+			this.menuService.getPartnerMenu : this.menuService.getAdminMenu;
 	}
 
 	ngOnInit() {

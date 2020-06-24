@@ -1,0 +1,47 @@
+<!--begin::Microcredit Supports List-->
+<div class="single row wallet-coop"
+  *ngFor="let support of (supports) | paginate: { id: 'tr_paginator', itemsPerPage: 3, currentPage: p }"
+  (click)="openSupport(support)">
+  <div class="col-sm-9 single-content">
+    <div *ngIf="support.status=='order'" class="wallet-img">
+      <img src={{support.campaign_imageURL}} alt={{support.title}} style="opacity:0.5;"
+        matTooltip="{{'SUPPORT.STATUS.PENDING_TOOLTIP' | translate}}" [matTooltipPosition]="'right'" />
+    </div>
+    <div *ngIf="support.status!='order'" class="wallet-img">
+      <img src={{support.campaign_imageURL}} alt={{support.title}} style="opacity:1.0;"
+        matTooltip="{{'SUPPORT.STATUS.CONFIRMED_TOOLTIP' | translate}}" [matTooltipPosition]="'right'" />
+    </div>
+    <div class="">
+      <!-- <div class="single-title">{{support.title}}
+        <button mat-mini-fab color="warn" class="single-status" *ngIf="support.status=='order'"
+          matTooltip="{{'SUPPORT.STATUS.PENDING_TOOLTIP' | translate}}" [matTooltipPosition]="'right'">
+        </button>
+        <button mat-mini-fab color="primary" class="single-status" *ngIf="support.status!='order'"
+          matTooltip="{{'SUPPORT.STATUS.CONFIRMED_TOOLTIP' | translate}}" [matTooltipPosition]="'right'">
+        </button>
+      </div> -->
+      <div class="single-subtitle"><span class="mdi mdi-shopping"></span>{{support.partner_name}}</div>
+      <div class="single-subtitle">
+        {{'GENERAL.FROM' | translate}} {{support.redeemStarts | date: 'd.M.y' }}
+        {{'GENERAL.TO' | translate}} {{support.redeemEnds | date: 'd.M.y' }}</div>
+    </div>
+  </div>
+  <div class="col-sm-3 single-amount">
+    <div>
+      <span class="points">{{ support.initialTokens - support.redeemedTokens | currency:'EUR' }}</span>
+    </div>
+  </div>
+</div>
+<div class="pagination-wrapper">
+  <pagination-controls autoHide="true" id='tr_paginator' (pageChange)="p=$event"></pagination-controls>
+</div>
+<!--end::Microcredit Supports List-->
+
+<!--begin::Microcredit Support Modal-->
+<ng-template #supportModal let-c="close" let-d="dismiss">
+  <button type="button" class="close-btn" aria-label="Close" (click)="d('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <app-microcredit_support-card [support]="support"> </app-microcredit_support-card>
+</ng-template>
+<!--end::Microcredit Support Modal-->
