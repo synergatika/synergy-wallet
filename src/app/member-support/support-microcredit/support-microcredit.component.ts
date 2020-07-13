@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ChangeDetectorRef, HostListener } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil, finalize, tap } from 'rxjs/operators';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WizardComponent } from "angular-archwizard";
 
 import { TranslateService } from '@ngx-translate/core';

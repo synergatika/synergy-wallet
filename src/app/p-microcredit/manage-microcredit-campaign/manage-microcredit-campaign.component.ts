@@ -7,7 +7,10 @@ import { AddSupportComponent } from './add-support/add-support.component';
 // import { MatSort } from '@angular/material/sort';
 // import { MatTableDataSource } from '@angular/material/table';
 // import { MatCheckboxChange } from '@angular/material';
-import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource, MatCheckboxChange } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 // Services, Models & Interfaces
 import { TranslateService } from '@ngx-translate/core';
 import { MicrocreditSupport } from 'src/app/core/models/microcredit_support.model';

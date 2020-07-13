@@ -29,8 +29,8 @@ import { GeneralList } from 'src/app/core/interfaces/general-list.interface';
 })
 
 export class EditPostComponent implements OnInit, OnDestroy {
-  @ViewChild('remove_item', { static: false }) remove_item;
-  @ViewChild('fileInput', { static: false }) imageInput: ElementRef;
+  @ViewChild('remove_item') remove_item;
+  @ViewChild('fileInput') imageInput: ElementRef;
 
   private post_id: string;
   public initialImage: string = '';

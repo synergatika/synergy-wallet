@@ -3,7 +3,7 @@ import { tap, takeUntil, finalize } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { WizardComponent } from "angular-archwizard";
 

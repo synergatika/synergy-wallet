@@ -28,8 +28,8 @@ export class SinglePartnerComponent implements OnInit, OnDestroy {
 	/**
 	 * Children Modals
 	 */
-	@ViewChild('campaignModal', { static: false }) campaignModal: NgbModal;
-	@ViewChild('postModal', { static: false }) postModal: NgbModal;
+	@ViewChild('campaignModal') campaignModal: NgbModal;
+	@ViewChild('postModal') postModal: NgbModal;
 
 	/**
 	 * Imported Variables
