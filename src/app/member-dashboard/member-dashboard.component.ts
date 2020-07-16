@@ -36,9 +36,9 @@ export class MemberDashboardComponent implements OnInit, OnDestroy {
 	/**
 	 * Children Modals
 	 */
-	@ViewChild('qrcodeModal', { static: false }) qrcodeModal: NgbModalRef;
-	@ViewChild('walletModal', { static: false }) walletModal: NgbModalRef;
-	@ViewChild('supportsModal', { static: false }) supportsModal: NgbModalRef;
+	@ViewChild('qrcodeModal') qrcodeModal: NgbModalRef;
+	@ViewChild('walletModal') walletModal: NgbModalRef;
+	@ViewChild('supportsModal') supportsModal: NgbModalRef;
 
 	/**
 	 * Configuration and Static Data

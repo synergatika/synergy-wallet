@@ -53,7 +53,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
 	/**
 	 * Children Modals
 	 */
-  @ViewChild('postModal', { static: false }) postModal: NgbModalRef;
+  @ViewChild('postModal') postModal: NgbModalRef;
 
   /** 
    * Carousel Variables

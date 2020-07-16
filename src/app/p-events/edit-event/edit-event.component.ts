@@ -29,8 +29,8 @@ import { GeneralList } from 'src/app/core/interfaces/general-list.interface';
 })
 
 export class EditEventComponent implements OnInit {
-  @ViewChild('remove_item', { static: false }) remove_item;
-  @ViewChild('fileInput', { static: false }) imageInput: ElementRef;
+  @ViewChild('remove_item') remove_item;
+  @ViewChild('fileInput') imageInput: ElementRef;
 
   timePickerTheme: any = {
     container: {

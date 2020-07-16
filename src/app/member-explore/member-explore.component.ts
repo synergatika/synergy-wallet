@@ -35,8 +35,8 @@ export class MemberExploreComponent implements OnInit, OnDestroy {
 	/**
 	 * Children Modals
 	 */
-	@ViewChild('partnerModal', { static: false }) partnerModal: NgbModal;
-	@ViewChild('postModal', { static: false }) postModal: NgbModal;
+	@ViewChild('partnerModal') partnerModal: NgbModal;
+	@ViewChild('postModal') postModal: NgbModal;
 
 	/**
 	 * Configuration and Static Data

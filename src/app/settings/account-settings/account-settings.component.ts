@@ -18,7 +18,7 @@ import { AuthenticationService } from '../../core/services/authentication.servic
   styleUrls: ['./account-settings.component.scss']
 })
 export class AccountSettingsComponent implements OnInit, OnDestroy {
-  @ViewChild('remove_item', { static: false }) remove_item: any;
+  @ViewChild('remove_item') remove_item: any;
 
   submitForm: FormGroup;
   submitted = false;

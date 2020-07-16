@@ -16,7 +16,7 @@ import { ScannerService } from '../_scanner.service';
 // Local Models & Interfaces
 import { ScannerInterface } from '../_scanner.interface';
 
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WizardComponent } from 'angular-archwizard';
 import { Offer } from 'src/app/core/models/offer.model';
 

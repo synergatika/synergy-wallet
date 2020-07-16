@@ -20,8 +20,8 @@ import { StaticDataService } from '../../core/services/static-data.service';
   styleUrls: ['./edit-offer.component.scss']
 })
 export class EditOfferComponent implements OnInit, OnDestroy {
-  @ViewChild('fileInput', { static: false }) imageInput: ElementRef;
-  @ViewChild('remove_item', { static: false }) remove_item;
+  @ViewChild('fileInput') imageInput: ElementRef;
+  @ViewChild('remove_item') remove_item;
 
   private offer_id: string;
   public initialImage: string = '';

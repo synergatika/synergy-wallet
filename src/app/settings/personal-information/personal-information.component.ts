@@ -32,8 +32,8 @@ import { GeneralList } from 'src/app/core/interfaces/general-list.interface';
   styleUrls: ['./personal-information.component.scss']
 })
 export class PersonalInformationComponent implements OnInit, OnDestroy {
-  @ViewChild('fileInputMerch', { static: false }) imageInputMerch: ElementRef;
-  @ViewChild('fileInput', { static: false }) imageInput: ElementRef;
+  @ViewChild('fileInputMerch') imageInputMerch: ElementRef;
+  @ViewChild('fileInput') imageInput: ElementRef;
 
 	/**
 	 * Configuration and Static Data
