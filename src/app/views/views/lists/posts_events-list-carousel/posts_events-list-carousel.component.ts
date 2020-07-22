@@ -38,7 +38,7 @@ export class PostsEventsListCarouselComponent implements OnInit, OnDestroy {
 	/**
 	 * Children Modals
 	 */
-  @ViewChild('postEventModal', { static: false }) postEventModal: NgbModal;
+  @ViewChild('postEventModal') postEventModal: NgbModal;
 
 	/**
 	 * Configuration and Static Data

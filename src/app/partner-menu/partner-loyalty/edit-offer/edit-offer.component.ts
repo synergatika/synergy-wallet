@@ -20,8 +20,8 @@ import { ItemsService } from '../../../core/services/items.service';
   styleUrls: ['./edit-offer.component.scss']
 })
 export class EditOfferComponent implements OnInit, OnDestroy {
-  @ViewChild('fileInput', { static: false }) imageInput: ElementRef;
-  @ViewChild('remove_item', { static: false }) remove_item: NgbModalRef;
+  @ViewChild('fileInput') imageInput: ElementRef;
+  @ViewChild('remove_item') remove_item: NgbModalRef;
 
   /**
    * Parameters

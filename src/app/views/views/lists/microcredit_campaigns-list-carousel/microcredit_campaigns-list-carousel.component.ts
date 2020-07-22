@@ -32,7 +32,7 @@ export class MicrocreditCampaignsListCarouselComponent implements OnInit, OnDest
   /**
 	 * Children Modals
 	 */
-  @ViewChild('campaignModal', { static: false }) campaignModal: NgbModal;
+  @ViewChild('campaignModal') campaignModal: NgbModal;
 
 	/**
 	 * Content Variables

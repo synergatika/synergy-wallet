@@ -21,7 +21,7 @@ export class QRCodeCardComponent implements OnInit, OnDestroy {
 	/**
 	 * Children Modals
 	 */
-	@ViewChild('qrcodeModal', { static: false }) qrcodeModal: NgbModalRef;
+	@ViewChild('qrcodeModal') qrcodeModal: NgbModalRef;
 
 	/**
 	 * Content Variables

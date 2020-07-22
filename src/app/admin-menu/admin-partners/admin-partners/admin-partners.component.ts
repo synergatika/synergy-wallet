@@ -1,5 +1,9 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatSort, MatTableDataSource, MatCheckboxChange, MatPaginator } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { tap, takeUntil, finalize } from 'rxjs/operators';

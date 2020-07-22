@@ -23,7 +23,7 @@ export class MicrocreditCampaignsListScrollComponent implements OnInit, OnDestro
 	/**
 	 * Children Modals
 	 */
-  @ViewChild('campaignModal', { static: false }) campaignModal: NgbModalRef;
+  @ViewChild('campaignModal') campaignModal: NgbModalRef;
 
   /**
    * Content Variables

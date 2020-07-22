@@ -31,9 +31,9 @@ import { DatesValidator } from '../dates.validator';
 })
 
 export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
-  @ViewChild('fileInput', { static: false }) imageInput: ElementRef;
-  @ViewChild('publish_item', { static: false }) publish_item: any;
-  @ViewChild('remove_item', { static: false }) remove_item: any;
+  @ViewChild('fileInput') imageInput: ElementRef;
+  @ViewChild('publish_item') publish_item: any;
+  @ViewChild('remove_item') remove_item: any;
 
 	/**
 	 * Configuration and Static Data

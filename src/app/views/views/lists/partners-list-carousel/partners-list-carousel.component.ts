@@ -31,7 +31,7 @@ export class PartnersListCarouselComponent implements OnInit, OnDestroy {
 	/**
 	 * Children Modals
 	 */
-  @ViewChild('partnerModal', { static: false }) partnerModal: NgbModal;
+  @ViewChild('partnerModal') partnerModal: NgbModal;
 
 	/**
 	 * Configuration and Static Data

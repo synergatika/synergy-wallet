@@ -28,7 +28,7 @@ export class LoyaltyBalanceCardComponent implements OnInit, OnDestroy {
   /**
 	 * Children Modals
 	 */
-	@ViewChild('balanceModal', { static: false }) balanceModal: NgbModalRef;
+	@ViewChild('balanceModal') balanceModal: NgbModalRef;
 
 	/**
 	 * Content Variables

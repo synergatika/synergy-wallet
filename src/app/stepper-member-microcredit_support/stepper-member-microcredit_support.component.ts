@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil, finalize, tap } from 'rxjs/operators';
 import { WizardComponent } from "angular-archwizard";
@@ -156,7 +156,7 @@ export class StepperMemberMicrocreditSupportComponent implements OnInit, OnDestr
     this.wizard.goToPreviousStep();
   }
 
-  onFinalStep(event: boolean) {
+  onFinalStep(event?: boolean) {
     this.dialogRef.close();
   }
 }

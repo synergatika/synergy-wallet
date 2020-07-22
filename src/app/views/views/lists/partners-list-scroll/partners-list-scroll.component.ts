@@ -24,7 +24,7 @@ export class PartnersListScrollComponent implements OnInit, OnDestroy {
 	/**
 	 * Children Modals
 	 */
-  @ViewChild('partnerModal', { static: false }) partnerModal: NgbModal;
+  @ViewChild('partnerModal') partnerModal: NgbModal;
 
 	/**
 	 * Content Variables

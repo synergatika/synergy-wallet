@@ -15,7 +15,11 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxPaginationModule } from 'ngx-pagination';
 //Materialize
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule, MatInputModule, MatCardModule, MatProgressSpinnerModule, MatTooltipModule } from "@angular/material";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatInputModule } from "@angular/material/input";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatTooltipModule } from "@angular/material/tooltip";
 // Interceptors
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';

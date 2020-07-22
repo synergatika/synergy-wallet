@@ -26,7 +26,7 @@ export class MicrocreditSupportsListPaginationComponent implements OnInit, OnDes
   /**
 	 * Children Modals
 	 */
-  @ViewChild('supportModal', { static: false }) supportModal: NgbModalRef;
+  @ViewChild('supportModal') supportModal: NgbModalRef;
 
 	/**
 	 * Configuration and Static Data

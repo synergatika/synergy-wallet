@@ -2,12 +2,25 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatDialogModule, MatCardModule, MatSelectModule, MatNativeDateModule, MatDatepickerModule, MatTableModule, MatSortModule, MatProgressSpinnerModule, MatTooltipModule, MatPaginatorModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { MAT_DATE_LOCALE } from '@angular/material';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
@@ -86,7 +99,7 @@ const routes: Routes = [
 })
 
 export class StepperPartnerMicrocreditSupportModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<StepperPartnerMicrocreditSupportModule> {
     return {
       ngModule: StepperPartnerMicrocreditSupportModule,
       providers: [

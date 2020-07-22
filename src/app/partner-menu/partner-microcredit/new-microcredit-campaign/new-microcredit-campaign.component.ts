@@ -31,7 +31,7 @@ import { DatesValidator } from '../dates.validator';
 })
 
 export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
-  @ViewChild('publish_item', { static: false }) publish_item;
+  @ViewChild('publish_item') publish_item;
 
 	/**
 	 * Configuration and Static Data

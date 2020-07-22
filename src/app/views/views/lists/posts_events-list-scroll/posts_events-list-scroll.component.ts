@@ -24,7 +24,7 @@ export class PostsEventsListScrollComponent implements OnInit, OnDestroy {
 	/**
 	 * Children Modals
 	 */
-  @ViewChild('postEventModal', { static: false }) postEventModal: NgbModal;
+  @ViewChild('postEventModal') postEventModal: NgbModal;
 
 	/**
 	 * Content Variables

@@ -21,7 +21,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   /**
    * Children Modals
    */
-  @ViewChild('remove_item', { static: false }) remove_item: NgbModalRef;
+  @ViewChild('remove_item') remove_item: NgbModalRef;
 
   /**
    * Content Variables
