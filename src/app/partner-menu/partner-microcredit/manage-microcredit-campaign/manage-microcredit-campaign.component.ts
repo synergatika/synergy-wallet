@@ -28,6 +28,7 @@ import { MicrocreditService } from '../../../core/services/microcredit.service';
  */
 import { MicrocreditSupport } from 'src/app/core/models/microcredit_support.model';
 import { MicrocreditCampaign } from 'src/app/core/models/microcredit_campaign.model';
+import { Statistics } from 'src/app/core/models/statistics.model';
 import { PaymentList } from 'src/app/core/interfaces/payment-list.interface';
 
 /**
@@ -66,6 +67,9 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
   public textValueFilter: string = '';
   public dateFilter: Date;
   public maxDate: Date;
+  public statisticsPromise: Statistics;
+  public statisticsRedeem: Statistics;
+  public validatedDates: string[];
 
   /**
    * Flags(Check) Variables
@@ -104,9 +108,33 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
     this.unsubscribe = new Subject();
   }
 
+  // activeDates(d: Date) {
+
+  dateformat(d: Date): string {
+    let date: any;
+    let month: any;
+
+    if (d.getDate().toString().length < 2) {
+      date = '0' + d.getDate().toString()
+    } else {
+      date = d.getDate().toString()
+    }
+
+    if ((d.getMonth() + 1).toString().length < 2) {
+      month = '0' + (d.getMonth() + 1).toString()
+    } else {
+      month = (d.getMonth() + 1).toString()
+    }
+
+    return d.getFullYear().toString() + "/" + month + "/" + date;
+  }
+  activeDates(d: Date): boolean {
+    return this.validatedDates.includes(this.dateformat(d));
+  }
+
   /**
-   * On Init
-   */
+  * On Init
+  */
   ngOnInit() {
     const now = new Date();
     this.seconds = parseInt(now.getTime().toString());
@@ -126,7 +154,7 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Table Filters (, Payment Mehod)
+   * Table Filters (Payment Mehod)
    */
   applyFilterSelected(event) {
     this.dateFilter = null;
@@ -147,6 +175,7 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
   }
 
   applyFilterDate(event) {
+    console.log(event.value);
     // const adate = parseInt(((new Date(this.supports[0].createdAt)).setHours(0, 0, 0, 0)).toString());
     // const bdate = parseInt(((event.value).getTime()).toString());
     // console.log("eq", adate == bdate)
@@ -154,6 +183,12 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
     this.selectedMethod = { ...this.defaultMethod };
     this.textValueFilter = '';
     this.dataSource.filter = ((event.value).getTime());
+
+    this.statisticsPromise = this.campaign.statisticsPromise.byDate.filter(obj =>
+      obj.date === this.dateformat(event.value))[0];
+    this.statisticsRedeem = this.campaign.statisticsRedeem.byDate.filter(obj =>
+      obj.date === this.dateformat(event.value))[0];
+
     // console.log(typeof (event as HTMLInputElement).value);
   }
 
@@ -187,6 +222,14 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
         tap(
           data => {
             this.campaign = data;
+            const datesRedeem = (this.campaign.statisticsRedeem) ? this.campaign.statisticsRedeem.byDate.map(obj => { return obj.date }) : [];
+            const datesPromise = (this.campaign.statisticsPromise) ? this.campaign.statisticsPromise.byDate.map(obj => { return obj.date }) : [];
+            this.validatedDates = datesRedeem.concat(datesPromise);
+            this.statisticsPromise = (this.campaign.statisticsPromise) ? this.campaign["statisticsPromise"] : { _id: "-1", count: 0, users: 0 };
+            this.statisticsRedeem = (this.campaign.statisticsPromise) ? this.campaign["statisticsRedeem"] : { _id: "-1", count: 0, users: 0 };
+            console.log(this.validatedDates);
+            // this.activeDates();
+            console.log(this.campaign);
             this.canSupportCampaign = ((this.campaign.startsAt < this.seconds) && (this.campaign.expiresAt > this.seconds)) ? true : false;
             this.canRevertPayment = (this.campaign.redeemStarts > this.seconds) ? true : false;
             this.canConfirmPayment = (this.campaign.redeemEnds > this.seconds) ? true : false;

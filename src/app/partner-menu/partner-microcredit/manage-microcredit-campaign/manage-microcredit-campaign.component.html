@@ -4,9 +4,89 @@
   <button mat-raised-button class="plegde-button" (click)="openModal(campaign)" [disabled]="!canSupportCampaign">
     <span matTooltip="{{'CAMPAIGN.PLEDGE_DISABLE' | translate}}" [matTooltipPosition]="'right'"
       [matTooltipDisabled]="canSupportCampaign">
-      {{'CAMPAIGN.PLEDGE' | translate}}</span>
+      {{'CAMPAIGN.PLEDGE' | translate}}
+    </span>
   </button>
 </div>
+
+<h3 *ngIf="statisticsPromise" class="section-heading">Promises</h3>
+
+<div class="row" *ngIf="statisticsPromise">
+  <div class="col-md-4">
+    <mat-card>
+      <mat-card-title>
+        Total Transactions
+      </mat-card-title>
+      <mat-card-content>
+        {{statisticsPromise.count}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-4">
+    <mat-card>
+      <mat-card-title>
+        Unique Users
+      </mat-card-title>
+      <mat-card-content>
+        {{statisticsPromise.users}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-4">
+    <mat-card>
+      <mat-card-title>
+        Total Amount
+      </mat-card-title>
+      <mat-card-content>
+        {{statisticsPromise.tokens | currency:'EUR'}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<!-- <div *ngIf="statisticsPromise">
+  Count: {{statisticsPromise.count}} <br>
+  Users: {{statisticsPromise.users}}<br>
+  Tokens: {{statisticsPromise.tokens}}<br>
+</div> -->
+<h3 *ngIf="statisticsRedeem" class="section-heading">Redeems</h3>
+
+<div class="row" *ngIf="statisticsRedeem">
+  <div class="col-md-4">
+    <mat-card>
+      <mat-card-title>
+        Total Transactions
+      </mat-card-title>
+      <mat-card-content>
+        {{statisticsRedeem.count}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-4">
+    <mat-card>
+      <mat-card-title>
+        Unique Users
+      </mat-card-title>
+      <mat-card-content>
+        {{statisticsRedeem.users}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-4">
+    <mat-card>
+      <mat-card-title>
+        Total Amount
+      </mat-card-title>
+      <mat-card-content>
+        {{statisticsRedeem.tokens | currency:'EUR'}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<!-- <div *ngIf="statisticsRedeem">
+  Count: {{statisticsRedeem.count}}<br>
+  Users: {{statisticsRedeem.users}}<br>
+  Tokens: {{statisticsRedeem.tokens}}<br>
+</div> -->
 
 <div>
   <div class="row">
@@ -30,8 +110,8 @@
     <div class="col-md-2">
       <mat-form-field>
         <mat-label>{{'SUPPORT.FILTER.DATE.TITLE' | translate}}</mat-label>
-        <input matInput [(ngModel)]="dateFilter" [matDatepicker]="startDateFilterPicker" [max]="maxDate"
-          (dateChange)="applyFilterDate($event)">
+        <input matInput [(ngModel)]="dateFilter" [matDatepickerFilter]="activeDates.bind(this)"
+          [matDatepicker]="startDateFilterPicker" [max]="maxDate" (dateChange)="applyFilterDate($event)">
         <mat-datepicker-toggle matSuffix [for]="startDateFilterPicker"></mat-datepicker-toggle>
         <mat-datepicker #startDateFilterPicker></mat-datepicker>
       </mat-form-field>

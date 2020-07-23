@@ -1,6 +1,7 @@
 import { PartnerAddress } from './partner_address.model';
 import { PartnerContact } from './partner_contact.model';
 import { PartnerPayment } from './partner_payment.model';
+import { Statistics } from './statistics.model';
 
 interface Tokens {
     _id: string;
@@ -45,6 +46,9 @@ export interface MicrocreditCampaign {
 
     confirmationTokens: Tokens;
     orderedTokens: Tokens;
+
+    statisticsPromise?: Statistics;
+    statisticsRedeem?: Statistics;
 
     createdAt: Date;
 }
