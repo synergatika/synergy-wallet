@@ -95,6 +95,8 @@ export class LocalMicrocreditService {
 
             amount: 0,
             method: '',
+
+            transactions: [],
             createdAt: new Date(),
             how: {
                 title: '',

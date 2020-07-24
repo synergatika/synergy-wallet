@@ -1,5 +1,6 @@
 import { PartnerAddress } from './partner_address.model';
 import { PartnerPayment } from './partner_payment.model';
+import { MicrocreditTransaction } from './microcredit_transaction.model';
 
 export interface MicrocreditSupport {
     partner_id: string;
@@ -23,6 +24,8 @@ export interface MicrocreditSupport {
 
     amount: number;
     method: string;
+
+    transactions: MicrocreditTransaction[];
     createdAt: Date;
     how: {
         title: string,

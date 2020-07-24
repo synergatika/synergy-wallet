@@ -2,9 +2,10 @@ export const environment = {
   production: true,
 
   apiUrl: 'https://api.synergatika.gr',
+  openUrl: 'https://open.synergatika.gr',
   staticUrl: 'https://wp.synergatika.gr/wp-json/wp/v2',
   authTimeOuter: 5000,
-
+  mapApiKey: 'AIzaSyC8tI34nghyWlMaQhGluC9f6jG7E8swyVQ',
   access: [
     true, // community,
     true, // loyalty,

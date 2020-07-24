@@ -60,6 +60,10 @@ export class MicrocreditCampaignSingleComponent implements OnInit, OnDestroy {
 		this.loading = false;
 	}
 
+	scrollTo(selectorName: string): void {
+		document.getElementById(selectorName).scrollIntoView()
+	}
+
 	pledgeModal(campaign: MicrocreditCampaign) {
 		const dialogConfig = new MatDialogConfig();
 		// The user can't close the dialog by clicking outside its body

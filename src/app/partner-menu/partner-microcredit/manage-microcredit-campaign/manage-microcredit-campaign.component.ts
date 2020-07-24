@@ -225,8 +225,8 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
             const datesRedeem = (this.campaign.statisticsRedeem) ? this.campaign.statisticsRedeem.byDate.map(obj => { return obj.date }) : [];
             const datesPromise = (this.campaign.statisticsPromise) ? this.campaign.statisticsPromise.byDate.map(obj => { return obj.date }) : [];
             this.validatedDates = datesRedeem.concat(datesPromise);
-            this.statisticsPromise = (this.campaign.statisticsPromise) ? this.campaign["statisticsPromise"] : { _id: "-1", count: 0, users: 0 };
-            this.statisticsRedeem = (this.campaign.statisticsPromise) ? this.campaign["statisticsRedeem"] : { _id: "-1", count: 0, users: 0 };
+            this.statisticsPromise = (this.campaign.statisticsPromise) ? this.campaign["statisticsPromise"] : { _id: "-1", count: 0, tokens: 0, users: 0 };
+            this.statisticsRedeem = (this.campaign.statisticsPromise) ? this.campaign["statisticsRedeem"] : { _id: "-1", count: 0, tokens: 0, users: 0 };
             console.log(this.validatedDates);
             // this.activeDates();
             console.log(this.campaign);

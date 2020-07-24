@@ -1,5 +1,6 @@
 <div class="wallet_s_single_wrapper synergy-single microcredit-single row">
   <div class="s_single col-md-12">
+
     <div appSticky position="top" class="row s_single-title-container">
       <div class="col-md-12">
         <h1 class="s_single-title">{{campaign.title}}</h1>
@@ -65,9 +66,11 @@
             <h6>{{'CAMPAIGN.PARTNER' | translate}}</h6>
             <h5>{{campaign.partner_name}}</h5>
             <img src="{{campaign.partner_imageURL}}" alt="{{campaign.partner_name}}">
-            <div *ngIf="campaign.partner_address" class="info-row"><span
-                class="mdi mdi-pin"></span>{{campaign.partner_address.street}},
-              {{campaign.partner_address.city}}</div>
+            <div *ngIf="campaign.partner_address" class="info-row info-addess"
+              (click)="scrollTo('map-widget-campaign')">
+              <span class="mdi mdi-pin"></span>
+              {{campaign.partner_address.street}}, {{campaign.partner_address.city}}
+            </div>
             <div *ngIf="campaign.partner_contact" class="info-row"><span
                 class="mdi mdi-phone"></span>{{campaign.partner_contact.phone}}</div>
             <div class="info-row"><span class="mdi mdi-email"></span>{{campaign.partner_email}}</div>
@@ -78,5 +81,10 @@
         </div>
       </div>
     </div>
+
+    <!--begin::Map Widget-->
+    <app-map id="map-widget-campaign" [partner_id]='campaign.partner_id'></app-map>
+    <!--end::Map Widget-->
+
   </div>
 </div>

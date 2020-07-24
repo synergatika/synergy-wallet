@@ -142,7 +142,7 @@ export class PostsEventsListScrollComponent implements OnInit, OnDestroy {
         ariaLabelledBy: 'modal-basic-title',
         size: 'lg',
         backdropClass: 'fullscrenn-backdrop',
-        //backdrop: 'static',
+        backdrop: 'static',
         windowClass: 'fullscreen-modal',
       }
     )

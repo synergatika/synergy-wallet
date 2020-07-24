@@ -44,7 +44,9 @@ export class PartnerSingleComponent implements OnInit, OnDestroy {
 		this.loading = false;
 	}
 
-
+	scrollTo(selectorName: string): void {
+		document.getElementById(selectorName).scrollIntoView()
+	}
 	/**
 	 * Children Modals
 	 */

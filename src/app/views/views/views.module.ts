@@ -13,6 +13,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ArchwizardModule } from 'angular-archwizard';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgmCoreModule } from '@agm/core';
+
+import { environment } from '../../../environments/environment';
 
 import { QRCodeModule } from 'angularx-qrcode';
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -56,6 +59,7 @@ import { MicrocreditSupportsListPaginationComponent } from './lists/microcredit_
  */
 import { ShareIconComponent } from './widgets/share-icon/share-icon.component';
 import { LanguageSwitcherComponent } from './widgets/language-switcher/language-switcher.component';
+import { MapComponent } from './widgets/map/map.component';
 
 @NgModule({
     imports: [
@@ -77,8 +81,11 @@ import { LanguageSwitcherComponent } from './widgets/language-switcher/language-
         InfiniteScrollModule,
         RouterModule,//  
         NgxPaginationModule,
-        QRCodeModule  // StoreModule.forFeature('auth', authReducer),
+        QRCodeModule,  // StoreModule.forFeature('auth', authReducer),
         // EffectsModule.forFeature([AuthEffects]),
+        AgmCoreModule.forRoot({
+            apiKey: `${environment.mapApiKey}`
+        }),
     ],
     providers: [
     ],
@@ -90,7 +97,7 @@ import { LanguageSwitcherComponent } from './widgets/language-switcher/language-
         MicrocreditSupportCardComponent,
         LoyaltyBadgeCardComponent, MicrocreditBadgeCardComponent, LoyaltyBalanceCardComponent, QRCodeCardComponent,
 
-        ShareIconComponent, LanguageSwitcherComponent,
+        ShareIconComponent, LanguageSwitcherComponent, MapComponent,
 
         PartnerSingleComponent, PostEventSingleComponent, MicrocreditCampaignSingleComponent,
 
@@ -108,7 +115,7 @@ import { LanguageSwitcherComponent } from './widgets/language-switcher/language-
         MicrocreditSupportCardComponent,
         LoyaltyBadgeCardComponent, MicrocreditBadgeCardComponent, LoyaltyBalanceCardComponent, QRCodeCardComponent,
 
-        ShareIconComponent, LanguageSwitcherComponent,
+        ShareIconComponent, LanguageSwitcherComponent, MapComponent,
 
         PartnerSingleComponent, PostEventSingleComponent, MicrocreditCampaignSingleComponent,
 

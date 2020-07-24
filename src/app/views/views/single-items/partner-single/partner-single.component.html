@@ -1,5 +1,6 @@
 <div class="wallet_s_single_wrapper synergy-single coop-single row">
   <div class="s_single col-md-12">
+
     <div appSticky position="top" class="row s_single-title-container">
       <div class="col-md-12">
         <h1 class="s_single-title">{{partner.name}}</h1>
@@ -17,8 +18,10 @@
       <div class="col-md-12">
         <div class="row s_single-info-container">
           <div class="col-md-6 s_single-info">
-            <div *ngIf="partner.address" class="info-row"><span class="mdi mdi-pin"></span>{{partner.address.street}},
-              {{partner.address.city}}</div>
+            <div *ngIf="partner.address" class="info-row info-addess" (click)="scrollTo('map-widget-partner')">
+              <span class="mdi mdi-pin"> </span>
+              {{partner.address.street}}, {{partner.address.city}}
+            </div>
             <div *ngIf="partner.contact" class="info-row"><span class="mdi mdi-phone"></span>{{partner.contact.phone}}
             </div>
             <div class="info-row"><span class="mdi mdi-email"></span>{{partner.email}}</div>
@@ -49,6 +52,10 @@
     <!--begin::Post/Events List-->
     <app-posts_events-list-carousel [partner]='partner' type='single'></app-posts_events-list-carousel>
     <!--end::Post/Events List-->
+
+    <!--begin::Map Widget-->
+    <app-map id="map-widget-partner" [partner_id]='partner._id'></app-map>
+    <!--end::Map Widget-->
 
   </div>
 </div>

@@ -157,7 +157,7 @@ export class MicrocreditCampaignsListCarouselComponent implements OnInit, OnDest
         ariaLabelledBy: 'modal-basic-title',
         size: 'lg',
         backdropClass: 'fullscrenn-backdrop',
-        //backdrop: 'static',
+        backdrop: 'static',
         windowClass: 'fullscreen-modal',
       }
     ).result.then(

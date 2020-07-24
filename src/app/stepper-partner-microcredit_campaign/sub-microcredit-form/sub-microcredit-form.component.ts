@@ -99,7 +99,8 @@ export class SubMicrocreditFormComponent implements OnInit, OnDestroy {
     this.transaction.redeemed_tokens = support.redeemedTokens;
     this.transaction.possible_tokens = (this.transaction.initial_tokens - this.transaction.redeemed_tokens);
     this.stepperService.changeTransaction(this.transaction);
-    this.fetchTransactions();
+    // this.fetchTransactions();
+    this.transactions = support.transactions;
   }
 
   initializeSelectedSupport() {

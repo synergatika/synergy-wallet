@@ -27,7 +27,7 @@ export class LocalLoyaltyService {
 
     private actionsSource = new BehaviorSubject({
         redeem: '00',
-        registration: '000000'
+        registration: 'xxxxxx'
     });
     actions = this.actionsSource.asObservable();
 

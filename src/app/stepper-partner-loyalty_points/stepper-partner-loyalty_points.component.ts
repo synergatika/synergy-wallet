@@ -164,6 +164,8 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
    * @param event 
    */
   onSubmitEmailForm(event: string) {
+
+    console.log("I am in EMail FOrm")
     if (event) {
 
       this.user.email = event;
@@ -309,6 +311,7 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
       identifier: this.user.identifier_scan || this.user.identifier_form,
       email: this.user.email
     };
+    console.log("Action Handler", this.actions.registration);
 
     switch (this.actions.registration) {
       case 'xx1000': { // only email
@@ -418,6 +421,9 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
   }
 
   actionRegistration(notice: { type: string, message: string }, email: string, card: string) {
+
+    console.log("I will register")
+    console.log(this.actions);
 
     this.loading = true;
 

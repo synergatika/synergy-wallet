@@ -1,0 +1,23 @@
+<div class="map-container">
+	<agm-map class="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [styles]="mapStyle">
+		<ng-template [ngIf]="markers">
+			<agm-marker *ngFor="let m of markers; let i = index" [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="pin"
+				[markerDraggable]="m.draggable">
+				<agm-info-window [disableAutoPan]="false" [isOpen]="true" #infoWindow>
+					<div class="info-container">
+						<img src={{m.img}}>
+						<div>
+							<a href="{{openUrl}}/partner/{{m.slug}}">
+								<!-- <a [routerLink]="['/partner/', m.slug]"> -->
+								<div class="partner-name">
+									<strong>{{m.name}}</strong>
+								</div>
+								<div>{{m.address}}</div>
+							</a>
+						</div>
+					</div>
+				</agm-info-window>
+			</agm-marker>
+		</ng-template>
+	</agm-map>
+</div>
