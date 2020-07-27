@@ -25,7 +25,7 @@ export class CommunicationService {
 
 
   sendInvitation(email: string): Observable<Message> {
-    return this.http.post<any>(`${environment.apiUrl}/communication/invite`, { email: email })
+    return this.http.post<any>(`${environment.apiUrl}/community/invite`, { receiver: email })
       .pipe(map(response => {
         return response;
       }));
