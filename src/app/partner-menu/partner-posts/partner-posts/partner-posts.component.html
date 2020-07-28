@@ -6,8 +6,8 @@
   <div class="row">
 
     <!--begin::Button (Create Post)-->
-    <div class="item item-wrapper col-md-4" routerLink="create">
-      <mat-card class="item-card new-item-card">
+    <div class="item item-wrapper col-md-4">
+      <mat-card class="item-card new-item-card" routerLink="create">
         <mat-card-content>
           <div class="new-item">{{'POST.CREATE' | translate}}</div>
         </mat-card-content>
@@ -17,8 +17,8 @@
 
     <!--begin::Posts List-->
     <ng-container *ngIf="posts">
-      <div class="item item-wrapper col-md-4" *ngFor="let item of posts" routerLink="edit/{{item.post_id}}">
-        <app-post_event-card [post_event]="item"></app-post_event-card>
+      <div class="item item-wrapper col-md-4" *ngFor="let item of posts">
+        <app-post_event-card [post_event]="item" routerLink="edit/{{item.post_id}}"></app-post_event-card>
       </div>
     </ng-container>
     <!--end::Posts List-->

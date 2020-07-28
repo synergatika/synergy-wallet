@@ -7,6 +7,7 @@ interface Transaction {
     payment_id: string;
     amount: number;
     method: string;
+    paid: boolean;
     how: {
         title: string,
         value: string

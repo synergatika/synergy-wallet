@@ -6,8 +6,8 @@
   <div class="row">
 
     <!--begin::Button (Create Offer)-->
-    <div class="item item-wrapper col-md-4" routerLink="create">
-      <mat-card class="item-card new-item-card">
+    <div class="item item-wrapper col-md-4">
+      <mat-card class="item-card new-item-card" routerLink="create">
         <mat-card-content>
           <div class="new-item">{{'OFFER.CREATE' | translate}}</div>
         </mat-card-content>
@@ -17,8 +17,8 @@
 
     <!--begin::Loyalty Offers List-->
     <ng-container *ngIf="offers">
-      <div class="item item-wrapper col-md-4" *ngFor="let item of offers" routerLink="edit/{{item.offer_id}}">
-        <app-offer-card class="item-card" [offer]="item"></app-offer-card>
+      <div class="item item-wrapper col-md-4" *ngFor="let item of offers">
+        <app-offer-card class="item-card" [offer]="item" routerLink="edit/{{item.offer_id}}"></app-offer-card>
       </div>
     </ng-container>
     <!--end::Loyalty Offers List-->

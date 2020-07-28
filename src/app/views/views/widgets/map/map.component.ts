@@ -43,9 +43,9 @@ export class MapComponent implements OnInit {
 	//singlePartner: boolean = false;
 	//list: any;
 
-	latitude: number = 37.978157;
-	longitude: number = 23.731748;
-	zoom: number = 12;
+	latitude: number = environment.mapOptions.latitude;
+	longitude: number = environment.mapOptions.longitude;
+	zoom: number = environment.mapOptions.zoom;
 
 	markers: Marker[] = new Array;
 
@@ -109,6 +109,8 @@ export class MapComponent implements OnInit {
 				tap(
 					data => {
 						this.partner = data;
+						console.log("Partner in Map Widget", this.partner);
+
 						if (this.partner.address) {
 							this.markers = [this.addressToMap(this.partner)];
 							this.latitude = this.markers[0]['lat'];

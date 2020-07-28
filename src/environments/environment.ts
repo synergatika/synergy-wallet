@@ -13,7 +13,10 @@ export const environment = {
   //apiUrl: 'http://79.129.47.140:3000',
   staticUrl: 'https://wp.synergatika.gr/wp-json/wp/v2',
   authTimeOuter: 5000,
+
   mapApiKey: 'AIzaSyC8tI34nghyWlMaQhGluC9f6jG7E8swyVQ',
+  mapOptions: { "latitude": 37.9709831, "longitude": 23.7224135, "zoom": 12 },
+
   access: [
     true, // community,
     true, // loyalty,

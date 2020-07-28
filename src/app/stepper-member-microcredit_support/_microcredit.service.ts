@@ -57,6 +57,7 @@ export class LocalMicrocreditService {
         payment_id: '',
         amount: 0,
         method: '',
+        paid: false,
         how: {
             title: '',
             value: ''

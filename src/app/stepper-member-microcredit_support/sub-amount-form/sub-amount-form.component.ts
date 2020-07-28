@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 
 /**
  * Services
@@ -51,6 +52,8 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
    */
   stepperForm: FormGroup;
   submitted: boolean = false;
+
+  showPaypalButton: boolean = false;
 
   private subscription: Subscription = new Subscription;
 
@@ -107,6 +110,7 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
     });
     const controls = this.stepperForm.controls;
     controls['amount'].setValue(this.campaign.minAllowed);
+    this.tempAmount = this.campaign.minAllowed;
     controls['method'].setValue(this.paymentsList[0].bic);
   }
 
@@ -117,6 +121,7 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
     this.showAddStep = (this.tempAmount >= this.campaign.maxAllowed) ? false : true;
     this.showSubStep = (this.tempAmount <= this.campaign.minAllowed) ? false : true;
 
+    // this.onChangePayment(controls.method.value);
     controls['amount'].setValue(this.tempAmount);
   }
 
@@ -135,6 +140,102 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
   //     controls['amount'].setValue(this.tempAmount);
   //   }
   // }
+
+  onChangePayment(payment: string) {
+    if (payment === 'PAYPAL') {
+      this.showPaypalButton = true;
+      this.initConfig(this.tempAmount, this.campaign.partner_payments.filter((el) => {
+        return el.bic == payment
+      })[0].value);
+    } else {
+      this.showPaypalButton = false;
+    }
+  }
+
+  public payPalConfig?: IPayPalConfig;
+
+  private initConfig(amount: number, payee: string): void {
+
+    const controls = this.stepperForm.controls;
+    if (this.stepperForm.invalid) {
+      Object.keys(controls).forEach(controlName =>
+        controls[controlName].markAsTouched()
+      );
+      return;
+    }
+    console.log("Payee:", payee)
+    const paymentDetails = {
+      //amount: amount.toString(),
+      payee: payee,
+      item_name: this.campaign.title,
+      item_quantity: (this.campaign.quantitative) ? amount.toString() : '1'
+    }
+    this.payPalConfig = {
+      currency: 'EUR',
+      clientId: 'AZTnZ-SdPrcXmAIWdQHEtOuCk1u8Y9CSAerEDxwkokKydC68Si2MdDk1kKzBkij0T1R8C78896SeCEKV',
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        purchase_units: [
+          {
+            amount: {
+              currency_code: 'EUR',
+              value: this.tempAmount.toString(),//paymentDetails.amount,
+              breakdown: {
+                item_total: {
+                  currency_code: 'EUR',
+                  value: this.tempAmount.toString()// paymentDetails.amount,
+                }
+              }
+            },
+            payee: {
+              //merchant_id: 'JCE5DLUCP5L38',
+              email_address: paymentDetails.payee, // 'payments@synergy.io', //'partner@synergy.io'
+            },
+            items: [
+              {
+                name: paymentDetails.item_name,
+                quantity: '1',
+                category: 'DIGITAL_GOODS',
+                unit_amount: {
+                  currency_code: 'EUR',
+                  value: this.tempAmount.toString()// paymentDetails.amount,
+                },
+              }
+            ]
+          }
+        ]
+      },
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'horizontal',
+        size: 'responsive',
+      },
+      onApprove: (data, actions) => {
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        actions.order.get().then((details: any) => {
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
+        });
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+        this.transaction.paid = true;
+        this.onNextStep();
+        //	this.showSuccess = true;
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+      },
+      onError: err => {
+        console.log('OnError', err);
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+      },
+    };
+  }
 
   onNextStep() {
 

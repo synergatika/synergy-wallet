@@ -70,8 +70,8 @@ export class MicrocreditService {
       }));
   }
 
-  earnTokens(partner_id: string, campaign_id: string, _amount: number, method: string): Observable<PaymentDetails> {
-    return this.http.post<any>(`${environment.apiUrl}/microcredit/earn/${partner_id}/${campaign_id}`, { _amount: _amount, method: method })
+  earnTokens(partner_id: string, campaign_id: string, _amount: number, method: string, paid: boolean): Observable<PaymentDetails> {
+    return this.http.post<any>(`${environment.apiUrl}/microcredit/earn/${partner_id}/${campaign_id}`, { _amount: _amount, method: method, paid: paid })
       .pipe(map(response => {
         return response.data;
       }));

@@ -12,6 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { ArchwizardModule } from 'angular-archwizard';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 //Support Page
 // import { MemberSupportComponent } from '../member-support/member-support.component';
@@ -57,6 +58,8 @@ const routes: Routes = [
         TranslateModule.forChild(),
 
         ArchwizardModule,
+        NgxPayPalModule,
+
         StepperCommonModule,
     ],
     providers: [LocalMicrocreditService],

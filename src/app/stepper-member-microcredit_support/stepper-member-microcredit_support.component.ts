@@ -109,10 +109,11 @@ export class StepperMemberMicrocreditSupportComponent implements OnInit, OnDestr
 
     const earnTokens = {
       _amount: this.transaction.amount,
-      _method: this.transaction.method
+      _method: this.transaction.method,
+      paid: this.transaction.paid
     };
 
-    this.microcreditService.earnTokens(this.campaign.partner_id, this.campaign.campaign_id, earnTokens._amount, earnTokens._method)
+    this.microcreditService.earnTokens(this.campaign.partner_id, this.campaign.campaign_id, earnTokens._amount, earnTokens._method, earnTokens.paid)
       .pipe(
         tap(
           data => {

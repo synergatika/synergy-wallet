@@ -4,8 +4,8 @@
   <div class="row">
 
     <!--begin::Button (Create Microcredit Campaign)-->
-    <div class="item item-wrapper col-md-4" routerLink="create">
-      <mat-card class="item-card new-item-card">
+    <div class="item item-wrapper col-md-4">
+      <mat-card class="item-card new-item-card" routerLink="create">
         <mat-card-content>
           <div class="new-item">{{'CAMPAIGN.CREATE' | translate}}</div>
         </mat-card-content>
@@ -15,9 +15,10 @@
 
     <!--begin::Microcredit Campaigns List-->
     <ng-container *ngIf="campaigns">
-      <div class="item item-wrapper col-md-4" *ngFor="let item of campaigns"
-        [routerLink]="item.status=='draft' ? ['edit/'+item.campaign_id] : ['manage/'+item.campaign_id]">
-        <app-microcredit_campaign-card [campaign]="item" type="all"></app-microcredit_campaign-card>
+      <div class="item item-wrapper col-md-4" *ngFor="let item of campaigns">
+        <app-microcredit_campaign-card [campaign]="item" type="all"
+          [routerLink]="item.status=='draft' ? ['edit/'+item.campaign_id] : ['manage/'+item.campaign_id]">
+        </app-microcredit_campaign-card>
       </div>
     </ng-container>
     <!--end::Microcredit Campaigns List-->
