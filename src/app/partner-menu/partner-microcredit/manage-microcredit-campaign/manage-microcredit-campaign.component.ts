@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
+import { ExportToCsv } from 'export-to-csv';
 
 /**
  * Components
@@ -274,6 +275,41 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
       )
       .subscribe();
   }
+
+  setOptionCSV(title: string) {
+    return {
+      fieldSeparator: ',',
+      filename: title,
+      quoteStrings: '"',
+      decimalSeparator: '.',
+      showLabels: true,
+      // showTitle: true,
+      // title: 'My Awesome CSV',
+      useTextFile: false,
+      useBom: true,
+      //  useKeysAsHeaders: true,
+      headers: ['Date', 'Amount', 'Total Transactions', 'Unique Users']//<-- Won't work with useKeysAsHeaders present!
+    };
+
+  }
+
+
+  exportToCSV(data: object, title: string) {
+    console.log("this.statisticsRedeem", data)
+    console.log("I ama in export")
+
+    const byDate = data['byDate'].map(obj => ({ date: (obj.date).toString(), amount: obj.tokens, count: obj.count, users: obj.users }))
+    const total =
+      [
+        { date: 'total', amount: data['tokens'], count: data['count'], users: data['users'] },
+        { date: '', amount: '', users: '', count: '' },
+
+      ];
+
+    const csvExporter = new ExportToCsv(this.setOptionCSV(this.campaign.title + "-" + title));
+    csvExporter.generateCsv(total.concat(byDate));
+  }
+
 
   changeSupportState(support_id: string, event: MatCheckboxChange) {
     this.loading = true;

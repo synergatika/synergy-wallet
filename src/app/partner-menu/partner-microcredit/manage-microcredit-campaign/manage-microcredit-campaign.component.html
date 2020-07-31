@@ -79,16 +79,28 @@
   <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
 </div>
 
-<h3 *ngIf="statisticsPromise" class="section-heading">Promises</h3>
+<br>
+<hr>
+<br>
+
+<h3 *ngIf="statisticsPromise" class="section-heading">
+  Promises
+  <span *ngIf="dateFilter">
+    ({{dateFilter | date}})
+  </span>
+  <span *ngIf="!dateFilter">
+    (Total)
+  </span>
+</h3>
 
 <div class="row" *ngIf="statisticsPromise">
   <div class="col-md-4">
     <mat-card>
       <mat-card-title>
-        Total Transactions
+        Total Amount
       </mat-card-title>
       <mat-card-content>
-        {{statisticsPromise.count}}
+        {{statisticsPromise.tokens | currency:'EUR'}}
       </mat-card-content>
     </mat-card>
   </div>
@@ -105,22 +117,54 @@
   <div class="col-md-4">
     <mat-card>
       <mat-card-title>
-        Total Amount
+        Total Transactions
       </mat-card-title>
       <mat-card-content>
-        {{statisticsPromise.tokens | currency:'EUR'}}
+        {{statisticsPromise.count}}
       </mat-card-content>
     </mat-card>
   </div>
 </div>
+<br>
+<div *ngIf="statisticsPromise">
+  <button mat-raised-button class="plegde-button" (click)="exportToCSV(statisticsPromise, 'Promise')">
+    <span matTooltip="{{'CAMPAIGN.PLEDGE_DISABLE' | translate}}" [matTooltipPosition]="'right'"
+      [matTooltipDisabled]="canSupportCampaign">
+      Export Promise
+      <!-- {{'CAMPAIGN.PLEDGE' | translate}} -->
+    </span>
+  </button>
+</div>
+
+<br>
+<hr>
+<br>
 <!-- <div *ngIf="statisticsPromise">
   Count: {{statisticsPromise.count}} <br>
   Users: {{statisticsPromise.users}}<br>
   Tokens: {{statisticsPromise.tokens}}<br>
 </div> -->
-<h3 *ngIf="statisticsRedeem" class="section-heading">Redeems</h3>
+<h3 *ngIf="statisticsRedeem" class="section-heading">
+  Redeems
+  <span *ngIf="dateFilter">
+    ({{dateFilter | date}})
+  </span>
+  <span *ngIf="!dateFilter">
+    (Total)
+  </span>
+</h3>
 
 <div class="row" *ngIf="statisticsRedeem">
+  <div class="col-md-4">
+    <mat-card>
+      <mat-card-title>
+        Total Amount
+      </mat-card-title>
+      <mat-card-content>
+        {{statisticsRedeem.tokens | currency:'EUR'}}
+      </mat-card-content>
+    </mat-card>
+  </div>
   <div class="col-md-4">
     <mat-card>
       <mat-card-title>
@@ -141,16 +185,16 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="col-md-4">
-    <mat-card>
-      <mat-card-title>
-        Total Amount
-      </mat-card-title>
-      <mat-card-content>
-        {{statisticsRedeem.tokens | currency:'EUR'}}
-      </mat-card-content>
-    </mat-card>
-  </div>
+</div>
+<br>
+<div *ngIf="statisticsRedeem">
+  <button mat-raised-button class="plegde-button" (click)="exportToCSV(statisticsRedeem, 'Redeem')">
+    <span matTooltip="{{'CAMPAIGN.PLEDGE_DISABLE' | translate}}" [matTooltipPosition]="'right'"
+      [matTooltipDisabled]="canSupportCampaign">
+      Export Redeem
+      <!-- {{'CAMPAIGN.PLEDGE' | translate}} -->
+    </span>
+  </button>
 </div>
 <!-- <div *ngIf="statisticsRedeem">
   Count: {{statisticsRedeem.count}}<br>
