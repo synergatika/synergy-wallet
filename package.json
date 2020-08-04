@@ -27,6 +27,7 @@
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "@ngx-translate/core": "^13.0.0",
     "@zxing/ngx-scanner": "^3.0.0",
+    "@zxing/library": "0.17.0",
     "angular-archwizard": "^6.1.0",
     "angularx-qrcode": "^10.0.5",
     "bootstrap": "^4.5.0",

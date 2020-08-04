@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
 
-  apiUrl: 'http://localhost:3000',
-  //apiUrl: 'https://api.synergatika.gr',
+  // apiUrl: 'http://localhost:3000',
+  apiUrl: 'https://api.synergatika.gr',
   openUrl: 'https://open.synergatika.gr',
-  //apiUrl: 'http://192.168.1.160:3000',  
+  //apiUrl: 'http://192.168.1.160:3000',
   //apiUrl: 'http://192.168.1.7:3000',
   //apiUrl: 'http://79.129.47.140:3000',
   staticUrl: 'https://wp.synergatika.gr/wp-json/wp/v2',
@@ -26,8 +26,8 @@ export const environment = {
   subAccess: [
     true, //partner_address,
     true, // partner_contact,
-    true, // partner_payments, 
-    true, // partner_auto_registration, 
+    true, // partner_payments,
+    true, // partner_auto_registration,
     false // partner_fixed_campaign
   ],
 
@@ -45,10 +45,10 @@ export const environment = {
     'maxAllowed': '15',
     'stepAmount': '1',
     'maxAmount': '5000',
-    'whenSupportStarts': 0, //days 
-    'whenSupportEnds': 360, //days 
-    'whenRedeemStarts': 361, //days 
-    'whenRedeemEnds': 720, //days 
+    'whenSupportStarts': 0, //days
+    'whenSupportEnds': 360, //days
+    'whenRedeemStarts': 361, //days
+    'whenRedeemEnds': 720, //days
   }
 };
 

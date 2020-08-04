@@ -21,12 +21,10 @@ export class StaticContentService {
   ) { }
 
   readText(post_id: string) {
-    return this.http.get(environment.staticUrl+'/pages/'+post_id)
+    return this.http.get(`${environment.staticUrl}/pages/${post_id}`)
       .pipe(
-        tap( 
-          data => {
-            return data;
-          },
+        tap(
+          data => data,
           error => {
             console.log("error");
             console.log(error);
@@ -34,5 +32,4 @@ export class StaticContentService {
         )
       );
   }
-
 }

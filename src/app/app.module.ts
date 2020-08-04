@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
-//import { RouterModule, Routes } from '@angular/router';
+// import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxPaginationModule } from 'ngx-pagination';
-//Materialize
+// Materialize
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -116,6 +116,17 @@ import { StepperPartnerMicrocreditCampaignModule } from './stepper-partner-micro
 
 import { ViewsModule } from './views/views/views.module';
 
+import {
+  SngCoreModule,
+  ITranslationService,
+  IAuthenticationService,
+  IStaticDataService,
+  IMenuService
+} from 'sng-core';
+import { StaticDataService } from './core/helpers/static-data.service';
+import { TranslationService } from './core/helpers/translation.service';
+import { AuthenticationService } from './core/services/authentication.service';
+
 @NgModule({
 	declarations: [
 
@@ -186,12 +197,18 @@ import { ViewsModule } from './views/views/views.module';
 		// Admin Modules
 		AdminPartnersModule,
 		AdminMembersModule,
-		ViewsModule,
+    ViewsModule,
+
+    SngCoreModule,
 	],
 	exports: [CarouselModule],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: IMenuService, useClass: MenuService },
+    { provide: IStaticDataService, useClass: StaticDataService },
+    { provide: ITranslationService, useClass: TranslationService },
+    { provide: IAuthenticationService, useClass: AuthenticationService },
 		/*{
 		  provide: SWIPER_CONFIG,
 		  useValue: DEFAULT_SWIPER_CONFIG

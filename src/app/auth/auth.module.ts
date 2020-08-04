@@ -41,6 +41,17 @@ import { TermsComponent } from './terms/synergy_terms.component';
 import { AuthenticationService } from '../core/services/authentication.service';
 import { ViewsModule } from '../views/views/views.module';
 
+import {
+  SngCoreModule,
+  ITranslationService,
+  IAuthenticationService,
+  IStaticDataService,
+  IMenuService
+} from 'sng-core';
+import { MenuService } from '../core/helpers/menu.service';
+import { StaticDataService } from '../core/helpers/static-data.service';
+import { TranslationService } from '../core/helpers/translation.service';
+
 const routes: Routes = [
     {
         path: '',
@@ -109,9 +120,14 @@ const routes: Routes = [
         MatSelectModule,
         NgbModalModule,
         NgbDropdownModule,
-        ViewsModule
+        ViewsModule,
+        SngCoreModule,
     ],
     providers: [
+      { provide: IMenuService, useClass: MenuService },
+      { provide: IStaticDataService, useClass: StaticDataService },
+      { provide: ITranslationService, useClass: TranslationService },
+      { provide: IAuthenticationService, useClass: AuthenticationService },
     ],
     exports: [AuthComponent],
     declarations: [

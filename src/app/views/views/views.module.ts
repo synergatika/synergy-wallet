@@ -58,7 +58,6 @@ import { MicrocreditSupportsListPaginationComponent } from './lists/microcredit_
  * Components (Widgets)
  */
 import { ShareIconComponent } from './widgets/share-icon/share-icon.component';
-import { LanguageSwitcherComponent } from './widgets/language-switcher/language-switcher.component';
 import { MapComponent } from './widgets/map/map.component';
 
 @NgModule({
@@ -79,7 +78,7 @@ import { MapComponent } from './widgets/map/map.component';
         NgbDropdownModule,
         CarouselModule,
         InfiniteScrollModule,
-        RouterModule,//  
+        RouterModule,//
         NgxPaginationModule,
         QRCodeModule,  // StoreModule.forFeature('auth', authReducer),
         // EffectsModule.forFeature([AuthEffects]),
@@ -97,7 +96,7 @@ import { MapComponent } from './widgets/map/map.component';
         MicrocreditSupportCardComponent,
         LoyaltyBadgeCardComponent, MicrocreditBadgeCardComponent, LoyaltyBalanceCardComponent, QRCodeCardComponent,
 
-        ShareIconComponent, LanguageSwitcherComponent, MapComponent,
+        ShareIconComponent, MapComponent,
 
         PartnerSingleComponent, PostEventSingleComponent, MicrocreditCampaignSingleComponent,
 
@@ -115,7 +114,7 @@ import { MapComponent } from './widgets/map/map.component';
         MicrocreditSupportCardComponent,
         LoyaltyBadgeCardComponent, MicrocreditBadgeCardComponent, LoyaltyBalanceCardComponent, QRCodeCardComponent,
 
-        ShareIconComponent, LanguageSwitcherComponent, MapComponent,
+        ShareIconComponent, MapComponent,
 
         PartnerSingleComponent, PostEventSingleComponent, MicrocreditCampaignSingleComponent,
 
