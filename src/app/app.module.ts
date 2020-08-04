@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
+import { AgmCoreModule } from '@agm/core';
 // import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,10 +34,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
  */
 import { LayoutComponent } from './views/layout/layout.component';
 import { HeaderComponent } from './views/layout/header/header.component';
-import { TopbarComponent } from './views/layout/header/topbar/topbar.component';
-import { MenuComponent } from './views/layout/header/menu/menu.component';
-import { UserMenuComponent } from './views/layout/header/user-menu/user-menu.component';
-import { FooterComponent } from './views/layout/footer/footer.component';
+
 import { NotFoundComponent } from './views/pages/not-found/not-found.component';
 //import { LanguageSwitcherComponent } from './views/layout/header/language-switcher/language-switcher.component';
 
@@ -114,18 +112,30 @@ import { StepperPartnerLoyaltyPointsModule } from './stepper-partner-loyalty_poi
 import { StepperPartnerLoyaltyOfferModule } from './stepper-partner-loyalty_offer/stepper-partner-loyalty_offer.module';
 import { StepperPartnerMicrocreditCampaignModule } from './stepper-partner-microcredit_campaign/stepper-partner-microcredit_campaign.module';
 
-import { ViewsModule } from './views/views/views.module';
 
 import {
   SngCoreModule,
   ITranslationService,
   IAuthenticationService,
   IStaticDataService,
-  IMenuService
+  IMenuService,
+  IPartnersService,
+  IItemsService,
+  ILoyaltyService,
+  IMicrocreditService,
+  IContentService,
+  IEnvironmentService,
 } from 'sng-core';
+
 import { StaticDataService } from './core/helpers/static-data.service';
 import { TranslationService } from './core/helpers/translation.service';
 import { AuthenticationService } from './core/services/authentication.service';
+import { PartnersService } from './core/services/partners.service';
+import { ItemsService } from './core/services/items.service';
+import { environment } from '../environments/environment';
+import { ContentService } from './core/services/content.service';
+import { LoyaltyService } from './core/services/loyalty.service';
+import { MicrocreditService } from './core/services/microcredit.service';
 
 @NgModule({
 	declarations: [
@@ -134,12 +144,8 @@ import { AuthenticationService } from './core/services/authentication.service';
 		AppComponent,
 
 		//0. General
-		MenuComponent,
 		LayoutComponent,
 		HeaderComponent,
-		TopbarComponent,
-		UserMenuComponent,
-		FooterComponent,
 		NotFoundComponent,
 
 		/**
@@ -196,8 +202,11 @@ import { AuthenticationService } from './core/services/authentication.service';
 
 		// Admin Modules
 		AdminPartnersModule,
-		AdminMembersModule,
-    ViewsModule,
+    AdminMembersModule,
+
+    AgmCoreModule.forRoot({
+      apiKey: `${environment.mapApiKey}`
+    }),
 
     SngCoreModule,
 	],
@@ -209,6 +218,12 @@ import { AuthenticationService } from './core/services/authentication.service';
     { provide: IStaticDataService, useClass: StaticDataService },
     { provide: ITranslationService, useClass: TranslationService },
     { provide: IAuthenticationService, useClass: AuthenticationService },
+    { provide: IPartnersService, useClass: PartnersService },
+    { provide: IItemsService, useClass: ItemsService },
+    { provide: IContentService, useClass: ContentService },
+    { provide: ILoyaltyService, useClass: LoyaltyService },
+    { provide: IMicrocreditService, useClass: MicrocreditService },
+    { provide: IEnvironmentService, useValue: environment},
 		/*{
 		  provide: SWIPER_CONFIG,
 		  useValue: DEFAULT_SWIPER_CONFIG

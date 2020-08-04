@@ -28,8 +28,11 @@ import { LocalMicrocreditService } from './_microcredit.service';
 import { StepperNoticeComponent } from '../stepper-common/stepper-notice/stepper-notice.component';
 //import { CardMicrocreditComponent } from '../views/layout/cards/card-microcredit/card-microcredit.component';
 
-import { ViewsModule } from '../views/views/views.module';
-import { MicrocreditCampaignSingleComponent } from '../views/views/single-items/microcredit_campaign-single/microcredit_campaign-single.component';
+import {
+  SngCoreModule,
+  MicrocreditCampaignSingleComponent,
+} from 'sng-core';
+
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { StepperCommonModule } from '../stepper-common/stepper-common.module';
 
@@ -59,6 +62,8 @@ const routes: Routes = [
 
         ArchwizardModule,
         NgxPayPalModule,
+
+        SngCoreModule,
 
         StepperCommonModule,
     ],

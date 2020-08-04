@@ -1,11 +1,11 @@
 <div class="explore">
 
   <!--begin::Partners List(Carousel)-->
-  <app-partners-list-carousel> </app-partners-list-carousel>
+  <sng-partners-list-carousel> </sng-partners-list-carousel>
   <!--end::Partners List(Carousel)-->
 
   <!--begin::Posts/Events List(Carousel)-->
-  <app-posts_events-list-carousel type='all' *ngIf="configAccess[0]"></app-posts_events-list-carousel>
+  <sng-posts_events-list-carousel type='all' *ngIf="configAccess[0]"></sng-posts_events-list-carousel>
   <!--end::Posts/Events List(Carousel)-->
 
 </div>
@@ -16,8 +16,8 @@
       <h3 class="list-tiltle">{{ 'USER.PARTNER.PLURAL' | translate }}</h3>
       <owl-carousel-o [options]="customOptions">
         <ng-template carouselSlide *ngFor="let partner of (partners)">
-          <app-partner-card [partner]="partner" (mousedown)="mousedown()" (mousemove)="mousemove()"
-            (mouseup)="mouseup(partner, 'partner')"></app-partner-card>
+          <sng-partner-card [partner]="partner" (mousedown)="mousedown()" (mousemove)="mousemove()"
+            (mouseup)="mouseup(partner, 'partner')"></sng-partner-card>
         </ng-template>
       </owl-carousel-o>
       <div class="section-list-footer"><a [routerLink]="['/partners']">{{ 'USER.PARTNER.ALL' | translate }}</a>
@@ -33,7 +33,7 @@
         <h3 class="list-tiltle">{{ 'OFFER.PLURAL' | translate }}</h3>
         <owl-carousel-o [options]="customOptions">
           <ng-template carouselSlide *ngFor="let offer of (offers)">
-            <app-offer-card [offer]="offer" type="all"></app-offer-card>
+            <sng-offer-card [offer]="offer" type="all"></sng-offer-card>
           </ng-template>
         </owl-carousel-o>
         <div class="section-list-footer"><a [routerLink]="['/offers']">{{ 'OFFER.ALL' | translate }}</a>
@@ -52,8 +52,8 @@
         <h3 class="list-tiltle">{{ 'POST_EVENT.PLURAL' | translate }}</h3>
         <owl-carousel-o [options]="customOptions">
           <ng-template carouselSlide *ngFor="let post of (posts)">
-            <app-post_event-card [post_event]="post" (mousedown)="mousedown()" (mousemove)="mousemove()"
-              (mouseup)="mouseup(post, 'post')"></app-post_event-card>
+            <sng-post_event-card [post_event]="post" (mousedown)="mousedown()" (mousemove)="mousemove()"
+              (mouseup)="mouseup(post, 'post')"></sng-post_event-card>
           </ng-template>
         </owl-carousel-o>
         <div class="section-list-footer"><a [routerLink]="['/posts']">{{ 'POST_EVENT.ALL' | translate }}</a>
@@ -70,8 +70,8 @@
   <button type="button" class="close-btn" aria-label="Close" (click)="d('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
-  <app-partner-single [partner]="singlePartner">
-  </app-partner-single>
+  <sng-partner-single [partner]="singlePartner">
+  </sng-partner-single>
 </ng-template> -->
 <!--end::Partner Modal-->
 
@@ -80,7 +80,7 @@
   <button type="button" class="close-btn" aria-label="Close" (click)="d('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
-  <app-post_event-single [singlePost]="singlePost"></app-post_event-single>
+  <sng-post_event-single [singlePost]="singlePost"></sng-post_event-single>
 </ng-template> -->
 <!--end::Community Post/Event Modal-->
 <!--end::Modals-->

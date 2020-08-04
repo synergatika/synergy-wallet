@@ -9,11 +9,12 @@ import { environment } from '../../../environments/environment';
  * Models & Interfaces
  */
 import { Menu } from '../interfaces/menu.interface';
+import { IMenuService } from 'sng-core';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class MenuService {
+export class MenuService extends IMenuService {
 
 	memberMenu: Menu[] = [
 		{
@@ -138,7 +139,6 @@ export class MenuService {
 		}
 	];
 
-
 	subMenuHistory: Menu[] = [
 		{
 			title: 'HISTORY.SUBMENU.LOYALTY',
@@ -154,39 +154,41 @@ export class MenuService {
 		}
 	];
 
-	constructor() { }
-
 	public get getMemberMenu(): Menu[] {
 		return this.memberMenu.filter((el) => {
 			return el.enable === true
 		});
-	};
+  };
+
 	public get getPartnerMenu(): Menu[] {
 		return this.partnerMenu.filter((el) => {
 			return el.enable === true
 		});
-	};
+  };
+
 	public get getAdminMenu(): Menu[] {
 		return this.adminMenu.filter((el) => {
 			return el.enable === true
 		});
-	};
+  };
+
 	public get getUserMenu(): Menu[] {
 		return this.userMenu.filter((el) => {
 			return el.enable === true
 		});
-	};
+  };
+
 	public get getSettingsSubMenu(): Menu[] {
 		return this.subMenuSettings.filter((el) => {
 			return el.enable === true
 		});
-	};
+  };
+
 	public get getHistorySubMenu(): Menu[] {
 		return this.subMenuHistory.filter((el) => {
 			return el.enable === true
 		});
-	};
-
+  };
 
 	openNav() {
 		//document.getElementById("mySidenav").style.width = "250px";

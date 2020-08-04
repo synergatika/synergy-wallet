@@ -36,7 +36,9 @@ import { SubMicrocreditFormComponent } from './sub-microcredit-form/sub-microcre
 
 import { LocalMicrocreditService } from './_microcredit.service';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { ViewsModule } from '../views/views/views.module';
+import {
+  SngCoreModule,
+} from 'sng-core';
 import { StepperCommonModule } from '../stepper-common/stepper-common.module';
 
 const routes: Routes = [
@@ -68,7 +70,7 @@ const routes: Routes = [
         TranslateModule.forChild(),
         // StoreModule.forFeature('auth', authReducer),
         // EffectsModule.forFeature([AuthEffects]),
-        ViewsModule,
+        SngCoreModule,
 
         StepperCommonModule
     ],

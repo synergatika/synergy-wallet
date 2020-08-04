@@ -39,18 +39,22 @@ import { TermsComponent } from './terms/synergy_terms.component';
  * Services
  */
 import { AuthenticationService } from '../core/services/authentication.service';
-import { ViewsModule } from '../views/views/views.module';
 
 import {
   SngCoreModule,
   ITranslationService,
   IAuthenticationService,
   IStaticDataService,
+  IPartnersService,
   IMenuService
 } from 'sng-core';
+
 import { MenuService } from '../core/helpers/menu.service';
 import { StaticDataService } from '../core/helpers/static-data.service';
 import { TranslationService } from '../core/helpers/translation.service';
+import { PartnersService } from '../core/services/partners.service';
+
+import { from } from 'rxjs';
 
 const routes: Routes = [
     {
@@ -120,7 +124,6 @@ const routes: Routes = [
         MatSelectModule,
         NgbModalModule,
         NgbDropdownModule,
-        ViewsModule,
         SngCoreModule,
     ],
     providers: [
@@ -128,6 +131,7 @@ const routes: Routes = [
       { provide: IStaticDataService, useClass: StaticDataService },
       { provide: ITranslationService, useClass: TranslationService },
       { provide: IAuthenticationService, useClass: AuthenticationService },
+      { provide: IPartnersService, useClass: PartnersService },
     ],
     exports: [AuthComponent],
     declarations: [

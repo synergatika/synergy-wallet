@@ -22,84 +22,84 @@ import { EmailSettingsComponent } from './email-settings/email-settings.componen
 import { InvitationComponent } from './invitation/invitation.component';
 
 const routes: Routes = [
-    {
+  {
+    path: '',
+    component: SettingsComponent,
+    children: [
+      {
         path: '',
-        component: SettingsComponent,
-        children: [
-            {
-                path: '',
-                redirectTo: 'personal-information',
-                pathMatch: 'full',
-            },
-            {
-                path: 'personal-information',
-                component: PersonalInformationComponent,
-                data: { title: 'SETTINGS.SUBMENU.PERSONAL_INFORMATION' }
-            },
-            {
-                path: 'change-password',
-                component: ChangePasswordComponent,
-                data: { title: 'SETTINGS.SUBMENU.CHANGE_PASSWORD' }
-            },
-            {
-                path: 'account-settings',
-                component: AccountSettingsComponent,
-                data: { title: 'SETTINGS.SUBMENU.ACCOUNT_SETTINGS' }
-            },
-            {
-                path: 'invitation',
-                component: InvitationComponent,
-                data: { title: 'SETTINGS.SUBMENU.INVITATION' }
-            }
-            // {
-            //     path: 'email-settings',
-            //     component: EmailSettingsComponent,
-            //     data: { title: 'SETTINGS.SUBMENU.EMAIL' }
-            // },
-            // {
-        ]
-    }
+        redirectTo: 'personal-information',
+        pathMatch: 'full',
+      },
+      {
+        path: 'personal-information',
+        component: PersonalInformationComponent,
+        data: { title: 'SETTINGS.SUBMENU.PERSONAL_INFORMATION' }
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent,
+        data: { title: 'SETTINGS.SUBMENU.CHANGE_PASSWORD' }
+      },
+      {
+        path: 'account-settings',
+        component: AccountSettingsComponent,
+        data: { title: 'SETTINGS.SUBMENU.ACCOUNT_SETTINGS' }
+      },
+      {
+        path: 'invitation',
+        component: InvitationComponent,
+        data: { title: 'SETTINGS.SUBMENU.INVITATION' }
+      }
+      // {
+      //     path: 'email-settings',
+      //     component: EmailSettingsComponent,
+      //     data: { title: 'SETTINGS.SUBMENU.EMAIL' }
+      // },
+      // {
+    ]
+  }
 ];
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        RouterModule.forChild(routes),
-        MatInputModule,
-        MatFormFieldModule,
-        MatCheckboxModule,
-        TranslateModule.forChild(),
-        MatDialogModule,
-        MatCardModule,
-        MatSelectModule,
-    ],
-    providers: [
-    ],
-    exports: [SettingsComponent],
-    declarations: [
-        SettingsComponent,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    RouterModule.forChild(routes),
+    MatInputModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    TranslateModule.forChild(),
+    MatDialogModule,
+    MatCardModule,
+    MatSelectModule,
+  ],
+  providers: [
+  ],
+  exports: [SettingsComponent],
+  declarations: [
+    SettingsComponent,
 
-        ChangePasswordComponent,
-        PersonalInformationComponent,
-        AccountSettingsComponent,
-        EmailSettingsComponent,
-        InvitationComponent
-    ],
-    entryComponents: [
-    ]
+    ChangePasswordComponent,
+    PersonalInformationComponent,
+    AccountSettingsComponent,
+    EmailSettingsComponent,
+    InvitationComponent
+  ],
+  entryComponents: [
+  ]
 })
 
 export class SettingsModule {
-    static forRoot(): ModuleWithProviders<SettingsModule> {
-        return {
-            ngModule: SettingsModule,
-            providers: [
+  static forRoot(): ModuleWithProviders<SettingsModule> {
+    return {
+      ngModule: SettingsModule,
+      providers: [
 
-            ]
-        };
-    }
+      ]
+    };
+  }
 }

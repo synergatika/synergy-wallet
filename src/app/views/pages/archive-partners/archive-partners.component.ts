@@ -25,9 +25,9 @@ export class ArchivePartnersComponent implements OnInit {
 	 */
 	public partners: Partner[] = [];
 
-	counter: number = 0;
+	counter = 0;
 
-	loading: boolean = false;
+	loading = false;
 	private unsubscribe: Subject<any>;
 
 	/**

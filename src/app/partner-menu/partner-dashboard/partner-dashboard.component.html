@@ -18,7 +18,7 @@
       <!--begin::Loyalty Offers List-->
       <ng-container *ngIf="configAccess[1]&&offers">
         <div class="item item-wrapper col-md-4" *ngFor="let item of offers" (click)="openModalB(item)">
-          <app-offer-card [offer]="item"></app-offer-card>
+          <sng-offer-card [offer]="item"></sng-offer-card>
         </div>
       </ng-container>
       <!--end::Loyalty Offers List-->
@@ -26,7 +26,7 @@
       <!--begin::Microcredit Campaigns List-->
       <ng-container *ngIf="configAccess[2]&&microcredit">
         <div class="item item-wrapper col-md-4" *ngFor="let item of microcredit" (click)="openModalC(item)">
-          <app-microcredit_campaign-card [campaign]="item" type="all"></app-microcredit_campaign-card>
+          <sng-microcredit_campaign-card [campaign]="item" type="all"></sng-microcredit_campaign-card>
         </div>
       </ng-container>
       <!--end::Microcredit Campaigns List-->
@@ -35,7 +35,7 @@
   </div>
 
   <!--begin::Posts/Events List(Carousel)-->
-  <app-posts_events-list-carousel type='all' *ngIf="configAccess[0]"></app-posts_events-list-carousel>
+  <sng-posts_events-list-carousel type='all' *ngIf="configAccess[0]"></sng-posts_events-list-carousel>
   <!--end::Posts/Events List(Carousel)-->
 
 </div>
@@ -46,8 +46,8 @@
       <ng-container *ngIf="posts">
         <owl-carousel-o [options]="customOptions">
           <ng-template carouselSlide *ngFor="let item of posts">
-            <app-post_event-card [post_event]="item" (mousedown)="mousedown()" (mousemove)="mousemove()"
-              (mouseup)="mouseup(item, 'post')"></app-post_event-card>
+            <sng-post_event-card [post_event]="item" (mousedown)="mousedown()" (mousemove)="mousemove()"
+              (mouseup)="mouseup(item, 'post')"></sng-post_event-card>
           </ng-template>
         </owl-carousel-o>
       </ng-container>

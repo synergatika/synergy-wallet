@@ -34,13 +34,16 @@
     "export-to-csv": "^0.2.1",
     "ngx-infinite-scroll": "^9.0.0",
     "ngx-material-timepicker": "^5.5.3",
-    "ngx-owl-carousel-o": "^3.0.1",
+    "ngx-owl-carousel-o": "4.0.0",
     "ngx-pagination": "^5.0.0",
     "ngx-paypal": "^6.1.0",
     "rxjs": "~6.6.0",
     "sweetalert2": "^9.17.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "elliptic": ">=6.5.3",
+    "npm-registry-fetch": ">=4.0.5",
+    "lodash": ">=4.17.19"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.3",

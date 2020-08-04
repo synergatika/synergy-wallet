@@ -1,5 +1,29 @@
 @import "variables.scss";
 
+:root {
+  /* Colors */
+  --background-default: #f4f4f4;
+  --background-secondary: #a3b9cc;
+  --background-tertiary: #5c7d99;
+  --background-light: #ffffff;
+
+  --top-toolbar-color: #f4f4f4;
+  --top-toolbar-background-color: #{$primary};
+
+  --primary-color: #{$primary};
+  --primary-light-color: #{$primary-light};
+
+  --secondary-color: #{$secondary};
+  --tertiary-color: #{$tertiary};
+
+  --menu-font-color: #{$menu-color};
+
+  --font-primary-color: #{$primary};
+  --font-dark-color: #{$dark-font};
+
+  --amount-color: #{$amount-color};
+}
+
 html,
 body {
   height: 100%;

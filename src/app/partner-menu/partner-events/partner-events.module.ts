@@ -25,7 +25,9 @@ import { PartnerEventsComponent } from './partner-events/partner-events.componen
 
 import { AuthenticationService } from '../../core/services/authentication.service';
 import { AuthGuard } from '../../core/guards/auth.guard';
-import { ViewsModule } from '../../views/views/views.module';
+import {
+  SngCoreModule,
+} from 'sng-core';
 
 
 const routes: Routes = [
@@ -71,7 +73,7 @@ const routes: Routes = [
         MatNativeDateModule,
         NgxMaterialTimepickerModule,
         NgbDropdownModule,
-        ViewsModule
+        SngCoreModule,
     ],
     providers: [
     ],

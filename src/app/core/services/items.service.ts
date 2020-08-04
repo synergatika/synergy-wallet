@@ -4,31 +4,33 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import {
+  Offer,
+  Event,
+  Message,
+  Post,
+  MicrocreditCampaign,
+  PostEvent,
+  IItemsService
+} from 'sng-core';
+
 /**
  * Environment
  */
 import { environment } from '../../../environments/environment';
 
-/**
- * Models & Interfaces
- */
-import { Post } from '../models/post.model';
-import { Event } from '../models/event.model';
-import { PostEvent } from '../models/post_event.model';
-import { Offer } from '../models/offer.model';
-import { MicrocreditCampaign } from '../models/microcredit_campaign.model';
-import { Message } from '../models/message.model';
-
 @Injectable({
   providedIn: 'root'
 })
-export class ItemsService {
+export class ItemsService extends IItemsService {
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) {
+    super();
+  }
 
-  /** 
+  /**
     * Offers
     */
   readAllOffers(offset: string): Observable<Offer[]> {
@@ -73,7 +75,7 @@ export class ItemsService {
       }));
   }
 
-  /** 
+  /**
     * Events
     */
   readAllPrivateEvents(offset: string): Observable<Event[]> {
@@ -119,7 +121,7 @@ export class ItemsService {
       }));
   }
 
-  /** 
+  /**
     * Posts
     */
   readAllPrivatePosts(offset: string): Observable<Post[]> {
@@ -165,7 +167,7 @@ export class ItemsService {
       }));
   }
 
-  /** 
+  /**
     * Posts & Events
     */
 
@@ -183,7 +185,7 @@ export class ItemsService {
       }));
   }
 
-  /** 
+  /**
    * Microcredit Campaigns
    */
   readAllPrivateMicrocreditCampaigns(offset: string): Observable<MicrocreditCampaign[]> {
