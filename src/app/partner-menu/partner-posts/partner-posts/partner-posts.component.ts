@@ -8,10 +8,7 @@ import { tap, takeUntil, finalize } from 'rxjs/operators';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { ItemsService } from '../../../core/services/items.service';
 
-/**
- * Models & Interfaces
- */
-import { Post } from '../../../core/models/post.model';
+import { Post } from 'sng-core';
 
 @Component({
 	selector: 'app-partner-posts',
@@ -30,7 +27,7 @@ export class PartnerPostsComponent implements OnInit, OnDestroy {
 
 	/**
      * Component Constructor
-	 * 
+	 *
 	 * @param cdRef: ChangeDetectorRef
 	 * @param authenticationService: AuthenticationService
 	 * @param itemsService: ItemsService

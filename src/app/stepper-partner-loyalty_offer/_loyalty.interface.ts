@@ -1,4 +1,4 @@
-import { Offer } from '../core/models/offer.model';
+import { Offer } from 'sng-core';
 
 interface User {
     identifier_scan: string;

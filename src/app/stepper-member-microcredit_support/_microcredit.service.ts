@@ -3,8 +3,7 @@ import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
 import { LocalMicrocreditInterface } from './_microcredit.interface';
-import { MicrocreditCampaign } from '../core/models/microcredit_campaign.model';
-import { MicrocreditSupport } from '../core/models/microcredit_support.model';
+import { MicrocreditCampaign, MicrocreditSupport } from 'sng-core';
 
 @Injectable()
 export class LocalMicrocreditService {

@@ -1,4 +1,4 @@
-import { MicrocreditCampaign } from '../core/models/microcredit_campaign.model';
+import { MicrocreditCampaign } from 'sng-core';
 
 interface Transaction {
     partner_id: string;

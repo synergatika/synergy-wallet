@@ -11,10 +11,12 @@ import { environment } from '../../../environments/environment';
 /**
  * Models & Interfaces
  */
-import { Points } from '../models/points.model';
-import { Activity } from '../models/activity.model';
-import { LoyaltyTransaction } from '../models/loyalty_transaction.model';
-import { Message } from '../models/message.model';
+import {
+  Activity,
+  Points,
+  LoyaltyTransaction,
+  Message
+} from 'sng-core';
 
 @Injectable({
   providedIn: 'root'

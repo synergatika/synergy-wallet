@@ -17,10 +17,8 @@ import { ConfirmPasswordValidator } from '../confirm-password.validator';
 import { TermsComponent } from '../terms/synergy_terms.component';
 import { StaticDataService } from '../../core/helpers/static-data.service';
 import { environment } from '../../../environments/environment';
-import { PartnerPayment } from '../../core/models/partner_payment.model';
 
-import { PaymentList } from '../../core/interfaces/payment-list.interface';
-import { GeneralList } from 'src/app/core/interfaces/general-list.interface';
+import { GeneralList, PaymentList, PartnerPayment } from 'sng-core';
 
 @Component({
 	selector: 'app-register-partner',
@@ -203,7 +201,7 @@ export class RegisterPartnerComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * Set/Clear Validators 
+	 * Set/Clear Validators
 	 */
 	clearPartnerAddressValidators(form: FormGroup) {
 		form.get('street').clearValidators();

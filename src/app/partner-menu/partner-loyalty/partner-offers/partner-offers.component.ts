@@ -11,7 +11,7 @@ import { ItemsService } from '../../../core/services/items.service';
 /**
  * Models & Interfaces
  */
-import { Offer } from '../../../core/models/offer.model';
+import { Offer } from 'sng-core';
 
 @Component({
 	selector: 'app-partner-offers',
@@ -30,10 +30,10 @@ export class PartnerOffersComponent implements OnInit, OnDestroy {
 
 	/**
      * Component Constructor
-	 * 
+	 *
 	 * @param cdRef: ChangeDetectorRef
-	 * @param authenticationService: AuthenticationService 
-	 * @param itemsService: ItemsService 
+	 * @param authenticationService: AuthenticationService
+	 * @param itemsService: ItemsService
 	 */
 	constructor(
 		private cdRef: ChangeDetectorRef,

@@ -11,7 +11,7 @@ import { ItemsService } from '../../../core/services/items.service';
 /**
  * Models & Interfaces
  */
-import { Event } from '../../../core/models/event.model';
+import { Event } from 'sng-core';
 
 @Component({
 	selector: 'app-partner-events',
@@ -30,10 +30,10 @@ export class PartnerEventsComponent implements OnInit, OnDestroy {
 
 	/**
      * Component Constructor
-	 * 
-	 * @param cdRef: ChangeDetectorRef 
-	 * @param authenticationService: AuthenticationService 
-	 * @param itemsService: ItemsService 
+	 *
+	 * @param cdRef: ChangeDetectorRef
+	 * @param authenticationService: AuthenticationService
+	 * @param itemsService: ItemsService
 	 */
 	constructor(
 		private cdRef: ChangeDetectorRef,

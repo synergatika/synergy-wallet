@@ -3,15 +3,12 @@ import { Subject } from 'rxjs';
 import { tap, takeUntil, finalize } from 'rxjs/operators';
 
 /**
- * Services 
+ * Services
  */
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { LoyaltyService } from '../../../core/services/loyalty.service';
 
-/**
- * Models & Interfaces 
- */
-import { LoyaltyTransaction } from '../../../core/models/loyalty_transaction.model';
+import { LoyaltyTransaction } from 'sng-core';
 
 @Component({
   selector: 'app-loyalty-history',

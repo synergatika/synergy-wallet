@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 /**
  * Models & Interfaces
  */
-import { Member } from '../models/member.model';
+import { Member } from 'sng-core';
 
 @Injectable({
   providedIn: 'root'

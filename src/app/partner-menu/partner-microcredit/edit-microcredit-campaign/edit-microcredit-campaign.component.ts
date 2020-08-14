@@ -17,7 +17,7 @@ import { ItemsService } from '../../../core/services/items.service';
 /**
  * Models & Interfaces
  */
-import { GeneralList } from '../../../core/interfaces/general-list.interface';
+import { GeneralList } from 'sng-core';
 
 /**
  * Validators

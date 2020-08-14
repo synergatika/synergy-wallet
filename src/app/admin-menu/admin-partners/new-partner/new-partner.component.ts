@@ -17,12 +17,11 @@ import { environment } from '../../../../environments/environment';
 import { StaticDataService } from '../../../core/helpers/static-data.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 
-/**
- * Models & Interfaces
- */
-import { PartnerPayment } from 'src/app/core/models/partner_payment.model';
-import { PaymentList } from 'src/app/core/interfaces/payment-list.interface';
-import { GeneralList } from 'src/app/core/interfaces/general-list.interface';
+import {
+  PartnerPayment,
+  PaymentList,
+  GeneralList
+} from 'sng-core';
 
 @Component({
   selector: 'app-new-partner',
@@ -195,7 +194,7 @@ export class NewPartnerComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Set/Clear Validators 
+   * Set/Clear Validators
    */
   clearPartnerAddressValidators(form: FormGroup) {
     form.get('street').clearValidators();

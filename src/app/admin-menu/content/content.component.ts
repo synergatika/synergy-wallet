@@ -11,7 +11,7 @@ import { ContentService } from '../../core/services/content.service';
 /**
  * Models & Interfaces
  */
-import { Content } from '../../core/models/content.model';
+import { Content } from 'sng-core';
 
 @Component({
   selector: 'app-content',
@@ -29,8 +29,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<any>;
 
   /**
-   * 
-   * @param cdRef: ChangeDetectorRef 
+   *
+   * @param cdRef: ChangeDetectorRef
    * @param translate: TranslateService
    * @param contentService: ContentService
    */

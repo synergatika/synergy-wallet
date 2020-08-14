@@ -9,11 +9,7 @@ import { map } from 'rxjs/operators';
  */
 import { environment } from '../../../environments/environment';
 
-/**
- * Models & Interfaces
- */
-import { User } from '../models/user.model';
-import { Message } from '../models/message.model';
+import { User, Message } from 'sng-core';
 
 @Injectable({
   providedIn: 'root'

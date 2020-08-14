@@ -24,13 +24,12 @@ import { AuthenticationService } from '../../../core/services/authentication.ser
 import { ItemsService } from '../../../core/services/items.service';
 import { MicrocreditService } from '../../../core/services/microcredit.service';
 
-/**
- * Models & Interfaces
- */
-import { MicrocreditSupport } from 'src/app/core/models/microcredit_support.model';
-import { MicrocreditCampaign } from 'src/app/core/models/microcredit_campaign.model';
-import { Statistics } from 'src/app/core/models/statistics.model';
-import { PaymentList } from 'src/app/core/interfaces/payment-list.interface';
+import {
+  MicrocreditSupport,
+  MicrocreditCampaign,
+  Statistics,
+  PaymentList,
+} from 'sng-core';
 
 /**
  * Local Services & Interfaces
@@ -347,7 +346,7 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
 
   /**
    * Open Dialog
-   * 
+   *
    * @param campaign: MicrocreditCampaign
    */
   openModal(campaign: MicrocreditCampaign) {

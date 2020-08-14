@@ -17,7 +17,7 @@ import { UsersService } from '../../../core/services/users.service';
 /**
  * Models & Interfaces
  */
-import { User } from '../../../core/models/user.model';
+import { User } from 'sng-core';
 
 
 @Component({
@@ -45,11 +45,11 @@ export class AdminPartnersComponent implements OnInit, OnDestroy {
 
   /**
    * Component Constructor
-   * 
-   * @param cdRef: ChangeDetectorRef 
-   * @param matDialog: MatDialog 
-   * @param translate: TranslateService 
-   * @param usersService: UsersService 
+   *
+   * @param cdRef: ChangeDetectorRef
+   * @param matDialog: MatDialog
+   * @param translate: TranslateService
+   * @param usersService: UsersService
    */
   constructor(
     private cdRef: ChangeDetectorRef,

@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 /**
  * Models & Interfaces
  */
-import { Message } from '../models/message.model';
+import { Message } from 'sng-core';
 
 @Injectable({
   providedIn: 'root'

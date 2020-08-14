@@ -6,7 +6,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
  * Models & Interfaces
  */
 import { PaymentList } from '../interfaces/payment-list.interface';
-import { GeneralList } from '../interfaces/general-list.interface';
+import { GeneralList } from '../../../../../synergy-core/projects/sng-core/src/lib/model/general-list.model';
 import { Language } from '../interfaces/language.interface';
 
 @Injectable({

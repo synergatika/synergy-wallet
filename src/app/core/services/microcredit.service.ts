@@ -3,19 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-/**
- * Environment
- */
 import { environment } from '../../../environments/environment';
 
-/**
- * Models & Interfaces
- */
-import { MicrocreditSupport } from '../models/microcredit_support.model';
-import { PaymentDetails } from '../models/payment_details.model';
-import { MicrocreditTransaction } from '../models/microcredit_transaction.model';
-import { Activity } from '../models/activity.model';
-import { Message } from '../models/message.model';
+import {
+  Activity,
+  Message,
+  MicrocreditSupport,
+  PaymentDetails,
+  MicrocreditTransaction,
+} from 'sng-core';
+
 
 @Injectable({
   providedIn: 'root'

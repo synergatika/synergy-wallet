@@ -11,7 +11,7 @@ import { MicrocreditService } from '../../core/services/microcredit.service';
 /**
  * Models & Interfaces
  */
-import { MicrocreditTransaction } from '../../core/models/microcredit_transaction.model';
+import { MicrocreditTransaction } from 'sng-core';
 
 /**
  * Local Services & Interfaces

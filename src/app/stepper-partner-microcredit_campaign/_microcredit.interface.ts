@@ -1,5 +1,4 @@
-import { MicrocreditCampaign } from '../core/models/microcredit_campaign.model';
-import { MicrocreditSupport } from '../core/models/microcredit_support.model';
+import { MicrocreditCampaign, MicrocreditSupport } from 'sng-core';
 
 interface User {
     identifier_scan: string;

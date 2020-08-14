@@ -28,8 +28,7 @@ import { ItemsService } from '../../core/services/items.service';
 /**
  * Models & Interfaces
  */
-import { Offer } from '../../core/models/offer.model';
-import { MicrocreditCampaign } from '../../core/models/microcredit_campaign.model';
+import { Offer, MicrocreditCampaign } from 'sng-core';
 
 @Component({
   selector: 'app-partner-dashboard',
@@ -49,7 +48,7 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
 	 */
   // @ViewChild('postModal', { static: false }) postModal: NgbModalRef;
 
-  /** 
+  /**
    * Carousel Variables
    */
   // customOptions: OwlOptions;
@@ -118,7 +117,7 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
   }
 
 	/**
-	 * Close Modal on Browser Back Button 
+	 * Close Modal on Browser Back Button
 	 */
   controlModalState(state: boolean) {
     if (state) {

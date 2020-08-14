@@ -11,7 +11,7 @@ import { PartnersService } from '../../../core/services/partners.service';
 /**
  * Models & Interfaces
  */
-import { Partner } from '../../../core/models/partner.model';
+import { Partner } from 'sng-core';
 
 @Component({
 	selector: 'app-archive-partners',

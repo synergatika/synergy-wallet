@@ -8,10 +8,7 @@ import { tap, takeUntil, finalize } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { MicrocreditService } from '../../../core/services/microcredit.service';
 
-/**
- * Models & Interfaces
- */
-import { MicrocreditTransaction } from '../../../core/models/microcredit_transaction.model';
+import { MicrocreditTransaction } from 'sng-core';
 
 @Component({
   selector: 'app-microcredit-history',

@@ -12,7 +12,7 @@ import { ItemsService } from '../../../core/services/items.service';
 /**
  * Models & Interfaces
  */
-import { MicrocreditCampaign } from '../../../core/models/microcredit_campaign.model'
+import { MicrocreditCampaign } from 'sng-core';
 
 @Component({
 	selector: 'app-partner-campaigns',
@@ -31,7 +31,7 @@ export class PartnerCampaignsComponent implements OnInit, OnDestroy {
 
 	/**
      * Component Constructor
-	 * 
+	 *
 	 * @param cdRef: ChangeDetectorRef
 	 * @param translate: TranslateService
 	 * @param authenticationService: AuthenticationService

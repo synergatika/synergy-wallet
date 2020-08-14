@@ -19,14 +19,13 @@ import { AuthenticationService } from '../../../core/services/authentication.ser
 import { PartnersService } from '../../../core/services/partners.service';
 import { MembersService } from '../../../core/services/members.service';
 
-/**
- * Models & Interfaces
- */
-import { Partner } from '../../../core/models/partner.model';
-import { PartnerPayment } from '../../../core/models/partner_payment.model';
-import { Member } from '../../../core/models/member.model';
-import { PaymentList } from 'src/app/core/interfaces/payment-list.interface';
-import { GeneralList } from 'src/app/core/interfaces/general-list.interface';
+import {
+  Member,
+  Partner,
+  PartnerPayment,
+  PaymentList,
+  GeneralList
+} from 'sng-core';
 
 @Component({
   selector: 'app-personal-information',
@@ -315,7 +314,7 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Set/Clear Validators 
+   * Set/Clear Validators
    */
   clearPartnerAddressValidators(form: FormGroup) {
     form.get('street').clearValidators();

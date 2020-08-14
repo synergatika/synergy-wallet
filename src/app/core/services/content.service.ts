@@ -8,12 +8,7 @@ import { map } from 'rxjs/operators';
  */
 import { environment } from '../../../environments/environment';
 
-
-/**
- * Models & Interfaces
- */
-import { Content } from '../models/content.model';
-import { Message } from '../models/message.model';
+import { Message, Content } from 'sng-core';
 
 @Injectable({
   providedIn: 'root'

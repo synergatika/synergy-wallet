@@ -8,10 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
  */
 import { ItemsService } from '../../../core/services/items.service';
 
-/**
- * Models & Interfaces
- */
-import { PostEvent } from '../../../core/models/post_event.model';
+import { PostEvent } from 'sng-core';
 
 @Component({
 	selector: 'app-archive-posts_events',
