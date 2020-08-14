@@ -5,11 +5,7 @@ import { Injectable } from '@angular/core';
  */
 import { environment } from '../../../environments/environment';
 
-/**
- * Models & Interfaces
- */
-import { Menu } from '../interfaces/menu.interface';
-import { IMenuService } from 'sng-core';
+import { IMenuService, Menu } from 'sng-core';
 
 @Injectable({
 	providedIn: 'root'

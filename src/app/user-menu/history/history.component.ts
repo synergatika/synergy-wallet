@@ -10,7 +10,7 @@ import { MenuService } from '../../core/helpers/menu.service';
 /**
  * Models & Interfaces
  */
-import { Menu } from '../../core/interfaces/menu.interface';
+import { Menu } from 'sng-core';
 
 @Component({
   selector: 'app-history',

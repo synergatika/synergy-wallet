@@ -2,12 +2,7 @@ import { Injectable } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 //import Swal from 'sweetalert2';
 
-/**
- * Models & Interfaces
- */
-import { PaymentList } from '../interfaces/payment-list.interface';
-import { GeneralList } from '../../../../../synergy-core/projects/sng-core/src/lib/model/general-list.model';
-import { Language } from '../interfaces/language.interface';
+import { PaymentList, GeneralList, LanguageFlag } from 'sng-core';
 
 @Injectable({
     providedIn: 'root'
@@ -63,7 +58,7 @@ export class StaticDataService {
     /**
      * Languages
      */
-    languages: Language[] = [
+    languages: LanguageFlag[] = [
         {
             lang: 'en',
             name: 'English',
@@ -472,7 +467,7 @@ export class StaticDataService {
         return this.customOptionsThree;
     };
 
-    public get getLanguages(): Language[] {
+    public get getLanguages(): LanguageFlag[] {
         return this.languages;
     };
 

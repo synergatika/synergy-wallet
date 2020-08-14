@@ -2,15 +2,9 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-/**
- * Services
- */
 import { MenuService } from '../../core/helpers/menu.service';
 
-/**
- * Models & Interfaces
- */
-import { Menu } from '../../core/interfaces/menu.interface';
+import { Menu } from 'sng-core';
 
 @Component({
 	selector: 'app-settings',

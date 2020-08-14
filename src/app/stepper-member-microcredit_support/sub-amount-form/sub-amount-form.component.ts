@@ -3,19 +3,10 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Subscription } from 'rxjs';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 
-/**
- * Services
- */
 import { StaticDataService } from 'src/app/core/helpers/static-data.service';
 
-/**
- * Models & Interfaces
- */
-import { PaymentList } from 'src/app/core/interfaces/payment-list.interface';
+import { PaymentList } from 'sng-core';
 
-/**
- * Local Services & Interfaces
- */
 import { LocalMicrocreditService } from '../_microcredit.service';
 import { LocalMicrocreditInterface } from '../_microcredit.interface';
 

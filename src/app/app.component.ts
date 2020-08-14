@@ -2,21 +2,13 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TranslationService } from './core/helpers/translation.service';
-/**
- * Languages
- */
+
 import { locale as enLang } from './core/config/i18n/en';
 import { locale as elLang } from './core/config/i18n/el';
 
-/**
- * Services
- */
 import { StaticDataService } from './core/helpers/static-data.service';
 
-/**
- * Models & Interfaces
- */
-import { Language } from './core/interfaces/language.interface';
+import { LanguageFlag } from 'sng-core';
 
 @Component({
   selector: 'app-root',
@@ -28,8 +20,8 @@ export class AppComponent implements OnInit, OnDestroy {
   /**
    * Content Variables
    */
-  public languages: Language[];
-  public language: Language;
+  public languages: LanguageFlag[];
+  public language: LanguageFlag;
   title = 'synergy-wallet';
 
   loader: boolean;
@@ -106,7 +98,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param lang: string
    */
   setLanguage(lang: string) {
-    this.languages.forEach((language: Language) => {
+    this.languages.forEach((language: LanguageFlag) => {
       if (language.lang === lang) {
         language.active = true;
         this.language = language;

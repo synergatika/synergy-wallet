@@ -5,21 +5,12 @@ import { takeUntil, finalize, tap } from 'rxjs/operators';
 import { WizardComponent } from "angular-archwizard";
 import { TranslateService } from '@ngx-translate/core';
 
-/**
- * Services
- */
 import { MessageNoticeService } from '../core/helpers/message-notice/message-notice.service';
 import { StaticDataService } from 'src/app/core/helpers/static-data.service';
 import { MicrocreditService } from '../core/services/microcredit.service';
 
-/**
- * Models & Interfaces
- */
-import { PaymentList } from 'src/app/core/interfaces/payment-list.interface';
+import { PaymentList } from 'sng-core';
 
-/**
- * Local Services & Interfaces
- */
 import { LocalMicrocreditService } from './_microcredit.service';
 import { LocalMicrocreditInterface } from './_microcredit.interface';
 
