@@ -125,6 +125,7 @@ import {
   IMicrocreditService,
   IContentService,
   IEnvironmentService,
+  IStepperService,
 } from 'sng-core';
 
 import { StaticDataService } from './core/helpers/static-data.service';
@@ -136,6 +137,7 @@ import { environment } from '../environments/environment';
 import { ContentService } from './core/services/content.service';
 import { LoyaltyService } from './core/services/loyalty.service';
 import { MicrocreditService } from './core/services/microcredit.service';
+import { StepperService } from './core/services/stepper.service';
 
 @NgModule({
 	declarations: [
@@ -223,6 +225,7 @@ import { MicrocreditService } from './core/services/microcredit.service';
     { provide: IContentService, useClass: ContentService },
     { provide: ILoyaltyService, useClass: LoyaltyService },
     { provide: IMicrocreditService, useClass: MicrocreditService },
+    { provide: IStepperService, useClass: StepperService },
     { provide: IEnvironmentService, useValue: environment},
 		/*{
 		  provide: SWIPER_CONFIG,

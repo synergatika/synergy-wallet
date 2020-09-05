@@ -29,8 +29,7 @@ import { StepperNoticeComponent } from '../stepper-common/stepper-notice/stepper
 //import { CardMicrocreditComponent } from '../views/layout/cards/card-microcredit/card-microcredit.component';
 
 import {
-  SngCoreModule,
-  MicrocreditCampaignSingleComponent,
+  SngCoreModule
 } from 'sng-core';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';

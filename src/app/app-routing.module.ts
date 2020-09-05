@@ -48,7 +48,7 @@ const routes: Routes = [
 		children: [
 			/**
 			 * Member Main Routes
-			 * 
+			 *
 			 * Explore - Activate: Config[0]=true || Config[1]=true
 			 * Offers - Activate: Config[1]=true
 			 * Support - Activate: Config[2]=true
@@ -61,7 +61,8 @@ const routes: Routes = [
 				canActivate: [UserGuard],
 			},
 			{
-				path: 'explore', component: MemberExploreComponent,
+        path: 'explore',
+        component: MemberExploreComponent,
 				canActivate: [UserGuard],
 				data: {
 					title: 'MENU.DISCOVER',
@@ -101,7 +102,7 @@ const routes: Routes = [
 
 			/**
 			 * Partner Main Routes
-			 * 
+			 *
 			 * Dashboard - Activate: Config[0]=true || Config[1]=true || Config[2]=true
 			 * Loyalty Offers - Activate: Config[1]=true
 			 * Microcredit Campaigns - Activate: Config[2]=true
@@ -160,10 +161,10 @@ const routes: Routes = [
 
 			/**
 			 * Admin Main Routes
-			 * 
+			 *
 			 * Partners
-			 * Members 
-			 * Content 
+			 * Members
+			 * Content
 			 */
 			{
 				path: 'a-partners',
@@ -195,7 +196,7 @@ const routes: Routes = [
 
 			/**
 			 * User Routes
-			 * 
+			 *
 			 */
 			{
 				path: 'settings',
@@ -210,7 +211,7 @@ const routes: Routes = [
 
 			/**
 			 * Archive Routes
-			 * 
+			 *
 			 * Partners
 			 * Posts
 			 * Loyalty Offers
