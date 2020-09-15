@@ -9,7 +9,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
-import { ExportToCsv } from 'export-to-csv';
 
 /**
  * Components
@@ -46,9 +45,9 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-	/**
-	 * Configuration and Static Data
-	 */
+  /**
+   * Configuration and Static Data
+   */
   public paymentsList: PaymentList[];
 
   /**
@@ -67,8 +66,6 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
   public textValueFilter: string = '';
   public dateFilter: Date;
   public maxDate: Date;
-  public statisticsPromise: Statistics;
-  public statisticsRedeem: Statistics;
   public validatedDates: string[];
 
   /**
@@ -175,21 +172,9 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
   }
 
   applyFilterDate(event) {
-    console.log(event.value);
-    // const adate = parseInt(((new Date(this.supports[0].createdAt)).setHours(0, 0, 0, 0)).toString());
-    // const bdate = parseInt(((event.value).getTime()).toString());
-    // console.log("eq", adate == bdate)
-    // console.log("Filter Date:", parseInt(((event.value).getTime()).toString()));
     this.selectedMethod = { ...this.defaultMethod };
     this.textValueFilter = '';
     this.dataSource.filter = ((event.value).getTime());
-
-    this.statisticsPromise = this.campaign.statisticsPromise.byDate.filter(obj =>
-      obj.date === this.dateformat(event.value))[0];
-    this.statisticsRedeem = this.campaign.statisticsRedeem.byDate.filter(obj =>
-      obj.date === this.dateformat(event.value))[0];
-
-    // console.log(typeof (event as HTMLInputElement).value);
   }
 
   setFilters() {
@@ -225,11 +210,7 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
             const datesRedeem = (this.campaign.statisticsRedeem) ? this.campaign.statisticsRedeem.byDate.map(obj => { return obj.date }) : [];
             const datesPromise = (this.campaign.statisticsPromise) ? this.campaign.statisticsPromise.byDate.map(obj => { return obj.date }) : [];
             this.validatedDates = datesRedeem.concat(datesPromise);
-            this.statisticsPromise = (this.campaign.statisticsPromise) ? this.campaign["statisticsPromise"] : { _id: "-1", count: 0, tokens: 0, users: 0 };
-            this.statisticsRedeem = (this.campaign.statisticsPromise) ? this.campaign["statisticsRedeem"] : { _id: "-1", count: 0, tokens: 0, users: 0 };
-            console.log(this.validatedDates);
-            // this.activeDates();
-            console.log(this.campaign);
+
             this.canSupportCampaign = ((this.campaign.startsAt < this.seconds) && (this.campaign.expiresAt > this.seconds)) ? true : false;
             this.canRevertPayment = (this.campaign.redeemStarts > this.seconds) ? true : false;
             this.canConfirmPayment = (this.campaign.redeemEnds > this.seconds) ? true : false;
@@ -258,9 +239,6 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
             this.dataSource = new MatTableDataSource(data);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-            // console.log(((new Date(this.supports[0].createdAt)).getTime()));
-            // console.log(parseInt(((new Date(this.supports[0].createdAt)).setHours(0, 0, 0, 0)).toString()));
-            // console.log("My date:", new Date(((new Date(this.supports[0].createdAt)).setHours(0, 0, 0, 0))));
 
             this.setFilters()
           },
@@ -274,41 +252,6 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
       )
       .subscribe();
   }
-
-  setOptionCSV(title: string) {
-    return {
-      fieldSeparator: ',',
-      filename: title,
-      quoteStrings: '"',
-      decimalSeparator: '.',
-      showLabels: true,
-      // showTitle: true,
-      // title: 'My Awesome CSV',
-      useTextFile: false,
-      useBom: true,
-      //  useKeysAsHeaders: true,
-      headers: ['Date', 'Amount', 'Total Transactions', 'Unique Users']//<-- Won't work with useKeysAsHeaders present!
-    };
-
-  }
-
-
-  exportToCSV(data: object, title: string) {
-    console.log("this.statisticsRedeem", data)
-    console.log("I ama in export")
-
-    const byDate = data['byDate'].map(obj => ({ date: (obj.date).toString(), amount: obj.tokens, count: obj.count, users: obj.users }))
-    const total =
-      [
-        { date: 'total', amount: data['tokens'], count: data['count'], users: data['users'] },
-        { date: '', amount: '', users: '', count: '' },
-
-      ];
-
-    const csvExporter = new ExportToCsv(this.setOptionCSV(this.campaign.title + "-" + title));
-    csvExporter.generateCsv(total.concat(byDate));
-  }
-
 
   changeSupportState(support_id: string, event: MatCheckboxChange) {
     this.loading = true;
@@ -365,9 +308,4 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
       if (value) this.fetchSupportsData();
     });
   }
-
-  // closeModal(event) {
-  //   console.log("NOOO", event);
-  //   this.fetchSupportsData();
-  // }
 }

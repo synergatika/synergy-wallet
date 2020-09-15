@@ -14,6 +14,8 @@ import { StaticDataService } from '../../../core/helpers/static-data.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { ItemsService } from '../../../core/services/items.service';
 
+import { Offer } from 'sng-core';
+
 @Component({
   selector: 'app-edit-offer',
   templateUrl: './edit-offer.component.html',
@@ -31,6 +33,7 @@ export class EditOfferComponent implements OnInit, OnDestroy {
   /**
    * Content Variables
    */
+  public offer: Offer;
   public title: string = '';
   public minDate: Date;
 
@@ -83,18 +86,18 @@ export class EditOfferComponent implements OnInit, OnDestroy {
     this.unsubscribe = new Subject();
   }
 
-	/**
-	 * On Init
-	 */
+  /**
+   * On Init
+   */
   ngOnInit() {
     this.minDate = new Date();
     this.fetchOfferData();
     this.initForm();
   }
 
-	/**
-	 * On destroy
-	 */
+  /**
+   * On destroy
+   */
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
@@ -173,6 +176,7 @@ export class EditOfferComponent implements OnInit, OnDestroy {
       .pipe(
         tap(
           data => {
+            this.offer = data;
             this.title = data.title;
             this.initialImage = data.offer_imageURL;
             this.previewUrl = this.initialImage;
@@ -194,8 +198,8 @@ export class EditOfferComponent implements OnInit, OnDestroy {
   }
 
   /**
-	 * On Submit Form
-	 */
+   * On Submit Form
+   */
   onSubmit() {
     if (this.loading) return;
 

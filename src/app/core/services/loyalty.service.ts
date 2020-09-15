@@ -15,7 +15,8 @@ import {
   Activity,
   Points,
   LoyaltyTransaction,
-  Message
+  Message,
+  Statistics
 } from 'sng-core';
 
 @Injectable({
@@ -81,6 +82,13 @@ export class LoyaltyService {
     return this.http.post<any>(`${environment.apiUrl}/loyalty/redeem/${partner_id}/${offer_id}/${_to}`, { password, _points, quantity })
       .pipe(map(data => {
         return data;
+      }));
+  }
+
+  readStatistics(): Observable<Statistics> {
+    return this.http.get<any>(`${environment.apiUrl}/loyalty/statistics`)
+      .pipe(map(response => {
+        return response.data;
       }));
   }
 }

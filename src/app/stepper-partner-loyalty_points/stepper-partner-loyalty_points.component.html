@@ -33,7 +33,6 @@
           <div *ngIf="showIdentifierForm">
             <app-sub-identifier-form (add_identifier)="onSubmitIdentifierForm($event)">
             </app-sub-identifier-form>
-            <!-- <button type="button" awPreviousStep>Go to previous step</button> -->
           </div>
         </div>
       </div>
@@ -48,7 +47,6 @@
       <!--end::Stepper Notice-->
 
       <div class="step-container row justify-content-md-center">
-        <!-- <p [innerHTML]="messages.stepB"></p> -->
         <app-sub-email-form (previous_step)="onPreviousStep($event)" (add_email)="onSubmitEmailForm($event)">
         </app-sub-email-form>
       </div>
@@ -63,7 +61,6 @@
       <!--end::Stepper Notice-->
 
       <div class="step-container row justify-content-md-center">
-        <!-- <p>{{this.messages.stepC}}</p> -->
         <app-sub-amount-form (previous_step)="onPreviousStep($event)" (add_amount)="onSubmitAmountForm($event)">
         </app-sub-amount-form>
       </div>

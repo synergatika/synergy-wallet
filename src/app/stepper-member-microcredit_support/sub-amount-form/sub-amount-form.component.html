@@ -51,17 +51,9 @@
   <!--end::Form(Wizard Step 1)-->
 
   <!--begin::Wizard Buttons-->
-  <!-- <button type="button" class="btn btn-light" (click)="onNextStep()">
-    {{'MEMBER.WIZARD.NEXT_STEP' | translate}} &raquo;
-  </button> -->
   <button *ngIf="!showPaypalButton" mat-raised-button (click)="onNextStep()">
     {{'MEMBER.WIZARD.NEXT_STEP' | translate}}
   </button>
-  <!-- <div *ngIf="!showPaypalButton" class="col-md-12 kt-login__actions" style="padding: 0 0 0 0">
-    <button (click)="onSubmitSupporting()" (keyup.enter)="onSubmitSupporting()" id="kt_login_signin_submit"
-      class="col-md-12 btn btn-primary"
-      [ngClass]="{'spinner spinner--right spinner--md spinner--light': loading}">{{ 'AUTH.GENERAL.SUBMIT_BUTTON' | translate }}</button>
-  </div> -->
   <ngx-paypal *ngIf="showPaypalButton" [config]="payPalConfig"></ngx-paypal>
   <!--end::Wizard Buttons-->
 </div>

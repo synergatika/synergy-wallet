@@ -58,24 +58,10 @@
       <!--end::Form Group "Password"-->
 
       <!--begin::Form Actions-->
-      <!-- <div class="login_actions">
-        <a href="javascript:;" routerLink="/auth/forgot-password" class="link-forgot mr-3">
-          {{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
-        </a>
-        <a href="javascript:;" routerLink="/" class="login_link-forgot">
-        </a>
-        <button class="btn btn-primary btn-elevate" (click)="submitForm()"
-          (keyup.enter)="submitForm()">{{ 'AUTH.LOGIN.BUTTON' | translate }}</button>
-      </div> -->
-      <!--end::Form Actions-->
-
-      <!--begin::Form Actions-->
       <div class="auth_actions">
         <a class="auth-link mr-3" href="javascript:;" routerLink="/auth/forgot-password">
           {{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
         </a>
-        <!-- <a href="javascript:;" routerLink="/" class="login_link-forgot">
-        </a> -->
         <button class="btn btn-primary" (click)="submitForm()" (keyup.enter)="submitForm()">
           {{ 'AUTH.LOGIN.BUTTON' | translate }}
         </button>

@@ -1,34 +1,7 @@
 <div class="redeem">
 
-    <!--begin::Loyalty Offers List(Scroll)-->
-    <sng-offers-list-scroll *ngIf="configAccess[1]"></sng-offers-list-scroll>
-    <!--end::Loyalty Offers List(Scroll)-->
+  <!--begin::Loyalty Offers List(Scroll)-->
+  <sng-offers-list-scroll *ngIf="configAccess[1]"></sng-offers-list-scroll>
+  <!--end::Loyalty Offers List(Scroll)-->
 
 </div>
-
-
-<!--begin::Loaylty Offers List-->
-<!-- <div class="row section-list" *ngIf="offers">
-    <div class="col-md-12">
-        <h3 class="list-tiltle">{{ 'OFFER.PLURAL' | translate }}</h3>
-        <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide *ngFor="let offer of (offers)">
-                <sng-offer-card [offer]="offer" type="all"></sng-offer-card>
-            </ng-template>
-        </owl-carousel-o>
-        <div class="section-list-footer"><a [routerLink]="['/offers']">{{ 'OFFER.ALL' | translate }}</a>
-        </div>
-    </div>
-</div> -->
-<!-- <div class="row section-list" *ngIf="offers">
-    <div class="col-md-12">
-        <h3 class="list-tiltle">{{ 'OFFER.PLURAL' | translate }}</h3>
-        <div class="row" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
-            (scrolled)="onScroll()" *ngIf="offers">
-            <div class="col-md-4" *ngFor="let offer of (offers)">
-                <sng-offer-card [offer]="offer"></sng-offer-card>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!--end::Loaylty Offers List-->

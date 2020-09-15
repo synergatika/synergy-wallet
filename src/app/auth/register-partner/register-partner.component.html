@@ -144,7 +144,6 @@
         <div class="form-group">
           <div formArrayName="payments">
             <mat-form-field class="col-md-6 payment" *ngFor="let payment of payments.controls; index as i">
-              <!-- <input [formControlName]=" i" placeholder="City"> -->
               <input matInput type="text" [formControlName]="i" placeholder="{{paymentsList[i].title | translate}}">
               <mat-error *ngIf="showPaymentError" class="error text-danger">
                 {{ 'FORM.VALIDATION.REQUIRED_ONE' | translate }}
@@ -207,8 +206,6 @@
           <a class="auth_link mr-2" href="javascript:;" routerLink="/auth/forgot-password">
             {{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
           </a>
-          <!-- <a href="javascript:;" routerLink="/" class="login_link-forgot">
-              </a> -->
           <button type="button" class="btn btn-secondary mr-2" routerLink="/auth/login">
             {{ 'AUTH.GENERAL.BACK_BUTTON' | translate }}
           </button>
@@ -226,8 +223,6 @@
           <a class="auth_link mr-2" href="javascript:;" routerLink="/auth/forgot-password">
             {{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
           </a>
-          <!-- <a href="javascript:;" routerLink="/" class="login_link-forgot">
-        </a> -->
           <button type="button" class="btn btn-secondary mr-2" (click)="changeStep(false)">
             {{ 'FORM.BUTTONS.PREVIOUS' | translate }}
           </button>

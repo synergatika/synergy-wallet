@@ -4,7 +4,6 @@ import { tap, takeUntil, finalize } from 'rxjs/operators';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbModal, NgbActiveModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 
 /**
  * Environment
@@ -38,21 +37,10 @@ import { Offer, MicrocreditCampaign } from 'sng-core';
 })
 export class PartnerDashboardComponent implements OnInit, OnDestroy {
 
-	/**
-	 * Configuration and Static Data
-	 */
-  public configAccess: Boolean[] = environment.access;
-
-	/**
-	 * Children Modals
-	 */
-  // @ViewChild('postModal', { static: false }) postModal: NgbModalRef;
-
   /**
-   * Carousel Variables
+   * Configuration and Static Data
    */
-  // customOptions: OwlOptions;
-  // moved: boolean;
+  public configAccess: Boolean[] = environment.access;
 
   /**
    * Content Variables
@@ -70,18 +58,18 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   private unsubscribe: Subject<any>;
 
-	/**
-	 * Component Constructor
-	 *
-	 * @param cdRef: ChangeDetectorRef
-	 * @param modalService: NgbModal
-	 * @param matDialog: MatDialog
-	 * @param translate: TranslateService
-	 * @param staticDataService: StaticDataService
-	 * @param authenticationService: AuthenticationService
-	 * @param itemsService: ItemsService
-	 * @param scannerService: ScannerService
-	 */
+  /**
+   * Component Constructor
+   *
+   * @param cdRef: ChangeDetectorRef
+   * @param modalService: NgbModal
+   * @param matDialog: MatDialog
+   * @param translate: TranslateService
+   * @param staticDataService: StaticDataService
+   * @param authenticationService: AuthenticationService
+   * @param itemsService: ItemsService
+   * @param scannerService: ScannerService
+   */
   constructor(
     private cdRef: ChangeDetectorRef,
     private modalService: NgbModal,
@@ -116,9 +104,9 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
-	/**
-	 * Close Modal on Browser Back Button
-	 */
+  /**
+   * Close Modal on Browser Back Button
+   */
   controlModalState(state: boolean) {
     if (state) {
       const modalState = {
@@ -185,30 +173,6 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  // /**
-  //  * Fetch Post & Events List
-  //  */
-  // fetchPostsEventsData() {
-  //   this.itemsService.readAllPrivatePostsEvents('0-0-0')
-  //     .pipe(
-  //       tap(
-  //         data => {
-  //           this.posts = data;
-  //           console.log('this.posts');
-  //           console.log(this.posts);
-  //           //this.scannerService.changeOffers(this.posts);
-  //         },
-  //         error => {
-  //         }),
-  //       takeUntil(this.unsubscribe),
-  //       finalize(() => {
-  //         this.loading = false;
-  //         this.cdRef.markForCheck();
-  //       })
-  //     )
-  //     .subscribe();
-  // }
-
   /**
    * Open Wizard (Scan for Points)
    */
@@ -262,50 +226,4 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(StepperPartnerMicrocreditCampaignComponent, dialogConfig);
   }
-
-  // /**
-  //  * Open PostEvent Modal
-  //  */
-  // openPost(post: PostEvent) {
-  //   console.log('post modal');
-  //   console.log(post);
-  //   this.singlePost = post;
-
-  //   this.controlModalState(true);
-
-  //   this.modalService.open(
-  //     this.postModal,
-  //     {
-  //       ariaLabelledBy: 'modal-basic-title',
-  //       size: 'lg',
-  //       backdropClass: 'fullscrenn-backdrop',
-  //       //backdrop: 'static',
-  //       windowClass: 'fullscreen-modal',
-  //     }
-  //   ).result.then((result) => {
-  //     console.log('closed');
-  //     this.controlModalState(false);
-
-  //   }, (reason) => {
-  //     console.log('dismissed');
-  //     this.controlModalState(false);
-
-  //   });
-  // }
-
-
-  // /**
-  //  * Actions to Open Modals from Carousel
-  //  */
-  // mousedown() { this.moved = false; }
-  // mousemove() { this.moved = true; }
-  // mouseup(data: any, type: string) {
-  //   if (this.moved) { }
-  //   else {
-  //     if (type == 'post') {
-  //       this.openPost(data);
-  //     } else { }
-  //   }
-  //   this.moved = false;
-  // }
 }
