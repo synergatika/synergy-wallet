@@ -1,15 +1,20 @@
-.login {
-  margin-top: 20px;
-  height: 100%;
+body{
+  height: auto;
+}
 
+.login {
   .header_right__wrapper {
     display: flex;
     float: right;
   }
 
   .auth-logo {
+    margin-top: 40px;
     margin-bottom: 20px;
     text-align: center;
+    img{
+      max-width: 400px;
+    }
   }
 
   .page-wrapper {
@@ -30,7 +35,7 @@
         margin: 0 auto;
 
         .mat-card-title {
-          font-size: 2rem;
+          font-size: 1.8rem;
         }
       }
     }
@@ -66,24 +71,12 @@
 // }
 
 .footer {
-  margin-top: 40px;
-  padding-bottom: 20px;
-
-  .row {
-    max-width: 900px;
-    margin: 0 auto;
-
-    img {
-      max-width: 250px;
-    }
-
-    .eu-img-container {
-      text-align: center;
-
-      .eu-img {
-        max-width: 110px;
-        margin: 0 auto;
-      }
-    }
+  margin-top: 30px;
+  margin-bottom: 15px;
+  text-align: center;
+  color:#fff;
+  a{
+    color:#fff;
+    font-weight: bold;
   }
 }

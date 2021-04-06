@@ -56,8 +56,8 @@ export const locale = {
      */
     AUTH: {
       MESSAGES: {
-        WELCOME_TITLE: 'Καλώς ήρθατε στο Synergatika.gr!',
-        WELCOME_SUBTITLE: 'Ένα Οικονομικό Εργαλείο για Συνεταιρισμούς',
+        WELCOME_TITLE: 'Καλώς ήρθες',
+        WELCOME_SUBTITLE: 'Έλα στην παρέα του synergatika.gr για να στηρίξεις τα συνεργατικά καταστήματα και να κερδίσεις εκπτώσεις και προσφορές!',
         HAVE_ACCOUNT: 'Ακόμα δεν έχεις Λογαριασμό;',
         ALREADY_VALIDATED: 'Έχεις ήδη επαληθεύσει το email σου;',
         ALREADY_RESTORATION: 'Έχεις ήδη επαναφέρει τον κωδικό πρόσβασης;',
@@ -85,7 +85,7 @@ export const locale = {
         BUTTON: 'Αποσύνδεση'
       },
       REGISTER: {
-        TITLE: 'Εγγραφή',
+        TITLE: 'Κάνε Εγγραφή',
         BUTTON: 'Εγγραφή',
         DESC: 'Εισάγεται τα προσωπικά σας στοιχεία ώστε να δημιυργήσετε λογαριασμό',
         SUCCESS: 'Ο λογαρισμός σας δημιουργήθηκε επιτυχώς. Θα λάβετε ένα μήνυμσ στη διεύθυνση ηλεκτρονικού ταχυδρομείου που δηλώσατε ώστε να επαληθευτεί ο λαγαρισμός σας',
@@ -120,7 +120,7 @@ export const locale = {
     FIELDS: {
       PROFILE: {
         EMAIL: {
-          TITLE: 'Διεύθυνση Ηλεκτρονικού Ταχυδρομείου',
+          TITLE: 'Διεύθυνση Email',
           PLACEHOLDER: 'Email',
           DESC: ''
         },
@@ -145,8 +145,8 @@ export const locale = {
           DESC: 'Παρακαλώ επιβεβαιώστε τον κωδικό σας'
         },
         MEMBER_NAME: {
-          TITLE: 'Όνομα',
-          PLACEHOLDER: 'Όνομα',
+          TITLE: 'Όνομα/Ψευδώνυμο',
+          PLACEHOLDER: 'Όνομα/Ψευδώνυμο',
           DESC: 'Παρακαλώ, εισάγετε το όνομα σας'
         },
         MEMBER_IMAGE: {
