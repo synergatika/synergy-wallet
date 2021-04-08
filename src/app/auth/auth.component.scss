@@ -57,6 +57,16 @@ body{
   }
 }
 
+.auth_head{
+  margin-top: 30px;
+  border-top: 1px solid #e5e0e0;
+  padding-top: 20px;
+  a{
+    color:var(--secondary);
+    font-weight: bold;
+  }
+}
+
 // .spinner-overlay {
 //   position: fixed;
 //   width: 100%;
