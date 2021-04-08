@@ -1,7 +1,7 @@
 <div class="scanner">
   <div *ngIf="configAccess[1]||configAccess[2]">
-    <h2 class="col-md-12 section-heading"> {{'PARTNER.DASHBOARD.SCANNER' | translate}}</h2>
-
+    <h2 class="col-md-12 section-heading"> {{'PARTNER.DASHBOARD.TITLE' | translate}}</h2>
+    <p class="section-description">{{'PARTNER.DASHBOARD.DESCRIPTION' | translate }}</p>
     <div class="row">
 
       <!--begin::Scan for Points-->
@@ -16,7 +16,7 @@
 
       <!--begin::Loyalty Offers List-->
       <ng-container *ngIf="configAccess[1]&&offers">
-        <div class="item item-wrapper col-md-4" *ngFor="let item of offers" (click)="openModalB(item)">
+        <div class="item item-wrapper col-md-4 offers" *ngFor="let item of offers" (click)="openModalB(item)">
           <sng-offer-little-card [offer]="item"></sng-offer-little-card>
         </div>
       </ng-container>
@@ -24,7 +24,7 @@
 
       <!--begin::Microcredit Campaigns List-->
       <ng-container *ngIf="configAccess[2]&&microcredit">
-        <div class="item item-wrapper col-md-4" *ngFor="let item of microcredit" (click)="openModalC(item)">
+        <div class="item item-wrapper col-md-4 microcredits" *ngFor="let item of microcredit" (click)="openModalC(item)">
           <sng-microcredit_campaign-little-card [campaign]="item" type="'all'"></sng-microcredit_campaign-little-card>
         </div>
       </ng-container>
