@@ -1,6 +1,6 @@
 <div class="scanner">
   <div *ngIf="configAccess[1]||configAccess[2]">
-    <h2 class="col-md-12 section-heading"> {{'PARTNER.DASHBOARD.TITLE' | translate}}</h2>
+    <h2 class="section-heading"> {{'PARTNER.DASHBOARD.TITLE' | translate}}</h2>
     <p class="section-description">{{'PARTNER.DASHBOARD.DESCRIPTION' | translate }}</p>
     <div class="row">
 
@@ -42,8 +42,8 @@
   <!--end::Posts/Events List(Carousel)-->
 
   <div *ngIf="configAccess[1]||configAccess[2]">
-    <h2 class="col-md-12 section-heading"> {{'PARTNER.DASHBOARD.STATISTICS' | translate}}</h2>
-
+    <h2 class="col-md-12 section-heading"> {{'PARTNER.DASHBOARD.STATISTICS.TITLE' | translate}}</h2>
+    <p class="section-description">{{'PARTNER.DASHBOARD.STATISTICS.DESCRIPTION' | translate }}</p>
     <!--begin::Loyalty Statistics-->
     <sng-loyalty-statistics>
     </sng-loyalty-statistics>

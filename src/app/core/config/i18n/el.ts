@@ -861,7 +861,10 @@ export const locale = {
       DASHBOARD: {
         TITLE: 'Συναλλαγές',
         DESCRIPTION: 'Εδώ μπορείτε να κάνετε άμεσα όλες τις συναλλαγές που χρειάζονται στο κατάστημα για πίστωση και εξαργύρωση πόντων',
-        STATISTICS: 'Στατιστικά Loyalty',
+        STATISTICS: {
+          TITLE: 'Στατιστικά Loyalty',
+          DESCRIPTION: 'Εδώ μπορείτε να δείτε και να εξάγεται στατιστικά σχετικά με την υπηρεσία loyalty. Πόσες πωλήσεις κάνατε και πόση έκπτωση δώσατε',
+        },
         NEWS: 'Νέα απο την Κοινότητα',
       },
       WIZARD: {
@@ -989,8 +992,8 @@ export const locale = {
      * STATISTICS TRANSLATION (Μετάφραση Στατιστικών)
      */
     STATISTICS: {
-      LOYALTY_EARN: 'Εισροές μέσω του Προγράμματος',
-      LOYALTY_REDEEM: 'Εκπτώσεις που δόθηκαν',
+      LOYALTY_EARN: 'Πωλήσεις',
+      LOYALTY_REDEEM: 'Εκπτώσεις',
       OFFER_REDEEM: 'Συναλλαγές σχετιζόμενες με την προσφορά',
       MICROCREDIT_EARN: 'Εισροές απο Υποσχέσεις',
       MICROCREDIT_REDEEM: 'Εξαργυρωμένα Ποσά',
@@ -1000,13 +1003,13 @@ export const locale = {
       REDEEMED_TO_PAID: 'Εξαργυρωμένες προς Πληρωμένες Υποσχέσεις',
       REMAINING_TO_PAID: 'Εναπομείνασες προς Πληρωμένες Υποσχέσεις',
 
-      AMOUNT: 'Ποσό(€)',
-      USERS: 'Μοναδικοί Χρήστες',
-      TRANSACTIONS: 'Αριθμός Συναλλαγών',
+      AMOUNT: 'Ποσό',
+      USERS: 'Χρήστες',
+      TRANSACTIONS: 'Συναλλαγές',
       QUANTITY: 'Ποσότητα',
       TOTAL: 'Σύνολο',
       EXPORT: 'Εξαγωγή Αρχείου .csv',
-      CLEAR_FILTER: 'Αφαίρεση Φίλτρου'
+      CLEAR_FILTER: 'X'
     }
   }
 };
