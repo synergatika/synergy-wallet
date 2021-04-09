@@ -417,25 +417,20 @@ body {
   }
 
   .stepper-info.microcredit-info {
-    font-size: 18px;
-    font-weight: 600;
-
+    font-size: 16px;
     .col-head {
       &.init {
         color: $tertiary;
       }
-
       &.redeemed {
         color: $secondary;
       }
-
       &.remaining {
         color: $primary;
       }
     }
-
     .token-num {
-      font-size: 36px;
+      font-size: 26px;
     }
   }
 
@@ -484,6 +479,10 @@ body {
     button {
       margin: 0 auto;
     }
+  }
+
+  .hint{
+    font-size: 13px;
   }
 
   form {

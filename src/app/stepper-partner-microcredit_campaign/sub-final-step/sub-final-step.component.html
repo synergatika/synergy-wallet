@@ -1,16 +1,22 @@
 <div class="step-final">
-
-  <p>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.TOKENS_BEFORE' | translate }}:
-    {{transaction.initial_tokens - transaction.redeemed_tokens}}</p>
-  <p>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.TOKENS_REDEEMED' | translate }}: {{transaction.discount_tokens}}</p>
-  <p>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.TOKENS_REMAINING' | translate }}:
-    {{transaction.initial_tokens - (transaction.redeemed_tokens + transaction.discount_tokens)}}
-  </p>
-
+  <h4 class="heading">{{ 'PARTNER.WIZARD.SUB_MICROCREDIT_FORM.SUB_HEADING_2' | translate }}</h4>
+  <div *ngIf="transaction" class="amounts-table">
+    <p>
+      <label>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.TOKENS_BEFORE' | translate }}</label>
+      <span>{{transaction.initial_tokens - transaction.redeemed_tokens}}</span>
+    </p>
+    <p>
+        <label>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.TOKENS_REDEEMED' | translate }}</label>
+        <span>{{transaction.discount_tokens}}</span>
+      </p>
+    <p>
+        <label>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.TOKENS_REMAINING' | translate }}</label>
+        <span>{{transaction.initial_tokens - (transaction.redeemed_tokens + transaction.discount_tokens)}}</span>
+    </p>
+  </div>
   <!--begin::Wizard Buttons-->
-  <button mat-raised-button (click)="onNextStep()">
+  <button class="btn btn-primary" (click)="onNextStep()">
     {{ 'PARTNER.WIZARD.CLOSE' | translate }}
   </button>
   <!--end::Wizard Buttons-->
-
 </div>

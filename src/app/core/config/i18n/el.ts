@@ -878,8 +878,9 @@ export const locale = {
           DISCOUNT: "Έκπτωση",
           FINAL: "Τέλος",
           OFFER: "Εξαργύρωση",
+          MICROCREDIT: "Εξαργύρωση",
         },
-        SCAN_LOYALTY: {
+        SCAN_FORM: {
           HEADING: 'Σάρωση QR',
           ALT_PROMPT: 'Ταυτοποίηση με E-mail ή αριθμό κάρτας',
         },
@@ -910,9 +911,9 @@ export const locale = {
           POINTS_REMAINING: 'Νέο Υπόλοιπο Πόντων',
           POINTS_ADDED: 'Πόντοι που Προστέθηκαν',
           QUANTITY: 'Ποσότητα',
-          TOKENS_BEFORE: 'Αρχικά Κουπόνια',
-          TOKENS_REDEEMED: 'Κουπόνια που Χρησιμοποιήθηκαν',
-          TOKENS_REMAINING: 'Εναπομείναντα Κουπόνια',
+          TOKENS_BEFORE: 'Υπόλοιπο',
+          TOKENS_REDEEMED: 'Χρησιμοποιήθηκαν',
+          TOKENS_REMAINING: 'Νέο Υπόλοιπο',
           PAYMENT_ID: 'Αναγνωριστικό Πληρωμής'
         },
         SUB_OFFER_FORM: {
@@ -931,15 +932,15 @@ export const locale = {
           CAMPAIGN: 'Microcredit Καμπάνια',
           CAMPAIGN_ID: 'ID Καμπάνιας',
           HEADING_2: 'Πόντοι',
-          SUB_HEADING: 'Λίστα Υποστηρίξεων',
+          SUB_HEADING: 'Συμμετοχές',
           SUB_HEADING_2: 'Κουπόνια',
           SUB_HEADING_3: 'Ιστορικό',
           SUPPORT_ID: 'Ταυτότητα Συναλλαγής',
-          INITIAL: 'αρχικοί',
-          REDEEMED: 'χρησιμοποιήθηκαν',
-          REMAINING: 'εναπομείναντες',
-          FORM_TITLE: 'Κουπόνια',
-          FORM_HINT: 'Παρακαλούμε εισάγετε τα κουπόνια της συναλλαγής.',
+          INITIAL: 'Αρχικά',
+          REDEEMED: 'Χρησιμοποιήθηκαν',
+          REMAINING: 'Μένουν',
+          FORM_TITLE: 'Εξαργύρωση τώρα',
+          FORM_HINT: 'Εισάγετε την αξία κουπονιών που θέλετε να εξαργυρώσετε τώρα.',
           ALERT: 'Δεν υπάρχουν συναλλαγές. Αδυναμία ολοκλήρωσης της συναλλαγής.',
         }
       }
