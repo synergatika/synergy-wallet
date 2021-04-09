@@ -876,15 +876,16 @@ export const locale = {
           EMAIL: "E-mail",
           AMOUNT: "Ποσό",
           DISCOUNT: "Έκπτωση",
-          FINAL: "Τέλος"
+          FINAL: "Τέλος",
+          OFFER: "Εξαργύρωση",
         },
         SCAN_LOYALTY: {
           HEADING: 'Σάρωση QR',
-          ALT_PROMPT: 'Ταυτοποίηση με E-mail',
+          ALT_PROMPT: 'Ταυτοποίηση με E-mail ή αριθμό κάρτας',
         },
         SUB_IDENTIFIER_FORM: {
-          HEADING: 'Ταυτοποίηση με E-mail',
-          TITLE: 'E-mail',
+          HEADING: 'Ταυτοποίηση με E-mail ή αριθμό κάρτας',
+          TITLE: 'E-mail/Αριθμός',
           HINT: 'Eισάγετε E-mail ή άριθμό κάρτας.'
         },
         SUB_EMAIL_FORM: {
@@ -905,7 +906,7 @@ export const locale = {
         SUB_FINAL_STEP: {
           AMOUNT: 'Ποσό Συναλλαγής (€)',
           DISCOUNT_AMOUNT: 'Ποσό Έκπτωσης (€)',
-          POINTS_TO_REDEEM: 'Πόντοι που θα χρησιμοποιηθούν',
+          POINTS_TO_REDEEM: 'Πόντοι χρησιμοποιήθηκαν',
           POINTS_REMAINING: 'Νέο Υπόλοιπο Πόντων',
           POINTS_ADDED: 'Πόντοι που Προστέθηκαν',
           QUANTITY: 'Ποσότητα',
@@ -919,11 +920,11 @@ export const locale = {
           OFFER: 'Προσφορά',
           OFFER_ID: 'ID Προσφοράς',
           SUB_HEADING: 'Πόντοι',
-          COST: 'απαιτούμενοι',
-          POINTS: 'διαθέσιμοι',
+          COST: 'Aπαιτούμενοι',
+          POINTS: 'Διαθέσιμοι',
           FORM_TITLE: 'Ποσότητα',
-          FORM_HINT: 'Παρακαλούμε εισάγετε την ποσότητα της συναλλαγής.',
-          ALERT: 'Δε επαρκούν οι πόντοι. Αδυναμία ολοκλήρωσης της συναλλαγής.',
+          FORM_HINT: 'Βάλτε πόσα πακέτας προσφοράς θα δώσετε',
+          ALERT: 'Δεν επαρκούν οι πόντοι. Αδυναμία ολοκλήρωσης της συναλλαγής.',
         },
         SUB_MICROCREDIT_FORM: {
           HEADING_MAIN: 'Λεπτομέρειες Συναλλαγής',
@@ -963,8 +964,8 @@ export const locale = {
       ERROR_EARN_TOKENS: '',
       ERROR_REDEEM_TOKENS: '',
 
-      NOT_ENOUGH_POINTS: 'Είναι αδύνατο να προχωρήσετε <br> Δεν υπάρχουν αρκετοί Πόντοι',
-      NOT_ENOUGH_TOKENS: 'Είναι αδύνατο να προχωρήσετε <br> Δεν υπάρχουν αρκετά Κουπόνια',
+      NOT_ENOUGH_POINTS: 'Δεν γίνεται να προχωρήσετε <br> Δεν υπάρχουν αρκετοί Πόντοι',
+      NOT_ENOUGH_TOKENS: 'Δεν γίνεται να προχωρήσετε <br> Δεν υπάρχουν αρκετά Κουπόνια',
 
       NEW_EMAIL: 'Ένα νέο email ανιχνεύθηκε',
       NEW_CARD: '<b>Νέα κάρτα ανιχεύθηκε</b><br>Εισάγετε e-mail για σύνδεση',
