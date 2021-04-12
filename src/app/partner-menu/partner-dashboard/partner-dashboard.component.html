@@ -25,7 +25,7 @@
       <!--begin::Microcredit Campaigns List-->
       <ng-container *ngIf="configAccess[2]&&microcredit">
         <div class="item item-wrapper col-md-4 microcredits" *ngFor="let item of microcredit" (click)="openModalC(item)">
-          <sng-microcredit_campaign-little-card [campaign]="item" type="'all'"></sng-microcredit_campaign-little-card>
+          <sng-microcredit_campaign-little-card [campaign]="item" type="'all'" action="redeem"></sng-microcredit_campaign-little-card>
         </div>
       </ng-container>
       <!--end::Microcredit Campaigns List-->
