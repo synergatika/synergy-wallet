@@ -5,7 +5,7 @@
     <div class="row">
 
       <!--begin::Scan for Points-->
-      <div *ngIf="configAccess[1]" class="item item-wrapper col-md-4" (click)="openModalA()">
+      <div *ngIf="configAccess[1]" class="item item-wrapper col-md-4" (click)="openModalLoyalty()">
         <mat-card class="item-card loyalty-item-card" style="height:100%;">
           <mat-card-content>
             <div class="loyalty-item">{{ 'PARTNER.WIZARD.LOYALTY_TITLE' | translate }}</div>
@@ -16,19 +16,28 @@
 
       <!--begin::Loyalty Offers List-->
       <ng-container *ngIf="configAccess[1]&&offers">
-        <div class="item item-wrapper col-md-4 offers" *ngFor="let item of offers" (click)="openModalB(item)">
+        <div class="item item-wrapper col-md-4 offers" *ngFor="let item of offers" (click)="openModalOffer(item)">
           <sng-offer-little-card [offer]="item"></sng-offer-little-card>
         </div>
       </ng-container>
       <!--end::Loyalty Offers List-->
 
-      <!--begin::Microcredit Campaigns List-->
-      <ng-container *ngIf="configAccess[2]&&microcredit">
-        <div class="item item-wrapper col-md-4 microcredits" *ngFor="let item of microcredit" (click)="openModalC(item)">
+      <!--begin::Microcredit Campaigns List for Redeem-->
+      <ng-container *ngIf="configAccess[2]&&microcreditRedeem">
+        <div class="item item-wrapper col-md-4 microcredits" *ngFor="let item of microcreditRedeem" (click)="openModalRedeemCampaign(item)">
           <sng-microcredit_campaign-little-card [campaign]="item" type="'all'" action="redeem"></sng-microcredit_campaign-little-card>
         </div>
       </ng-container>
       <!--end::Microcredit Campaigns List-->
+
+      <!--begin::Microcredit Campaigns List for Support-->
+      <ng-container *ngIf="configAccess[2]&&microcreditSupport">
+        <div class="item item-wrapper col-md-4 microcredits" *ngFor="let item of microcreditSupport" (click)="openModalSupportCampaign(item)">
+          <sng-microcredit_campaign-little-card [campaign]="item" type="'all'" action="support"></sng-microcredit_campaign-little-card>
+        </div>
+      </ng-container>
+      <!--end::Microcredit Campaigns List-->
+
 
     </div>
   </div>

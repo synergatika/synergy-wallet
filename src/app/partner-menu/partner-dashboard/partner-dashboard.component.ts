@@ -16,6 +16,7 @@ import { environment } from '../../../environments/environment';
 import { StepperPartnerLoyaltyPointsComponent } from '../../stepper-partner-loyalty_points/stepper-partner-loyalty_points.component';
 import { StepperPartnerLoyaltyOfferComponent } from '../../stepper-partner-loyalty_offer/stepper-partner-loyalty_offer.component';
 import { StepperPartnerMicrocreditCampaignComponent } from '../../stepper-partner-microcredit_campaign/stepper-partner-microcredit_campaign.component';
+import { StepperPartnerMicrocreditSupportComponent } from '../../stepper-partner-microcredit_support/stepper-partner-microcredit_support.component';
 
 /**
  * Services
@@ -33,7 +34,6 @@ import { Offer, MicrocreditCampaign } from 'sng-core';
   selector: 'app-partner-dashboard',
   templateUrl: './partner-dashboard.component.html',
   styleUrls: ['./partner-dashboard.component.scss'],
-  // providers: [LoyaltyLocalService]
 })
 export class PartnerDashboardComponent implements OnInit, OnDestroy {
 
@@ -46,12 +46,8 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
    * Content Variables
    */
   public offers: Offer[];
-  public microcredit: MicrocreditCampaign[];
-
-  // public posts: PostEvent[];
-  // singlePost: PostEvent;
-  // singlePartner = false;
-  // public campaign: MicrocreditCampaign;
+  public microcreditRedeem: MicrocreditCampaign[];
+  public microcreditSupport: MicrocreditCampaign[];
 
   seconds: number = 0;
 
@@ -79,7 +75,6 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     private itemsService: ItemsService,
   ) {
-    // this.customOptions = this.staticDataService.getOwlOptionsThree;
     this.unsubscribe = new Subject();
   }
 
@@ -92,7 +87,6 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
 
     this.fetchOffersData();
     this.fetchCampaignsData();
-    // this.fetchPostsEventsData();
   }
 
   /**
@@ -134,7 +128,6 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
         tap(
           data => {
             this.offers = data;
-            console.log("Partner Dashboard (Loyalty Offers)", this.offers)
           },
           error => {
           }),
@@ -151,16 +144,17 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
    * Fetch Microcredit Campaigns List (for One Partner)
    */
   fetchCampaignsData() {
-    console.log('this.microcredit');
     this.itemsService.readPrivateMicrocreditCampaignsByStore(this.authenticationService.currentUserValue.user["_id"], '0-0-0')
       .pipe(
         tap(
           data => {
             const seconds = this.seconds;
-            this.microcredit = data.filter((item) => {
+            this.microcreditRedeem = data.filter((item) => {
               return ((item.status == 'published') && (item.redeemStarts < seconds) && (seconds < item.redeemEnds));
             });;
-            console.log("Partner Dashboard (Microcredit Campaigns)", this.microcredit)
+            this.microcreditSupport = data.filter((item) => {
+              return ((item.status == 'published') && (item.startsAt < seconds) && (seconds < item.expiresAt));
+            });;
           },
           error => {
           }),
@@ -176,21 +170,19 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
   /**
    * Open Wizard (Scan for Points)
    */
-  openModalA() {
+  openModalLoyalty() {
     const dialogConfig = new MatDialogConfig();
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id = "modal-component";
     dialogConfig.width = "600px";
-
-    // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(StepperPartnerLoyaltyPointsComponent, dialogConfig);
   }
 
   /**
    * Open Wizard (Scan for Offer)
    */
-  openModalB(offer: Offer) {
+  openModalOffer(offer: Offer) {
     const dialogConfig = new MatDialogConfig();
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
@@ -199,18 +191,13 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
     dialogConfig.data = {
       offer: offer
     };
-
-    // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(StepperPartnerLoyaltyOfferComponent, dialogConfig);
   }
 
   /**
-   * Open Wizard (Scan for Microcredit Campaign)
+   * Open Wizard (Scan for Redeem Microcredit Campaign)
    */
-  openModalC(campaign: MicrocreditCampaign) {
-    //  const currentMicrocredit = this.microcredit.filter(o => o.campaign_id === campaign_id)
-    //  console.log(currentMicrocredit);//if (currentMicrocredit[0] ))
-
+  openModalRedeemCampaign(campaign: MicrocreditCampaign) {
     if ((campaign.redeemStarts > this.seconds) || (campaign.redeemEnds < this.seconds)) {
       return;
     }
@@ -222,8 +209,23 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
     dialogConfig.data = {
       campaign: campaign
     };
-
-    // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(StepperPartnerMicrocreditCampaignComponent, dialogConfig);
   }
+
+  openModalSupportCampaign(campaign: MicrocreditCampaign) {
+    if ((campaign.startsAt > this.seconds) || (campaign.expiresAt < this.seconds)) {
+      return;
+    }
+    const dialogConfig = new MatDialogConfig();
+    // The user can't close the dialog by clicking outside its body
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modal-component";
+    dialogConfig.width = "600px";
+    dialogConfig.data = {
+      campaign: campaign
+    };
+    const modalDialog = this.matDialog.open(StepperPartnerMicrocreditSupportComponent, dialogConfig);
+  }
+
+
 }
