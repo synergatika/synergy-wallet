@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
  */
 import { environment } from '../../../environments/environment';
 
-import { Message, Content } from 'sng-core';
+import { Message, Content, Sector } from 'sng-core';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,20 @@ export class ContentService {
   constructor(
     private http: HttpClient
   ) { }
+
+  readSectors(): Observable<Sector[]> {
+    return this.http.get<any>(`${environment.apiUrl}/content/sectors`)
+      .pipe(map(response => {
+        return response.data;
+      }));
+  }
+
+  updateSectors(sectors: Sector[]): Observable<Message> {
+    return this.http.post<any>(`${environment.apiUrl}/content/sectors`, { sectors: sectors })
+      .pipe(map(response => {
+        return response.data;
+      }));
+  }
 
   readContent(): Observable<Content[]> {
     return this.http.get<any>(`${environment.apiUrl}/content`)

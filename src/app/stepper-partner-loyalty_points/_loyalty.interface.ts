@@ -1,14 +1,14 @@
 import { MicrocreditCampaign } from 'sng-core';
 
 interface User {
-    identifier_scan: string;
-    identifier_form: string;
+    identifier: string;
     email: string | undefined;
 }
 
 interface Actions {
     redeem: string; // '00', '10', '11' - Cannnot and Does Not Want, Can but Does Not Want, Can and Want
-    registration: string; // '00', '01', '10', '11' - None, Link Card, Link Email, Full Registration
+    identifier: string; // '00', '01', '10', '11' - None, Link Card, Link Email, Full Registration
+    email: string;
 }
 
 
@@ -22,6 +22,7 @@ interface Transaction {
     discount_points: number;
     final_points: number;
 
+    added_points: number;
 }
 
 export interface LocalLoyaltyInterface {

@@ -51,7 +51,7 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
    */
   public title: string = '';
   public minDate: Date;
-  isQuantitative = false;
+  isQuantitative: boolean = false;
 
   /**
    * File Variables
@@ -324,7 +324,7 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
             } else {
               Swal.fire({
                 title: this.translate.instant('MESSAGE.SUCCESS.TITLE'),
-                text: this.translate.instant('MESSAGE.SUCCESS.CAMPAIGN_PUBLISHED'),
+                text: this.translate.instant('MESSAGE.SUCCESS.CAMPAIGN_UPDATED'),
                 icon: 'success',
                 timer: 2500
               }).then((result) => {

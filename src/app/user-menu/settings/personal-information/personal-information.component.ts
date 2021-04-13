@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap, finalize } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2'
@@ -28,8 +28,10 @@ import {
   PartnerContact,
   PaymentList,
   GeneralList,
-  ContactList
+  ContactList,
+  Sector
 } from 'sng-core';
+import { ContentService } from 'src/app/core/services/content.service';
 
 @Component({
   selector: 'app-personal-information',
@@ -46,7 +48,7 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
   public subAccessConfig: Boolean[] = environment.subAccess;
   //public paymentsList: PaymentList[];
   public contactsList: ContactList[];
-  public sectorList: GeneralList[];
+  public sectorList$: Observable<Sector[]>;
 
   /**
    * Flag Variables
@@ -97,11 +99,12 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
     private staticDataService: StaticDataService,
     private authenticationService: AuthenticationService,
     private partnersService: PartnersService,
-    private membersService: MembersService
+    private membersService: MembersService,
+    private contentService: ContentService
   ) {
     this.contactsList = this.staticDataService.getContactsList;
     // this.paymentsList = this.staticDataService.getPaymentsList;
-    this.sectorList = this.staticDataService.getSectorsList;
+    // this.sectorList = this.staticDataService.getSectorsList;
     this.validator = this.staticDataService.getValidators.user;
     this.unsubscribe = new Subject();
   }
@@ -110,6 +113,8 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
    * On Init
    */
   ngOnInit() {
+    this.sectorList$ = this.contentService.readSectors();
+
     // console.log(this.authenticationService.currentUserValue.user["access"])
     this.access = this.authenticationService.currentUserValue.user["access"];
     (this.access === 'partner') ? this.initPartnerForm() : this.initMemberForm();

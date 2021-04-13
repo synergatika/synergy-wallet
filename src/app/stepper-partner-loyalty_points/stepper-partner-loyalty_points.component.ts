@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef, Inject, HostListener } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
-import { tap, takeUntil, finalize } from 'rxjs/operators';
+import { tap, takeUntil, finalize, switchMap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { WizardComponent } from "angular-archwizard";
 
@@ -51,10 +51,13 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
   public actions: LocalLoyaltyInterface["Actions"];
   public transaction: LocalLoyaltyInterface["Transaction"];
 
+  steps: number[] = [0];
+
   showIdentifierForm: boolean = false;
-  showEmailForm: boolean = false;
+  showAmountForm: boolean = false;
 
   conversionRatiο: number = 0.01;
+  discountRatio: number = 0.2;
 
   loading: boolean = false;
   private unsubscribe: Subject<any>;
@@ -76,6 +79,12 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
     this.subscription.add(this.stepperService.actions.subscribe(actions => this.actions = actions));
     this.subscription.add(this.stepperService.transaction.subscribe(transaction => this.transaction = transaction));
     this.unsubscribe = new Subject();
+
+    const scanOptions = localStorage.getItem('scanOptions');
+    if (scanOptions) {
+      this.showIdentifierForm = scanOptions.split(',')[0] == 'true';
+      this.showAmountForm = scanOptions.split(',')[1] == 'true';
+    }
   }
 
   /**
@@ -101,23 +110,22 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
    * 
    * @param event 
    */
-  onSuccessScanIdentifier(event: string) {
+  onDefineIdentifier(event: string) {
+    const identifier: string = event;
 
-    this.user.identifier_scan = event;
-    this.stepperService.changeUser(this.user);
-
-    this.authenticationService.checkIdentifier((this.user.identifier_scan).toLowerCase())
+    this.authenticationService.checkIdentifier((identifier).toLowerCase())
       .pipe(
         tap(
-          data => {
-            this.actions.registration = (this.actions.registration).slice(0, -4)
-              + '0'
-              + this.checkRegistrationOnIdentifier(data.status);
+          (data) => {
+
+            this.actions.identifier = this.defineAction(data.status);
             this.stepperService.changeActions(this.actions);
+
+            this.stepA_actions(this.defineAction(data.status));
+            this.stepA_messages(this.defineAction(data.status));
           },
-          error => {
-            console.log(error);
-            this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
+          (error) => {
+
           }),
         takeUntil(this.unsubscribe),
         finalize(() => {
@@ -126,40 +134,10 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
-  }
 
-  /**
-   * Step A2: Callback from Identifier Form
-   * 
-   * @param event 
-   */
-  onSubmitIdentifierForm(event: string) {
-
-    this.user.identifier_form = event;
+    this.user.identifier = event;
     this.stepperService.changeUser(this.user);
-
-    this.authenticationService.checkIdentifier((this.user.identifier_form).toLowerCase())
-      .pipe(
-        tap(
-          data => {
-            this.actions.registration = (this.actions.registration).slice(0, -4)
-              + '1'
-              + this.checkRegistrationOnIdentifier(data.status);
-            this.stepperService.changeActions(this.actions);
-          },
-          error => {
-            console.log(error);
-            this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
-          }),
-        takeUntil(this.unsubscribe),
-        finalize(() => {
-          this.loading = false;
-          this.cdRef.markForCheck();
-        })
-      )
-      .subscribe();
   }
-
 
   /**
    * Step B: Callback from Email Form
@@ -167,25 +145,20 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
    * @param event 
    */
   onSubmitEmailForm(event: string) {
+    const email: string = event;
 
-    console.log("I am in EMail FOrm")
     if (event) {
-
-      this.user.email = event;
-      this.stepperService.changeUser(this.user);
-
-      this.authenticationService.checkIdentifier((this.user.email).toLowerCase())
+      this.authenticationService.checkIdentifier((email).toLowerCase())
         .pipe(
           tap(
-            data => {
-              this.actions.registration = (this.actions.registration).slice(0, -6)
-                + this.checkRegistrationOnEmail(data.status)
-                + this.actions.registration.substr(this.actions.registration.length - 4);
+            (data) => {
+              this.actions.email = this.defineAction(data.status);
               this.stepperService.changeActions(this.actions);
+
+              this.stepB_actions(data.status);
             },
-            error => {
-              console.log(error);
-              this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
+            (error) => {
+
             }),
           takeUntil(this.unsubscribe),
           finalize(() => {
@@ -195,26 +168,36 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
         )
         .subscribe();
     } else {
-      this.actions.registration = (this.actions.registration).slice(0, -6)
-        + '00'
-        + this.actions.registration.substr(this.actions.registration.length - 4);
-      this.stepperService.changeActions(this.actions);
-      this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.NO_EMAIL_WILL_LINK'), 'warning');
-      this.onNextStep();
+
     }
+
+    this.user.email = event;
+    this.stepperService.changeUser(this.user);
+
+    console.log("Before go to Handler");
+    console.log(`${this.actions.email}${this.actions.identifier}`)
+    this.actionsHandler();
   }
 
   /**
-   * Step C: Callback from Amount Form
-   * 
-   * @param event 
-   */
-  onSubmitAmountForm(event: number) {
-    // if ((this.actions.registration).length < 5) {
-    //   this.actions.registration = 'xx' + this.actions.registration;
-    //   this.stepperService.changeActions(this.actions);
-    // }
-    this.actionsHandler();
+  * Step C: Callback from Amount Form
+  * 
+  * @param event 
+  */
+  onDefineAmount(event: number) {
+    const amount = event;
+
+    this.transaction.amount = amount;
+    this.transaction.final_amount = amount;
+    this.stepperService.changeTransaction(this.transaction);
+
+    if (this.transaction.amount > 5) {
+      this.fetchBalanceData();
+    } else {
+      this.initializeDiscountAmount();
+    }
+
+    this.stepC_actions();
   }
 
   /**
@@ -223,163 +206,88 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
    * @param event 
    */
   onSubmitDiscountForm(event: boolean) {
-    this.earnPoints(this.user.identifier_form || this.user.identifier_scan);
+    const wantRedeem: boolean = event;
+
+    if (wantRedeem) {
+      this.transaction.final_amount = this.transaction.amount - this.transaction.possible_discount_amount;
+      this.stepperService.changeTransaction(this.transaction);
+    }
+
+    this.actions.redeem = wantRedeem ? '1' : '0';
+    this.stepperService.changeActions(this.actions);
+
+    this.stepD_actions();
   }
 
-  /**
-   * Check if Card Number or Email from Step A1,A2 Exists
-   * 
-   * @param status; 'email_both', 'email_none', 'email_no_card', 'card_both', 'card_none', 'card_no_email',
-   */
-  checkRegistrationOnIdentifier(status: string) {
-    let action: string = 'xxxx';
-    let type: string = '', message: string = '';
-    this.showEmailForm = false;
-
+  defineAction(status: string) {
     switch (status) {
-      case 'email_both': action = '011'; this.onAfterNextStep(2); break; // No action
-      case 'email_none': {
-        action = '000';
-        type = 'success';
-        message = this.translate.instant('WIZARD_MESSAGES.NEW_EMAIL');
-        this.onAfterNextStep(2);
-        break;
-      }
-      case 'email_no_card': action = '010'; this.onAfterNextStep(2); break;// No action
-      case 'card_both': action = '111'; this.onAfterNextStep(2); break;// No action
-      case 'card_none': {
-        action = '100';
-        type = 'success';
-        message = this.translate.instant('WIZARD_MESSAGES.NEW_CARD');
-        this.showEmailForm = true;
-        this.onNextStep();
-        break;
-      } // OR action = '0100' // Full Registration OR Link Card
-      case 'card_no_email': {
-        action = '101' // OR action = '0000' // Link Email OR No Action
-        type = 'success';
-        message = this.translate.instant('WIZARD_MESSAGES.EXISTING_CARD');
-        this.showEmailForm = true;
-        this.onNextStep();
-        break;
-      }
+      case 'email_both': return '011';
+      case 'email_none': return '000';
+      case 'email_no_card': return '010';
+      case 'card_both': return '111';
+      case 'card_none': return '100';
+      case 'card_no_email': return '101';
     }
-    this.stepperNoticeService.setNotice(message, type);
-    console.log("on Check Identifier");
-    console.log(action)
-    return action;
   }
 
-  /**
-   * Check if Email from Step B Exists
-   * 
-   * @param status; 'email_both', 'email_none', 'email_no_card'
-   */
-  checkRegistrationOnEmail(status: string) {
-    let action: string = 'xx';
-    let type: string = '', message: string = '';
-
-    switch (status) {
-      case 'email_both': {
-        action = '11';
-        type = 'danger';
-        message = this.translate.instant('WIZARD_MESSAGES.EMAIL_HAS_CARD');
-        break;
-      }
-      case 'email_none': {
-        action = '10'
-        type = 'success';
-        message = this.translate.instant('WIZARD_MESSAGES.EMAIL_WILL_LINK');
-        this.onNextStep();
-        break;
-      }
-      case 'email_no_card': {
-        action = '11';
-        type = 'success';
-        message = this.translate.instant('WIZARD_MESSAGES.CARD_WILL_LINK');
-        this.onNextStep();
-        break;
-      }
-      default: type = 'danger'; message = 'Something Went Wrong'; break;
+  stepA_actions(status: string) {
+    if (['000', '011', '010', '111'].includes(status)) {
+      this.actionsHandler();
+      this.onSpecificStep(2);
+    } else {
+      this.onNextStep();
     }
-    this.stepperNoticeService.setNotice(message, type);
-    return action;
   }
 
-  /**
-   * Deside the registration action (Registration, Link Email, Link Card)
-   */
-  actionsHandler() {
-    this.loading = true;
-
-    const user = {
-      identifier: this.user.identifier_scan || this.user.identifier_form,
-      email: this.user.email
-    };
-    console.log("Action Handler", this.actions.registration);
-
-    switch (this.actions.registration) {
-      case 'xx1000': { // only email
-        this.actionRegistration(
-          { type: 'success', message: this.translate.instant('WIZARD_MESSAGES.USER_CREATED_EMAIL') }, user.identifier, null)
-        break;
-      }
-      case 'xx0000': { // only email
-        this.actionRegistration(
-          { type: 'success', message: this.translate.instant('WIZARD_MESSAGES.USER_CREATED_EMAIL') }, user.identifier, null)
-        break;
-      }
-      case '000100': { // only card
-        this.actionRegistration(
-          { type: 'success', message: this.translate.instant('WIZARD_MESSAGES.USER_CREATED_CARD') }, null, user.identifier);
-        break;
-      }
-      case '001100': { // only card
-        this.actionRegistration(
-          { type: 'success', message: this.translate.instant('WIZARD_MESSAGES.USER_CREATED_CARD') }, null, user.identifier);
-        break;
-      }
-      case '100100': { // email_card
-        this.actionRegistration(
-          { type: 'success', message: this.translate.instant('WIZARD_MESSAGES.USER_CREATED') }, user.email, user.identifier);
-        break;
-      }
-      case '101100': { // email_card
-        this.actionRegistration(
-          { type: 'success', message: this.translate.instant('WIZARD_MESSAGES.USER_CREATED') }, user.email, user.identifier);
-        break;
-      }
-      case '100101': { //link_email
-        this.actionLinkEmail(
-          { type: 'success', message: this.translate.instant('WIZARD_MESSAGES.LINK_EMAIL') }, user.email, user.identifier);
-        break;
-      }
-      case '101101': { //link_email
-        this.actionLinkEmail(
-          { type: 'success', message: this.translate.instant('WIZARD_MESSAGES.LINK_EMAIL') }, user.email, user.identifier);
-        break;
-      }
-      case '110100': { //link_card
-        this.actionLinkCard(
-          { type: 'success', message: this.translate.instant('WIZARD_MESSAGES.LINK_CARD') }, user.email, user.identifier);
-        break;
-      }
-      case '111100': { //link_card
-        this.actionLinkCard(
-          { type: 'success', message: this.translate.instant('WIZARD_MESSAGES.LINK_CARD') }, user.email, user.identifier);
-        break;
-      }
-      default: {
-        this.fetchBalanceData(false);
-        break;
+  stepA_messages(status: string) {
+    if (['011', '010', '111'].includes(status)) {
+      // do nothing
+    } else if (status == '000') {
+      this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.NEW_EMAIL'), 'success');
+    } else {
+      if (status == '101') {
+        this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.EXISTING_CARD'), 'success');
+      } else if (status == '100') {
+        this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.NEW_CARD'), 'success');
       }
     }
+  }
 
-    // => registration with card,
-    // => registration with email,
-    // => registration with email, card
-    // => link a card
-    // => link an email
+  stepB_actions(status: string) {
+    this.actionsHandler();
+    this.onNextStep();
+  }
+
+  async stepC_actions() {
+
+  }
+
+  async stepD_actions() {
+    console.log("wantRedeem")
+    console.log(this.actions.redeem)
+    if (this.actions.redeem == '1') {
+      console.log("I will redeem")
+      this.transaction.discount_amount = this.transaction.possible_discount_amount;
+      this.transaction.discount_points = this.transaction.possible_discount_amount * (1 / this.conversionRatiο);
+      this.stepperService.changeTransaction(this.transaction);
+      this.earnAndRedeemPoints();
+    } else {
+      this.transaction.discount_amount = 0;
+      this.transaction.discount_points = 0;
+      console.log("I will NOT redeem")
+      this.earnPoints();
+    }
+
+    console.log(this.transaction)
+  }
+
+  async stepE_actions() {
+    this.onNextStep();
+  }
+
+
+  async afterDefineDiscount(wantRedeem: boolean) {
+
   }
 
   /**
@@ -393,53 +301,90 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
     return f + 0.5;
   }
 
-  initializeDiscountAmount() {
+  async initializeDiscountAmount() {
 
-    console.log("Initialize Discount");
-    console.log(this.transaction);
-
-    const maxAllowedDiscount: number = this.transaction.amount * 0.2;
+    const maxAllowedDiscount: number = this.transaction.amount * this.discountRatio;
     const maxPossibleDiscount: number = this.transaction.points * this.conversionRatiο;
 
-    if ((this.transaction.amount >= 5) && (maxPossibleDiscount >= 1)) {
+    console.log("Init Discount");
+    console.log(this.transaction);
+    console.log("maxPossibleDiscount", maxPossibleDiscount);
+    console.log("maxAllowedDiscount", maxAllowedDiscount);
+
+    if ((this.transaction.amount >= 5) && (maxPossibleDiscount >= 0.5)) {
       this.transaction.possible_discount_amount = (maxPossibleDiscount > maxAllowedDiscount) ? this.slipFloor(maxAllowedDiscount) : this.slipFloor(maxPossibleDiscount);
-      this.transaction.discount_points = 0;//this.transaction.discount_amount * (1 / this.conversionRatiο);
-      this.transaction.discount_amount = 0;
       this.stepperService.changeTransaction(this.transaction);
-      console.log("Can Redeem")
-      console.log("Discount Amount: " + this.transaction.possible_discount_amount, "Discount Points: " + this.transaction.discount_points);
       this.discountForm.initializeDiscount();
       this.onNextStep();
-    } else if ((this.transaction.amount < 5) || (maxPossibleDiscount < 1)) {
-      this.actions.redeem = '00';
-      this.stepperService.changeActions(this.actions);
+    } else if ((this.transaction.amount < 5) || (maxPossibleDiscount < 0.5)) {
+
       this.transaction.possible_discount_amount = 0;
-      this.transaction.discount_amount = 0;
-      this.transaction.discount_points = 0;
       this.stepperService.changeTransaction(this.transaction);
       console.log("Can Not Redeem")
       console.log("Discount Amount: " + this.transaction.possible_discount_amount, "Discount Points: " + this.transaction.discount_points);
-      this.earnPoints(this.user.identifier_form || this.user.identifier_scan);
-      this.onAfterNextStep(4);
+      this.earnPoints();
+      this.onSpecificStep(4);
     }
   }
 
-  actionRegistration(notice: { type: string, message: string }, email: string, card: string) {
-
-    console.log("I will register")
-    console.log(this.actions);
-
+  /**
+   * Deside the registration action (Registration, Link Email, Link Card)
+   */
+  actionsHandler() {
     this.loading = true;
+
+    const user = {
+      identifier: this.user.identifier,
+      email: this.user.email
+    };
+
+    switch (`${this.actions.email}${this.actions.identifier}`) {
+      case 'xxx000': { // only email
+        this.actionRegistration(user.identifier, null)
+        break;
+      }
+      case 'xxx100': { // only card
+        this.actionRegistration(null, user.identifier);
+        break;
+      }
+      case '000100': { // email_card
+        this.actionRegistration(user.email, user.identifier);
+        break;
+      }
+      case '010100': { // link_card
+        this.actionLinkCard(user.email, user.identifier);
+        break;
+      }
+      case '011100': { // link_card 
+        this.actionLinkCard(user.email, user.identifier);
+        break;
+      }
+      case '000101': { // link_email
+        this.actionLinkEmail(user.email, user.identifier);
+        break;
+      }
+      default:
+        console.log("On Default")
+        this.loading = false;
+        this.stepperNoticeService.setNotice(null);
+        this.onNextStep();
+    }
+  }
+
+  actionRegistration(email: string, card: string) {
+    this.loading = true;
+    console.log("actionRegistration")
 
     this.authenticationService.register_member(email, card)
       .pipe(
         tap(
-          data => {
-            console.log(data);
-            this.fetchBalanceData(false);
+          (data) => {
+            this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.USER_CREATED'), 'success');
+            this.onNextStep();
           },
-          error => {
-            this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.ERROR_REGISTRATION') + '<br>' +
+          (error) => {
+            this.stepperNoticeService.setNotice(
+              this.translate.instant('WIZARD_MESSAGES.ERROR_REGISTRATION') + '<br>' +
               this.translate.instant(error), 'danger');
           }),
         takeUntil(this.unsubscribe),
@@ -451,18 +396,18 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  actionLinkCard(notice: { type: string, message: string }, email: string, card: string) {
-    console.log('Card', email + card)
+  actionLinkCard(email: string, card: string) {
     this.loading = true;
+    console.log("actionLinkCard")
 
     this.authenticationService.linkCard(email, card)
       .pipe(
         tap(
-          data => {
-            console.log(data);
-            this.fetchBalanceData(false);
+          (data) => {
+            this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.LINK_CARD'), 'success');
+            this.onNextStep();
           },
-          error => {
+          (error) => {
             this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.ERROR_LINK_CARD') + '<br>' +
               this.translate.instant(error), 'danger');
           }),
@@ -475,18 +420,18 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  actionLinkEmail(notice: { type: string, message: string }, email: string, card: string) {
-    console.log('Email', email + card);
+  actionLinkEmail(email: string, card: string) {
     this.loading = true;
+    console.log("actionLinkCard")
 
     this.authenticationService.linkEmail(email, card)
       .pipe(
         tap(
-          data => {
-            console.log(data);
-            this.fetchBalanceData(false);
+          (data) => {
+            this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.LINK_EMAIL'), 'success');
+            this.onNextStep();
           },
-          error => {
+          (error) => {
             this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.ERROR_LINK_EMAIL') + '<br>' +
               this.translate.instant(error), 'danger');
           }),
@@ -499,23 +444,18 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  fetchBalanceData(final: boolean) {
-    this.loyaltyService.readBalanceByPartner(((this.user.identifier_scan || this.user.identifier_form)).toLowerCase())
+  fetchBalanceData() {
+    this.loyaltyService.readBalanceByPartner((this.user.identifier).toLowerCase())
       .pipe(
         tap(
-          data => {
-            if (final) {
-              this.transaction.final_points = parseInt(data.points, 16);
-              console.log("Balance Points ", this.transaction.final_points);
-              this.stepperService.changeTransaction(this.transaction);
-              this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.SUCCESS_TRANSACTION'), 'success');
-              this.onNextStep();
-            } else {
-              this.transaction.points = parseInt(data.points, 16);
-              console.log("Balance Points ", this.transaction.points);
-              this.stepperService.changeTransaction(this.transaction);
-              this.initializeDiscountAmount();
-            }
+          (data) => {
+            console.log("Balance")
+            console.log(data);
+
+            this.transaction.points = parseInt(data.points, 16);
+            this.stepperService.changeTransaction(this.transaction);
+
+            this.initializeDiscountAmount();
           },
           error => {
             this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
@@ -530,100 +470,133 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  earnPoints(_to: string) {
+  earnPoints() {
+    this.loading = true;
 
     let earnPoints = {
       password: 'all_ok',
-      _to: _to,
+      _to: this.user.identifier,
       _amount: this.transaction.final_amount
     };
 
-    this.loading = true;
-
     this.loyaltyService.earnPoints(earnPoints._to, earnPoints.password, earnPoints._amount)
       .pipe(
-        tap(
-          data => {
-            console.log(data);
-            if (this.actions.redeem === '11') {
-              console.log("Will Redeem");
-              this.redeemPoints(_to);
-            } else {
-              console.log("Will Not Redeem");
-              //              this.scannerNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.SUCCESS_TRANSACTION'), 'success');
-              this.fetchBalanceData(true);
-            }
+        switchMap(
+          (data) => {
+            return this.loyaltyService.readBalanceByPartner((this.user.identifier).toLowerCase())
+              .pipe(
+                tap(
+                  (data) => {
+                    this.transaction.final_points = parseInt(data.points, 16);
+                    this.transaction.added_points = this.transaction.final_points + (this.transaction.discount_points - this.transaction.points);
+                    this.stepperService.changeTransaction(this.transaction);
+
+                    this.stepE_actions();
+                  },
+                  (error) => {
+
+                  })
+              );
           },
-          error => {
-            this.loading = false;
-            console.log(error)
-            this.stepperNoticeService.setNotice(
-              this.translate.instant('WIZARD_MESSAGES.ERROR_EARN_POINTS') + '<br>' +
-              this.translate.instant(error), 'danger');
+          (error) => {
+            console.log("Earn Points");
+            console.log(error);
           }),
         takeUntil(this.unsubscribe),
         finalize(() => {
-          // this.loading = false;
+          this.loading = false;
           this.cdRef.markForCheck();
         })
       )
       .subscribe();
-
   }
 
-  redeemPoints(_to: string) {
+  earnAndRedeemPoints() {
+    this.loading = true;
+
+    let earnPoints = {
+      password: 'all_ok',
+      _to: this.user.identifier,
+      _amount: this.transaction.final_amount
+    };
 
     let redeemPoints = {
       password: 'all_ok',
-      _to: _to,
+      _to: this.user.identifier,
       _points: this.transaction.discount_points,
       _amount: this.transaction.discount_amount
     }
-    console.log(this.transaction)
-    this.loyaltyService.redeemPoints(redeemPoints._to, redeemPoints.password, redeemPoints._points, redeemPoints._amount)
+
+    this.loyaltyService.earnPoints(earnPoints._to, earnPoints.password, earnPoints._amount)
       .pipe(
-        tap(
-          data => {
-            console.log("Redeem ", data)
-            // this.scannerNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.SUCCESS_TRANSACTION'), 'success');
-            this.fetchBalanceData(true);
+        switchMap(
+          (data) => {
+            return this.loyaltyService.redeemPoints(redeemPoints._to, redeemPoints.password, redeemPoints._points, redeemPoints._amount)
+              .pipe(
+                switchMap(
+                  (data) => {
+                    return this.loyaltyService.readBalanceByPartner((this.user.identifier).toLowerCase())
+                      .pipe(
+                        tap(
+                          (data) => {
+                            this.transaction.final_points = parseInt(data.points, 16);
+                            this.transaction.added_points = this.transaction.final_points + (this.transaction.discount_points - this.transaction.points);
+                            this.stepperService.changeTransaction(this.transaction);
+
+                            this.stepE_actions();
+                          },
+                          (error) => {
+
+                          })
+                      );
+                  },
+                  (error) => {
+
+                  })
+              );
           },
-          error => {
-            this.loading = false;
-            this.stepperNoticeService.setNotice(
-              this.translate.instant('WIZARD_MESSAGES.ERROR_REDEEM_POINTS') + '<br>' +
-              this.translate.instant(error), 'danger');
-          }),
+          (error) => {
+            console.log("Earn & Redeem Points");
+            console.log(error);
+          }
+        ),
         takeUntil(this.unsubscribe),
         finalize(() => {
-          //  this.loading = false;
+          this.loading = false;
           this.cdRef.markForCheck();
         })
       )
       .subscribe();
   }
 
+
+
+
   onShowIdentifierFormChange() {
     this.showIdentifierForm = !this.showIdentifierForm;
+    localStorage.setItem('scanOptions', `${this.showIdentifierForm},${this.showAmountForm}`);
+  }
+
+  onShowAmountFormChange() {
+    this.showAmountForm = !this.showAmountForm;
+    localStorage.setItem('scanOptions', `${this.showIdentifierForm},${this.showAmountForm}`);
   }
 
   onNextStep() {
-    console.log("Next")
+    this.steps.push(this.steps[this.steps.length] + 1);
     this.wizard.goToNextStep();
   }
 
-  onAfterNextStep(step: number) {
-    console.log("Next : " + step)
+  onSpecificStep(step: number) {
+    this.steps.push(step);
     this.wizard.goToStep(step);
   }
 
   onPreviousStep(event: boolean) {
     this.stepperNoticeService.setNotice(null);
-    if (this.wizard.currentStep.stepTitle === 'Amount' && !this.showEmailForm) {
-      this.onAfterNextStep(0);
-      return;
-    };
-    this.wizard.goToPreviousStep();
+
+    this.steps.pop();
+    this.wizard.goToStep(this.steps[this.steps.length - 1])
   }
 
   onFinalStep(event: boolean) {
@@ -636,6 +609,58 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
 
 
 
+  // redeemPoints() {
+
+  //   let earnPoints = {
+  //     password: 'all_ok',
+  //     _to: this.user.identifier,
+  //     _amount: this.transaction.final_amount
+  //   };
+
+  //   this.loyaltyService.earnPoints(earnPoints._to, earnPoints.password, earnPoints._amount)
+  //     .pipe(
+  //       tap(
+  //         (data) => {
+
+  //           let redeemPoints = {
+  //             password: 'all_ok',
+  //             _to: this.user.identifier,
+  //             _points: this.transaction.discount_points,
+  //             _amount: this.transaction.discount_amount
+  //           }
+
+  //           this.loyaltyService.redeemPoints(redeemPoints._to, redeemPoints.password, redeemPoints._points, redeemPoints._amount)
+  //             .pipe(
+  //               tap(
+  //                 (data) => {
+  //                   console.log("Redeem")
+  //                   console.log(data);
+
+  //                   this.fetchFinalBalanceData();
+  //                 },
+  //                 (error) => {
+
+  //                 }),
+  //               takeUntil(this.unsubscribe),
+  //               finalize(() => {
+  //                 this.loading = false;
+  //                 this.cdRef.markForCheck();
+  //               })
+  //             )
+  //             .subscribe();
+  //         },
+  //         (error) => {
+
+  //         }),
+  //       takeUntil(this.unsubscribe),
+  //       finalize(() => {
+  //         this.loading = false;
+  //         this.cdRef.markForCheck();
+  //       })
+  //     )
+  //     .subscribe();
+
+  // }
 
   // onSuccessScanIdentifier(event: string) {
 

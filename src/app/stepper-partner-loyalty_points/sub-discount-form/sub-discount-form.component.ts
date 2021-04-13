@@ -84,7 +84,6 @@ export class SubDiscountFormComponent implements OnInit, OnDestroy {
 
   initializeDiscount() {
     this.initializeForm();
-    this.actions.redeem = '10';
   }
 
   // cannotRedeem() {
@@ -96,16 +95,10 @@ export class SubDiscountFormComponent implements OnInit, OnDestroy {
 
   onWantRedeemCheckboxChange() {
     const controls = this.stepperForm.controls;
-    this.actions.redeem = '1' + ((controls.wantRedeem.value) ? '0' : '1');
-    console.log(this.actions.redeem);
-    if (this.actions.redeem === '11') {
+    if (controls.wantRedeem.value == false) {
       this.transaction.final_amount = this.transaction.amount - this.transaction.possible_discount_amount;
-      this.transaction.discount_amount = this.transaction.possible_discount_amount;
-      this.transaction.discount_points = this.transaction.possible_discount_amount * (1 / this.conversionRatiο);
     } else {
       this.transaction.final_amount = this.transaction.amount;
-      this.transaction.discount_amount = 0;
-      this.transaction.discount_points = 0;
     }
     controls['final_amount'].setValue(this.transaction.final_amount);
   }
@@ -118,9 +111,6 @@ export class SubDiscountFormComponent implements OnInit, OnDestroy {
       );
       return;
     };
-
-    this.stepperService.changeActions(this.actions);
-    this.stepperService.changeTransaction(this.transaction);
 
     this.add_discount.emit(controls.wantRedeem.value);
   }

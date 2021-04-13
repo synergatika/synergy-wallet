@@ -48,6 +48,7 @@ export const locale = {
       PARTNERS: 'Συνεργάτες',
       MEMBERS: 'Μέλη',
       CONTENT: 'Περιεχόμενο',
+      SECTORS: 'Τομείς Δραστηριότητας'
     },
 
 
@@ -289,6 +290,7 @@ export const locale = {
           PLACEHOLDER: 'Οδηγίες',
           DESC: 'Παρακαλώ, εισάγετε τις Οδηγίες για την απόκτηση της προσφοράς.'
         },
+        QUANTITATIVE: 'Με τη χρήση πόντων;',
         COST: {
           TITLE: 'Κόστος Προσφοράς (σε πόντους)',
           PLACEHOLDER: 'Πόντοι',
@@ -507,6 +509,8 @@ export const locale = {
         PREVIOUS: 'Πίσω',
         NEXT_STEP: 'Επόμενο',
         SAVE: 'Αποθήκευση',
+        INSERT: 'Προσθήκη',
+        REMOVE: 'Αφαίρεση'
       },
       VALIDATION: {
         REQUIRED_FIELD: 'Υποχρεωτικό Πεδίο.',
@@ -561,7 +565,7 @@ export const locale = {
         CAMPAIGN_CREATED: 'Η καμπάνια δημιουργήθηκε επιτυχώς!',
         CAMPAIGN_PUBLISHED: 'Η καμπάνια δημοσιεύθηκε επιτυχώς!',
         CAMPAIGN_UPDATED: 'Η καμπάνια ανανεώθηκε επιτυχώς!',
-        CAMPAIGN_DELETED: 'Η προσφορά διεγράφη επιτυχώς!',
+        CAMPAIGN_DELETED: 'Η καμπάνια διεγράφη επιτυχώς!',
 
         /* Admin Messages (Μηνύματα Διαχειριστή) */
         MEMBER_CREATED: 'A new Member has been successfully created!',
@@ -884,6 +888,10 @@ export const locale = {
           HEADING: 'Εισαγωγή του E-mail του πελάτη',
           HINT: 'Παρακαλούμε εισάγετε τη διεύθυνση E-mail του πελάτη.'
         },
+        SUB_AMOUNT_SCAN: {
+          HEADING: 'Σάρωση Απόδειξης',
+          ALT_PROMPT: 'Εισάγετε το Ποσό της Συναλλαγής',
+        },
         SUB_AMOUNT_FORM: {
           HEADING: 'Ποσό Συναλλαγής',
           TITLE: 'Ποσό',
@@ -905,7 +913,8 @@ export const locale = {
           TOKENS_BEFORE: 'Αρχικά Κουπόνια',
           TOKENS_REDEEMED: 'Κουπόνια που Χρησιμοποιήθηκαν',
           TOKENS_REMAINING: 'Εναπομείναντα Κουπόνια',
-          PAYMENT_ID: 'Αναγνωριστικό Πληρωμής'
+          PAYMENT_ID: 'Αναγνωριστικό Πληρωμής',
+          USER_CAN: 'Ο Χρήστης έχει δικαίωμα έκπτωσης'
         },
         SUB_OFFER_FORM: {
           HEADING_MAIN: 'Λεπτομέρειες Συναλλαγής',

@@ -8,8 +8,7 @@ import { LocalLoyaltyInterface } from './_loyalty.interface';
 export class LocalLoyaltyService {
 
     private userSource = new BehaviorSubject({
-        identifier_scan: '',
-        identifier_form: '',
+        identifier: '',
         email: ''
     });
     user = this.userSource.asObservable();
@@ -21,13 +20,15 @@ export class LocalLoyaltyService {
         final_amount: 0,
         points: 0,
         discount_points: 0,
-        final_points: 0
+        final_points: 0,
+        added_points: 0
     });
     transaction = this.transactionSource.asObservable();
 
     private actionsSource = new BehaviorSubject({
-        redeem: '00',
-        registration: 'xxxxxx'
+        redeem: '0',
+        identifier: 'xxx',
+        email: 'xxx'
     });
     actions = this.actionsSource.asObservable();
 

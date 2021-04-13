@@ -35,6 +35,10 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { UserGuard } from './core/guards/user.guard';
 import { ConfigGuard } from './core/guards/config.guard';
 
+
+import { EditSectorsComponent } from '../app/admin-menu/edit-sectors/edit-sectors.component';
+
+
 const routes: Routes = [
 	{
 		path: 'auth',
@@ -179,7 +183,7 @@ const routes: Routes = [
 				loadChildren: () => import('./admin-menu/admin-partners/admin-partners.module').then(m => m.AdminPartnersModule),
 				canActivate: [UserGuard],
 				data: {
-					title: 'MENU.CONTENT',
+					title: 'MENU.PARTNERS',
 					expectedRole: 'admin'
 				}
 			},
@@ -188,7 +192,7 @@ const routes: Routes = [
 				loadChildren: () => import('./admin-menu/admin-members/admin-members.module').then(m => m.AdminMembersModule),
 				canActivate: [UserGuard],
 				data: {
-					title: 'MENU.CONTENT',
+					title: 'MENU.MEMBERS',
 					expectedRole: 'admin'
 				}
 			},
@@ -197,7 +201,17 @@ const routes: Routes = [
 				loadChildren: () => import('./admin-menu/content/content.module').then(m => m.ContentModule),
 				canActivate: [UserGuard],
 				data: {
-					title: 'MENU.USERS',
+					title: 'MENU.CONTENT',
+					expectedRole: 'admin'
+				}
+			},
+			{
+				path: 'a-sectors',
+				// loadChildren: () => import('./admin-menu/content/content.module').then(m => m.ContentModule),
+				component: EditSectorsComponent,
+				canActivate: [UserGuard],
+				data: {
+					title: 'MENU.SECTORS',
 					expectedRole: 'admin'
 				}
 			},

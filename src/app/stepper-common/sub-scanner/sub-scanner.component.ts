@@ -20,14 +20,14 @@ export class SubScannerComponent implements OnInit {
 
   constructor() { }
 
-	/**
-	 * On Init
-	 */
+  /**
+   * On Init
+   */
   ngOnInit() {
   }
 
   scanSuccessHandler(result: string): void {
-    if (this.scanned) return
+    //  if (this.scanned) return
     this.scanned = true;
 
     const identifier = result;

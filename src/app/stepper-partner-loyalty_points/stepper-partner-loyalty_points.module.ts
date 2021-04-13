@@ -22,6 +22,7 @@ import { ArchwizardModule } from 'angular-archwizard';
 import { StepperPartnerLoyaltyPointsComponent } from './stepper-partner-loyalty_points.component';
 
 import { SubAmountFormComponent } from './sub-amount-form/sub-amount-form.component';
+import { SubAmountScanComponent } from './sub-amount-scan/sub-amount-scan.component';
 import { SubDiscountFormComponent } from './sub-discount-form/sub-discount-form.component';
 import { SubFinalStepComponent } from './sub-final-step/sub-final-step.component';
 
@@ -66,6 +67,7 @@ const routes: Routes = [
     declarations: [
         StepperPartnerLoyaltyPointsComponent,
 
+        SubAmountScanComponent,
         SubAmountFormComponent,
         SubDiscountFormComponent,
         SubFinalStepComponent

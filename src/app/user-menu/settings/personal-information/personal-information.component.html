@@ -44,8 +44,8 @@
             <mat-form-field>
               <mat-label>{{'FIELDS.PROFILE.SECTOR.TITLE' | translate}}</mat-label>
               <mat-select formControlName="sector">
-                <mat-option *ngFor="let item of sectorList" value="{{item.value}}">
-                  {{item.title | translate}}
+                <mat-option *ngFor="let item of sectorList$ | async" value="{{item._id}}">
+                  {{item | content_translate: 'title' }}
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="isPartnerControlHasError('sector','required')" class="error text-danger">

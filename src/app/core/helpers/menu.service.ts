@@ -96,6 +96,12 @@ export class MenuService extends IMenuService {
 			link: 'a-content',
 			icon: 'content-paste',
 			enable: true
+		},
+		{
+			title: 'MENU.SECTORS',
+			link: 'a-sectors',
+			icon: 'sitemap',
+			enable: true
 		}
 	];
 

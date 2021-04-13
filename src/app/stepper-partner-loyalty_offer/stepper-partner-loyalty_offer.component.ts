@@ -59,9 +59,9 @@ export class StepperPartnerLoyaltyOfferComponent implements OnInit, OnDestroy {
     this.unsubscribe = new Subject();
   }
 
-	/**
-	 * On Init
-	 */
+  /**
+   * On Init
+   */
   ngOnInit() {
     this.offer = this.data.offer;
     this.stepperService.changeLoyaltyOffer(this.offer);
@@ -72,9 +72,9 @@ export class StepperPartnerLoyaltyOfferComponent implements OnInit, OnDestroy {
     this.stepperService.changeTransaction(this.transaction);
   }
 
-	/**
-	 * On destroy
-	 */
+  /**
+   * On destroy
+   */
   ngOnDestroy() {
     this.stepperNoticeService.setNotice(null);
     this.subscription.unsubscribe();
@@ -162,6 +162,7 @@ export class StepperPartnerLoyaltyOfferComponent implements OnInit, OnDestroy {
     this.stepperService.changeUser(this.user);
 
     this.fetchBalanceData(false);
+
   }
 
   /**

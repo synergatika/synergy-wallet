@@ -1,5 +1,24 @@
 <div class="step-amount">
 
+  <!-- <div *ngIf="!showAmountForm">
+    <h3 class="heading">{{ 'PARTNER.WIZARD.SCAN_LOYALTY.HEADING' | translate }}</h3>
+    <div class="step-scanner">
+      <div class="zxing-scanner">
+        <zxing-scanner [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"
+          (scanSuccess)="scanSuccessHandler($event)" (scanError)="scanErrorHandler($event)">
+        </zxing-scanner>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="button" (click)="onShowIdentifierFormChange()">
+    <span *ngIf="!showAmountForm; else back_to_scanner">
+      {{ 'PARTNER.WIZARD.SCAN_LOYALTY.ALT_PROMPT' | translate }}
+    </span>
+    <ng-template #back_to_scanner>
+      <span>{{ 'PARTNER.WIZARD.BACK_TO_SCANNER' | translate }}</span>
+    </ng-template>
+  </button> -->
+
   <!--begin::Form(Wizard Step 3)-->
   <form [formGroup]="stepperForm">
     <h5 class="heading">{{ 'PARTNER.WIZARD.SUB_AMOUNT_FORM.HEADING' | translate }}</h5>

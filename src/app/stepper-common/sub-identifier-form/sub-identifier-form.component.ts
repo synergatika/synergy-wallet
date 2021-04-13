@@ -29,9 +29,9 @@ export class SubIdentifierFormComponent implements OnInit {
     private fb: FormBuilder
   ) { }
 
-	/**
-	 * On Init
-	 */
+  /**
+   * On Init
+   */
   ngOnInit() {
     this.initializeForm();
   }
@@ -46,7 +46,7 @@ export class SubIdentifierFormComponent implements OnInit {
   }
 
   scanSuccessHandler(result: string): void {
-    if (this.scanned) return;
+    //  if (this.scanned) return;
     this.scanned = true;
   }
 
@@ -63,7 +63,11 @@ export class SubIdentifierFormComponent implements OnInit {
       return;
     };
 
-    const identifier = controls.identifier.value;
+    let identifier = controls.identifier.value;
+    const emailPatern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(identifier);
+
+    if (!emailPatern) { identifier = identifier.padStart(16, "0000000000000000"); }
+
     this.add_identifier.emit(identifier);
   }
 

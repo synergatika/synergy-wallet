@@ -118,8 +118,17 @@
             </div>
             <!--end::Form Group "Expiration Date"-->
 
-            <!--begin::Form Group "Cost"-->
+            <!--begin::Form Group "Quantitative"-->
             <div class="form-group">
+              <mat-checkbox (click)="onIsQuantitativeCheckboxChange()" type="checkbox" class="" name="redeem"
+                formControlName="quantitative" value="false" labelPosition="before">
+                {{'FIELDS.OFFER.QUANTITATIVE' | translate}}
+              </mat-checkbox>
+            </div>
+            <!--end::Form Group "Quantitative"-->
+
+            <!--begin::Form Group "Cost"-->
+            <div class="form-group" *ngIf="isQuantitative">
               <mat-form-field>
                 <mat-label>{{'FIELDS.OFFER.COST.TITLE' | translate}}</mat-label>
                 <input matInput type="number" name="points" formControlName="cost"

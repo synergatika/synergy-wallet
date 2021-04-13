@@ -15,6 +15,7 @@ import { environment } from '../../../environments/environment';
  */
 import { StepperPartnerLoyaltyPointsComponent } from '../../stepper-partner-loyalty_points/stepper-partner-loyalty_points.component';
 import { StepperPartnerLoyaltyOfferComponent } from '../../stepper-partner-loyalty_offer/stepper-partner-loyalty_offer.component';
+import { StepperPartnerLoyaltyPointlessOfferComponent } from '../../stepper-partner-loyalty_pointless_offer/stepper-partner-loyalty_pointless_offer.component';
 import { StepperPartnerMicrocreditCampaignComponent } from '../../stepper-partner-microcredit_campaign/stepper-partner-microcredit_campaign.component';
 
 /**
@@ -201,7 +202,13 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
     };
 
     // https://material.angular.io/components/dialog/overview
-    const modalDialog = this.matDialog.open(StepperPartnerLoyaltyOfferComponent, dialogConfig);
+    let currentModal;
+    if (offer.cost > 0) {
+      currentModal = this.matDialog.open(StepperPartnerLoyaltyOfferComponent, dialogConfig);
+    } else {
+      currentModal = this.matDialog.open(StepperPartnerLoyaltyPointlessOfferComponent, dialogConfig);
+    }
+    const modalDialog = currentModal;
   }
 
   /**

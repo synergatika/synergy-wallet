@@ -48,6 +48,7 @@ export const locale = {
       PARTNERS: 'Partners',
       MEMBERS: 'Members',
       CONTENT: 'Content',
+      SECTORS: 'Sectors'
     },
 
 
@@ -289,6 +290,7 @@ export const locale = {
           PLACEHOLDER: 'Instructions',
           DESC: 'Please, enter Offer Instructions.'
         },
+        QUANTITATIVE: 'Using Points?',
         COST: {
           TITLE: 'Cost in points',
           PLACEHOLDER: 'Points',
@@ -507,6 +509,8 @@ export const locale = {
         PREVIOUS: 'Previous',
         NEXT_STEP: 'Next Step',
         SAVE: 'Save',
+        INSERT: 'Insert',
+        REMOVE: 'Remove',
       },
       VALIDATION: {
         REQUIRED_FIELD: 'Required field.',
@@ -883,6 +887,10 @@ export const locale = {
           HEADING: 'Enter a member E-mail',
           HINT: 'Please enter client\'s email address.'
         },
+        SUB_AMOUNT_SCAN: {
+          HEADING: 'Scan the receipt',
+          ALT_PROMPT: 'Please insert the amount',
+        },
         SUB_AMOUNT_FORM: {
           HEADING: 'Transaction amount',
           TITLE: 'Amount',
@@ -904,7 +912,8 @@ export const locale = {
           TOKENS_BEFORE: 'Initial Tokens',
           TOKENS_REDEEMED: 'Tokens Redeemed',
           TOKENS_REMAINING: 'Tokens Remaining',
-          PAYMENT_ID: 'Payment ID'
+          PAYMENT_ID: 'Payment ID',
+          USER_CAN: 'User can have the discount'
         },
         SUB_OFFER_FORM: {
           HEADING_MAIN: 'Offer\'s Transaction Details',
