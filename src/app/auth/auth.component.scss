@@ -1,15 +1,21 @@
-.login {
-  margin-top: 20px;
-  height: 100%;
+body{
+  height: auto;
+}
 
+.login {
   .header_right__wrapper {
     display: flex;
     float: right;
   }
 
   .auth-logo {
-    margin-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom: 30px;
     text-align: center;
+    img{
+      width: 400px;
+      max-width: 95%;
+    }
   }
 
   .page-wrapper {
@@ -23,6 +29,7 @@
 
   .auth-card {
     padding: 40px;
+    margin:20px;
     text-align: center;
 
     &-header {
@@ -30,7 +37,7 @@
         margin: 0 auto;
 
         .mat-card-title {
-          font-size: 2rem;
+          font-size: 1.8rem;
         }
       }
     }
@@ -52,6 +59,16 @@
   }
 }
 
+.auth_head{
+  margin-top: 30px;
+  border-top: 1px solid #e5e0e0;
+  padding-top: 20px;
+  a{
+    color:var(--secondary);
+    font-weight: bold;
+  }
+}
+
 // .spinner-overlay {
 //   position: fixed;
 //   width: 100%;
@@ -66,24 +83,15 @@
 // }
 
 .footer {
-  margin-top: 40px;
-  padding-bottom: 20px;
-
-  .row {
-    max-width: 900px;
-    margin: 0 auto;
-
-    img {
-      max-width: 250px;
-    }
-
-    .eu-img-container {
-      text-align: center;
-
-      .eu-img {
-        max-width: 110px;
-        margin: 0 auto;
-      }
+  margin-top: 30px;
+  margin-bottom: 15px;
+  text-align: center;
+  color:#fff;
+  a{
+    color:#fff;
+    font-weight: bold;
+    &:hover{
+      color:var(--tertiary);
     }
   }
 }

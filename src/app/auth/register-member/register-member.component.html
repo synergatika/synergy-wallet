@@ -5,6 +5,7 @@
   <div class="auth_container">
     <div class="auth_title">
       <h3>{{ 'AUTH.REGISTER.TITLE' | translate }}</h3>
+      <p>{{ 'AUTH.MESSAGES.WELCOME_SUBTITLE' | translate }}</p>
     </div>
 
     <!--begin::Auth Notice-->
@@ -116,12 +117,9 @@
 
       <!--begin::Form Actions-->
       <div class="auth_actions">
-        <a href="javascript:;" routerLink="/auth/forgot-password" class="auth_link mr-2">
-          {{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
-        </a>
-        <button mat-raised-button type="button" class="btn btn-secondary mr-2" routerLink="/auth/login">
+        <!--<button mat-raised-button type="button" class="btn btn-secondary mr-2" routerLink="/auth/login">
           {{ 'AUTH.GENERAL.BACK_BUTTON' | translate }}
-        </button>
+        </button>-->
         <button mat-raised-button class="btn btn-primary" (click)="submitForm()" (keyup.enter)="submitForm()">
           {{ 'AUTH.REGISTER.BUTTON' | translate }}
         </button>
@@ -131,7 +129,15 @@
     </form>
     <!--end::Form-->
 
-    <!--begin::Case canPartnerAutoRegistration-->
+    <div class="auth_head">
+      <span class="auth_label">
+        {{ 'AUTH.MESSAGES.HAVE_ACCOUNT' | translate }}
+      </span>&nbsp;&nbsp;
+      <a class="auth_link" href="javascript:;" routerLink="/auth/login">
+        {{ 'AUTH.LOGIN.TITLE' | translate }}
+      </a>
+    </div>
+    <!--begin::Case canPartnerAutoRegistration
     <div *ngIf="subAccessConfig[3]" class="auth_head">
       <span class="auth_label">
         {{ 'AUTH.MESSAGES.PARTNER_ACCOUNT' | translate }}
@@ -140,7 +146,7 @@
         {{ 'AUTH.REGISTER.BUTTON' | translate }} {{ 'AUTH.GENERAL.AS_PARTNER' | translate }}
       </a>
     </div>
-    <!--end::Case canPartnerAutoRegistration-->
+    end::Case canPartnerAutoRegistration-->
 
   </div>
   <!--end::Register-->

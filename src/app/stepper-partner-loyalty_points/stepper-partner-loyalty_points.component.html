@@ -9,22 +9,22 @@
   <aw-wizard>
 
     <!--begin::Step A - Scan/Enter Identifier-->
-    <aw-wizard-step stepTitle="Scan Or Add">
-
+    <aw-wizard-step stepTitle="{{ 'PARTNER.WIZARD.STEPS.INDENTIFY' | translate }}">
       <!--begin::Stepper Notice-->
       <stepper-notice></stepper-notice>
       <!--end::Stepper Notice-->
-
       <div class="step-container row justify-content-md-center">
         <div class="col-md-8">
           <div *ngIf="!showIdentifierForm">
             <h3 class="heading">{{ 'PARTNER.WIZARD.SCAN_LOYALTY.HEADING' | translate }}</h3>
             <app-sub-scanner (scan_identifier)="onDefineIdentifier($event)">
-            </app-sub-scanner>
+              <h3 class="heading">{{ 'PARTNER.WIZARD.SCAN_FORM.HEADING' | translate }}</h3>
+              <app-sub-scanner (scan_identifier)="onSuccessScanIdentifier($event)">
+              </app-sub-scanner>
           </div>
-          <button class="btn btn-primary" type="button" (click)="onShowIdentifierFormChange()">
+          <button mat-raised-button type="button" (click)="onShowIdentifierFormChange()">
             <span *ngIf="!showIdentifierForm; else back_to_scanner">
-              {{ 'PARTNER.WIZARD.SCAN_LOYALTY.ALT_PROMPT' | translate }}
+              {{ 'PARTNER.WIZARD.SCAN_FORM.ALT_PROMPT' | translate }}
             </span>
             <ng-template #back_to_scanner>
               <span>{{ 'PARTNER.WIZARD.BACK_TO_SCANNER' | translate }}</span>
@@ -40,7 +40,7 @@
     <!--end::Step A - Scan/Enter Identifier-->
 
     <!--begin::Step B - Enter Email (Optional)-->
-    <aw-wizard-step stepTitle="Email" awOptionalStep>
+    <aw-wizard-step stepTitle="{{ 'PARTNER.WIZARD.STEPS.EMAIL' | translate }}" awOptionalStep>
 
       <!--begin::Stepper Notice-->
       <stepper-notice></stepper-notice>
@@ -53,8 +53,8 @@
     </aw-wizard-step>
     <!--end::Step B - Enter Email (Optional)-->
 
-    <!--begin::Step C - Scan/Enter Amount-->
-    <aw-wizard-step stepTitle="Amount">
+    <!--begin::Step C - Enter Amount-->
+    <aw-wizard-step stepTitle="{{ 'PARTNER.WIZARD.STEPS.AMOUNT' | translate }}">
 
       <!--begin::Stepper Notice-->
       <stepper-notice></stepper-notice>
@@ -89,7 +89,7 @@
     <!--end::Step C - Scan/Enter Amount-->
 
     <!--begin::Step D - Enter Discount-->
-    <aw-wizard-step stepTitle="Discount" awOptionalStep>
+    <aw-wizard-step stepTitle="{{ 'PARTNER.WIZARD.STEPS.DISCOUNT' | translate }}" awOptionalStep>
 
       <!--begin::Stepper Notice-->
       <stepper-notice></stepper-notice>
@@ -103,7 +103,7 @@
     <!--end::Step D - Enter Discount-->
 
     <!--begin::Step E - Final-->
-    <aw-wizard-step stepTitle="Final">
+    <aw-wizard-step stepTitle="{{ 'PARTNER.WIZARD.STEPS.FINAL' | translate }}">
 
       <!--begin::Stepper Notice-->
       <stepper-notice></stepper-notice>

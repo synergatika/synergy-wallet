@@ -1,10 +1,16 @@
 <div class="step-final">
 
-  <p>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.AMOUNT' | translate }}: {{transaction.amount}}</p>
-  <p>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.PAYMENT_ID' | translate }}: {{transaction.payment_id}}</p>
+  <div *ngIf="transaction" class="amounts-table">
+    <p>
+      <label>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.AMOUNT' | translate }}</label>
+      <span>{{transaction.amount}}</span>
+    <p>
+        <label>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.PAYMENT_ID' | translate }}</label>
+        <span>{{transaction.payment_id}}</span>
+  </div>
 
   <!--begin::Wizard Buttons-->
-  <button mat-raised-button (click)="onNextStep()">
+  <button class="btn btn-primary" (click)="onNextStep()">
     {{ 'PARTNER.WIZARD.CLOSE' | translate }}
   </button>
   <!--end::Wizard Buttons-->

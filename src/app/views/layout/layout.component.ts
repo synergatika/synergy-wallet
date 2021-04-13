@@ -9,6 +9,7 @@ import { AuthenticationService } from '../../core/services/authentication.servic
 })
 export class LayoutComponent implements OnInit {
 	user: any;
+	logo: string = './assets/media/images/logo.png' ;
 
 	constructor(
 		private menuService: MenuService,

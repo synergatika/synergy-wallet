@@ -175,16 +175,10 @@ th .mat-sort-header-sorted {
     width: 100%;
     justify-content: space-between;
     pointer-events: none;
-
-    @media (max-width: 600px) {
-      display: none;
-    }
-
     [class*="owl-"] {
       font-size: 34px;
       line-height: 1.1;
       background-color: $primary;
-
       &:hover {
         background-color: $primary-light;
       }
@@ -210,10 +204,9 @@ th .mat-sort-header-sorted {
       }
     }
   }
-
   .owl-dots {
+    margin-bottom: 20px;
     .owl-dot {
-
       &.active,
       &:hover {
         span {
@@ -222,6 +215,9 @@ th .mat-sort-header-sorted {
       }
     }
   }
+}
+.owl-carousel .owl-stage-outer{
+  margin-bottom: 20px;
 }
 
 ///2.3 Modal Diaglog
@@ -431,16 +427,16 @@ th .mat-sort-header-sorted {
 			max-width: 250px;
 			margin-bottom: 15px;
 		}
-	
+
 		&-container {
 			position: relative;
 			display: inline-block;
 		}
-	
+
 		&-btn {
 			margin-bottom: 10px;
 		}
-	
+
 		.image-cancel {
 			position: absolute;
 			top: -6px;
@@ -450,7 +446,7 @@ th .mat-sort-header-sorted {
 			height: 20px;
 			background: #fff;
 			border-radius: 50%;
-	
+
 			span {
 				position: relative;
 				top: -10px;
@@ -460,7 +456,7 @@ th .mat-sort-header-sorted {
 			}
 		}
 	}
-	
+
 	mat-form-field {
     width: 100%;
     padding: 10px;

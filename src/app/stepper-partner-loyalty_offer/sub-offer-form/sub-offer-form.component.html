@@ -1,12 +1,10 @@
 <div class="step-quantity">
-  <h4 class="heading">{{ 'PARTNER.WIZARD.SUB_OFFER_FORM.HEADING_MAIN' | translate }}
+  <!--<h4 class="heading">{{ 'PARTNER.WIZARD.SUB_OFFER_FORM.HEADING_MAIN' | translate }}
     <div class="stepper-subtitle">
       {{ 'PARTNER.WIZARD.SUB_OFFER_FORM.OFFER' | translate }}: {{transaction.offer_title}}
     </div>
   </h4>
-
-  <hr>
-
+  <hr>-->
   <div class="mb-3">
     <h4 class="heading">{{ 'PARTNER.WIZARD.SUB_OFFER_FORM.SUB_HEADING' | translate }}
     </h4>
@@ -46,7 +44,7 @@
           <span *ngIf="isControlHasError('quantity','max')" class="error text-danger">
             {{ 'FORM.VALIDATION.MAX_VALUE_FIELD' | translate }} {{ transaction.possible_quantity }}
           </span>
-          <span class="form-text text-muted">
+          <span class="form-text hint text-muted">
             {{ 'PARTNER.WIZARD.SUB_OFFER_FORM.FORM_HINT' | translate }}
           </span>
         </div>
@@ -62,7 +60,7 @@
     <button mat-raised-button class="mr-2" (click)="onPreviousStep()">
       {{ 'PARTNER.WIZARD.PREVIOUS_STEP' | translate }}
     </button>
-    <button *ngIf='transaction.possible_quantity' mat-raised-button (click)="onNextStep()">
+    <button class="btn btn-primary" *ngIf='transaction.possible_quantity' (click)="onNextStep()">
       {{ 'PARTNER.WIZARD.COMPLETE' | translate }}
     </button>
     <!--end::Wizard Buttons-->

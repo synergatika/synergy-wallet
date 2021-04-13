@@ -24,7 +24,7 @@ export class StaticDataService {
    * Owl Carousel
    */
   customOptionsTwo: OwlOptions = {
-    loop: true,
+    loop: false,
     mouseDrag: true,
     touchDrag: false,
     pullDrag: false,
@@ -44,7 +44,7 @@ export class StaticDataService {
   };
 
   customOptionsThree: OwlOptions = {
-    loop: true,
+    loop: false,
     mouseDrag: true,
     touchDrag: false,
     pullDrag: false,

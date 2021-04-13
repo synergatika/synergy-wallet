@@ -101,7 +101,7 @@ export class SubMicrocreditFormComponent implements OnInit, OnDestroy {
     this.stepperService.changeTransaction(this.transaction);
     // this.fetchTransactions();
     this.transactions = support.transactions.sort((a: MicrocreditTransaction, b: MicrocreditTransaction) => { return (a._id < b._id) ? -1 : 1 });
-
+    this.transactions = this.transactions.reverse();
   }
 
   initializeSelectedSupport() {

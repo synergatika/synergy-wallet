@@ -9,19 +9,22 @@
   <aw-wizard>
 
     <!--begin::Step A - Scan/Enter Identifier-->
-    <aw-wizard-step stepTitle="Scan Or Add">
+    <aw-wizard-step stepTitle="{{ 'PARTNER.WIZARD.STEPS.INDENTIFY' | translate }}">
 
       <!--begin::Stepper Notice-->
       <stepper-notice></stepper-notice>
       <!--end::Stepper Notice-->
 
       <div class="step-container row justify-content-md-center">
-        <div class="col-xl-6">
-          <app-sub-scanner *ngIf="!showIdentifierForm" (scan_identifier)="onSuccessScanIdentifier($event)">
-          </app-sub-scanner>
-          <button class="btn btn-primary" type="button" (click)="onShowIdentifierFormChange()">
+        <div class="col-md-8">
+          <div *ngIf="!showIdentifierForm">
+            <h3 class="heading">{{ 'PARTNER.WIZARD.SCAN_FORM.HEADING' | translate }}</h3>
+            <app-sub-scanner (scan_identifier)="onSuccessScanIdentifier($event)">
+            </app-sub-scanner>
+          </div>
+          <button mat-raised-button type="button" (click)="onShowIdentifierFormChange()">
             <span *ngIf="!showIdentifierForm; else back_to_scanner">
-              {{ 'PARTNER.WIZARD.SCAN_LOYALTY.ALT_PROMPT' | translate }}
+                {{ 'PARTNER.WIZARD.SCAN_FORM.ALT_PROMPT' | translate }}
             </span>
             <ng-template #back_to_scanner>
               <span>
@@ -39,7 +42,7 @@
     <!--end::Step A - Scan/Enter Identifier-->
 
     <!--begin::Step B - Enter Tokens-->
-    <aw-wizard-step stepTitle="Microcredit">
+    <aw-wizard-step stepTitle="{{ 'PARTNER.WIZARD.STEPS.MICROCREDIT' | translate }}">
 
       <!--begin::Stepper Notice-->
       <stepper-notice></stepper-notice>
@@ -55,7 +58,7 @@
     <!--end::Step B - Enter Tokens-->
 
     <!--begin::Step C - Final-->
-    <aw-wizard-step stepTitle="Final">
+    <aw-wizard-step stepTitle="{{ 'PARTNER.WIZARD.STEPS.FINAL' | translate }}">
 
       <!--begin::Stepper Notice-->
       <stepper-notice></stepper-notice>

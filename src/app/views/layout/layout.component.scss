@@ -11,7 +11,7 @@
 	z-index: 2;
 	top: 0;
 	left: 0;
-	background-color: #0c1a33; /* Black*/
+	background-color: #232323; /* grey */
 	overflow-x: hidden;
 	padding-top: 60px;
 	transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -19,6 +19,14 @@
 		width: 250px;
 	}
 }
+
+.logo{
+	max-width: 90%;
+	margin-bottom: 30px;
+	margin-left: 5%;
+	margin-top: 10px;
+}
+
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
