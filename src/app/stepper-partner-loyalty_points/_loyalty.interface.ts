@@ -25,8 +25,14 @@ interface Transaction {
     added_points: number;
 }
 
+interface Checks {
+    identifier_scanned: boolean;
+    amount_scanned: boolean;
+}
+
 export interface LocalLoyaltyInterface {
     User: User;
     Transaction: Transaction;
     Actions: Actions;
+    Checks: Checks;
 }

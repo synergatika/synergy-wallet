@@ -24,16 +24,20 @@
 
       <!--begin::Microcredit Campaigns List for Redeem-->
       <ng-container *ngIf="configAccess[2]&&microcreditRedeem">
-        <div class="item item-wrapper col-md-4 microcredits" *ngFor="let item of microcreditRedeem" (click)="openModalRedeemCampaign(item)">
-          <sng-microcredit_campaign-little-card [campaign]="item" type="'all'" action="redeem"></sng-microcredit_campaign-little-card>
+        <div class="item item-wrapper col-md-4 microcredits" *ngFor="let item of microcreditRedeem"
+          (click)="openModalRedeemCampaign(item)">
+          <sng-microcredit_campaign-little-card [campaign]="item" type="'all'" action="redeem">
+          </sng-microcredit_campaign-little-card>
         </div>
       </ng-container>
       <!--end::Microcredit Campaigns List-->
 
       <!--begin::Microcredit Campaigns List for Support-->
       <ng-container *ngIf="configAccess[2]&&microcreditSupport">
-        <div class="item item-wrapper col-md-4 microcredits" *ngFor="let item of microcreditSupport" (click)="openModalSupportCampaign(item)">
-          <sng-microcredit_campaign-little-card [campaign]="item" type="'all'" action="support"></sng-microcredit_campaign-little-card>
+        <div class="item item-wrapper col-md-4 microcredits" *ngFor="let item of microcreditSupport"
+          (click)="openModalSupportCampaign(item)">
+          <sng-microcredit_campaign-little-card [campaign]="item" type="'all'" action="support">
+          </sng-microcredit_campaign-little-card>
         </div>
       </ng-container>
       <!--end::Microcredit Campaigns List-->

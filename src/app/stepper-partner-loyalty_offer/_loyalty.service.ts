@@ -8,12 +8,17 @@ import { LocalLoyaltyInterface } from './_loyalty.interface';
 export class LocalLoyaltyService {
 
     private userSource = new BehaviorSubject({
-        identifier_scan: '',
-        identifier_form: '',
+        identifier: '',
+        // identifier_scan: '',
+        // identifier_form: '',
         email: ''
     });
     user = this.userSource.asObservable();
 
+    private checksSource = new BehaviorSubject({
+        identifier_scanned: false
+    });
+    checks = this.checksSource.asObservable();
 
     private loyaltyOfferSource = new BehaviorSubject({
         partner_id: '',
@@ -57,6 +62,10 @@ export class LocalLoyaltyService {
 
     changeUser(user: LocalLoyaltyInterface["User"]) {
         this.userSource.next(user);
+    };
+
+    changeChecks(checks: LocalLoyaltyInterface["Checks"]) {
+        this.checksSource.next(checks);
     };
 
     changeLoyaltyOffer(loyaltyOffer: LocalLoyaltyInterface["Offer"]) {

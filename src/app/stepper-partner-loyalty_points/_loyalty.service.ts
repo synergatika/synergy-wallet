@@ -7,13 +7,12 @@ import { LocalLoyaltyInterface } from './_loyalty.interface';
 @Injectable()
 export class LocalLoyaltyService {
 
-    private userSource = new BehaviorSubject({
+    initializeUser = {
         identifier: '',
         email: ''
-    });
-    user = this.userSource.asObservable();
+    };
 
-    private transactionSource = new BehaviorSubject({
+    initializeTransaction = {
         amount: 0,
         possible_discount_amount: 0,
         discount_amount: 0,
@@ -22,16 +21,31 @@ export class LocalLoyaltyService {
         discount_points: 0,
         final_points: 0,
         added_points: 0
-    });
-    transaction = this.transactionSource.asObservable();
+    };
 
-    private actionsSource = new BehaviorSubject({
+    initializeActions = {
         redeem: '0',
         identifier: 'xxx',
         email: 'xxx'
-    });
+    };
+
+    initializeChecks = {
+        identifier_scanned: false,
+        amount_scanned: false,
+    };
+
+
+    private userSource = new BehaviorSubject(this.initializeUser);
+    user = this.userSource.asObservable();
+
+    private transactionSource = new BehaviorSubject(this.initializeTransaction);
+    transaction = this.transactionSource.asObservable();
+
+    private actionsSource = new BehaviorSubject(this.initializeActions);
     actions = this.actionsSource.asObservable();
 
+    private checksSource = new BehaviorSubject(this.initializeChecks);
+    checks = this.checksSource.asObservable();
 
     constructor() { }
 
@@ -46,4 +60,37 @@ export class LocalLoyaltyService {
     changeActions(actions: LocalLoyaltyInterface["Actions"]) {
         this.actionsSource.next(actions);
     }
+
+    changeChecks(checks: LocalLoyaltyInterface["Checks"]) {
+        this.checksSource.next(checks);
+    }
+
+    // clearUser() {
+    //     this.userSource.next(this.initializeUser);
+    //     this.userSource.complete();
+    // }
+
+    // clearTransaction() {
+    //     this.transactionSource.next(this.initializeTransaction)
+    //     this.transactionSource.complete();
+    // }
+
+    // clearActions() {
+    //     this.actionsSource.next(this.initializeActions)
+    //     this.actionsSource.complete();
+    // }
+
+    // clearChecks() {
+    //     this.checksSource.next(this.initializeChecks)
+    //     this.checksSource.complete();
+    // }
+
+    // clearAll() {
+    //     setTimeout(() => {
+    //         this.clearUser();
+    //         this.clearTransaction();
+    //         this.clearActions();
+    //         this.clearChecks();
+    //     }, 100);
+    // }
 }

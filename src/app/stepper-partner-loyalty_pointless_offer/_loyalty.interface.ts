@@ -1,9 +1,12 @@
 import { Offer } from 'sng-core';
 
 interface User {
-    identifier_scan: string;
-    identifier_form: string;
+    identifier: string;
     email: string | undefined;
+}
+
+interface Checks {
+    identifier_scanned: boolean
 }
 
 interface Transaction {
@@ -21,5 +24,6 @@ interface Transaction {
 export interface LocalLoyaltyInterface {
     User: User;
     Offer: Offer;
+    Checks: Checks;
     Transaction: Transaction;
 }

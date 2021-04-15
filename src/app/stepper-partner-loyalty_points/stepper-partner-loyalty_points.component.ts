@@ -9,6 +9,8 @@ import { WizardComponent } from "angular-archwizard";
  * Components
  */
 import { SubDiscountFormComponent } from "./sub-discount-form/sub-discount-form.component";
+import { SubScannerComponent } from "../stepper-common/sub-scanner/sub-scanner.component";
+import { SubAmountScanComponent } from "./sub-amount-scan/sub-amount-scan.component";
 
 /**
  * Services
@@ -50,14 +52,17 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
   public user: LocalLoyaltyInterface["User"];
   public actions: LocalLoyaltyInterface["Actions"];
   public transaction: LocalLoyaltyInterface["Transaction"];
-
-  steps: number[] = [0];
+  public checks: LocalLoyaltyInterface["Checks"];
 
   showIdentifierForm: boolean = false;
   showAmountForm: boolean = false;
 
   conversionRatiο: number = 0.01;
   discountRatio: number = 0.2;
+  minRequiredDiscountAmount: number = 0.5;
+  minRequiredTotalAmount: number = 5;
+
+  private steps: number[] = [0];
 
   loading: boolean = false;
   private unsubscribe: Subject<any>;
@@ -75,9 +80,11 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.conversionRatiο = this.staticDataService.getConversionRatiο;
+
     this.subscription.add(this.stepperService.user.subscribe(user => this.user = user));
     this.subscription.add(this.stepperService.actions.subscribe(actions => this.actions = actions));
     this.subscription.add(this.stepperService.transaction.subscribe(transaction => this.transaction = transaction));
+    this.subscription.add(this.stepperService.checks.subscribe(checks => this.checks = checks));
     this.unsubscribe = new Subject();
 
     const scanOptions = localStorage.getItem('scanOptions');
@@ -98,10 +105,15 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
    * On destroy
    */
   ngOnDestroy() {
+    this.checks.identifier_scanned = false;
+    this.checks.amount_scanned = false;
+    this.stepperService.changeChecks(this.checks);
+
     this.stepperNoticeService.setNotice(null);
     this.subscription.unsubscribe();
     this.unsubscribe.next();
     this.unsubscribe.complete();
+    // this.stepperService.clearAll();
     this.loading = false;
   }
 
@@ -110,8 +122,15 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
    * 
    * @param event 
    */
-  onDefineIdentifier(event: string) {
-    const identifier: string = event;
+  onDefineIdentifier(identifier: string) {
+
+    if (this.checks.identifier_scanned) return;
+
+    this.checks.identifier_scanned = true;
+    this.stepperService.changeChecks(this.checks);
+
+    this.user.identifier = identifier;
+    this.stepperService.changeUser(this.user);
 
     this.authenticationService.checkIdentifier((identifier).toLowerCase())
       .pipe(
@@ -120,12 +139,12 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
 
             this.actions.identifier = this.defineAction(data.status);
             this.stepperService.changeActions(this.actions);
+            console.log(this.actions.identifier);
 
-            this.stepA_actions(this.defineAction(data.status));
-            this.stepA_messages(this.defineAction(data.status));
+            this.after_StepA_actions(this.defineAction(data.status));
           },
           (error) => {
-
+            console.log(error);
           }),
         takeUntil(this.unsubscribe),
         finalize(() => {
@@ -134,9 +153,6 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
-
-    this.user.identifier = event;
-    this.stepperService.changeUser(this.user);
   }
 
   /**
@@ -144,39 +160,41 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
    * 
    * @param event 
    */
-  onSubmitEmailForm(event: string) {
-    const email: string = event;
+  onSubmitEmailForm(email: string) {
+    console.log("I am on onSubmitEmail");
 
-    if (event) {
+    this.user.email = email;
+    this.stepperService.changeUser(this.user);
+
+    if (email) {
       this.authenticationService.checkIdentifier((email).toLowerCase())
         .pipe(
           tap(
             (data) => {
+              console.log("Check Email");
+              console.log(data);
               this.actions.email = this.defineAction(data.status);
               this.stepperService.changeActions(this.actions);
-
-              this.stepB_actions(data.status);
+              console.log(this.actions.email);
+              this.actionsHandler();
             },
             (error) => {
-
+              console.log(error);
+              this.loading = false;
             }),
           takeUntil(this.unsubscribe),
           finalize(() => {
-            this.loading = false;
             this.cdRef.markForCheck();
           })
         )
         .subscribe();
     } else {
-
+      console.log("Before go to Handler");
+      console.log(`${this.actions.email}${this.actions.identifier}`)
+      this.actionsHandler();
+      this.loading = false;
     }
 
-    this.user.email = event;
-    this.stepperService.changeUser(this.user);
-
-    console.log("Before go to Handler");
-    console.log(`${this.actions.email}${this.actions.identifier}`)
-    this.actionsHandler();
   }
 
   /**
@@ -184,20 +202,26 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
   * 
   * @param event 
   */
-  onDefineAmount(event: number) {
-    const amount = event;
+  onDefineAmount(amount: number) {
 
+    console.log("this.checks.amount_scanned")
+    console.log(this.checks.amount_scanned)
+    if (this.checks.amount_scanned) return;
+
+    this.checks.amount_scanned = true;
+    this.stepperService.changeChecks(this.checks);
+
+    console.log("Define Amount")
+    console.log(amount)
     this.transaction.amount = amount;
     this.transaction.final_amount = amount;
     this.stepperService.changeTransaction(this.transaction);
 
-    if (this.transaction.amount > 5) {
+    if (this.transaction.amount > this.minRequiredTotalAmount) {
       this.fetchBalanceData();
     } else {
       this.initializeDiscountAmount();
     }
-
-    this.stepC_actions();
   }
 
   /**
@@ -216,7 +240,7 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
     this.actions.redeem = wantRedeem ? '1' : '0';
     this.stepperService.changeActions(this.actions);
 
-    this.stepD_actions();
+    this.after_StepD_actions();
   }
 
   defineAction(status: string) {
@@ -230,39 +254,24 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
     }
   }
 
-  stepA_actions(status: string) {
-    if (['000', '011', '010', '111'].includes(status)) {
-      this.actionsHandler();
-      this.onSpecificStep(2);
-    } else {
-      this.onNextStep();
-    }
-  }
-
-  stepA_messages(status: string) {
+  after_StepA_actions(status: string) {
     if (['011', '010', '111'].includes(status)) {
-      // do nothing
+      this.actionsHandler();
+
     } else if (status == '000') {
       this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.NEW_EMAIL'), 'success');
+      this.actionsHandler();
     } else {
       if (status == '101') {
         this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.EXISTING_CARD'), 'success');
       } else if (status == '100') {
         this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.NEW_CARD'), 'success');
       }
+      this.onNextStep();
     }
   }
 
-  stepB_actions(status: string) {
-    this.actionsHandler();
-    this.onNextStep();
-  }
-
-  async stepC_actions() {
-
-  }
-
-  async stepD_actions() {
+  async after_StepD_actions() {
     console.log("wantRedeem")
     console.log(this.actions.redeem)
     if (this.actions.redeem == '1') {
@@ -286,10 +295,6 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
   }
 
 
-  async afterDefineDiscount(wantRedeem: boolean) {
-
-  }
-
   /**
    * Slip Floor
    */
@@ -311,12 +316,12 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
     console.log("maxPossibleDiscount", maxPossibleDiscount);
     console.log("maxAllowedDiscount", maxAllowedDiscount);
 
-    if ((this.transaction.amount >= 5) && (maxPossibleDiscount >= 0.5)) {
+    if ((this.transaction.amount >= this.minRequiredTotalAmount) && (maxPossibleDiscount >= this.minRequiredDiscountAmount)) {
       this.transaction.possible_discount_amount = (maxPossibleDiscount > maxAllowedDiscount) ? this.slipFloor(maxAllowedDiscount) : this.slipFloor(maxPossibleDiscount);
       this.stepperService.changeTransaction(this.transaction);
       this.discountForm.initializeDiscount();
       this.onNextStep();
-    } else if ((this.transaction.amount < 5) || (maxPossibleDiscount < 0.5)) {
+    } else if ((this.transaction.amount < this.minRequiredTotalAmount) || (maxPossibleDiscount < this.minRequiredDiscountAmount)) {
 
       this.transaction.possible_discount_amount = 0;
       this.stepperService.changeTransaction(this.transaction);
@@ -331,12 +336,15 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
    * Deside the registration action (Registration, Link Email, Link Card)
    */
   actionsHandler() {
-    this.loading = true;
-
     const user = {
       identifier: this.user.identifier,
       email: this.user.email
     };
+
+    // if (this.actions.identifier == '011', '010', '111') NO STEP B, NO ACTION
+    // if (this.actions.identifier  '000') STEP B, REGISTRATION
+    // if (this.actions.identifier  '101', '100') STEP B, ?
+
 
     switch (`${this.actions.email}${this.actions.identifier}`) {
       case 'xxx000': { // only email
@@ -363,17 +371,23 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
         this.actionLinkEmail(user.email, user.identifier);
         break;
       }
+
+      case '011101': { // Nothing to Do (Card and Email has different Accounts)
+        this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.TWO_ACCOUNTS'), 'danger');
+        this.actions.email = 'xxx';
+        this.stepperService.changeActions(this.actions);
+        break;
+      }
+
       default:
-        console.log("On Default")
-        this.loading = false;
         this.stepperNoticeService.setNotice(null);
-        this.onNextStep();
+        this.onSpecificStep(2);
     }
   }
 
   actionRegistration(email: string, card: string) {
     this.loading = true;
-    console.log("actionRegistration")
+    console.log("actionRegistration", this.loading)
 
     this.authenticationService.register_member(email, card)
       .pipe(
@@ -398,7 +412,7 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
 
   actionLinkCard(email: string, card: string) {
     this.loading = true;
-    console.log("actionLinkCard")
+    console.log("actionLinkCard", this.loading)
 
     this.authenticationService.linkCard(email, card)
       .pipe(
@@ -422,7 +436,7 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
 
   actionLinkEmail(email: string, card: string) {
     this.loading = true;
-    console.log("actionLinkCard")
+    console.log("actionLinkCard", this.loading)
 
     this.authenticationService.linkEmail(email, card)
       .pipe(
@@ -445,6 +459,8 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
   }
 
   fetchBalanceData() {
+    this.stepperNoticeService.setNotice(null);
+
     this.loyaltyService.readBalanceByPartner((this.user.identifier).toLowerCase())
       .pipe(
         tap(
@@ -457,9 +473,8 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
 
             this.initializeDiscountAmount();
           },
-          error => {
+          (error) => {
             this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
-            this.loading = true;
           }),
         takeUntil(this.unsubscribe),
         finalize(() => {
@@ -472,18 +487,15 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
 
   earnPoints() {
     this.loading = true;
+    this.stepperNoticeService.setNotice(null);
 
-    let earnPoints = {
-      password: 'all_ok',
-      _to: this.user.identifier,
-      _amount: this.transaction.final_amount
-    };
+    const earnPoints = this.formatEarnDto();
 
     this.loyaltyService.earnPoints(earnPoints._to, earnPoints.password, earnPoints._amount)
       .pipe(
         switchMap(
           (data) => {
-            return this.loyaltyService.readBalanceByPartner((this.user.identifier).toLowerCase())
+            return this.loyaltyService.readBalanceByPartner(earnPoints._to)
               .pipe(
                 tap(
                   (data) => {
@@ -494,17 +506,16 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
                     this.stepE_actions();
                   },
                   (error) => {
-
+                    this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
                   })
               );
           },
           (error) => {
-            console.log("Earn Points");
-            console.log(error);
+
           }),
         takeUntil(this.unsubscribe),
         finalize(() => {
-          this.loading = false;
+          setTimeout(() => { this.loading = false; }, 1000);
           this.cdRef.markForCheck();
         })
       )
@@ -513,19 +524,10 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
 
   earnAndRedeemPoints() {
     this.loading = true;
+    this.stepperNoticeService.setNotice(null);
 
-    let earnPoints = {
-      password: 'all_ok',
-      _to: this.user.identifier,
-      _amount: this.transaction.final_amount
-    };
-
-    let redeemPoints = {
-      password: 'all_ok',
-      _to: this.user.identifier,
-      _points: this.transaction.discount_points,
-      _amount: this.transaction.discount_amount
-    }
+    const earnPoints = this.formatEarnDto();
+    const redeemPoints = this.formatRedeemDto();
 
     this.loyaltyService.earnPoints(earnPoints._to, earnPoints.password, earnPoints._amount)
       .pipe(
@@ -535,7 +537,7 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
               .pipe(
                 switchMap(
                   (data) => {
-                    return this.loyaltyService.readBalanceByPartner((this.user.identifier).toLowerCase())
+                    return this.loyaltyService.readBalanceByPartner(earnPoints._to)
                       .pipe(
                         tap(
                           (data) => {
@@ -546,7 +548,7 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
                             this.stepE_actions();
                           },
                           (error) => {
-
+                            this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
                           })
                       );
                   },
@@ -556,34 +558,62 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
               );
           },
           (error) => {
-            console.log("Earn & Redeem Points");
-            console.log(error);
+
           }
         ),
         takeUntil(this.unsubscribe),
         finalize(() => {
-          this.loading = false;
+          setTimeout(() => { this.loading = false; }, 1000);
           this.cdRef.markForCheck();
         })
       )
       .subscribe();
   }
 
+  private formatEarnDto() {
+    return {
+      password: 'all_ok',
+      _to: (this.user.identifier).toLowerCase(),
+      _amount: this.transaction.final_amount
+    };
+  }
 
+  private formatRedeemDto() {
+    return {
+      password: 'all_ok',
+      _to: (this.user.identifier).toLowerCase(),
+      _amount: this.transaction.discount_amount,
+      _points: this.transaction.discount_points
+    };
+  }
 
-
+  /**
+   * Scanner Options
+   */
   onShowIdentifierFormChange() {
     this.showIdentifierForm = !this.showIdentifierForm;
-    localStorage.setItem('scanOptions', `${this.showIdentifierForm},${this.showAmountForm}`);
+    this.changeScannerOptions()
   }
 
   onShowAmountFormChange() {
     this.showAmountForm = !this.showAmountForm;
-    localStorage.setItem('scanOptions', `${this.showIdentifierForm},${this.showAmountForm}`);
+    this.changeScannerOptions()
   }
 
+  private changeScannerOptions() {
+    const options = localStorage.getItem('scanOptions');
+    if (options) {
+      localStorage.setItem('scanOptions', `${this.showIdentifierForm},${this.showAmountForm}`);
+    } else {
+      localStorage.setItem('scanOptions', `${this.showIdentifierForm},false`);
+    }
+  }
+
+  /**
+  * Handle Steps (Back, Next)
+  */
   onNextStep() {
-    this.steps.push(this.steps[this.steps.length] + 1);
+    this.steps.push(this.steps[this.steps.length - 1] + 1);
     this.wizard.goToNextStep();
   }
 
@@ -596,12 +626,25 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
     this.stepperNoticeService.setNotice(null);
 
     this.steps.pop();
+
+    this.changeScannerStatus();
+
     this.wizard.goToStep(this.steps[this.steps.length - 1])
   }
 
   onFinalStep(event: boolean) {
     this.dialogRef.close();
     // this.controlModalState(false);
+  }
+
+  private changeScannerStatus() {
+    if ((this.steps[this.steps.length - 1] == 0)) this.checks.identifier_scanned = false;
+    if ((this.steps[this.steps.length - 1] == 2)) this.checks.amount_scanned = false;
+    this.stepperService.changeChecks(this.checks);
+
+    this.user.identifier = (this.steps[this.steps.length - 1] == 0) ? '' : this.user.identifier;
+    this.user.email = (this.steps[this.steps.length - 1] == 1) ? '' : this.user.email;
+    this.stepperService.changeUser(this.user);
   }
 }
 

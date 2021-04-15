@@ -68,6 +68,7 @@ export class SubIdentifierFormComponent implements OnInit {
 
     if (!emailPatern) { identifier = identifier.padStart(16, "0000000000000000"); }
 
+    controls.identifier.setValue('');
     this.add_identifier.emit(identifier);
   }
 

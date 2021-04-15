@@ -1,4 +1,51 @@
 <div class="step-final">
+  <div *ngIf="transaction" class="amounts-table">
+    <p>
+      <label>{{'MEMBER.WIZARD.SUB_FINAL.AMOUNT' | translate}}</label>
+      <span>€{{transaction.amount}}</span>
+    </p>
+    <p>
+      <label>{{'MEMBER.WIZARD.SUB_FINAL.PAYMENT' | translate}}</label>
+      <span>{{transaction.method}}</span>
+    </p>
+    <p>
+      <label>{{'MEMBER.WIZARD.SUB_FINAL.PAYMENT_ID' | translate}}</label>
+      <span>{{transaction.payment_id}}</span>
+    </p>
+
+    <p *ngIf="transaction.method!='store'&&transaction.method!='PAYPAL.ME'">
+      <label>{{'MEMBER.WIZARD.SUB_FINAL.INSTRUCTIONS' | translate}}</label>
+      <span>{{'SUPPORT.PAYMENT.BANK' | translate}}</span>
+    </p>
+
+    <p *ngIf="transaction.method!='store'&&transaction.method!='PAYPAL.ME'">
+      <label>{{transaction.how.title | translate}}</label>
+      <span>{{transaction.how.value}}</span>
+    </p>
+
+    <p *ngIf="transaction.method!='store'&&transaction.method=='PAYPAL.ME'">
+      <label>{{'MEMBER.WIZARD.SUB_FINAL.INSTRUCTIONS' | translate}}</label>
+      <span>{{transaction.how.title | translate}}</span>
+    </p>
+
+    <p *ngIf="transaction.method!='store'&&transaction.method=='PAYPAL.ME'">
+      <label>{{transaction.how.title | translate}}</label>
+      <span>{{transaction.how.value}}</span>
+    </p>
+
+    <p *ngIf="transaction.method=='store'">
+      <label>{{'MEMBER.WIZARD.SUB_FINAL.INSTRUCTIONS' | translate}}</label>
+      <span>{{'SUPPORT.PAYMENT.STORE' | translate}}</span>
+    </p>
+
+  </div>
+  <!--begin::Wizard Buttons-->
+  <button class="btn btn-primary" (click)="onNextStep()">
+    {{ 'PARTNER.WIZARD.CLOSE' | translate }}
+  </button>
+  <!--end::Wizard Buttons-->
+</div>
+<!-- <div class="step-final">
   <p>
     {{'MEMBER.WIZARD.SUB_FINAL.AMOUNT' | translate}}: {{transaction.amount}}
   </p>
@@ -20,11 +67,11 @@
   <p *ngIf="transaction.method=='store'">
     {{'MEMBER.WIZARD.SUB_FINAL.INSTRUCTIONS' | translate}}: {{'SUPPORT.PAYMENT.STORE' | translate}}
   </p>
+-->
+<!--begin::Wizard Buttons-->
+<!-- <button (click)="onNextStep()">
+  {{'MEMBER.WIZARD.CLOSE' | translate}}
+</button> -->
+<!--end::Wizard Buttons-->
 
-  <!--begin::Wizard Buttons-->
-  <button (click)="onNextStep()">
-    {{'MEMBER.WIZARD.CLOSE' | translate}}
-  </button>
-  <!--end::Wizard Buttons-->
-
-</div>
+<!-- </div> -->

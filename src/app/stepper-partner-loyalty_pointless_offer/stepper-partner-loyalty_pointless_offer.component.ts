@@ -37,8 +37,11 @@ export class StepperPartnerLoyaltyPointlessOfferComponent implements OnInit, OnD
   public user: LocalLoyaltyInterface["User"];
   public offer: LocalLoyaltyInterface["Offer"];
   public transaction: LocalLoyaltyInterface["Transaction"];
+  public checks: LocalLoyaltyInterface["Checks"];
 
   showIdentifierForm = false;
+
+  private steps: number[] = [0];
 
   loading: boolean = false;
   private unsubscribe: Subject<any>;
@@ -56,7 +59,13 @@ export class StepperPartnerLoyaltyPointlessOfferComponent implements OnInit, OnD
     this.subscription.add(this.stepperService.user.subscribe(user => this.user = user));
     this.subscription.add(this.stepperService.loyaltyOffer.subscribe(offer => this.offer = offer));
     this.subscription.add(this.stepperService.transaction.subscribe(transaction => this.transaction = transaction));
+    this.subscription.add(this.stepperService.checks.subscribe(checks => this.checks = checks));
     this.unsubscribe = new Subject();
+
+    const scanOptions = localStorage.getItem('scanOptions');
+    if (scanOptions) {
+      this.showIdentifierForm = (scanOptions.split(',')[0] == 'true');
+    }
   }
 
   /**
@@ -76,6 +85,9 @@ export class StepperPartnerLoyaltyPointlessOfferComponent implements OnInit, OnD
    * On destroy
    */
   ngOnDestroy() {
+    this.checks.identifier_scanned = false;
+    this.stepperService.changeChecks(this.checks);
+
     this.stepperNoticeService.setNotice(null);
     this.subscription.unsubscribe();
     this.unsubscribe.next();
@@ -102,41 +114,46 @@ export class StepperPartnerLoyaltyPointlessOfferComponent implements OnInit, OnD
 
 
   /**
-   * Step A1: Callback from Identifier Scanning
+   * Step A: Callback from Identifier Scanning OR Identifier Submit
    * 
    * @param event 
    */
-  onSuccessScanIdentifier(event: string) {
-    this.user.identifier_scan = event;
-    this.stepperService.changeUser(this.user);
+  onDefineIdentifier(identifier: string) {
+    console.log("Identifier")
+    console.log(identifier)
 
-    this.fetchBalanceData();
-  }
+    console.log("identifier_scanned")
+    console.log(this.checks.identifier_scanned)
 
-  /**
-   * Step A2: Callback from Identifier Form
-   * 
-   * @param event 
-   */
-  onSubmitIdentifierForm(event: string) {
-    this.user.identifier_form = event;
+
+    if (this.checks.identifier_scanned) return;
+
+    this.checks.identifier_scanned = true;
+    this.stepperService.changeChecks(this.checks);
+
+    console.log("I am on onDefineIdentifier");
+
+    this.user.identifier = identifier;
     this.stepperService.changeUser(this.user);
 
     this.fetchBalanceData();
   }
 
   fetchBalanceData() {
-    const identifier = this.user.identifier_scan || this.user.identifier_form;
+    const identifier = this.user.identifier;
     this.loyaltyService.readBalanceByPartner((identifier).toLowerCase())
       .pipe(
         tap(
-          data => {
+          (data) => {
             this.stepperNoticeService.setNotice(null);
             this.transaction.final_points = parseInt(data.points, 16);
             console.log(data.points)
             this.onNextStep();
           },
-          error => {
+          (error) => {
+            this.checks.identifier_scanned = false;
+            this.stepperService.changeChecks(this.checks);
+
             this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
             console.log(error);
           }),
@@ -149,28 +166,57 @@ export class StepperPartnerLoyaltyPointlessOfferComponent implements OnInit, OnD
       .subscribe();
   }
 
+  /**
+   * Scanner Options
+   */
   onShowIdentifierFormChange() {
     this.showIdentifierForm = !this.showIdentifierForm;
+
+    this.changeScannerOptions()
   }
 
+  private changeScannerOptions() {
+    const options = localStorage.getItem('scanOptions');
+    if (options) {
+      localStorage.setItem('scanOptions', `${this.showIdentifierForm},${options.split(',')[1]}`);
+    } else {
+      localStorage.setItem('scanOptions', `${this.showIdentifierForm},false`);
+    }
+  }
+
+  /**
+  * Handle Steps (Back, Next)
+  */
   onNextStep() {
+    this.steps.push(this.steps[this.steps.length - 1] + 1);
     this.wizard.goToNextStep();
   }
 
-  onExternalPreviousStep(event: boolean) {
-    console.log('Back')
-    this.stepperNoticeService.setNotice(null);
-    this.wizard.goToPreviousStep();
+  onSpecificStep(step: number) {
+    this.steps.push(step);
+    this.wizard.goToStep(step);
   }
 
   onPreviousStep(event: boolean) {
-    console.log('Back')
     this.stepperNoticeService.setNotice(null);
-    this.wizard.goToPreviousStep();
+
+    this.steps.pop();
+
+    this.changeScannerStatus();
+
+    this.wizard.goToStep(this.steps[this.steps.length - 1])
   }
 
-  onFinalStep(event = null) {
+  onFinalStep(event: boolean) {
     this.dialogRef.close();
     // this.controlModalState(false);
+  }
+
+  private changeScannerStatus() {
+    if ((this.steps[this.steps.length - 1] == 0)) this.checks.identifier_scanned = false;
+    this.stepperService.changeChecks(this.checks);
+
+    this.user.identifier = (this.steps[this.steps.length - 1] == 0) ? '' : this.user.identifier;
+    this.stepperService.changeUser(this.user);
   }
 }

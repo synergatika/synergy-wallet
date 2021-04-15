@@ -1,13 +1,18 @@
 import { MicrocreditCampaign } from 'sng-core';
 
 interface User {
-    identifier_scan: string;
-    identifier_form: string;
+    identifier: string;
     email: string | undefined;
 }
 
+interface Checks {
+    identifier_scanned: boolean;
+}
+
 interface Actions {
-    registration: string; // '00', '01', '10', '11' - None, Link Card, Link Email, Full Registration
+    //   registration: string; // '00', '01', '10', '11' - None, Link Card, Link Email, Full Registration
+    identifier: string;
+    email: string;
 }
 
 interface Transaction {
@@ -25,4 +30,5 @@ export interface LocalMicrocreditInterface {
     Actions: Actions;
     MicrocreditCampaign: MicrocreditCampaign;
     Transaction: Transaction;
+    Checks: Checks;
 }

@@ -44,7 +44,8 @@
             <mat-form-field>
               <mat-label>{{'FIELDS.PROFILE.SECTOR.TITLE' | translate}}</mat-label>
               <mat-select formControlName="sector">
-                <mat-option *ngFor="let item of sectorList$ | async" value="{{item._id}}">
+                <!-- <mat-option *ngFor="let item of sectorList$ | async" value="{{item._id}}"> -->
+                <mat-option *ngFor="let item of sectorList" value="{{item.title}}">
                   {{item | content_translate: 'title' }}
                 </mat-option>
               </mat-select>
