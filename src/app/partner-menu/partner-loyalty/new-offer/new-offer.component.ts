@@ -37,6 +37,7 @@ export class NewOfferComponent implements OnInit, OnDestroy {
   submitForm: FormGroup;
   submitted: boolean = false;
   validator: any;
+  isQuantitative: boolean = false;
 
   loading: boolean = false;
   private unsubscribe: Subject<any>;
@@ -100,7 +101,11 @@ export class NewOfferComponent implements OnInit, OnDestroy {
         Validators.maxLength(this.validator.description.maxLength)
       ])
       ],
-      cost: ['', Validators.compose([
+      quantitative: [false, Validators.compose([
+        Validators.required
+      ])
+      ],
+      cost: [0, Validators.compose([
         Validators.required,
         Validators.min(this.validator.cost.minValue),
         Validators.max(this.validator.cost.maxValue)
@@ -172,6 +177,7 @@ export class NewOfferComponent implements OnInit, OnDestroy {
       Object.keys(controls).forEach(controlName =>
         controls[controlName].markAsTouched()
       );
+      console.log(controls)
       console.log('form invalid');
       return;
     }
@@ -183,7 +189,7 @@ export class NewOfferComponent implements OnInit, OnDestroy {
     //formData.append('imageURL', this.fileData);
     formData.append('title', controls.title.value);
     formData.append('subtitle', controls.subtitle.value);
-    formData.append('cost', controls.cost.value);
+    formData.append('cost', (controls.quantitative.value) ? controls.cost.value : '0');
     formData.append('description', controls.description.value);
     formData.append('instructions', controls.instructions.value);
     formData.append('expiresAt', controls.expiration.value.getTime().toString());
@@ -215,6 +221,10 @@ export class NewOfferComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  onIsQuantitativeCheckboxChange() {
+    this.isQuantitative = !this.isQuantitative;
   }
 
   /**

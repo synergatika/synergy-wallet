@@ -40,6 +40,7 @@ import { NotFoundComponent } from './views/pages/not-found/not-found.component';
 
 import { MenuService } from './core/helpers/menu.service';
 
+import { EditSectorsComponent } from '../app/admin-menu/edit-sectors/edit-sectors.component';
 
 /**
  * Item Cards Components
@@ -111,6 +112,7 @@ import { StepperPartnerMicrocreditSupportModule } from './stepper-partner-microc
 import { StepperPartnerLoyaltyPointsModule } from './stepper-partner-loyalty_points/stepper-partner-loyalty_points.module';
 import { StepperPartnerLoyaltyOfferModule } from './stepper-partner-loyalty_offer/stepper-partner-loyalty_offer.module';
 import { StepperPartnerMicrocreditCampaignModule } from './stepper-partner-microcredit_campaign/stepper-partner-microcredit_campaign.module';
+import { StepperPartnerLoyaltyPointlessOfferModule } from './stepper-partner-loyalty_pointless_offer/stepper-partner-loyalty_pointless_offer.module';
 
 
 import {
@@ -138,6 +140,8 @@ import { ContentService } from './core/services/content.service';
 import { LoyaltyService } from './core/services/loyalty.service';
 import { MicrocreditService } from './core/services/microcredit.service';
 import { StepperService } from './core/services/stepper.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
 	declarations: [
@@ -149,6 +153,11 @@ import { StepperService } from './core/services/stepper.service';
 		LayoutComponent,
 		HeaderComponent,
 		NotFoundComponent,
+
+		/**
+		 * Admin Menu Pages
+		 */
+		EditSectorsComponent,
 
 		/**
 		 * Member Menu Pages
@@ -193,6 +202,10 @@ import { StepperService } from './core/services/stepper.service';
 		MatProgressSpinnerModule,
 		MatTooltipModule,
 		NgxPaginationModule,
+
+		FormsModule,
+		ReactiveFormsModule,
+
 		// Member Modules
 		// Partner Modules
 
@@ -200,6 +213,7 @@ import { StepperService } from './core/services/stepper.service';
 		StepperPartnerMicrocreditSupportModule,
 		StepperPartnerLoyaltyPointsModule,
 		StepperPartnerLoyaltyOfferModule,
+		StepperPartnerLoyaltyPointlessOfferModule,
 		StepperPartnerMicrocreditCampaignModule,
 
 		// Admin Modules

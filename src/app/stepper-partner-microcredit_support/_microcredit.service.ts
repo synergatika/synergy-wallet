@@ -8,14 +8,19 @@ import { LocalMicrocreditInterface } from './_microcredit.interface';
 export class LocalMicrocreditService {
 
     private userSource = new BehaviorSubject({
-        identifier_scan: '',
-        identifier_form: '',
+        identifier: '',
         email: ''
     });
     user = this.userSource.asObservable();
 
+    private checksSource = new BehaviorSubject({
+        identifier_scanned: false
+    });
+    checks = this.checksSource.asObservable();
+
     private actionsSource = new BehaviorSubject({
-        registration: 'xxxxxx'
+        email: 'xxx',
+        identifier: 'xxx',
     });
     actions = this.actionsSource.asObservable();
 
@@ -81,6 +86,10 @@ export class LocalMicrocreditService {
     changeUser(user: LocalMicrocreditInterface["User"]) {
         this.userSource.next(user);
     };
+
+    changeChecks(checks: LocalMicrocreditInterface["Checks"]) {
+        this.checksSource.next(checks);
+    }
 
     changeActions(actions: LocalMicrocreditInterface["Actions"]) {
         this.actionsSource.next(actions);

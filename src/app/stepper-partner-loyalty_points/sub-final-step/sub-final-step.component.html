@@ -1,25 +1,24 @@
 <div class="step-final">
-
-  <div *ngIf="actions" class="amounts-table"> 
+  <div *ngIf="actions" class="amounts-table">
     <p>
       <label>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.AMOUNT' | translate }}</label>
-      <span>{{transaction.final_amount}}</span>
+      <span>€{{transaction.final_amount}}</span>
     </p>
-    <p *ngIf="actions.redeem=='11'">
+    <p *ngIf="actions.redeem=='1'">
       <label>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.DISCOUNT_AMOUNT' | translate }}</label>
-      <span>{{transaction.discount_amount}}</span>
+      <span>€{{transaction.discount_amount}}</span>
     </p>
-    <p *ngIf="actions.redeem=='11'">
+    <p *ngIf="actions.redeem=='1'">
       <label>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.POINTS_TO_REDEEM' | translate }}</label>
       <span>{{transaction.discount_points}}</span>
     </p>
     <p>
       <label>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.POINTS_ADDED' | translate }}</label>
-      <span>{{transaction.final_points + transaction.discount_points- transaction.points}}</span>
+      <span>{{transaction.added_points}}</span>
     </p>
     <p>
-        <label>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.POINTS_REMAINING' | translate }}</label>
-        <span>{{transaction.final_points}}</span>
+      <label>{{ 'PARTNER.WIZARD.SUB_FINAL_STEP.POINTS_REMAINING' | translate }}</label>
+      <span>{{transaction.final_points}}</span>
     </p>
   </div>
 

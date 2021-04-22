@@ -27,9 +27,9 @@ export class SubEmailFormComponent implements OnInit {
   ) {
   }
 
-	/**
-	 * On Init
-	 */
+  /**
+   * On Init
+   */
   ngOnInit() {
     this.initializeForm();
   }
@@ -53,6 +53,7 @@ export class SubEmailFormComponent implements OnInit {
     };
 
     const email = controls.email.value;
+    controls.email.setValue('');
     this.add_email.emit(email);
   }
 

@@ -1,6 +1,8 @@
 <div class="app-header">
   <div class="row header__wrapper">
     <div class="header_left__wrapper">
+      <img *ngIf="user.access=='member'" class="logo" src={{logo}}>
+      <span *ngIf="user.access=='member'">|</span>
       <sng-topbar></sng-topbar>
     </div>
 

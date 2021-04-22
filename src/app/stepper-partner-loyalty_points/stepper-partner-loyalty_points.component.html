@@ -17,19 +17,19 @@
         <div class="col-md-8">
           <div *ngIf="!showIdentifierForm">
             <h3 class="heading">{{ 'PARTNER.WIZARD.SCAN_FORM.HEADING' | translate }}</h3>
-            <app-sub-scanner (scan_identifier)="onSuccessScanIdentifier($event)">
+            <app-sub-scanner (scan_identifier)="onDefineIdentifier($event)">
             </app-sub-scanner>
           </div>
           <button mat-raised-button type="button" (click)="onShowIdentifierFormChange()">
-            <span *ngIf="!showIdentifierForm; else back_to_scanner">
+            <span class="mdi mdi-autorenew" *ngIf="!showIdentifierForm; else back_to_identifier_scanner">
               {{ 'PARTNER.WIZARD.SCAN_FORM.ALT_PROMPT' | translate }}
             </span>
-            <ng-template #back_to_scanner>
-              <span>{{ 'PARTNER.WIZARD.BACK_TO_SCANNER' | translate }}</span>
+            <ng-template #back_to_identifier_scanner>
+              <span class="mdi mdi-autorenew">{{ 'PARTNER.WIZARD.BACK_TO_SCANNER' | translate }}</span>
             </ng-template>
           </button>
           <div *ngIf="showIdentifierForm">
-            <app-sub-identifier-form (add_identifier)="onSubmitIdentifierForm($event)">
+            <app-sub-identifier-form (add_identifier)="onDefineIdentifier($event)">
             </app-sub-identifier-form>
           </div>
         </div>
@@ -57,13 +57,39 @@
       <!--begin::Stepper Notice-->
       <stepper-notice></stepper-notice>
       <!--end::Stepper Notice-->
-
+      <div class="step-container row justify-content-md-center">
+        <div class="col-md-8">
+          <div *ngIf="!showAmountForm">
+            <h3 class="heading">{{ 'PARTNER.WIZARD.SUB_AMOUNT_SCAN.HEADING' | translate }}</h3>
+            <app-sub-amount-scan (scan_amount)="onDefineAmount($event)">
+            </app-sub-amount-scan>
+          </div>
+          <button mat-raised-button type="button" (click)="onShowAmountFormChange()">
+            <span class="mdi mdi-autorenew" *ngIf="!showAmountForm; else back_to_amount_scanner">
+              {{ 'PARTNER.WIZARD.SUB_AMOUNT_SCAN.ALT_PROMPT' | translate }}
+            </span>
+            <ng-template #back_to_amount_scanner>
+              <span class="mdi mdi-autorenew">{{ 'PARTNER.WIZARD.BACK_TO_SCANNER' | translate }}</span>
+            </ng-template>
+          </button>
+          <div *ngIf="!showAmountForm" class="row">
+            <button mat-raised-button type="button" class='mt-1' (click)="onPreviousStep($event)">
+              {{ 'PARTNER.WIZARD.PREVIOUS_STEP' | translate }}
+            </button>
+          </div>
+          <div *ngIf="showAmountForm">
+            <app-sub-amount-form (previous_step)="onPreviousStep($event)" (add_amount)="onDefineAmount($event)">
+            </app-sub-amount-form>
+          </div>
+        </div>
+      </div>
+      <!-- 
       <div class="step-container row justify-content-md-center">
         <app-sub-amount-form (previous_step)="onPreviousStep($event)" (add_amount)="onSubmitAmountForm($event)">
         </app-sub-amount-form>
-      </div>
+      </div> -->
     </aw-wizard-step>
-    <!--end::Step C - Enter Amount-->
+    <!--end::Step C - Scan/Enter Amount-->
 
     <!--begin::Step D - Enter Discount-->
     <aw-wizard-step stepTitle="{{ 'PARTNER.WIZARD.STEPS.DISCOUNT' | translate }}" awOptionalStep>

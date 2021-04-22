@@ -48,6 +48,7 @@ export const locale = {
       PARTNERS: 'Συνεργάτες',
       MEMBERS: 'Μέλη',
       CONTENT: 'Περιεχόμενο',
+      SECTORS: 'Τομείς Δραστηριότητας'
     },
 
 
@@ -290,6 +291,7 @@ export const locale = {
           PLACEHOLDER: 'Οδηγίες',
           DESC: 'Παρακαλώ, εισάγετε τις Οδηγίες για την απόκτηση της προσφοράς.'
         },
+        QUANTITATIVE: 'Με τη χρήση πόντων;',
         COST: {
           TITLE: 'Κόστος Προσφοράς (σε πόντους)',
           PLACEHOLDER: 'Πόντοι',
@@ -508,6 +510,8 @@ export const locale = {
         PREVIOUS: 'Πίσω',
         NEXT_STEP: 'Επόμενο',
         SAVE: 'Αποθήκευση',
+        INSERT: 'Προσθήκη',
+        REMOVE: 'Αφαίρεση'
       },
       VALIDATION: {
         REQUIRED_FIELD: 'Υποχρεωτικό Πεδίο.',
@@ -562,7 +566,7 @@ export const locale = {
         CAMPAIGN_CREATED: 'Η καμπάνια δημιουργήθηκε επιτυχώς!',
         CAMPAIGN_PUBLISHED: 'Η καμπάνια δημοσιεύθηκε επιτυχώς!',
         CAMPAIGN_UPDATED: 'Η καμπάνια ανανεώθηκε επιτυχώς!',
-        CAMPAIGN_DELETED: 'Η προσφορά διεγράφη επιτυχώς!',
+        CAMPAIGN_DELETED: 'Η καμπάνια διεγράφη επιτυχώς!',
 
         /* Admin Messages (Μηνύματα Διαχειριστή) */
         MEMBER_CREATED: 'A new Member has been successfully created!',
@@ -874,7 +878,7 @@ export const locale = {
         PREVIOUS_STEP: 'Προηγούμενο Βήμα',
         CLOSE: 'Κλείσιμο',
         LOYALTY_TITLE: 'Συναλλαγή με Loyalty',
-        BACK_TO_SCANNER: 'Πίσω στη Σάρωση',
+        BACK_TO_SCANNER: 'Επιλογή Σάρωσης',
         COMPLETE: 'Ολοκλήρωση Συναλλαγής',
         STEPS: {
           INDENTIFY: "Ταυτοποίηση",
@@ -886,7 +890,7 @@ export const locale = {
           MICROCREDIT: "Εξαργύρωση",
         },
         SCAN_FORM: {
-          HEADING: 'Σάρωση QR',
+          HEADING: 'Σάρωση QR Αναγνωριστικού',
           ALT_PROMPT: 'Ταυτοποίηση με E-mail ή αριθμό κάρτας',
         },
         SUB_IDENTIFIER_FORM: {
@@ -897,6 +901,10 @@ export const locale = {
         SUB_EMAIL_FORM: {
           HEADING: 'E-mail πελάτη',
           HINT: '',
+        },
+        SUB_AMOUNT_SCAN: {
+          HEADING: 'Σάρωση QR Απόδειξης',
+          ALT_PROMPT: 'Εισάγετε το Ποσό της Συναλλαγής',
         },
         SUB_AMOUNT_FORM: {
           HEADING: 'Ποσό Συναλλαγής',
@@ -919,7 +927,8 @@ export const locale = {
           TOKENS_BEFORE: 'Υπόλοιπο',
           TOKENS_REDEEMED: 'Χρησιμοποιήθηκαν',
           TOKENS_REMAINING: 'Νέο Υπόλοιπο',
-          PAYMENT_ID: 'Αναγνωριστικό Πληρωμής'
+          PAYMENT_ID: 'Αναγνωριστικό Πληρωμής',
+          USER_CAN: 'Ο Χρήστης έχει δικαίωμα έκπτωσης'
         },
         SUB_OFFER_FORM: {
           HEADING_MAIN: 'Λεπτομέρειες Συναλλαγής',
@@ -949,8 +958,8 @@ export const locale = {
           ALERT: 'Δεν υπάρχουν συναλλαγές. Αδυναμία ολοκλήρωσης της συναλλαγής.',
         }
       },
-      EXPLORE:{
-        DESCRIPTION:'Εδώ μπορείτε να βρείτε όλα τα μέλης της κοινότητας μας και να μάθετε τα νέα τους!'
+      EXPLORE: {
+        DESCRIPTION: 'Εδώ μπορείτε να βρείτε όλα τα μέλης της κοινότητας μας και να μάθετε τα νέα τους!'
       },
     },
 
@@ -966,6 +975,7 @@ export const locale = {
       ERROR_LINK_EMAIL: 'Πρόβλημα κατα τη διάρκεια σύνδεσης του email',
       ERROR_LINK_CARD: 'Πρόβλημα κατά τη διάρκεια σύνδεσης της κάρτας',
       EMAIL_HAS_CARD: 'Μια κάρτα είναι ήδη συνδεδεμένη με το λογαριασμό χρήστη',
+      TWO_ACCOUNTS: 'Η Κάρτα και το Email που εισάγατε ανήκουν σε διαφορετικούς λογαρισμούς',
 
       ERROR_EARN_POINTS: '',
       ERROR_REDEEM_POINTS: '',
@@ -977,11 +987,11 @@ export const locale = {
       NOT_ENOUGH_TOKENS: 'Δεν γίνεται να προχωρήσετε <br> Δεν υπάρχουν αρκετά Κουπόνια',
 
       NEW_EMAIL: 'Ένα νέο email ανιχνεύθηκε',
-      NEW_CARD: '<b>Νέα κάρτα ανιχεύθηκε</b><br>Εισάγετε e-mail για σύνδεση',
-      EXISTING_CARD: '<b>Καταχωρημένη κάρτα</b><br>Εισάγετε e-mail για σύνδεση',
+      NEW_CARD: '<b>Νέα Κάρτα ανιχεύθηκε</b><br>Εισάγετε E-mail για σύνδεση',
+      EXISTING_CARD: '<b>Καταχωρημένη Κάρτα</b><br>Εισάγετε E-mail για σύνδεση',
 
       EMAIL_WILL_LINK: 'Το e-mail θα συνδεθεί με την κάρτα',
-      CARD_WILL_LINK: 'Η κάρτα θα συνδεθεί με τον λογαριασμό χρήστη',
+      CARD_WILL_LINK: 'Η Kάρτα θα συνδεθεί με τον λογαριασμό χρήστη',
       NO_EMAIL_WILL_LINK: 'Δεν εισάγατε email για τη σύνδεσηç\nΗ διαδικασία θα προχωρήσει με ανώνυμη χρήση κάρτας',
 
       USER_CREATED: 'Ένας νέος χρήστης δημιουργήθηκε',

@@ -51,6 +51,7 @@ export class EditOfferComponent implements OnInit, OnDestroy {
   submitForm: FormGroup;
   submitted: boolean = false;
   validator: any;
+  isQuantitative: boolean = false;
 
   loading: boolean = false;
   private unsubscribe: Subject<any>;
@@ -124,6 +125,10 @@ export class EditOfferComponent implements OnInit, OnDestroy {
         Validators.maxLength(this.validator.description.maxLength)
       ])
       ],
+      quantitative: [false, Validators.compose([
+        Validators.required
+      ])
+      ],
       cost: ['', Validators.compose([
         Validators.required,
         Validators.min(this.validator.cost.minValue),
@@ -188,10 +193,11 @@ export class EditOfferComponent implements OnInit, OnDestroy {
             this.offer = data;
             this.title = data.title;
             this.initialImage = data.offer_imageURL;
+            this.isQuantitative = (this.offer.cost == 0) ? false : true;
             // this.previewUrl = this.initialImage;
             this.submitForm.patchValue(
               {
-                ...data,
+                ...data, quantitative: (this.offer.cost == 0) ? false : true,
                 expiration: ((this.minDate).getDate() > data.expiresAt) ? this.minDate : (new Date(data.expiresAt))
               });
           },
@@ -228,7 +234,7 @@ export class EditOfferComponent implements OnInit, OnDestroy {
     // formData.append('imageURL', this.fileData);
     formData.append('title', controls.title.value);
     formData.append('subtitle', controls.subtitle.value);
-    formData.append('cost', controls.cost.value);
+    formData.append('cost', (controls.quantitative.value) ? controls.cost.value : '0');
     formData.append('description', controls.description.value);
     formData.append('instructions', controls.instructions.value);
     formData.append('expiresAt', controls.expiration.value.getTime().toString());
@@ -303,6 +309,10 @@ export class EditOfferComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  onIsQuantitativeCheckboxChange() {
+    this.isQuantitative = !this.isQuantitative;
   }
 
   /**

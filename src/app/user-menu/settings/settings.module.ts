@@ -22,6 +22,8 @@ import { EmailSettingsComponent } from './email-settings/email-settings.componen
 import { InvitationComponent } from './invitation/invitation.component';
 import { PartnerPaymentsComponent } from './partner-payments/partner-payments.component';
 import { WidgetsModule } from '../../core/components/widgets.module';
+import { PipesModule } from '../../pipes/pipes.module';
+
 
 const routes: Routes = [
   {
@@ -83,7 +85,9 @@ const routes: Routes = [
     MatDialogModule,
     MatCardModule,
     MatSelectModule,
-    WidgetsModule
+    WidgetsModule,
+
+    PipesModule
   ],
   providers: [
   ],
@@ -96,7 +100,8 @@ const routes: Routes = [
     PartnerPaymentsComponent,
     AccountSettingsComponent,
     EmailSettingsComponent,
-    InvitationComponent
+    InvitationComponent,
+
   ],
   entryComponents: [
   ]

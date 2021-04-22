@@ -32,23 +32,24 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
    * Form
    */
   stepperForm: FormGroup;
+
+  /**
+  * Flag Variables
+  */
   submitted: boolean = false;
 
-  private subscription: Subscription = new Subscription;
 
-	/**
-	 * Component Constructor
-	 */
+  /**
+   * Component Constructor
+   */
   constructor(
     private fb: FormBuilder,
-    private stepperService: LocalLoyaltyService
   ) {
-    this.subscription.add(this.stepperService.transaction.subscribe(transaction => this.transaction = transaction));
   }
 
-	/**
-	 * On Init
-	 */
+  /**
+   * On Init
+   */
   ngOnInit() {
     this.initializeForm();
   }
@@ -57,7 +58,6 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
    * On Destroy
    */
   ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   initializeForm() {
@@ -70,6 +70,8 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
   }
 
   onNextStep() {
+    // if (this.submitted) return;
+
     const controls = this.stepperForm.controls;
     if (this.stepperForm.invalid) {
       Object.keys(controls).forEach(controlName =>
@@ -77,11 +79,10 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
       );
       return;
     };
+    this.submitted = true;
 
-    this.transaction.amount = controls.amount.value;
-    this.transaction.final_amount = controls.amount.value;
-    this.stepperService.changeTransaction(this.transaction);
-    this.add_amount.emit(controls.amount.value);
+    const amount: number = controls.amount.value;
+    this.add_amount.emit(amount);
   }
 
   onPreviousStep() {

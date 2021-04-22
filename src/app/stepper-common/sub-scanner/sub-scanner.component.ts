@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+// import { LocalLoyaltyService } from 'src/app/stepper-partner-loyalty_points/_loyalty.service';
 
 @Component({
   selector: 'app-sub-scanner',
@@ -13,22 +15,16 @@ export class SubScannerComponent implements OnInit {
   @Output()
   scan_identifier: EventEmitter<string> = new EventEmitter<string>();
 
-  /**
-   * Flag Variables
-   */
-  scanned: boolean = false;
-
   constructor() { }
 
-	/**
-	 * On Init
-	 */
+  /**
+   * On Init
+   */
   ngOnInit() {
   }
 
   scanSuccessHandler(result: string): void {
-    if (this.scanned) return
-    this.scanned = true;
+    if (this.checkResult(result)) return;
 
     const identifier = result;
     this.scan_identifier.emit(identifier);
@@ -37,4 +33,13 @@ export class SubScannerComponent implements OnInit {
   scanErrorHandler(error: any): void {
     console.log("Error");
   }
+
+  checkResult(result: string) {
+    const emailPatern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(result);
+    const cardPatern = /^\d{16}$/.test(result);
+
+    if (emailPatern || cardPatern) return false;
+    return true;
+  }
+
 }

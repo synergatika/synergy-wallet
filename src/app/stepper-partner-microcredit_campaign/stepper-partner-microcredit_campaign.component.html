@@ -1,7 +1,7 @@
 <div class="stepper-modal-container">
 
   <!--begin::Wizard Button (Exit)-->
-  <button type="button" class="close-btn" aria-label="Close" (click)="onFinalStep()">
+  <button type="button" class="close-btn" aria-label="Close" (click)="onFinalStep($event)">
     <span aria-hidden="true">&times;</span>
   </button>
   <!--end::Wizard Button (Exit)-->
@@ -19,21 +19,21 @@
         <div class="col-md-8">
           <div *ngIf="!showIdentifierForm">
             <h3 class="heading">{{ 'PARTNER.WIZARD.SCAN_FORM.HEADING' | translate }}</h3>
-            <app-sub-scanner (scan_identifier)="onSuccessScanIdentifier($event)">
+            <app-sub-scanner (scan_identifier)="onDefineIdentifier($event)">
             </app-sub-scanner>
           </div>
           <button mat-raised-button type="button" (click)="onShowIdentifierFormChange()">
-            <span *ngIf="!showIdentifierForm; else back_to_scanner">
-                {{ 'PARTNER.WIZARD.SCAN_FORM.ALT_PROMPT' | translate }}
+            <span class="mdi mdi-autorenew" *ngIf="!showIdentifierForm; else back_to_scanner">
+              {{ 'PARTNER.WIZARD.SCAN_FORM.ALT_PROMPT' | translate }}
             </span>
             <ng-template #back_to_scanner>
-              <span>
+              <span class="mdi mdi-autorenew">
                 {{ 'PARTNER.WIZARD.BACK_TO_SCANNER' | translate }}
               </span>
             </ng-template>
           </button>
           <div *ngIf="showIdentifierForm">
-            <app-sub-identifier-form (add_identifier)="onSubmitIdentifierForm($event)">
+            <app-sub-identifier-form (add_identifier)="onDefineIdentifier($event)">
             </app-sub-identifier-form>
           </div>
         </div>

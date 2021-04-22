@@ -1,0 +1,93 @@
+<div class="new-content">
+  <mat-card>
+    <mat-card-content>
+
+      <!--begin::Form-->
+      <!--end::Form-->
+
+      <form [formGroup]="sectorsForm" class="form single-form">
+        <div formArrayName="categories" *ngFor="let item of categories.controls; let i = index"
+          class="container justify-content-start">
+          <div [formGroupName]="i" class="form-group form-row">
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field>
+                  <mat-label>{{ 'FIELDS.CONTENT.EL_TITLE.TITLE' | translate }}</mat-label>
+                  <input matInput type="text" name="el_title" formControlName="el_title"
+                    placeholder="{{ 'FIELDS.CONTENT.EL_TITLE.PLACEHOLDER' | translate }}">
+                  <mat-error *ngIf="isControlHasError('el_title','required')" class="error text-danger">
+                    {{ 'FORM.VALIDATION.INVALID_FIELD' | translate }}</mat-error>
+                  <mat-hint class="form-text text-muted">{{ 'FIELDS.CONTENT.EL_TITLE.DESC' | translate }}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field>
+                  <mat-label>{{ 'FIELDS.CONTENT.EN_TITLE.TITLE' | translate }}</mat-label>
+                  <input matInput type="text" name="en_title" formControlName="en_title"
+                    placeholder="{{ 'FIELDS.CONTENT.EN_TITLE.PLACEHOLDER' | translate }}">
+                  <mat-error *ngIf="isControlHasError('en_title','required')" class="error text-danger">
+                    {{ 'FORM.VALIDATION.INVALID_FIELD' | translate }}</mat-error>
+                  <mat-hint class="form-text text-muted">{{ 'FIELDS.CONTENT.EN_TITLE.DESC' | translate }}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <button type="button" class="button-remove btn btn-block btn-danger" (click)="removeItem(i)">
+                {{ 'FORM.BUTTONS.REMOVE' | translate }}
+              </button>
+            </div>
+
+            <!-- <div class="col-md-5">
+              <input type="text" nbInput fullWidth status="basic" class="form-control" placeholder="Name"
+                formControlName="name" />
+            </div>
+
+            <div class="col-md-4">
+              <input type="text" nbInput fullWidth status="basic" placeholder="Slug" class="form-control"
+                formControlName="slug" />
+            </div>
+
+            <div class="col-md-3">
+              <button type="button" class="button-remove" nbButton fullWidth outline status="danger"
+                (click)="removeItem(i)">
+                Remove
+              </button>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="container justify-content-start">
+          <div class="form-row">
+            <div class="col-md-4 offset-md-8">
+              <button type="button" class="button-insert btn btn-block btn-success" (click)="insertItem()">
+                {{ 'FORM.BUTTONS.INSERT' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <span class="error text-danger small" *ngIf="isControlHasError('categories', 'requireValuesToBeUnique')">
+          Category's Name is not allowed to be the same
+        </span>
+        <span class="error text-danger small" *ngIf="isControlHasError('categories', 'requireInputToBeFilled')">
+          Required at least one Category
+        </span>
+
+        <hr />
+        <div class="form-actions row col-md-4">
+          <button mat-raised-button (click)="onSubmit()" (keyup.enter)="onSubmit()" class="btn btn-block btn-primary">
+            {{ 'FORM.BUTTONS.SUBMIT' | translate }}
+          </button>
+        </div>
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+</div>
