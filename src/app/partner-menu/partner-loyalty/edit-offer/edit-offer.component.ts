@@ -40,12 +40,9 @@ export class EditOfferComponent implements OnInit, OnDestroy {
   /**
    * File Variables
    */
-  // fileData: File = null;
-  // previewUrl: any = null;
-  // originalImage: boolean = true;
   public initialImage: string = '';
 
-  /** 
+  /**
    * Forms
    */
   submitForm: FormGroup;
@@ -105,6 +102,9 @@ export class EditOfferComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
+  /**
+   * Initialize
+   */
   initForm() {
     this.submitForm = this.fb.group({
       title: ['', Validators.compose([
@@ -147,42 +147,6 @@ export class EditOfferComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Image Upload
-   */
-  // fileProgress(fileInput: any) {
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   this.preview();
-  // }
-
-  // preview() {
-  //   if (this.fileData == null) {
-  //     this.onImageCancel();
-  //     return;
-  //   }
-  //   this.originalImage = false;
-  //   var mimeType = this.fileData.type;
-  //   if (mimeType.match(/image\/*/) == null) {
-  //     return;
-  //   }
-
-  //   var reader = new FileReader();
-  //   reader.readAsDataURL(this.fileData);
-  //   reader.onload = (_event) => {
-  //     if (this.previewUrl !== reader.result) {
-  //       this.cdRef.markForCheck();
-  //     }
-  //     this.previewUrl = reader.result;
-  //   }
-  // }
-
-  // onImageCancel() {
-  //   this.previewUrl = this.initialImage;
-  //   this.fileData = null;
-  //   this.originalImage = true;
-  //   this.imageInput.nativeElement.value = null;
-  // }
-
-  /**
    * Fetch Offer Data
    */
   fetchOfferData() {
@@ -194,7 +158,6 @@ export class EditOfferComponent implements OnInit, OnDestroy {
             this.title = data.title;
             this.initialImage = data.offer_imageURL;
             this.isQuantitative = (this.offer.cost == 0) ? false : true;
-            // this.previewUrl = this.initialImage;
             this.submitForm.patchValue(
               {
                 ...data, quantitative: (this.offer.cost == 0) ? false : true,
@@ -231,14 +194,12 @@ export class EditOfferComponent implements OnInit, OnDestroy {
 
     const formData = new FormData();
     formData.append('imageURL', controls.image_url.value);
-    // formData.append('imageURL', this.fileData);
     formData.append('title', controls.title.value);
     formData.append('subtitle', controls.subtitle.value);
     formData.append('cost', (controls.quantitative.value) ? controls.cost.value : '0');
     formData.append('description', controls.description.value);
     formData.append('instructions', controls.instructions.value);
     formData.append('expiresAt', controls.expiration.value.getTime().toString());
-    console.log(controls.expiration.value.getTime());
 
     this.itemsService.editOffer(this.authenticationService.currentUserValue.user["_id"], this.offer_id, formData)
       .pipe(
@@ -269,19 +230,20 @@ export class EditOfferComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  deleteItemModal() {
-    this.modalService.open(this.remove_item).result.then((result) => {
-      //this.searchText = '';
-      console.log('closed');
-      //this.showList = false;
-    }, (reason) => {
-      console.log('dismissed');
-      //this.showList = false;
-    });
-  }
 
+  /**
+   * On Delete
+   */
+
+   //Confirm Deletion
+   deleteItemModal() {
+     this.modalService.open(this.remove_item).result.then((result) => {
+     }, (reason) => {
+     });
+   }
+
+  //Execute Deletion
   deleteItem() {
-    console.log('delete');
     this.itemsService.deleteOffer(this.authenticationService.currentUserValue.user["_id"], this.offer_id)
       .pipe(
         tap(
@@ -311,6 +273,7 @@ export class EditOfferComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
+  /* Check Quantitative */
   onIsQuantitativeCheckboxChange() {
     this.isQuantitative = !this.isQuantitative;
   }

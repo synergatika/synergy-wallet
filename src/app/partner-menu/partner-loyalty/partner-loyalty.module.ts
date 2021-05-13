@@ -10,6 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTabsModule } from '@angular/material/tabs'; 
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -72,6 +73,7 @@ const routes: Routes = [
         MatSelectModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatTabsModule,
         NgxMaterialTimepickerModule,
         NgbDropdownModule,
         SngCoreModule,

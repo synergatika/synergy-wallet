@@ -1,207 +1,205 @@
-<div class="new-offer">
+<div class="edit-offer edit-item">
+  <div class="back-link">
+    <a routerLink="/m-offers"><span class="mdi mdi-chevron-triple-left"></span></a>
+  </div>
 
-  <!--begin::Offer Statistics-->
-  <sng-offer-statistics *ngIf="offer" [offer]="offer"></sng-offer-statistics>
-  <!--end::Offer Statistics-->
+  <div class="row">
+    <div class="col-md-12">
+         <h1>{{title}}</h1>
+    </div>
+  </div>
 
-  <hr>
+  <mat-tab-group>
 
-  <mat-card>
-    <mat-card-content>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        {{'FIELDS.TABS.VIEW' | translate}}
+      </ng-template>
+      <!--begin::Offer Statistics-->
+      <sng-offer-statistics *ngIf="offer" [offer]="offer"></sng-offer-statistics>
+      <!--end::Offer Statistics-->
+    </mat-tab>
 
-      <!--begin::Form-->
-      <form class="form container single-form" [formGroup]="submitForm">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        {{'FIELDS.TABS.EDIT' | translate}}
+      </ng-template>
+      <mat-card>
+        <mat-card-content>
 
-        <div class="row">
-          <h1 class="heading col-md-12">{{'OFFER.EDIT' | translate}}: {{title}}</h1>
-        </div>
+          <!--begin::Form-->
+          <form class="form container single-form" [formGroup]="submitForm">
 
-        <div class="row">
-          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
 
-            <!--begin::Form Group "Title"-->
-            <div class="form-group">
-              <mat-form-field>
-                <mat-label>{{'FIELDS.OFFER.TITLE.TITLE' | translate}}</mat-label>
-                <input matInput type="text" name="Title" formControlName="title"
-                  placeholder="{{'FIELDS.OFFER.TITLE.PLACEHOLDER' | translate}}">
-                <mat-error *ngIf="isControlHasError('title','required')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('title','minlength')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MIN_LENGTH_FIELD' | translate }}: {{validator.title.minLength}}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('title','maxlength')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MAX_LENGTH_FIELD' | translate }}: {{validator.title.maxLength}}
-                </mat-error>
-                <mat-hint class="form-text text-muted">{{'FIELDS.OFFER.TITLE.DESC' | translate}}</mat-hint>
-              </mat-form-field>
-            </div>
-            <!--end::Form Group "Title"-->
-
-            <!--begin::Form Group "Description"-->
-            <div class="form-group">
-              <mat-form-field>
-                <mat-label>{{'FIELDS.OFFER.DESCRIPTION.TITLE' | translate}}</mat-label>
-                <textarea matInput name="Description" formControlName="description"
-                  placeholder="{{'FIELDS.OFFER.DESCRIPTION.PLACEHOLDER' | translate}}">
-                </textarea>
-                <mat-error *ngIf="isControlHasError('description','required')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('description','minlength')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MIN_LENGTH_FIELD' | translate }}: {{validator.description.minLength}}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('description','maxlength')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MAX_LENGTH_FIELD' | translate }}: {{validator.description.maxLength}}
-                </mat-error>
-                <mat-hint class="form-text text-muted">
-                  {{'FIELDS.OFFER.DESCRIPTION.DESC' | translate}}
-                </mat-hint>
-              </mat-form-field>
-            </div>
-            <!--end::Form Group "Description"-->
-
-            <!--begin::Form Group "Instructions"-->
-            <div class="form-group">
-              <mat-form-field>
-                <mat-label>{{'FIELDS.OFFER.INSTRUCTIONS.TITLE' | translate}}</mat-label>
-                <textarea class="short" matInput type="text" name="Instructions" formControlName="instructions"
-                  placeholder="{{'FIELDS.OFFER.INSTRUCTIONS.PLACEHOLDER' | translate}}">
-                                        </textarea>
-                <mat-error *ngIf="isControlHasError('instructions','required')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('instructions','minlength')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MIN_LENGTH_FIELD' | translate }}: {{validator.instructions.minLength}}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('instructions','maxlength')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MAX_LENGTH_FIELD' | translate }}: {{validator.instructions.maxLength}}
-                </mat-error>
-                <mat-hint class="form-text text-muted">
-                  {{'FIELDS.OFFER.INSTRUCTIONS.DESC' | translate}}
-                </mat-hint>
-              </mat-form-field>
-            </div>
-            <!--end::Form Group "Instructions"-->
-
-          </div>
-          <div class="col-md-6">
-
-            <!--begin::Form Group "Subtitle"-->
-            <div class="form-group">
-              <mat-form-field>
-                <mat-label>{{'FIELDS.OFFER.SUBTITLE.TITLE' | translate}}</mat-label>
-                <input matInput type="text" formControlName="subtitle"
-                  placeholder="{{'FIELDS.OFFER.SUBTITLE.PLACEHOLDER' | translate}}">
-                <mat-hint class="form-text text-muted">
-                  {{'FIELDS.OFFER.SUBTITLE.DESC' | translate}}
-                </mat-hint>
-              </mat-form-field>
-            </div>
-            <!--end::Form Group "Subtitle"-->
-
-            <!--begin::Form Group "Expiration Date"-->
-            <div class="form-group">
-              <mat-form-field>
-                <mat-label>{{'FIELDS.OFFER.EXPIRATION.TITLE' | translate}}</mat-label>
-                <input matInput [matDatepicker]="picker" [min]="minDate" name="expiration" formControlName="expiration">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="isControlHasError('expiration','required')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-                <mat-hint class="form-text text-muted">
-                  {{'FIELDS.OFFER.EXPIRATION.DESC' | translate}}
-                </mat-hint>
-              </mat-form-field>
-            </div>
-            <!--end::Form Group "Expiration Date"-->
-
-            <!--begin::Form Group "Quantitative"-->
-            <div class="form-group">
-              <mat-checkbox (click)="onIsQuantitativeCheckboxChange()" type="checkbox" class="" name="redeem"
-                formControlName="quantitative" value="false" labelPosition="before">
-                {{'FIELDS.OFFER.QUANTITATIVE' | translate}}
-              </mat-checkbox>
-            </div>
-            <!--end::Form Group "Quantitative"-->
-
-            <!--begin::Form Group "Cost"-->
-            <div class="form-group" *ngIf="isQuantitative">
-              <mat-form-field>
-                <mat-label>{{'FIELDS.OFFER.COST.TITLE' | translate}}</mat-label>
-                <input matInput type="number" name="points" formControlName="cost"
-                  placeholder="{{'FIELDS.OFFER.COST.PLACEHOLDER' | translate}}">
-                <mat-error *ngIf="isControlHasError('cost','required')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('cost','min')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MIN_VALUE_FIELD' | translate }}: {{validator.cost.minValue}}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('cost','max')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MAX_VALUE_FIELD' | translate }}: {{validator.cost.maxValue}}
-                </mat-error>
-                <mat-hint class="form-text text-muted">
-                  {{'FIELDS.OFFER.COST.DESC' | translate}}
-                </mat-hint>
-              </mat-form-field>
-            </div>
-            <!--end::Form Group "Cost"-->
-
-            <!--begin::Form Group "Image"-->
-            <app-image-upload *ngIf="initialImage" [parentForm]="submitForm" previousURL="{{initialImage}}">
-            </app-image-upload>
-            <!-- <div class="form-group">
-              <label class="">{{'FIELDS.OFFER.IMAGE.TITLE' | translate}}</label>
-              <div class="">
-                <div class="upload-img">
-                  <div class="upload-img-container">
-                    <img *ngIf="initialImage" class="upload-img-holder" [src]="previewUrl">
-                    <div *ngIf="!originalImage" class="image-cancel">
-                      <span class="mdi mdi-close-circle" (click)="onImageCancel()">
-                      </span>
-                    </div>
-                  </div>
+                <!--begin::Form Group "Title"-->
+                <div class="form-group">
+                  <mat-form-field>
+                    <mat-label>{{'FIELDS.OFFER.TITLE.TITLE' | translate}}</mat-label>
+                    <input matInput type="text" name="Title" formControlName="title"
+                      placeholder="{{'FIELDS.OFFER.TITLE.PLACEHOLDER' | translate}}">
+                    <mat-error *ngIf="isControlHasError('title','required')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('title','minlength')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.MIN_LENGTH_FIELD' | translate }}: {{validator.title.minLength}}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('title','maxlength')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.MAX_LENGTH_FIELD' | translate }}: {{validator.title.maxLength}}
+                    </mat-error>
+                    <mat-hint class="form-text text-muted">{{'FIELDS.OFFER.TITLE.DESC' | translate}}</mat-hint>
+                  </mat-form-field>
                 </div>
-                <div>
-                  <button type="button" mat-raised-button (click)="fileInput.click()">
-                    {{'FIELDS.OFFER.IMAGE.ACTION' | translate}}
+                <!--end::Form Group "Title"-->
+
+                <!--begin::Form Group "Description"-->
+                <div class="form-group">
+                  <mat-form-field>
+                    <mat-label>{{'FIELDS.OFFER.DESCRIPTION.TITLE' | translate}}</mat-label>
+                    <textarea matInput name="Description" formControlName="description"
+                      placeholder="{{'FIELDS.OFFER.DESCRIPTION.PLACEHOLDER' | translate}}">
+                    </textarea>
+                    <mat-error *ngIf="isControlHasError('description','required')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('description','minlength')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.MIN_LENGTH_FIELD' | translate }}: {{validator.description.minLength}}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('description','maxlength')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.MAX_LENGTH_FIELD' | translate }}: {{validator.description.maxLength}}
+                    </mat-error>
+                    <mat-hint class="form-text text-muted">
+                      {{'FIELDS.OFFER.DESCRIPTION.DESC' | translate}}
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+                <!--end::Form Group "Description"-->
+
+                <!--begin::Form Group "Instructions"-->
+                <div class="form-group">
+                  <mat-form-field>
+                    <mat-label>{{'FIELDS.OFFER.INSTRUCTIONS.TITLE' | translate}}</mat-label>
+                    <textarea class="short" matInput type="text" name="Instructions" formControlName="instructions"
+                      placeholder="{{'FIELDS.OFFER.INSTRUCTIONS.PLACEHOLDER' | translate}}">
+                                            </textarea>
+                    <mat-error *ngIf="isControlHasError('instructions','required')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('instructions','minlength')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.MIN_LENGTH_FIELD' | translate }}: {{validator.instructions.minLength}}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('instructions','maxlength')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.MAX_LENGTH_FIELD' | translate }}: {{validator.instructions.maxLength}}
+                    </mat-error>
+                    <mat-hint class="form-text text-muted">
+                      {{'FIELDS.OFFER.INSTRUCTIONS.DESC' | translate}}
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+                <!--end::Form Group "Instructions"-->
+
+              </div>
+
+              <div class="col-md-6">
+
+                <!--begin::Form Group "Subtitle"-->
+                <div class="form-group">
+                  <mat-form-field>
+                    <mat-label>{{'FIELDS.OFFER.SUBTITLE.TITLE' | translate}}</mat-label>
+                    <input matInput type="text" formControlName="subtitle"
+                      placeholder="{{'FIELDS.OFFER.SUBTITLE.PLACEHOLDER' | translate}}">
+                    <mat-hint class="form-text text-muted">
+                      {{'FIELDS.OFFER.SUBTITLE.DESC' | translate}}
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+                <!--end::Form Group "Subtitle"-->
+
+                <!--begin::Form Group "Expiration Date"-->
+                <div class="form-group">
+                  <mat-form-field>
+                    <mat-label>{{'FIELDS.OFFER.EXPIRATION.TITLE' | translate}}</mat-label>
+                    <input matInput [matDatepicker]="picker" [min]="minDate" name="expiration" formControlName="expiration">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="isControlHasError('expiration','required')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                    <mat-hint class="form-text text-muted">
+                      {{'FIELDS.OFFER.EXPIRATION.DESC' | translate}}
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+                <!--end::Form Group "Expiration Date"-->
+
+                <!--begin::Form Group "Quantitative"-->
+                <div class="form-group">
+                  <mat-checkbox (click)="onIsQuantitativeCheckboxChange()" type="checkbox" class="" name="redeem"
+                    formControlName="quantitative" value="false" labelPosition="before">
+                    {{'FIELDS.OFFER.QUANTITATIVE' | translate}}
+                  </mat-checkbox>
+                </div>
+                <!--end::Form Group "Quantitative"-->
+
+                <!--begin::Form Group "Cost"-->
+                <div class="form-group" *ngIf="isQuantitative">
+                  <mat-form-field>
+                    <mat-label>{{'FIELDS.OFFER.COST.TITLE' | translate}}</mat-label>
+                    <input matInput type="number" name="points" formControlName="cost"
+                      placeholder="{{'FIELDS.OFFER.COST.PLACEHOLDER' | translate}}">
+                    <mat-error *ngIf="isControlHasError('cost','required')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('cost','min')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.MIN_VALUE_FIELD' | translate }}: {{validator.cost.minValue}}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('cost','max')" class="error text-danger">
+                      {{ 'FORM.VALIDATION.MAX_VALUE_FIELD' | translate }}: {{validator.cost.maxValue}}
+                    </mat-error>
+                    <mat-hint class="form-text text-muted">
+                      {{'FIELDS.OFFER.COST.DESC' | translate}}
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+                <!--end::Form Group "Cost"-->
+
+                <!--begin::Form Group "Image"-->
+                <app-image-upload *ngIf="initialImage" [parentForm]="submitForm" previousURL="{{initialImage}}">
+                </app-image-upload>
+                <!--end::Form Group "Image"-->
+
+              </div>
+            </div>
+
+            <!--begin::Form Actions-->
+            <div class="form-actions row">
+              <div class="col-md-12">
+                <div class="single-submit">
+                  <button mat-raised-button (click)="onSubmit()" (keyup.enter)="onSubmit()" class="btn btn-block btn-primary">
+                    {{ 'FORM.BUTTONS.SUBMIT' | translate }}
                   </button>
                 </div>
-                <label class="avatar_upload">
-                  <input type="file" hidden (change)="fileProgress($event)" name="profile_avatar"
-                    accept=".png, .jpg, .jpeg" #fileInput>
-                </label>
+                <!--end::Button (Delete Offer)-->
+                <div class="single-delete">
+                  <button mat-raised-button (click)="deleteItemModal()" class="btn btn-block btn-danger">
+                    {{'OFFER.DELETE' | translate}}
+                  </button>
+                </div>
+                <!--end::Button (Delete Offer)-->
               </div>
-            </div> -->
-            <!--end::Form Group "Image"-->
+            </div>
+            <!--end::Form Actions-->
 
-          </div>
-        </div>
+          </form>
+          <!--end::Form-->
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
 
-        <!--begin::Form Actions-->
-        <div class="form-actions row col-md-4">
-          <button mat-raised-button (click)="onSubmit()" (keyup.enter)="onSubmit()" class="btn btn-block btn-primary">
-            {{ 'FORM.BUTTONS.SUBMIT' | translate }}
-          </button>
-        </div>
-        <!--end::Form Actions-->
 
-      </form>
-      <!--end::Form-->
-
-    </mat-card-content>
-  </mat-card>
 </div>
-
-<!--end::Button (Delete Offer)-->
-<div class="single-delete row col-md-4">
-  <button mat-raised-button (click)="deleteItemModal()" class="btn btn-block btn-danger">
-    {{'OFFER.DELETE' | translate}}
-  </button>
-</div>
-<!--end::Button (Delete Offer)-->
 
 <!--begin::Confirmation Modal (Remove Item)-->
 <ng-template #remove_item let-c="close" let-d="dismiss">

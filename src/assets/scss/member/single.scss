@@ -1,0 +1,198 @@
+//Single Item
+.fullscreen-modal {
+  .close-btn {
+    top: 0px;
+  }
+}
+
+.s_single {
+  &-img-container.partner-img-container {
+    min-height: 300px;
+  }
+
+  &-img.partner-img {
+    img {
+      position: initial;
+      width: auto;
+      height: auto;
+      max-width: 50%;
+      max-height: 80%;
+    }
+  }
+
+  &-title {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: $dark-font;
+  }
+
+  &-img-area {
+    position: relative;
+  }
+
+  &-img-container {
+    height: auto;
+    overflow: hidden;
+    padding-top: 30%;
+    background-color: #e9e9e9;
+    min-height: 400px;
+  }
+
+  &-img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    img {
+      right: 0;
+      width: 100%;
+      height: 100%;
+      bottom: 0;
+      left: 0;
+      top: 0;
+      position: absolute;
+      -o-object-position: 50% 50%;
+      object-position: 50% 50%;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+  }
+
+  &-date {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    bottom: 0;
+    color: #fff;
+    padding: 10px;
+    font-size: 1.25rem;
+    @extend .light-shadow;
+    background-color: $tertiary;
+  }
+
+  &-category {
+    position: absolute;
+    z-index: 1;
+    right: 0px;
+    bottom: 0px; // bottom: -10px;
+    background-color: $primary;
+    color: #fff;
+    padding: 5px 15px;
+    font-size: 1.22rem;
+  }
+
+  &-info-container {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+
+    .mdi {
+      color: $primary;
+      font-size: 18px;
+      margin-right: 5px;
+      position: relative;
+      top: 1.5px;
+
+      &.share-icon {
+        font-size: 30px;
+      }
+    }
+
+    .hours {
+      text-align: right;
+    }
+
+    .info-row {
+      margin-bottom: 5px;
+    }
+  }
+
+  &-share {
+    text-align: right;
+  }
+
+  &-details {
+    margin-bottom: 30px;
+  }
+
+  &-info {
+    .tag {
+      color: #000;
+    }
+
+    .desc {
+      font-size: 12px;
+      font-style: italic;
+    }
+  }
+
+  .terms {
+    margin-left: 15px;
+    border-left: 2px solid $tertiary;
+    padding-left: 15px;
+
+    h4 {
+      font-size: 1.3rem;
+      color: #000;
+      margin-bottom: 12px;
+    }
+  }
+
+  &-credit {
+    text-align: right;
+
+    .hypertitle {
+      font-size: 10px;
+      color: #000;
+      text-transform: uppercase;
+      margin-top: 13px;
+      display: block;
+      line-height: 3px;
+    }
+
+    .min-amount {
+      .amount {
+        font-size: 1.3rem;
+        color: $amount-color;
+        margin-bottom: 20px;
+      }
+    }
+
+    .price-item {
+      color: $primary-light;
+      font-size: 1.6rem;
+    }
+
+    .plegde-button {
+      margin-top: 20px;
+      background-color: $primary;
+      font-size: 18px;
+      color: #fff;
+      padding: 6px 20px 6px 20px;
+    }
+  }
+
+  &-description {
+    .partner-info {
+      padding-right: 15px;
+      padding-left: 15px;
+      padding-top: 0px;
+      border-bottom: 0px;
+
+      h6 {
+        text-transform: uppercase;
+        color: $primary;
+        font-size: 0.8rem;
+      }
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+}

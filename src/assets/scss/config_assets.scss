@@ -1,8 +1,6 @@
-@import "../../variables.scss";
+@import "../../variables.scss"; //2.1 Configue Material
+//Card
 
-//2.1 Configue Material
-
-//Materialize Card
 .mat-card {
   font-family: $main-font, sans-serif;
   color: $darker-font;
@@ -56,7 +54,6 @@ mat-card {
     font-size: 1.1rem;
   }
 }
-
 //Radio Button
 .mat-radio-button.mat-accent .mat-radio-inner-circle,
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
@@ -68,15 +65,17 @@ mat-card {
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
   border-color: $tertiary;
 }
-
 //Other
+
 .mat-button,
 .mat-fab,
 .mat-flat-button,
 .mat-icon-button,
 .mat-mini-fab,
 .mat-raised-button,
-.mat-stroked-button {
+.mat-stroked-button,
+.mat-tab-label,
+.mat-tab-link {
   font-family: $main-font, sans-serif;
 }
 
@@ -98,9 +97,6 @@ mat-card {
   }
 }
 
-// button.mat-mini-fab.mat-accent {
-//   background-color: #0c1a33;
-// }
 th .mat-sort-header-sorted {
   color: $secondary;
 }
@@ -108,21 +104,49 @@ th .mat-sort-header-sorted {
 .cdk-overlay-container {
   z-index: 9999;
 }
+//Tabs
 
+.mat-tab-label-content {
+  font-size: 17px;
+  color: #000;
+}
+
+.mat-tab-label-active {
+  background: #e1e1e1;
+}
+//Spinner
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: $primary !important;
+}
+//Mobile
+@media (min-width: 992px) {
+  body {
+    .mat-card {
+      padding: 25px;
+
+      .row {
+        margin-right: -25px;
+        margin-left: -25px;
+      }
+    }
+  }
+}
 //2.2 Configue Bootsrtap
 .btn {
   transition: background-color 0.3s;
 }
 
-.btn-success,
-.btn-primary {
+.btn-primary,
+.btn-success {
   background-color: $primary;
   border-color: $primary-light;
 
-  &:hover,
   &:active,
-  &:not(:disabled):not(.disabled):active,
-  &:focus {
+  &:focus,
+  &:hover,
+  &:not(:disabled):not(.disabled):active {
     background-color: $primary-light;
     border-color: $primary-light;
   }
@@ -133,23 +157,23 @@ th .mat-sort-header-sorted {
   background-color: $secondary;
   border-color: $secondary-light;
 
-  &:hover,
   &:active,
-  &:not(:disabled):not(.disabled):active,
-  &:focus {
+  &:focus,
+  &:hover,
+  &:not(:disabled):not(.disabled):active {
     background-color: $secondary-light;
     border-color: $secondary-light;
   }
 }
 
-.btn-warning,
-.btn-tertiary {
+.btn-tertiary,
+.btn-warning {
   color: #fff;
   background-color: $tertiary;
   border-color: $tertiary;
 
-  &:hover,
-  &:active {
+  &:active,
+  &:hover {
     background-color: $tertiary-dark;
     border-color: $tertiary-dark;
   }
@@ -165,8 +189,8 @@ th .mat-sort-header-sorted {
     content: none;
   }
 }
-
 //2.2 Configue Owl carousel
+
 .owl-theme {
   .owl-nav {
     position: absolute;
@@ -175,10 +199,12 @@ th .mat-sort-header-sorted {
     width: 100%;
     justify-content: space-between;
     pointer-events: none;
+
     [class*="owl-"] {
       font-size: 34px;
       line-height: 1.1;
       background-color: $primary;
+
       &:hover {
         background-color: $primary-light;
       }
@@ -204,8 +230,10 @@ th .mat-sort-header-sorted {
       }
     }
   }
+
   .owl-dots {
     margin-bottom: 20px;
+
     .owl-dot {
       &.active,
       &:hover {
@@ -216,14 +244,14 @@ th .mat-sort-header-sorted {
     }
   }
 }
-.owl-carousel .owl-stage-outer{
+
+.owl-carousel .owl-stage-outer {
   margin-bottom: 20px;
 }
-
 ///2.3 Modal Diaglog
+
 .modal-dialog {
   margin: 5rem auto;
-
   @media (max-width: 576px) {
     max-width: 92%;
   }
@@ -269,20 +297,18 @@ th .mat-sort-header-sorted {
     border: none;
   }
 }
-
 //2.4 Forms
-.single-form {
-   .mat-form-field {
-     display: block;
-     max-width: 400px;
-     //max-width: 100%;
 
-   //margin-bottom: 40px;
+.single-form {
+  .mat-form-field {
+    display: block;
+    max-width: 400px;
+
     .mat-form-field-flex {
       background-color: #f8f6f6;
       padding: 10px;
     }
-   }
+  }
 
   .payment {
     width: 50%;
@@ -335,7 +361,6 @@ th .mat-sort-header-sorted {
     display: flex;
     max-width: 400px;
 
-    //justify-content: space-between;
     &-date {
       flex-grow: 6;
       margin-right: 30px;
@@ -389,7 +414,6 @@ th .mat-sort-header-sorted {
 
   .form-actions {
     margin-top: 20px;
-
     float: right;
 
     button {
@@ -399,80 +423,6 @@ th .mat-sort-header-sorted {
     }
   }
 }
-
-.profile-form {
-	margin-bottom: 1.5rem;
-
-	.form-group {
-		padding-left: 30px;
-		padding-right: 30px;
-		margin-bottom: 1.5rem;
-
-		.payment {
-			margin-bottom: 1.5rem;
-		}
-	}
-
-	.form-actions {
-		margin-top: 20px;
-		button {
-			float: right;
-			font-size: 18px;
-			padding: 4px 22px;
-		}
-	}
-
-	.upload-img {
-		&-holder {
-			max-width: 250px;
-			margin-bottom: 15px;
-		}
-
-		&-container {
-			position: relative;
-			display: inline-block;
-		}
-
-		&-btn {
-			margin-bottom: 10px;
-		}
-
-		.image-cancel {
-			position: absolute;
-			top: -6px;
-			right: -6px;
-			font-size: 24px;
-			width: 20px;
-			height: 20px;
-			background: #fff;
-			border-radius: 50%;
-
-			span {
-				position: relative;
-				top: -10px;
-				right: 5px;
-				font-size: 28px;
-				cursor: pointer;
-			}
-		}
-	}
-
-	mat-form-field {
-    width: 100%;
-    padding: 10px;
-	}
-
-}
-
-
-.single-delete {
-  float: right;
-
-  button {
-    float: right;
-  }
-}
-
 
 .avatar {
   &-holder {
@@ -528,8 +478,8 @@ app-sub-offer-form {
   width: 100%;
   max-width: 500px;
 }
-
 //2.5 Wizards
+
 aw-wizard-navigation-bar.horizontal.small ul.steps-indicator li {
   &.current {
     .step-indicator {
@@ -563,21 +513,14 @@ aw-wizard-navigation-bar.horizontal.small ul.steps-indicator li {
   }
 }
 
-// TEMPORARY
-/*aw-wizard-navigation-bar ul.steps-indicator li {
-    pointer-events: auto;
-  }*/
-// -------
 aw-wizard-navigation-bar ul.steps-indicator li a {
   .label {
     font-weight: 400;
     font-size: 12px;
   }
 }
+//2.6 Paginator
 
-//2.6 Othes
-
-//Paginator
 .pagination-wrapper {
   text-align: center;
 
