@@ -165,6 +165,7 @@ export class EditOfferComponent implements OnInit, OnDestroy {
               });
           },
           error => {
+            console.log(error);
           }),
         takeUntil(this.unsubscribe),
         finalize(() => {

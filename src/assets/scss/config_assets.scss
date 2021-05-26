@@ -1,49 +1,40 @@
 @import "../../variables.scss"; //2.1 Configue Material
-//Card
 
+//Card
 .mat-card {
   font-family: $main-font, sans-serif;
   color: $darker-font;
 }
-
 mat-card {
   font-family: $main-font, sans-serif;
-
   .mdi.share-icon {
     color: $grey-font;
     font-size: 35px;
     cursor: pointer;
   }
-
   .mdi {
     color: $primary;
     font-size: 18px;
     margin-right: 5px;
-
     &.white {
       color: #fff;
     }
   }
 }
-
 .mat-card:not([class*="mat-elevation-z"]) {
   @extend .light-shadow;
   border-bottom-left-radius: 9px;
   border-bottom-right-radius: 9px;
   overflow: hidden;
 }
-
 .owl-theme .mat-card {
   box-shadow: none !important;
 }
-
 .mat-card.wallet-card:not([class*="mat-elevation-z"]) {
   overflow: visible;
 }
-
 .mat-card.item-card {
   cursor: pointer;
-
   .item-draft {
     position: absolute;
     right: -1px;
@@ -54,6 +45,7 @@ mat-card {
     font-size: 1.1rem;
   }
 }
+
 //Radio Button
 .mat-radio-button.mat-accent .mat-radio-inner-circle,
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
@@ -61,12 +53,11 @@ mat-card {
 .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
   background-color: $tertiary;
 }
-
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
   border-color: $tertiary;
 }
-//Other
 
+//Other
 .mat-button,
 .mat-fab,
 .mat-flat-button,
@@ -78,7 +69,6 @@ mat-card {
 .mat-tab-link {
   font-family: $main-font, sans-serif;
 }
-
 .mat-mini-fab {
   width: 30px;
   height: 30px;
@@ -86,40 +76,39 @@ mat-card {
   font-size: 22px;
   margin-left: 8px;
   margin-top: 5px;
-
   &.mat-accent {
     background-color: $tertiary;
   }
-
   span.mat-button-wrapper {
     padding: 1px 0;
     line-height: inherit;
   }
 }
-
 th .mat-sort-header-sorted {
   color: $secondary;
 }
-
 .cdk-overlay-container {
   z-index: 9999;
 }
-//Tabs
 
+//Tabs
+.mat-tab-group{
+  font-family: $main-font, sans-serif;
+}
 .mat-tab-label-content {
   font-size: 17px;
   color: #000;
 }
-
 .mat-tab-label-active {
   background: #e1e1e1;
 }
-//Spinner
 
+//Spinner
 .mat-progress-spinner circle,
 .mat-spinner circle {
   stroke: $primary !important;
 }
+
 //Mobile
 @media (min-width: 992px) {
   body {
@@ -133,16 +122,16 @@ th .mat-sort-header-sorted {
     }
   }
 }
+
+
 //2.2 Configue Bootsrtap
 .btn {
   transition: background-color 0.3s;
 }
-
 .btn-primary,
 .btn-success {
   background-color: $primary;
   border-color: $primary-light;
-
   &:active,
   &:focus,
   &:hover,
@@ -151,12 +140,10 @@ th .mat-sort-header-sorted {
     border-color: $primary-light;
   }
 }
-
 .btn-danger,
 .btn-secondary {
   background-color: $secondary;
   border-color: $secondary-light;
-
   &:active,
   &:focus,
   &:hover,
@@ -165,32 +152,29 @@ th .mat-sort-header-sorted {
     border-color: $secondary-light;
   }
 }
-
 .btn-tertiary,
 .btn-warning {
   color: #fff;
   background-color: $tertiary;
   border-color: $tertiary;
-
   &:active,
   &:hover {
     background-color: $tertiary-dark;
     border-color: $tertiary-dark;
   }
 }
-
 .dropdown-menu {
   border: none;
   box-shadow: 0 0 40px 0 rgba(40, 70, 120, 0.15);
 }
-
 .dropdown-toggle {
   &:after {
     content: none;
   }
 }
-//2.2 Configue Owl carousel
 
+
+//2.2 Configue Owl carousel
 .owl-theme {
   .owl-nav {
     position: absolute;
@@ -248,8 +232,9 @@ th .mat-sort-header-sorted {
 .owl-carousel .owl-stage-outer {
   margin-bottom: 20px;
 }
-///2.3 Modal Diaglog
 
+
+//2.3 Modal Diaglog
 .modal-dialog {
   margin: 5rem auto;
   @media (max-width: 576px) {

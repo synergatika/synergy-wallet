@@ -10,11 +10,40 @@
   </div>
 
   <mat-tab-group>
-
     <mat-tab>
       <ng-template mat-tab-label>
         {{'FIELDS.TABS.VIEW' | translate}}
       </ng-template>
+
+      <!--begin::Offer Data -->
+      <h3 class="section-heading">
+          {{'FIELDS.OFFER.DISPLAY' | translate}}
+      </h3>
+      <mat-card *ngIf="offer">
+        <mat-card-content>
+          <div class="row">
+            <div class="col-md-6">
+              <div *ngIf="offer.subtitle" class="display-field">
+                  <label>{{'FIELDS.OFFER.SUBTITLE.TITLE' | translate}}</label>
+                  <span>{{offer.subtitle}}</span>
+              </div>
+              <div *ngIf="offer.expiresAt" class="display-field">
+                  <label>{{'FIELDS.OFFER.EXPIRATION.TITLE' | translate}}</label>
+                  <span>{{ offer.expiresAt | date:'d/M/yy' }}</span>
+              </div>
+              <div *ngIf="offer.cost" class="display-field">
+                  <label>{{'FIELDS.OFFER.COST.TITLE' | translate}}</label>
+                  <span>{{ offer.cost }}</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!--end::Offer Data -->
+
       <!--begin::Offer Statistics-->
       <sng-offer-statistics *ngIf="offer" [offer]="offer"></sng-offer-statistics>
       <!--end::Offer Statistics-->
