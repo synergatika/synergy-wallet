@@ -1,6 +1,7 @@
 //New item & Loyalty Card
-.new-item-card,
-.loyalty-item-card {
+
+.loyalty-item-card,
+.new-item-card {
   .mat-card-content {
     color: #fff;
     font-size: 3rem;
@@ -13,73 +14,94 @@
   align-items: center;
   justify-content: center;
 }
+
 .loyalty-item-card {
   background-color: $tertiary;
 }
+
 .new-item-card {
   background-color: $tertiary;
 }
+
 //New item / edit item page
-.edit-item{
-  h1{
-    color:#000;
-    margin-top:10px;
+.edit-item {
+  h1 {
+    color: #000;
+    margin-top: 10px;
     margin-bottom: 30px;
   }
+
   .form {
     margin-bottom: 1.5rem;
+
     .form-group {
       padding-left: 30px;
       padding-right: 30px;
       margin-bottom: 1.5rem;
+
       .payment {
         margin-bottom: 1.5rem;
       }
     }
+
     mat-form-field {
       width: 100%;
     }
   }
-  .single-submit{
-      width: 300px;
-      margin-bottom: 20px;
-      float: left;
+
+  .single-submit {
+    width: 300px;
+    margin-bottom: 20px;
+    float: left;
   }
+
   .single-delete {
     margin-top: 20px;
     text-align: right;
+
     button {
       opacity: 0.6;
       transition: opacity 0.3s;
+
       &:hover {
         opacity: 1;
       }
     }
   }
 }
+
 //Display Item
-.partern-item-display{
-  .section-heading{
+.partern-item-display {
+  mat-card {
+    box-shadow: none !important;
+  }
+
+  .section-heading {
     margin-top: 30px;
     margin-bottom: 15px;
-  } 
-  .partern-item-info{
-    padding: 10px 30px 9px 30px;
+  }
+
+  .partern-item-info {
+    padding: 10px 30px 9px;
     font-size: 16px;
-    .display-field{
+
+    .display-field {
       margin-bottom: 30px;
-      label{
+
+      label {
         display: block;
-        color:#000;
+        color: #000;
         margin-bottom: 15px;
       }
-      span{
+
+      span {
         margin-left: 30px;
-        color:var(--main-font-color);
+        color: var(--main-font-color);
       }
     }
-    .display-image{
-      img{
+
+    .display-image {
+      img {
         width: 400px;
         border: 6px solid #e3e3e3;
         border-radius: 4px;

@@ -120,6 +120,7 @@ export const locale = {
      * FORMS & FIELDS TRANSLATION (Μετάφραση Φορμών & Πεδίων)
      */
     FIELDS: {
+      STATS: 'Στατιστικά',
       PROFILE: {
         EMAIL: {
           TITLE: 'Διεύθυνση E-mail',
@@ -1014,7 +1015,7 @@ export const locale = {
     STATISTICS: {
       LOYALTY_EARN: 'Πωλήσεις',
       LOYALTY_REDEEM: 'Εκπτώσεις',
-      OFFER_REDEEM: 'Συναλλαγές σχετιζόμενες με την προσφορά',
+      OFFER_REDEEM: 'Εξαργυρώσεις προσφοράς',
       MICROCREDIT_EARN: 'Εισροές απο Υποσχέσεις',
       MICROCREDIT_REDEEM: 'Εξαργυρωμένα Ποσά',
 
