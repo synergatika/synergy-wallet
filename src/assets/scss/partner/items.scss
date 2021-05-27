@@ -57,3 +57,33 @@
     }
   }
 }
+//Display Item
+.partern-item-display{
+  .section-heading{
+    margin-top: 30px;
+    margin-bottom: 15px;
+  } 
+  .partern-item-info{
+    padding: 10px 30px 9px 30px;
+    font-size: 16px;
+    .display-field{
+      margin-bottom: 30px;
+      label{
+        display: block;
+        color:#000;
+        margin-bottom: 15px;
+      }
+      span{
+        margin-left: 30px;
+        color:var(--main-font-color);
+      }
+    }
+    .display-image{
+      img{
+        width: 400px;
+        border: 6px solid #e3e3e3;
+        border-radius: 4px;
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@
 
 :root {
     //Config Colours
-    
+
     --background-default: #f4f4f4;
     --background-secondary: #a3b9cc;
     --background-tertiary: #5c7d99;
@@ -18,8 +18,8 @@
     --secondary-color: #{$secondary};
     --tertiary-color: #{$tertiary};
 
+    --main-font-color:#{$main-font-color};
     --menu-font-color: #{$menu-color};
-
     --font-primary-color: #{$primary};
     --font-dark-color: #{$dark-font};
 
