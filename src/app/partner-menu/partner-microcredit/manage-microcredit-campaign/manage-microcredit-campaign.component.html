@@ -116,19 +116,29 @@
       </div>
     </mat-tab>
     <mat-tab>
+
       <ng-template mat-tab-label>
         {{'FIELDS.TABS.MANAGE' | translate}}
       </ng-template>
 
-      <div>
+      <div class="microcredit-manage">
+
+        <h3 class="section-heading">
+          {{'FIELDS.MICROCREDIT_CAMPAIGN.MANAGE.TITLE' | translate}}
+        </h3>
+
+        <p>
+          {{'FIELDS.MICROCREDIT_CAMPAIGN.MANAGE.CONTENT' | translate}}
+        </p>
+
         <div class="row">
-          <div class="col-md-5">
+          <div class="col-md-12 filters">
+            <!-- Filter by ID -->
             <mat-form-field>
               <mat-label>{{'SUPPORT.FILTER.TEXT.TITLE' | translate}}</mat-label>
               <input matInput [(ngModel)]="textValueFilter" (keyup)="applyFilterText($event)" placeholder="{{'SUPPORT.FILTER.TEXT.PLACEHOLDER' | translate}}">
             </mat-form-field>
-          </div>
-          <div class="col-md-5">
+            <!-- Filter by Payment Method -->
             <mat-form-field *ngIf="currentMethods">
               <mat-label>{{'SUPPORT.FILTER.SELECT.TITLE' | translate}}</mat-label>
               <mat-select [(value)]="selectedMethod.bic" (selectionChange)="applyFilterSelected($event)">
@@ -137,8 +147,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-          </div>
-          <div class="col-md-2">
+            <!-- Filter by Date -->
             <mat-form-field>
               <mat-label>{{'SUPPORT.FILTER.DATE.TITLE' | translate}}</mat-label>
               <input matInput [(ngModel)]="dateFilter" [matDatepickerFilter]="activeDates.bind(this)" [matDatepicker]="startDateFilterPicker" [max]="maxDate" (dateChange)="applyFilterDate($event)">
@@ -147,42 +156,44 @@
             </mat-form-field>
           </div>
         </div>
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-          <!--- Note that these columns can be defined in any order.
-      				The actual rendered columns are set as a property on the row definition" -->
-          <ng-container matColumnDef="payment_id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.PAYMENT_ID' | translate}} </th>
-            <td mat-cell *matCellDef="let item"> {{item.payment_id}} </td>
-          </ng-container>
-          <ng-container matColumnDef="method">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.METHOD' | translate}} </th>
-            <td mat-cell *matCellDef="let item"> {{item.method}} </td>
-          </ng-container>
-          <ng-container matColumnDef="remainingTokens">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.REMAINING_TOKENS' | translate}} </th>
-            <td mat-cell *matCellDef="let item"> {{item.currentTokens}} </td>
-          </ng-container>
-          <ng-container matColumnDef="initialTokens">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.INITIAL_TOKENS' | translate}} </th>
-            <td mat-cell *matCellDef="let item"> {{item.initialTokens}} </td>
-          </ng-container>
-          <ng-container matColumnDef="createdAt">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.DATE' | translate}} </th>
-            <td mat-cell *matCellDef="let item"> {{item.createdAt | date: 'd/M/y, HH:mm'}} </td>
-          </ng-container>
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.STATUS' | translate}} </th>
-            <td mat-cell *matCellDef="let item">
-              <mat-checkbox name="" value="{{item.status}}" [checked]="item.status=='paid'" (change)="changeSupportState(item.support_id, $event)" [disabled]="(item.status=='paid'&&!canRevertPayment)||(item.status=='unpaid'&&!canConfirmPayment)"
-                matTooltip="{{'SUPPORT.CHANGE_STATUS_TOOLTIP' | translate}}" [matTooltipPosition]="'left'" [matTooltipDisabled]="(item.status=='unpaid'&&canConfirmPayment)||(item.status=='paid'&&canRevertPayment)">
-              </mat-checkbox>
-            </td>
-          </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+        <div class="row">
+          <div class="col-md-12 payments-table">
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+              <ng-container matColumnDef="payment_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.PAYMENT_ID' | translate}} </th>
+                <td mat-cell *matCellDef="let item"> {{item.payment_id}} </td>
+              </ng-container>
+              <ng-container matColumnDef="method">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.METHOD' | translate}} </th>
+                <td mat-cell *matCellDef="let item"> {{item.method}} </td>
+              </ng-container>
+              <ng-container matColumnDef="initialTokens">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.INITIAL_TOKENS' | translate}} </th>
+                <td mat-cell *matCellDef="let item"> {{item.initialTokens}} </td>
+              </ng-container>
+              <ng-container matColumnDef="remainingTokens">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.REMAINING_TOKENS' | translate}} </th>
+                <td mat-cell *matCellDef="let item"> {{item.currentTokens}} </td>
+              </ng-container>
+              <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.DATE' | translate}} </th>
+                <td mat-cell *matCellDef="let item"> {{item.createdAt | date: 'd/M/y, HH:mm'}} </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.STATUS' | translate}} </th>
+                <td mat-cell *matCellDef="let item">
+                  <mat-checkbox name="" value="{{item.status}}" [checked]="item.status=='paid'" (change)="changeSupportState(item.support_id, $event)" [disabled]="(item.status=='paid'&&!canRevertPayment)||(item.status=='unpaid'&&!canConfirmPayment)"
+                    matTooltip="{{'SUPPORT.CHANGE_STATUS_TOOLTIP' | translate}}" [matTooltipPosition]="'left'" [matTooltipDisabled]="(item.status=='unpaid'&&canConfirmPayment)||(item.status=='paid'&&canRevertPayment)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
       </div>
     </mat-tab>
   </mat-tab-group>

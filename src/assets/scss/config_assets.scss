@@ -103,6 +103,11 @@ th .mat-sort-header-sorted {
   background: #e1e1e1;
 }
 
+//Table
+.mat-table{
+  font-family: $main-font, sans-serif;
+}
+
 //Spinner
 .mat-progress-spinner circle,
 .mat-spinner circle {
@@ -283,6 +288,9 @@ th .mat-sort-header-sorted {
   }
 }
 //2.4 Forms
+.mat-form-field{
+  font-family: $main-font;
+}
 
 .single-form {
   .mat-form-field {

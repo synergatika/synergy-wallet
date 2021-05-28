@@ -95,7 +95,7 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
 
     this.unsubscribe = new Subject();
   }
- 
+
   dateformat(d: Date): string {
     let date: any;
     let month: any;
@@ -202,9 +202,6 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
       .pipe(
         tap(
           data => {
-            console.log("Campaign in ManageCampaign");
-            console.log(data);
-
             this.campaign = data;
             const datesRedeem = (this.campaign.statistics.redeemed) ? this.campaign.statistics.redeemed.byDate.map(obj => { return obj.date }) : [];
             const datesPromise = (this.campaign.statistics.earned) ? this.campaign.statistics.earned.byDate.map(obj => { return obj.date }) : [];
@@ -231,13 +228,10 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
       .pipe(
         tap(
           data => {
-            console.log("Supports in ManageMicrocreditCampaign");
-            console.log(data);
             this.supports = data;
             this.dataSource = new MatTableDataSource(data);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-
             this.setFilters()
           },
           error => {
