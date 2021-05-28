@@ -78,7 +78,7 @@
               </mat-form-field>
             </div>
             <!--end::Form Group "Description"-->
-
+ 
           </div>
           <div class="col-md-6">
 
@@ -101,30 +101,6 @@
             <!--begin::Form Group "Image"-->
             <app-image-upload [parentForm]="submitForm" previousURL=''>
             </app-image-upload>
-            <!-- <div class="form-group">
-              <label class="">{{'FIELDS.MICROCREDIT_CAMPAIGN.IMAGE.TITLE' | translate}}</label>
-              <div class="">
-                <div class="upload-img">
-                  <div class="upload-img-container">
-                    <img *ngIf="previewUrl" class="upload-img-holder" [src]="previewUrl">
-                    <div *ngIf="previewUrl" class="image-cancel">
-                      <span class="mdi mdi-close-circle" (click)="onImageCancel()">
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <button class="upload-img-btn" type="button" mat-raised-button (click)="fileInput.click()">
-                  {{'FIELDS.MICROCREDIT_CAMPAIGN.IMAGE.ACTION' | translate}}
-                </button>
-                <label class="avatar_upload">
-                  <input #image type="file" hidden (change)="fileProgress($event)" name="profile_avatar"
-                    formControlName="profile_avatar" accept=".png, .jpg, .jpeg" #fileInput>
-                </label>
-                <mat-error *ngIf="showImageError" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-              </div>
-            </div> -->
             <!--end::Form Group "Image"-->
 
           </div>

@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
  * Services
  */
 import { StaticDataService } from 'src/app/core/helpers/static-data.service';
+import { ContentService } from '../../../core/services/content.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { ItemsService } from '../../../core/services/items.service';
 
@@ -40,18 +41,12 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
   public accessList: GeneralList[];
 
   /**
-   * File Variables
-   */
-  // fileData: File = null;
-  // previewUrl: any = null;
-  // showImageError: boolean = false;
-
-  /**
    * Content Variables
    */
   public title: string = '';
   public minDate: Date;
   isQuantitative = false;
+  public intro: any;
 
   /**
    * Form
@@ -72,6 +67,7 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     * @param modalService: NgbModal
     * @param translate: TranslateService
     * @param staticDataService: StaticDataService
+    * @param staticContentService: StaticContentService
     * @param authenticationService: AuthenticationService
     * @param itemsService: ItemsService
     */
@@ -82,6 +78,7 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private translate: TranslateService,
     private staticDataService: StaticDataService,
+    private contentService: ContentService,
     private authenticationService: AuthenticationService,
     private itemsService: ItemsService
   ) {
@@ -96,8 +93,10 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() + 1);
-
+    //Initiate Form
     this.initForm();
+    //Get Intro
+    this.fetchCampaignIntro();
   }
 
   /**
@@ -160,7 +159,6 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
         Validators.max(this.validator.maxAmount.maxValue)
       ])
       ],
-
       supportStarts: ['', Validators.compose([
         Validators.required
       ])
@@ -177,10 +175,6 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
         Validators.required
       ])
       ],
-      // profile_avatar: ['', Validators.compose([
-      //   Validators.required
-      // ])
-      // ],
       image_url: ['', Validators.compose([
         Validators.required
       ])
@@ -191,44 +185,6 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
       });
   }
 
-  /**
-   * Image Upload
-   */
-  // fileProgress(fileInput: any) {
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   this.preview();
-  // }
-
-  // preview() {
-  //   if (this.fileData == null) {
-  //     this.onImageCancel();
-  //     return;
-  //   }
-  //   this.showImageError = false;
-
-  //   var mimeType = this.fileData.type;
-  //   if (mimeType.match(/image\/*/) == null) {
-  //     return;
-  //   }
-
-  //   var reader = new FileReader();
-  //   reader.readAsDataURL(this.fileData);
-  //   reader.onload = (_event) => {
-  //     if (this.previewUrl !== reader.result) {
-  //       this.cdRef.markForCheck();
-  //     }
-  //     this.previewUrl = reader.result;
-  //   }
-  // }
-
-  // onImageCancel() {
-  //   console.log('Image canceled');
-  //   this.previewUrl = null;
-  //   this.fileData = null;
-  //   this.showImageError = true;
-  //   this.cdRef.markForCheck();
-  // }
-
   onIsQuantitativeCheckboxChange() {
     this.isQuantitative = !this.isQuantitative;
   }
@@ -238,7 +194,6 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
 
     const formData = new FormData();
     formData.append('imageURL', controls.image_url.value);
-    //    formData.append('imageURL', this.fileData);
     formData.append('title', controls.title.value);
     formData.append('subtitle', controls.subtitle.value);
     formData.append('terms', controls.terms.value);
@@ -252,10 +207,6 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     formData.append('stepAmount', (controls.quantitative.value) ? controls.stepAmount.value : '0');
     formData.append('maxAmount', controls.maxAmount.value);
 
-    console.log(controls.supportStarts.value.getTime().toString())
-    console.log(controls.supportEnds.value.getTime().toString())
-    console.log(controls.redeemStarts.value.getTime().toString())
-    console.log(controls.redeemEnds.value.getTime().toString())
     formData.append('startsAt', controls.supportStarts.value.getTime().toString());
     formData.append('expiresAt', controls.supportEnds.value.getTime().toString());
     formData.append('redeemStarts', controls.redeemStarts.value.getTime().toString());
@@ -265,8 +216,6 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
       .pipe(
         tap(
           data => {
-            console.log('data');
-            console.log(data);
             if (campaignStatus == 'publish') {
               this.publishCampaign(formData, data._id);
             } else {
@@ -336,9 +285,7 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
 
     const controls = this.submitForm.controls;
     /** check form */
-    if (this.submitForm.invalid) {// || !this.fileData) {
-      console.log(controls);
-      // if (!this.fileData) this.showImageError = true;
+    if (this.submitForm.invalid) {
       Object.keys(controls).forEach(controlName =>
         controls[controlName].markAsTouched()
       );
@@ -361,11 +308,8 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
   }
 
   publishItem() {
-    console.log('publishItem');
     this.createCampaign('publish')
   }
-
-
 
   /**
    * Checking control validation
@@ -382,4 +326,25 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     const result = control.hasError(validationType) && (control.dirty || control.touched);
     return result;
   }
+
+  fetchCampaignIntro(){
+    this.contentService.readContentById('newcampaign')
+      .pipe(
+      tap(
+        data => {
+          this.intro = data;
+          console.log(this.intro);
+        },
+        error => {
+          console.log(error);
+        }
+      ),
+      takeUntil(this.unsubscribe),
+      finalize(() => {
+        this.loading = false;
+        this.cdRef.markForCheck();
+      })
+      ).subscribe();
+  }
+
 }

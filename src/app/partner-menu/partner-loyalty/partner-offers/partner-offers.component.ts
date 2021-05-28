@@ -14,19 +14,19 @@ import { ItemsService } from '../../../core/services/items.service';
 import { Offer } from 'sng-core';
 
 @Component({
-	selector: 'app-partner-offers',
-	templateUrl: './partner-offers.component.html',
-	styleUrls: ['./partner-offers.component.scss']
+  selector: 'app-partner-offers',
+  templateUrl: './partner-offers.component.html',
+  styleUrls: ['./partner-offers.component.scss']
 })
 export class PartnerOffersComponent implements OnInit, OnDestroy {
 
 	/**
 	 * Content Variables
 	 */
-	public offers: Offer[];
+  public offers: Offer[];
 
-	loading: boolean = false;
-	private unsubscribe: Subject<any>;
+  loading: boolean = false;
+  private unsubscribe: Subject<any>;
 
 	/**
      * Component Constructor
@@ -35,49 +35,50 @@ export class PartnerOffersComponent implements OnInit, OnDestroy {
 	 * @param authenticationService: AuthenticationService
 	 * @param itemsService: ItemsService
 	 */
-	constructor(
-		private cdRef: ChangeDetectorRef,
-		private authenticationService: AuthenticationService,
-		private itemsService: ItemsService
-	) {
-		this.unsubscribe = new Subject();
-	}
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private authenticationService: AuthenticationService,
+    private itemsService: ItemsService
+  ) {
+    this.unsubscribe = new Subject();
+  }
 
 	/**
 	 * On Init
 	 */
-	ngOnInit() {
-		this.fetchOffersData();
-	}
+  ngOnInit() {
+    this.fetchOffersData();
+  }
 
 	/**
 	 * On Destroy
 	 */
-	ngOnDestroy() {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-		this.loading = false;
-	}
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+    this.loading = false;
+  }
 
 	/**
 	 * Fetch Offers Data (for One Partner)
 	 */
-	fetchOffersData() {
-		this.itemsService.readOffersByStore(this.authenticationService.currentUserValue.user["_id"], '0-0-0')
-			.pipe(
-				tap(
-					data => {
-						this.offers = data;
-						console.log("Partner Offers", this.offers)
-					},
-					error => {
-					}),
-				takeUntil(this.unsubscribe),
-				finalize(() => {
-					this.loading = false;
-					this.cdRef.markForCheck();
-				})
-			)
-			.subscribe();
-	}
+  fetchOffersData() {
+    this.itemsService.readOffersByStore(this.authenticationService.currentUserValue.user["_id"], '0-0-0')
+      .pipe(
+        tap(
+          data => {
+            this.offers = data;
+          },
+          error => {
+            console.log("Error loading offers");
+            console.log(error);
+          }),
+        takeUntil(this.unsubscribe),
+        finalize(() => {
+          this.loading = false;
+          this.cdRef.markForCheck();
+        })
+      )
+      .subscribe();
+  }
 }
