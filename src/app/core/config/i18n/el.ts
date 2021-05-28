@@ -269,7 +269,8 @@ export const locale = {
       },
       TABS:{
         VIEW:'Προβολή',
-        EDIT:'Επεξεργασία'
+        EDIT:'Επεξεργασία',
+        MANAGE:'Διαχείριση'
       },
       OFFER: {
         DISPLAY: 'Στοιχεία Προσφοράς',
@@ -387,6 +388,7 @@ export const locale = {
         },
       },
       MICROCREDIT_CAMPAIGN: {
+        DISPLAY: 'Στοιχεία Καμπάνιας',
         TITLE: {
           TITLE: 'Τίτλος',
           PLACEHOLDER: 'Τίτλος Καμπάνιας',

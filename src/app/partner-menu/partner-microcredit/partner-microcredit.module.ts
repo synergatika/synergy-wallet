@@ -13,7 +13,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
-import { /*MatDatepickerModule,*/ MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
@@ -38,15 +39,6 @@ import { AuthGuard } from '../../core/guards/auth.guard';
 /**
  * Manage Microcredit Components & Local Services
  */
-// import { AddSupportComponent } from './manage-microcredit-campaign/add-support/add-support.component';
-// import { SubScannerComponent } from './manage-microcredit-campaign/sub-scanner/sub-scanner.component';
-// import { SubIdentifierFormComponent } from './manage-microcredit-campaign/sub-identifier-form/sub-identifier-form.component';
-// import { SubEmailFormComponent } from './manage-microcredit-campaign/sub-email-form/sub-email-form.component';
-// import { SubAmountFormComponent } from './manage-microcredit-campaign/sub-amount-form/sub-amount-form.component';
-// import { SubFinalStepComponent } from './manage-microcredit-campaign/sub-final-step/sub-final-step.component';
-// import { SupportService } from '../partner-microcredit-support/_support.service';
-// import { SupportNoticeComponent } from './manage-microcredit-campaign/support-notice/support-notice.component';
-
 import {
     SngCoreModule,
 } from 'sng-core';
@@ -55,7 +47,6 @@ import { WidgetsModule } from '../../core/components/widgets.module';
 const routes: Routes = [
     {
         path: '',
-        //component: AuthComponent,
         children: [
             {
                 path: '',
@@ -85,7 +76,6 @@ const routes: Routes = [
     imports: [
         ZXingScannerModule,
         ArchwizardModule,
-
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -101,6 +91,7 @@ const routes: Routes = [
         MatSelectModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatTabsModule,
         MatTableModule,
         MatSortModule,
         MatProgressSpinnerModule,
@@ -112,27 +103,14 @@ const routes: Routes = [
         WidgetsModule
     ],
     providers: [
-        // SupportService
     ],
-    // exports: [AuthComponent],
     declarations: [
         PartnerCampaignsComponent,
         NewMicrocreditCampaignComponent,
         EditMicrocreditCampaignComponent,
         ManageMicrocreditCampaignComponent,
-
-        // AddSupportComponent,
-
-        // SubScannerComponent,
-        // SubIdentifierFormComponent,
-        // SubEmailFormComponent,
-        // SubAmountFormComponent,
-        // SubFinalStepComponent,
-
-        // SupportNoticeComponent
     ],
     entryComponents: [
-        // AddSupportComponent
     ]
 })
 

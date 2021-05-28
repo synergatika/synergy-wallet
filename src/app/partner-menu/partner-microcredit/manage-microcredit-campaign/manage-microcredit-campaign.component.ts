@@ -30,12 +30,6 @@ import {
   PaymentList,
 } from 'sng-core';
 
-/**
- * Local Services & Interfaces
- */
-// import { SupportService } from '../../partner-microcredit-support/_support.service';
-// import { SupportInterface } from '../../partner-microcredit-support/_support.interface';
-
 @Component({
   selector: 'app-manage-microcredit-campaign',
   templateUrl: './manage-microcredit-campaign.component.html',
@@ -93,7 +87,6 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService,
     private itemsService: ItemsService,
     private microcreditService: MicrocreditService
-    // private supportService: SupportService
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.campaign_id = params['_id'];
@@ -102,9 +95,7 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
 
     this.unsubscribe = new Subject();
   }
-
-  // activeDates(d: Date) {
-
+ 
   dateformat(d: Date): string {
     let date: any;
     let month: any;
@@ -280,10 +271,6 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
             event.source.checked = ((this.supports[this.supports.map((x) => { return x.support_id; }).
               indexOf(support_id)].status === 'unpaid')) ?
               false : true;
-            // event.source.checked = ((this.supports[this.supports.map((x) => { return x.support_id; }).
-            //   indexOf(support_id)].type === 'PromiseFund') || (this.supports[this.supports.map((x) => { return x.support_id; }).
-            //     indexOf(support_id)].type === 'RevertFund')) ?
-            //   false : true;
             Swal.fire(
               this.translate.instant('MESSAGE.ERROR.TITLE'),
               this.translate.instant(error),
@@ -299,25 +286,4 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  /**
-   * Open Dialog
-   *
-   * @param campaign: MicrocreditCampaign
-   */
-  openModal(campaign: MicrocreditCampaign) {
-    const dialogConfig = new MatDialogConfig();
-    // The user can't close the dialog by clicking outside its body
-    dialogConfig.disableClose = true;
-    dialogConfig.id = "modal-component";
-    dialogConfig.height = "350px";
-    dialogConfig.width = "600px";
-    dialogConfig.data = {
-      campaign: campaign
-    };
-    // https://material.angular.io/components/dialog/overview
-    const modalDialog = this.matDialog.open(StepperPartnerMicrocreditSupportComponent, dialogConfig);
-    modalDialog.afterClosed().subscribe(value => {
-      if (value) { this.fetchSupportsData(); this.fetchCampaignData(); }
-    });
-  }
 }

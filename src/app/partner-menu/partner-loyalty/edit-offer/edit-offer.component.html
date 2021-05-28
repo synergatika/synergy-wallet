@@ -1,4 +1,4 @@
-<div class="edit-offer edit-item">
+<div *ngIf="offer" class="edit-offer edit-item">
   <div class="back-link">
     <a routerLink="/m-offers"><span class="mdi mdi-chevron-triple-left"></span></a>
   </div>
@@ -20,7 +20,7 @@
         <h3 class="section-heading">
           {{'FIELDS.OFFER.DISPLAY' | translate}}
         </h3>
-        <mat-card *ngIf="offer">
+        <mat-card>
           <mat-card-content class="partern-item-info">
             <div class="row">
               <div class="col-md-6">

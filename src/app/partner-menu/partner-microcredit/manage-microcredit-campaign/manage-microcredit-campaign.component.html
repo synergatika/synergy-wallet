@@ -1,94 +1,193 @@
-<h1 *ngIf="campaign" class="section-heading">{{campaign.title}}</h1>
+<div *ngIf="campaign" class="edit-campaign edit-item">
+  <div class="back-link">
+    <a routerLink="/m-campaigns"><span class="mdi mdi-chevron-triple-left"></span></a>
+  </div>
 
-<div class="info-row">
-  <span class="tag">{{'CAMPAIGN.SUPPORT_PERIOD' | translate}}</span> {{campaign.startsAt | date: 'd.M.y'}} -
-  {{campaign.expiresAt | date: 'd.M.y'}}<br>
-  <span class="tag">{{'CAMPAIGN.REDEEM_PERIOD' | translate}}:</span> {{campaign.redeemStarts | date: 'd.M.y'}} -
-  {{campaign.redeemEnds | date: 'd.M.y'}}<br>
-</div>
-
-<div>
-  <button mat-raised-button class="plegde-button" (click)="openModal(campaign)" [disabled]="!canSupportCampaign">
-    <span matTooltip="{{'CAMPAIGN.PLEDGE_DISABLE' | translate}}" [matTooltipPosition]="'right'"
-      [matTooltipDisabled]="canSupportCampaign">
-      {{'CAMPAIGN.PLEDGE' | translate}}
-    </span>
-  </button>
-</div>
-
-<div>
   <div class="row">
-    <div class="col-md-5">
-      <mat-form-field>
-        <mat-label>{{'SUPPORT.FILTER.TEXT.TITLE' | translate}}</mat-label>
-        <input matInput [(ngModel)]="textValueFilter" (keyup)="applyFilterText($event)"
-          placeholder="{{'SUPPORT.FILTER.TEXT.PLACEHOLDER' | translate}}">
-      </mat-form-field>
-    </div>
-    <div class="col-md-5">
-      <mat-form-field *ngIf="currentMethods">
-        <mat-label>{{'SUPPORT.FILTER.SELECT.TITLE' | translate}}</mat-label>
-        <mat-select [(value)]="selectedMethod.bic" (selectionChange)="applyFilterSelected($event)">
-          <mat-option *ngFor="let item of currentMethods" value="{{item.bic}}">
-            {{item.title | translate}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-md-2">
-      <mat-form-field>
-        <mat-label>{{'SUPPORT.FILTER.DATE.TITLE' | translate}}</mat-label>
-        <input matInput [(ngModel)]="dateFilter" [matDatepickerFilter]="activeDates.bind(this)"
-          [matDatepicker]="startDateFilterPicker" [max]="maxDate" (dateChange)="applyFilterDate($event)">
-        <mat-datepicker-toggle matSuffix [for]="startDateFilterPicker"></mat-datepicker-toggle>
-        <mat-datepicker #startDateFilterPicker></mat-datepicker>
-      </mat-form-field>
+    <div class="col-md-12">
+      <h1>{{campaign.title}}</h1>
     </div>
   </div>
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    <!--- Note that these columns can be defined in any order.
-				The actual rendered columns are set as a property on the row definition" -->
-    <ng-container matColumnDef="payment_id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.PAYMENT_ID' | translate}} </th>
-      <td mat-cell *matCellDef="let item"> {{item.payment_id}} </td>
-    </ng-container>
-    <ng-container matColumnDef="method">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.METHOD' | translate}} </th>
-      <td mat-cell *matCellDef="let item"> {{item.method}} </td>
-    </ng-container>
-    <ng-container matColumnDef="remainingTokens">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.REMAINING_TOKENS' | translate}} </th>
-      <td mat-cell *matCellDef="let item"> {{item.currentTokens}} </td>
-    </ng-container>
-    <ng-container matColumnDef="initialTokens">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.INITIAL_TOKENS' | translate}} </th>
-      <td mat-cell *matCellDef="let item"> {{item.initialTokens}} </td>
-    </ng-container>
-    <ng-container matColumnDef="createdAt">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.DATE' | translate}} </th>
-      <td mat-cell *matCellDef="let item"> {{item.createdAt | date: 'd/M/y, HH:mm'}} </td>
-    </ng-container>
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.STATUS' | translate}} </th>
-      <td mat-cell *matCellDef="let item">
-        <mat-checkbox name="" value="{{item.status}}" [checked]="item.status=='paid'"
-          (change)="changeSupportState(item.support_id, $event)"
-          [disabled]="(item.status=='paid'&&!canRevertPayment)||(item.status=='unpaid'&&!canConfirmPayment)"
-          matTooltip="{{'SUPPORT.CHANGE_STATUS_TOOLTIP' | translate}}" [matTooltipPosition]="'left'"
-          [matTooltipDisabled]="(item.status=='unpaid'&&canConfirmPayment)||(item.status=='paid'&&canRevertPayment)">
-        </mat-checkbox>
-      </td>
-    </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+  <mat-tab-group>
+
+    <mat-tab>
+
+      <ng-template mat-tab-label>
+        {{'FIELDS.TABS.VIEW' | translate}}
+      </ng-template>
+
+      <div class="partern-item-display">
+        <!--begin::Campaign Data -->
+        <h3 class="section-heading">
+          {{'FIELDS.MICROCREDIT_CAMPAIGN.DISPLAY' | translate}}
+        </h3>
+        <mat-card>
+          <mat-card-content class="partern-item-info">
+            <div class="row">
+              <div class="col-md-6">
+                <div *ngIf="campaign.subtitle" class="display-field">
+                  <label>{{'FIELDS.MICROCREDIT_CAMPAIGN.SUBTITLE.TITLE' | translate}}</label>
+                  <span>{{campaign.subtitle}}</span>
+                </div>
+                <div *ngIf="campaign.category" class="display-field">
+                  <label>{{'FIELDS.MICROCREDIT_CAMPAIGN.CATEGORY.TITLE' | translate}}</label>
+                  <span>{{campaign.category}}</span>
+                </div>
+                <div class="display-field">
+                  <label>{{'CAMPAIGN.SUPPORT_PERIOD' | translate}}</label>
+                  <span>{{campaign.startsAt | date: 'd.M.y'}} - {{campaign.expiresAt | date: 'd.M.y'}}</span>
+                </div>
+                <div class="display-field">
+                  <label>{{'CAMPAIGN.REDEEM_PERIOD' | translate}}</label>
+                  <span>{{campaign.redeemStarts | date: 'd.M.y'}} - {{campaign.redeemEnds | date: 'd.M.y'}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="display-field">
+                  <label>{{'FIELDS.MICROCREDIT_CAMPAIGN.ACCESS.TITLE' | translate}}</label>
+                  <span>{{campaign.access}}</span>
+                </div>
+                <div *ngIf="campaign.campaign_imageURL" class="display-image">
+                  <img src="{{campaign.campaign_imageURL}}">
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!campaign.quantitative" class="row">
+              <div class="col-md-6">
+                <div class="display-field">
+                  <label>{{'FIELDS.MICROCREDIT_CAMPAIGN.MIN_ALLOWED_PRICE.TITLE' | translate}}</label>
+                  <span>{{campaign.minAllowed}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="display-field">
+                  <label>{{'FIELDS.MICROCREDIT_CAMPAIGN.MAX_AMOUNT.TITLE' | translate}}</label>
+                  <span>{{campaign.maxAmount}}</span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="campaign.quantitative" class="row">
+              <div class="col-md-6">
+                <div class="display-field">
+                  <label>{{'FIELDS.MICROCREDIT_CAMPAIGN.MIN_ALLOWED.TITLE' | translate}}</label>
+                  <span>{{campaign.minAllowed}}</span>
+                </div>
+                <div *ngIf="campaign.quantitative" class="display-field">
+                  <label>{{'FIELDS.MICROCREDIT_CAMPAIGN.STEP.TITLE' | translate}}</label>
+                  <span>{{campaign.stepAmount}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="display-field">
+                  <label>{{'FIELDS.MICROCREDIT_CAMPAIGN.MAX_ALLOWED.TITLE' | translate}}</label>
+                  <span>{{campaign.maxAllowed}}</span>
+                </div>
+                <div class="display-field">
+                  <label>{{'FIELDS.MICROCREDIT_CAMPAIGN.MAX_AMOUNT.TITLE' | translate}}</label>
+                  <span>{{campaign.maxAmount}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="display-field">
+                  <label>{{'FIELDS.MICROCREDIT_CAMPAIGN.DESCRIPTION.TITLE' | translate}}</label>
+                  <div class="desc" [innerHTML]="campaign.description"></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div *ngIf="campaign.terms" class="display-field">
+                  <label>{{'FIELDS.MICROCREDIT_CAMPAIGN.TERMS.TITLE' | translate}}</label>
+                  <span>{{campaign.terms}}</span>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <!--end::Campaign Data -->
+
+        <!--begin::Campaign Statistics-->
+        <h3 class="section-heading">
+          {{'FIELDS.STATS' | translate}}
+        </h3>
+        <sng-microcredit_campaign-statistics *ngIf="campaign" [campaign]="campaign"></sng-microcredit_campaign-statistics>
+        <!--end::Campaign Statistics-->
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        {{'FIELDS.TABS.MANAGE' | translate}}
+      </ng-template>
+
+      <div>
+        <div class="row">
+          <div class="col-md-5">
+            <mat-form-field>
+              <mat-label>{{'SUPPORT.FILTER.TEXT.TITLE' | translate}}</mat-label>
+              <input matInput [(ngModel)]="textValueFilter" (keyup)="applyFilterText($event)" placeholder="{{'SUPPORT.FILTER.TEXT.PLACEHOLDER' | translate}}">
+            </mat-form-field>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field *ngIf="currentMethods">
+              <mat-label>{{'SUPPORT.FILTER.SELECT.TITLE' | translate}}</mat-label>
+              <mat-select [(value)]="selectedMethod.bic" (selectionChange)="applyFilterSelected($event)">
+                <mat-option *ngFor="let item of currentMethods" value="{{item.bic}}">
+                  {{item.title | translate}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-label>{{'SUPPORT.FILTER.DATE.TITLE' | translate}}</mat-label>
+              <input matInput [(ngModel)]="dateFilter" [matDatepickerFilter]="activeDates.bind(this)" [matDatepicker]="startDateFilterPicker" [max]="maxDate" (dateChange)="applyFilterDate($event)">
+              <mat-datepicker-toggle matSuffix [for]="startDateFilterPicker"></mat-datepicker-toggle>
+              <mat-datepicker #startDateFilterPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+          <!--- Note that these columns can be defined in any order.
+      				The actual rendered columns are set as a property on the row definition" -->
+          <ng-container matColumnDef="payment_id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.PAYMENT_ID' | translate}} </th>
+            <td mat-cell *matCellDef="let item"> {{item.payment_id}} </td>
+          </ng-container>
+          <ng-container matColumnDef="method">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.METHOD' | translate}} </th>
+            <td mat-cell *matCellDef="let item"> {{item.method}} </td>
+          </ng-container>
+          <ng-container matColumnDef="remainingTokens">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.REMAINING_TOKENS' | translate}} </th>
+            <td mat-cell *matCellDef="let item"> {{item.currentTokens}} </td>
+          </ng-container>
+          <ng-container matColumnDef="initialTokens">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.INITIAL_TOKENS' | translate}} </th>
+            <td mat-cell *matCellDef="let item"> {{item.initialTokens}} </td>
+          </ng-container>
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.DATE' | translate}} </th>
+            <td mat-cell *matCellDef="let item"> {{item.createdAt | date: 'd/M/y, HH:mm'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.STATUS' | translate}} </th>
+            <td mat-cell *matCellDef="let item">
+              <mat-checkbox name="" value="{{item.status}}" [checked]="item.status=='paid'" (change)="changeSupportState(item.support_id, $event)" [disabled]="(item.status=='paid'&&!canRevertPayment)||(item.status=='unpaid'&&!canConfirmPayment)"
+                matTooltip="{{'SUPPORT.CHANGE_STATUS_TOOLTIP' | translate}}" [matTooltipPosition]="'left'" [matTooltipDisabled]="(item.status=='unpaid'&&canConfirmPayment)||(item.status=='paid'&&canRevertPayment)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
 </div>
-
-<!--begin::Offer Statistics-->
-<sng-microcredit_campaign-statistics *ngIf="campaign" [campaign]="campaign"></sng-microcredit_campaign-statistics>
-<!--end::Offer Statistics-->
 
 <!--begin::Loading Spinner-->
 <div *ngIf="loading" class="spinner-overlay">
