@@ -34,8 +34,10 @@ export class EditOfferComponent implements OnInit, OnDestroy {
    * Content Variables
    */
   public offer: Offer;
+  public hasExpired: boolean = false;
   public title: string = '';
   public minDate: Date;
+  public seconds: number;
 
   /**
    * File Variables
@@ -88,8 +90,13 @@ export class EditOfferComponent implements OnInit, OnDestroy {
    * On Init
    */
   ngOnInit() {
+    //Init Time
     this.minDate = new Date();
+    const now = new Date();
+    this.seconds = parseInt(now.getTime().toString());
+    //Get Offer
     this.fetchOfferData();
+    //Create edit form
     this.initForm();
   }
 
@@ -155,6 +162,7 @@ export class EditOfferComponent implements OnInit, OnDestroy {
         tap(
           data => {
             this.offer = data;
+            this.hasExpired = this.offer.expiresAt < this.seconds;
             this.title = data.title;
             this.initialImage = data.offer_imageURL;
             this.isQuantitative = (this.offer.cost == 0) ? false : true;

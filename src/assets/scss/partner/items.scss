@@ -22,8 +22,8 @@
 .new-item-card {
   background-color: $tertiary;
 }
-
 //New item / edit item page
+
 .edit-item {
   h1 {
     color: #000;
@@ -69,8 +69,8 @@
     }
   }
 }
-
 //Display Item
+
 .partern-item-display {
   mat-card {
     box-shadow: none !important;
@@ -79,6 +79,15 @@
   .section-heading {
     margin-top: 30px;
     margin-bottom: 15px;
+  }
+
+  .expired-flag {
+    position: absolute;
+    right: 0;
+    top: -35px;
+    background: var(--tertiary);
+    padding: 10px;
+    color: #fff;
   }
 
   .partern-item-info {
@@ -101,6 +110,8 @@
     }
 
     .display-image {
+      margin-top: 40px;
+      margin-bottom: 40px;
       img {
         width: 400px;
         border: 6px solid #e3e3e3;

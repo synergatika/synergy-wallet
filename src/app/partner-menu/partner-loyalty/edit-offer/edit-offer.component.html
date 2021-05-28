@@ -38,6 +38,9 @@
                 </div>
               </div>
               <div class="col-md-6">
+                <div *ngIf="hasExpired" class="expired-flag">
+                  {{'OFFER.STATUS.EXPIRED' | translate}}
+                </div>
                 <div *ngIf="offer.offer_imageURL" class="display-image">
                   <img src="{{offer.offer_imageURL}}">
                 </div>
