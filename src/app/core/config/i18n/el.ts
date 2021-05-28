@@ -793,7 +793,7 @@ export const locale = {
         INITIAL_TOKENS: 'Ποσό συμμετοχής (€)',
         REMAINING_TOKENS: 'Προς εξαργύρωση (€)',
         DATE: 'Ημερομηνία Καταχώρησης',
-        STATUS: 'Κατάσταση Πληρωμής'
+        STATUS: 'Επιβεβαίωση Πληρωμής'
       }
     },
 
