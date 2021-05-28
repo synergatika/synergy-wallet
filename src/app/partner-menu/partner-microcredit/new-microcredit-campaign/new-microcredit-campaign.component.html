@@ -1,11 +1,15 @@
-<div class="new-microcredit">
+<div class="new-microcredit edit-item">
+  <div class="back-link">
+    <a routerLink="/m-campaigns"><span class="mdi mdi-chevron-triple-left"></span></a>
+  </div>
+  
   <mat-card>
     <mat-card-content>
 
       <!--begin::Form-->
       <form class="form container single-form" [formGroup]="submitForm">
         <div class="heading">{{ 'CAMPAIGN.CREATE_SUB' | translate}}</div>
-
+        <p class="intro" [innerHTML]="intro | content_translate: 'content'"></p>
         <hr>
         <div class="row">
           <div class="sub-heading col-md-12">{{ 'FIELDS.MICROCREDIT_CAMPAIGN.SUBSECTIONS.BASIC' | translate }}</div>
@@ -78,7 +82,7 @@
               </mat-form-field>
             </div>
             <!--end::Form Group "Description"-->
- 
+
           </div>
           <div class="col-md-6">
 
