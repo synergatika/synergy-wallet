@@ -1,11 +1,18 @@
-<div class="new-microcredit">
+<div class="new-microcredit edit-item">
+  <div class="back-link">
+    <a routerLink="/m-campaigns"><span class="mdi mdi-chevron-triple-left"></span></a>
+  </div>
+
   <mat-card>
     <mat-card-content>
 
+
       <!--begin::Form-->
       <form class="form container single-form" [formGroup]="submitForm">
-        <div class="heading">{{ 'CAMPAIGN.CREATE_SUB' | translate}}</div>
-
+        <div class="heading">{{ 'CAMPAIGN.EDIT' | translate}}</div>
+        <div *ngIf="intro">
+          <div class="intro" [innerHTML]="intro | content_translate: 'content'"></div>
+        </div>
         <hr>
         <div class="row">
           <div class="sub-heading col-md-12">{{ 'FIELDS.MICROCREDIT_CAMPAIGN.SUBSECTIONS.BASIC' | translate }}</div>
@@ -101,26 +108,6 @@
             <!--begin::Form Group "Image"-->
             <app-image-upload *ngIf="initialImage" [parentForm]="submitForm" previousURL="{{initialImage}}">
             </app-image-upload>
-            <!-- <div class="form-group">
-              <label class="">{{'FIELDS.CAMPAIGN.IMAGE.TITLE' | translate}}</label>
-              <div class="">
-                <div class="upload-img">
-                  <div class="upload-img-container">
-                    <img *ngIf="initialImage" class="upload-img-holder" [src]="previewUrl">
-                    <div *ngIf="!originalImage" class="image-cancel">
-                      <span class="mdi mdi-close-circle" (click)="onImageCancel()">
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <button type="button" mat-raised-button
-                  (click)="fileInput.click()">{{'FIELDS.CAMPAIGN.IMAGE.ACTION' | translate}}</button>
-                <label class="avatar__upload" data-toggle="tooltip" title="" data-original-title="Change avatar">
-                  <input type="file" hidden (change)="fileProgress($event)" name="profile_avatar"
-                    accept=".png, .jpg, .jpeg" #fileInput>
-                </label>
-              </div>
-            </div> -->
             <!--end::Form Group "Image"-->
 
           </div>
@@ -403,12 +390,12 @@
                 <mat-error *ngIf="isControlHasError('supportEnds','required')" class="error text-danger">
                   {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
                 </mat-error>
-                <mat-error *ngIf="submitForm.get('supportEnds').errors 
+                <mat-error *ngIf="submitForm.get('supportEnds').errors
                   && submitForm.get('supportEnds').errors.SupportStartsGreaterThanSupportEnds"
                   class="error text-danger">
                   {{ 'FORM.VALIDATION.CAMPAIGN_DATES.SUPPORTSTARTSTOSUPPORTENDS' | translate }}
                 </mat-error>
-                <mat-error *ngIf="submitForm.get('supportEnds').errors 
+                <mat-error *ngIf="submitForm.get('supportEnds').errors
                   && submitForm.get('supportEnds').errors.SupportEndsGreaterThanRedeemEnds" class="error text-danger">
                   {{ 'FORM.VALIDATION.CAMPAIGN_DATES.SUPPORTENDSTOREDEEMENDS' | translate }}
                 </mat-error>
@@ -489,6 +476,13 @@
           <button mat-raised-button (click)="onSubmit('publish')" class="btn btn-block btn-warning">
             {{ 'FIELDS.MICROCREDIT_CAMPAIGN.SUBMIT_CAMPAIGN' | translate }}
           </button>
+          <!--begin::Button (Delete Campaign)-->
+          <div class="single-delete">
+            <button mat-raised-button (click)="deleteItemModal()" class="btn btn-block btn-danger">
+              {{'CAMPAIGN.DELETE' | translate}}
+            </button>
+          </div>
+          <!--end::Button (Delete Campaign)-->
         </div>
         <!--end::Form Actions-->
 
@@ -499,13 +493,7 @@
   </mat-card>
 </div>
 
-<!--begin::Button (Delete Campaign)-->
-<div class="single-delete row col-md-4">
-  <button mat-raised-button (click)="deleteItemModal()" class="btn btn-block btn-danger">
-    {{'CAMPAIGN.DELETE' | translate}}
-  </button>
-</div>
-<!--end::Button (Delete Campaign)-->
+
 
 <!--begin::Confirmation Modal (Publish Item)-->
 <ng-template #publish_item let-c="close" let-d="dismiss">

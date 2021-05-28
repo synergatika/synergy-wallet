@@ -67,7 +67,7 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     * @param modalService: NgbModal
     * @param translate: TranslateService
     * @param staticDataService: StaticDataService
-    * @param staticContentService: StaticContentService
+    * @param contentService: ContentService
     * @param authenticationService: AuthenticationService
     * @param itemsService: ItemsService
     */
@@ -333,7 +333,6 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
       tap(
         data => {
           this.intro = data;
-          console.log(this.intro);
         },
         error => {
           console.log(error);

@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
  * Services
  */
 import { StaticDataService } from '../../../core/helpers/static-data.service';
+import { ContentService } from '../../../core/services/content.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { ItemsService } from '../../../core/services/items.service';
 
@@ -52,13 +53,11 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
   public title: string = '';
   public minDate: Date;
   isQuantitative: boolean = false;
+  public intro: any;
 
   /**
    * File Variables
    */
-  // fileData: File = null;
-  // previewUrl: any = null;
-  // originalImage: boolean = true;
   public initialImage: string = '';
 
   /**
@@ -67,23 +66,6 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
   submitForm: FormGroup;
   submitted: boolean = false;
   validator: any;
-
-  //campaign: MicrocreditCampaign;
-  // title: string;
-  // subtitle: string;
-  // terms: string;
-  // description: string;
-  // category: string;
-  // access: string;
-  // quantitative: boolean;
-  // minAllowed: number;
-  // maxAllowed: number;
-  // step: number;
-  // maxAmount: number;
-  // redeemStarts: Date;
-  // redeemEnds: Date;
-  // startsAt: Date;
-  // expiresAt: Date;
 
   loading: boolean = false;
   private unsubscribe: Subject<any>;
@@ -97,7 +79,8 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
     * @param fb: FormBuilder
     * @param modalService: NgbModal
     * @param translate: TranslateService
-    * @param staticDataService: StaticDataService
+    * @param staticDataService: StaticDataServic
+    * @param contentService: ContentService
     * @param authenticationService: AuthenticationService
     * @param itemsService: ItemsService
     */
@@ -109,6 +92,7 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private translate: TranslateService,
     private staticDataService: StaticDataService,
+    private contentService: ContentService,
     private authenticationService: AuthenticationService,
     private itemsService: ItemsService
   ) {
@@ -126,9 +110,12 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() + 1);
-
+    //Get Campaign
     this.fetchCampaignData();
+    //Initiate Form
     this.initForm();
+    //Get Intro
+    this.fetchCampaignIntro();
   }
 
   /**
@@ -218,45 +205,6 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-  /**
-   * Image Upload
-   */
-  // fileProgress(fileInput: any) {
-  //   if (fileInput) {
-  //     this.fileData = <File>fileInput.target.files[0];
-  //     this.originalImage = false;
-  //     this.preview();
-  //   }
-  // }
-
-  // preview() {
-  //   if (this.fileData == null) {
-  //     this.onImageCancel();
-  //     return;
-  //   }
-  //   this.originalImage = false;
-  //   var mimeType = this.fileData.type;
-  //   if (mimeType.match(/image\/*/) == null) {
-  //     return;
-  //   }
-
-  //   var reader = new FileReader();
-  //   reader.readAsDataURL(this.fileData);
-  //   reader.onload = (_event) => {
-  //     if (this.previewUrl !== reader.result) {
-  //       this.cdRef.markForCheck();
-  //     }
-  //     this.previewUrl = reader.result;
-  //   }
-  // }
-
-  // onImageCancel() {
-  //   this.previewUrl = this.initialImage;
-  //   this.fileData = null;
-  //   this.originalImage = true;
-  //   this.imageInput.nativeElement.value = null;
-  // }
 
   fetchCampaignData() {
     this.itemsService.readCampaign(this.authenticationService.currentUserValue.user["_id"], this.campaign_id)
@@ -383,7 +331,7 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
   * On Submit Form
   */
   onSubmit(campaignStatus: string) {
-    console.log("On Submit", campaignStatus)
+
     if (this.loading) return;
 
     const controls = this.submitForm.controls;
@@ -403,7 +351,6 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
   }
 
   publishItemModal() {
-    console.log("Publish Item")
     this.modalService.open(this.publish_item).result.then((result) => {
       console.log('closed');
     }, (reason) => {
@@ -412,7 +359,6 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
   }
 
   publishItem() {
-    console.log('publishItem');
     this.editCampaign('publish')
   }
 
@@ -425,7 +371,6 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
   }
 
   deleteItem() {
-    console.log('delete');
     this.itemsService.deleteCampaign(this.authenticationService.currentUserValue.user["_id"], this.campaign_id)
       .pipe(
         tap(
@@ -470,6 +415,24 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
     const result = control.hasError(validationType) && (control.dirty || control.touched);
     return result;
   }
+
+  fetchCampaignIntro(){
+    this.contentService.readContentById('newcampaign')
+      .pipe(
+      tap(
+        data => {
+          this.intro = data;
+        },
+        error => {
+          console.log(error);
+        }
+      ),
+      takeUntil(this.unsubscribe),
+      finalize(() => {
+        this.loading = false;
+        this.cdRef.markForCheck();
+      })
+      ).subscribe();
+  }
+
 }
-
-
