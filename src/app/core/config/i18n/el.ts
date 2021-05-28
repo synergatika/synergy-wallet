@@ -1018,13 +1018,13 @@ export const locale = {
       LOYALTY_EARN: 'Πωλήσεις',
       LOYALTY_REDEEM: 'Εκπτώσεις',
       OFFER_REDEEM: 'Εξαργυρώσεις προσφοράς',
-      MICROCREDIT_EARN: 'Εισροές απο Υποσχέσεις',
-      MICROCREDIT_REDEEM: 'Εξαργυρωμένα Ποσά',
+      MICROCREDIT_EARN: 'Συμμετοχές στην Καμπάνια',
+      MICROCREDIT_REDEEM: 'Εξαργυρώσεις συμμετοχών',
 
       MICROCREDIT_GENERAL: 'Γενική Εικόνα',
-      PAID_TO_EARNED: 'Πληρωμένες προς Συνολικές Υποσχέσεις',
-      REDEEMED_TO_PAID: 'Εξαργυρωμένες προς Πληρωμένες Υποσχέσεις',
-      REMAINING_TO_PAID: 'Εναπομείνασες προς Πληρωμένες Υποσχέσεις',
+      PAID_TO_EARNED: 'Πληρωμένες προς Συνολικές Συμμετοχές',
+      REDEEMED_TO_PAID: 'Εξαργυρωμένες προς Πληρωμένες Συμμετοχές',
+      REMAINING_TO_PAID: 'Εναπομείνασες προς Πληρωμένες Συμμετοχές',
 
       AMOUNT: 'Ποσό',
       USERS: 'Χρήστες',
