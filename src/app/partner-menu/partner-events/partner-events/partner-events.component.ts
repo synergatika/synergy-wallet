@@ -68,7 +68,6 @@ export class PartnerEventsComponent implements OnInit, OnDestroy {
 				tap(
 					data => {
 						this.events = data;
-						console.log("Partner Events", this.events);
 					},
 					error => {
 					}),

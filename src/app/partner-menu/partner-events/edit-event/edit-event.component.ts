@@ -280,45 +280,6 @@ export class EditEventComponent implements OnInit {
       .subscribe();
   }
 
-  // private swalWithBootstrapButtons = Swal.mixin({
-  //   customClass: {
-  //     confirmButton: 'btn btn-success',
-  //     cancelButton: 'btn btn-danger'
-  //   },
-  //   buttonsStyling: true
-  // })
-
-  // deleteItemModal() {
-  //   this.swalWithBootstrapButtons.fire({
-  //     title: this.translate.instant('EVENT.DELETE'),     // title: 'Are you sure?',
-  //     text: this.translate.instant('EVENT.DELETE_CONFIRM') + '<<' + this.title + '>>',  // text: "You won't be able to revert this!",
-  //     icon: 'warning',
-  //     timer: 0,
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Yes, delete it!',
-  //     cancelButtonText: 'No, cancel!',
-  //     reverseButtons: true
-  //   }).then((result) => {
-  //     if (result.value) {
-  //       this.swalWithBootstrapButtons.fire({
-  //         title: this.translate.instant('MESSAGE.SUCCESS.TITLE'),
-  //         text: this.translate.instant('MESSAGE.SUCCESS.EVENT_DELETED'),
-  //         icon: 'success',
-  //         timer: 2500
-  //       }).then((result) => {
-  //         this.router.navigate(['/m-events']);
-  //       });
-  //     } else if (result.dismiss === Swal.DismissReason.cancel) {
-  //       this.swalWithBootstrapButtons.fire({
-  //         title: 'Cancelled',
-  //         text: 'Your imaginary file is safe :)',
-  //         icon: 'error',
-  //         timer: 2500
-  //       });
-  //     }
-  //   })
-  // }
-
   deleteItemModal() {
     this.modalService.open(this.remove_item).result.then((result) => {
       console.log('closed');
@@ -328,7 +289,6 @@ export class EditEventComponent implements OnInit {
   }
 
   deleteItem() {
-    console.log('delete');
     this.itemsService.deleteEvent(this.authenticationService.currentUserValue.user["_id"], this.event_id)
       .pipe(
         tap(
