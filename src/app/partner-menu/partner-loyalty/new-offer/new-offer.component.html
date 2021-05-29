@@ -19,8 +19,7 @@
             <div class="form-group">
               <mat-form-field>
                 <mat-label>{{'FIELDS.OFFER.TITLE.TITLE' | translate}}</mat-label>
-                <input matInput type="text" name="Title" formControlName="title"
-                  placeholder="{{'FIELDS.OFFER.TITLE.PLACEHOLDER' | translate}}">
+                <input matInput type="text" name="Title" formControlName="title" placeholder="{{'FIELDS.OFFER.TITLE.PLACEHOLDER' | translate}}">
                 <mat-error *ngIf="isControlHasError('title','required')" class="error text-danger">
                   {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
                 </mat-error>
@@ -41,8 +40,7 @@
             <div class="form-group">
               <mat-form-field>
                 <mat-label>{{'FIELDS.OFFER.DESCRIPTION.TITLE' | translate}}</mat-label>
-                <textarea class="short" matInput type="text" name="Description" formControlName="description"
-                  placeholder="{{'FIELDS.OFFER.DESCRIPTION.PLACEHOLDER' | translate}}">
+                <textarea class="short" matInput type="text" name="Description" formControlName="description" placeholder="{{'FIELDS.OFFER.DESCRIPTION.PLACEHOLDER' | translate}}">
                 </textarea>
                 <mat-error *ngIf="isControlHasError('description','required')" class="error text-danger">
                   {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
@@ -64,8 +62,7 @@
             <div class="form-group">
               <mat-form-field>
                 <mat-label>{{'FIELDS.OFFER.INSTRUCTIONS.TITLE' | translate}}</mat-label>
-                <textarea class="short" matInput type="text" name="Instructions" formControlName="instructions"
-                  placeholder="{{'FIELDS.OFFER.INSTRUCTIONS.PLACEHOLDER' | translate}}">
+                <textarea class="short" matInput type="text" name="Instructions" formControlName="instructions" placeholder="{{'FIELDS.OFFER.INSTRUCTIONS.PLACEHOLDER' | translate}}">
                             </textarea>
                 <mat-error *ngIf="isControlHasError('instructions','required')" class="error text-danger">
                   {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
@@ -90,8 +87,7 @@
             <div class="form-group">
               <mat-form-field>
                 <mat-label>{{'FIELDS.OFFER.SUBTITLE.TITLE' | translate}}</mat-label>
-                <input matInput type="text" formControlName="subtitle"
-                  placeholder="{{'FIELDS.OFFER.SUBTITLE.PLACEHOLDER' | translate}}">
+                <input matInput type="text" formControlName="subtitle" placeholder="{{'FIELDS.OFFER.SUBTITLE.PLACEHOLDER' | translate}}">
                 <mat-hint class="form-text text-muted">
                   {{'FIELDS.OFFER.SUBTITLE.DESC' | translate}}
                 </mat-hint>
@@ -118,8 +114,7 @@
 
             <!--begin::Form Group "Quantitative"-->
             <div class="form-group">
-              <mat-checkbox (click)="onIsQuantitativeCheckboxChange()" type="checkbox" class="" name="redeem"
-                formControlName="quantitative" value="false" labelPosition="before">
+              <mat-checkbox (click)="onIsQuantitativeCheckboxChange()" type="checkbox" class="" name="redeem" formControlName="quantitative" value="false" labelPosition="before">
                 {{'FIELDS.OFFER.QUANTITATIVE' | translate}}
               </mat-checkbox>
             </div>
@@ -129,8 +124,7 @@
             <div class="form-group" *ngIf="isQuantitative">
               <mat-form-field>
                 <mat-label>{{'FIELDS.OFFER.COST.TITLE' | translate}}</mat-label>
-                <input matInput type="number" name="points" formControlName="cost"
-                  placeholder="{{'FIELDS.OFFER.COST.PLACEHOLDER' | translate}}">
+                <input matInput type="number" name="points" formControlName="cost" placeholder="{{'FIELDS.OFFER.COST.PLACEHOLDER' | translate}}">
                 <mat-error *ngIf="isControlHasError('cost','required')" class="error text-danger">
                   {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
                 </mat-error>
@@ -150,41 +144,20 @@
             <!--begin::Form Group "Image"-->
             <app-image-upload [parentForm]="submitForm" previousURL=''>
             </app-image-upload>
-            <!-- <div class="form-group">
-              <label class="">{{'FIELDS.OFFER.IMAGE.TITLE' | translate}}</label>
-              <div class="">
-                <div class="upload-img">
-                  <div class="upload-img-container">
-                    <img *ngIf="previewUrl" class="upload-img-holder" [src]="previewUrl">
-                    <div *ngIf="previewUrl" class="image-cancel">
-                      <span class="mdi mdi-close-circle" (click)="onImageCancel()">
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <button class="upload-img-btn" type="button" mat-raised-button (click)="fileInput.click()">
-                  {{'FIELDS.OFFER.IMAGE.ACTION' | translate}}
-                </button>
-                <label class="avatar__upload">
-                  <i class="fa fa-pen"></i>
-                  <input type="file" hidden (change)="fileProgress($event)" name="profile_avatar"
-                    formControlName="profile_avatar" accept=".png, .jpg, .jpeg" #fileInput>
-                </label>
-                <mat-error *ngIf="showImageError" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-              </div>
-            </div> -->
             <!--end::Form Group "Image"-->
 
           </div>
         </div>
 
         <!--begin::Form Actions-->
-        <div class="form-actions row col-md-4">
-          <button mat-raised-button (click)="onSubmit()" (keyup.enter)="onSubmit()" class="btn btn-block btn-primary">
-            {{ 'FORM.BUTTONS.SUBMIT' | translate }}
-          </button>
+        <div class="form-actions row">
+          <div class="col-md-12">
+            <!--start::Button (Publish Offer)-->
+            <button mat-raised-button (click)="onSubmit()" (keyup.enter)="onSubmit()" class="btn btn-block btn-primary">
+              {{ 'FORM.BUTTONS.PUBLISH' | translate }}
+            </button>
+            <!--end::Button (Publish Offer)-->
+          </div>
         </div>
         <!--end::Form Actions-->
 

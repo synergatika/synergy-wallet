@@ -27,9 +27,6 @@ export class NewOfferComponent implements OnInit, OnDestroy {
   /**
    * File Variables
    */
-  // fileData: File = null;
-  // previewUrl: any = null;
-  // showImageError: boolean = false;
 
   /**
    * Forms
@@ -115,54 +112,12 @@ export class NewOfferComponent implements OnInit, OnDestroy {
         Validators.required
       ])
       ],
-      // profile_avatar: ['', Validators.compose([
-      //   Validators.required
-      // ])
-      // ],
       image_url: [null, Validators.compose([
         Validators.required
       ])
       ],
     });
   }
-
-  /**
-   * Image Upload
-   */
-  // fileProgress(fileInput: any) {
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   this.preview();
-  // }
-
-  // preview() {
-  //   if (this.fileData == null) {
-  //     this.onImageCancel();
-  //     return;
-  //   }
-  //   this.showImageError = false;
-
-  //   var mimeType = this.fileData.type;
-  //   if (mimeType.match(/image\/*/) == null) {
-  //     return;
-  //   }
-
-  //   var reader = new FileReader();
-  //   reader.readAsDataURL(this.fileData);
-  //   reader.onload = (_event) => {
-  //     if (this.previewUrl !== reader.result) {
-  //       this.cdRef.markForCheck();
-  //     }
-  //     this.previewUrl = reader.result;
-  //   }
-  // }
-
-  // onImageCancel() {
-  //   console.log('Image canceled');
-  //   this.previewUrl = null;
-  //   this.fileData = null;
-  //   this.showImageError = true;
-  //   this.cdRef.markForCheck();
-  // }
 
   /**
    * On Submit Form
@@ -172,8 +127,7 @@ export class NewOfferComponent implements OnInit, OnDestroy {
 
     const controls = this.submitForm.controls;
     /** check form */
-    if (this.submitForm.invalid) {// || !this.fileData) {
-      // if (!this.fileData) this.showImageError = true;
+    if (this.submitForm.invalid) {
       Object.keys(controls).forEach(controlName =>
         controls[controlName].markAsTouched()
       );
@@ -186,7 +140,6 @@ export class NewOfferComponent implements OnInit, OnDestroy {
 
     const formData = new FormData();
     formData.append('imageURL', controls.image_url.value);
-    //formData.append('imageURL', this.fileData);
     formData.append('title', controls.title.value);
     formData.append('subtitle', controls.subtitle.value);
     formData.append('cost', (controls.quantitative.value) ? controls.cost.value : '0');

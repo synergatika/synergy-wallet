@@ -225,18 +225,19 @@
               <!--begin::Form Actions-->
               <div class="form-actions row">
                 <div class="col-md-12">
-                  <div class="single-submit">
-                    <button mat-raised-button (click)="onSubmit()" (keyup.enter)="onSubmit()" class="btn btn-block btn-primary">
-                      {{ 'FORM.BUTTONS.SUBMIT' | translate }}
-                    </button>
-                  </div>
+
+                  <!--start::Button (Publish Offer)-->
+                  <button mat-raised-button (click)="onSubmit()" (keyup.enter)="onSubmit()" class="btn btn-block btn-primary">
+                    {{ 'FORM.BUTTONS.SAVE' | translate }}
+                  </button>
+                  <!--end::Button (Publish Offer)-->
+
+                  <!--start::Button (Delete Offer)-->
+                  <button mat-raised-button (click)="deleteItemModal()" class="btn btn-block btn-danger">
+                    {{'OFFER.DELETE' | translate}}
+                  </button>
                   <!--end::Button (Delete Offer)-->
-                  <div class="single-delete">
-                    <button mat-raised-button (click)="deleteItemModal()" class="btn btn-block btn-danger">
-                      {{'OFFER.DELETE' | translate}}
-                    </button>
-                  </div>
-                  <!--end::Button (Delete Offer)-->
+
                 </div>
               </div>
               <!--end::Form Actions-->
