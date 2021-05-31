@@ -76,7 +76,6 @@ export class PartnerCampaignsComponent implements OnInit, OnDestroy {
 						this.campaigns = data.filter(item => {
 							return (item.redeemEnds > this.seconds);
 						});;
-						console.log("Partner MIcrocredit Campaigns", this.campaigns)
 					},
 					error => {
 					}),

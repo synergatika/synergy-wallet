@@ -1,4 +1,4 @@
-import { Offer } from 'sng-core';
+import { LoyaltyOffer } from 'sng-core';
 
 interface User {
     identifier: string;
@@ -26,6 +26,6 @@ interface Transaction {
 export interface LocalLoyaltyInterface {
     User: User;
     Checks: Checks;
-    Offer: Offer;
+    Offer: LoyaltyOffer;
     Transaction: Transaction;
 }

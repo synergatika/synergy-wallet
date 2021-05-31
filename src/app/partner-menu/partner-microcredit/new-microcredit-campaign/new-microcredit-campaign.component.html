@@ -1,11 +1,17 @@
-<div class="new-microcredit">
+<div class="new-microcredit edit-item">
+  <div class="back-link">
+    <a routerLink="/m-campaigns"><span class="mdi mdi-chevron-triple-left"></span></a>
+  </div>
+
   <mat-card>
     <mat-card-content>
 
       <!--begin::Form-->
       <form class="form container single-form" [formGroup]="submitForm">
         <div class="heading">{{ 'CAMPAIGN.CREATE_SUB' | translate}}</div>
-
+        <div *ngIf="intro">
+          <div class="intro" [innerHTML]="intro | content_translate: 'content'"></div>
+        </div>
         <hr>
         <div class="row">
           <div class="sub-heading col-md-12">{{ 'FIELDS.MICROCREDIT_CAMPAIGN.SUBSECTIONS.BASIC' | translate }}</div>
@@ -59,10 +65,12 @@
 
             <!--begin::Form Group "Description"-->
             <div class="form-group">
-              <mat-form-field>
+              <sng-rich-editor-create (finalize)="onFinalStep($event)" [formGroup]="submitForm"
+                parentService='microcreditContentImage'>
+              </sng-rich-editor-create>
+              <!-- <mat-form-field>
                 <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.DESCRIPTION.TITLE' | translate}}</mat-label>
-                <textarea matInput rows="5" type="text" name="Description" formControlName="description"
-                  placeholder="{{'FIELDS.MICROCREDIT_CAMPAIGN.DESCRIPTION.PLACEHOLDER' | translate}}"></textarea>
+                <textarea matInput rows="5" type="text" name="Description" formControlName="description" placeholder="{{'FIELDS.MICROCREDIT_CAMPAIGN.DESCRIPTION.PLACEHOLDER' | translate}}"></textarea>
                 <mat-error *ngIf="isControlHasError('description','required')" class="error text-danger">
                   {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
                 </mat-error>
@@ -75,7 +83,7 @@
                 <mat-hint class="form-text text-muted">
                   {{'FIELDS.MICROCREDIT_CAMPAIGN.DESCRIPTION.DESC' | translate}}
                 </mat-hint>
-              </mat-form-field>
+              </mat-form-field> -->
             </div>
             <!--end::Form Group "Description"-->
 
@@ -99,32 +107,8 @@
             <!--end::Form Group "Category"-->
 
             <!--begin::Form Group "Image"-->
-            <app-image-upload [parentForm]="submitForm" previousURL=''>
-            </app-image-upload>
-            <!-- <div class="form-group">
-              <label class="">{{'FIELDS.MICROCREDIT_CAMPAIGN.IMAGE.TITLE' | translate}}</label>
-              <div class="">
-                <div class="upload-img">
-                  <div class="upload-img-container">
-                    <img *ngIf="previewUrl" class="upload-img-holder" [src]="previewUrl">
-                    <div *ngIf="previewUrl" class="image-cancel">
-                      <span class="mdi mdi-close-circle" (click)="onImageCancel()">
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <button class="upload-img-btn" type="button" mat-raised-button (click)="fileInput.click()">
-                  {{'FIELDS.MICROCREDIT_CAMPAIGN.IMAGE.ACTION' | translate}}
-                </button>
-                <label class="avatar_upload">
-                  <input #image type="file" hidden (change)="fileProgress($event)" name="profile_avatar"
-                    formControlName="profile_avatar" accept=".png, .jpg, .jpeg" #fileInput>
-                </label>
-                <mat-error *ngIf="showImageError" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-              </div>
-            </div> -->
+            <sng-image-upload [parentForm]="submitForm" previousURL=''>
+            </sng-image-upload>
             <!--end::Form Group "Image"-->
 
           </div>
@@ -193,6 +177,21 @@
         <div class="row">
           <div class="col-md-6">
 
+            <!--begin::Form Group "Redeemable"-->
+            <div class="form-group">
+              <mat-checkbox (click)="onIsRedeemableCheckboxChange()" type="checkbox" class="" name="redeem"
+                formControlName="redeemable" value="false" labelPosition="before">
+                {{'FIELDS.MICROCREDIT_CAMPAIGN.REDEEMABLE' | translate}}
+              </mat-checkbox>
+            </div>
+            <!--end::Form Group "Redeemable"-->
+
+          </div>
+        </div>
+
+        <div class="row" *ngIf="isRedeemable">
+          <div class="col-md-6">
+
             <!--begin::Form Group "Quantitative"-->
             <div class="form-group">
               <mat-checkbox (click)="onIsQuantitativeCheckboxChange()" type="checkbox" class="" name="redeem"
@@ -206,7 +205,7 @@
         </div>
 
         <!--begin::Case !isQuantitative-->
-        <div class="row" *ngIf="!isQuantitative">
+        <div class="row" *ngIf="!isQuantitative&&isRedeemable">
           <div class="col-md-6">
 
             <!--begin::Form Group "Min_Allowed"-->
@@ -232,6 +231,7 @@
             <!--end::Form Group "Min_Allowed"-->
 
           </div>
+
           <div class="col-md-6">
 
             <!--begin::Form Group "Max_Amount"-->
@@ -261,12 +261,14 @@
             </div>
             <!--end::Form Group "Max_Amount"-->
 
+
+
           </div>
         </div>
         <!--end::Case !isQuantitative-->
 
         <!--begin::Case isQuantitative-->
-        <div class="row" *ngIf="isQuantitative">
+        <div class="row" *ngIf="isQuantitative&&isRedeemable">
           <div class="col-md-6">
 
             <!--begin::Form Group "Min_Allowed"-->
@@ -297,6 +299,15 @@
                 <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.STEP.TITLE' | translate}}</mat-label>
                 <input matInput type="number" name="stepAmount" formControlName="stepAmount"
                   placeholder="{{'FIELDS.MICROCREDIT_CAMPAIGN.STEP.PLACEHOLDER' | translate}}">
+                <mat-error *ngIf="isControlHasError('stepAmount','required')" class="error text-danger">
+                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
+                </mat-error>
+                <mat-error *ngIf="isControlHasError('stepAmount','min')" class="error text-danger">
+                  {{ 'FORM.VALIDATION.MIN_VALUE_FIELD' | translate }}: {{validator.stepAmount.minValue}}
+                </mat-error>
+                <mat-error *ngIf="isControlHasError('stepAmount','max')" class="error text-danger">
+                  {{ 'FORM.VALIDATION.MAX_VALUE_FIELD' | translate }}: {{validator.stepAmount.maxValue}}
+                </mat-error>
                 <mat-hint class="form-text text-muted">
                   {{'FIELDS.MICROCREDIT_CAMPAIGN.STEP.DESC' | translate}}
                 </mat-hint>
@@ -401,8 +412,8 @@
             </div>
             <!--end::Form Group "Support Starts"-->
 
-            <!--begin::Form Group "Support Ends"-->
-            <div class="form-group">
+            <!--begin::Form Group "Redeem Starts"-->
+            <div class="form-group" *ngIf="isRedeemable">
               <mat-form-field>
                 <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.REDEEM_STARTS.TITLE' | translate}}</mat-label>
                 <input matInput [matDatepicker]="redeemStartsPicker" [min]="minDate" name="RedeemStarts"
@@ -428,12 +439,13 @@
                 </mat-hint>
               </mat-form-field>
             </div>
-            <!--end::Form Group "Support Ends"-->
+            <!--end::Form Group "Redeem Starts"-->
 
           </div>
+
           <div class="col-md-6">
 
-            <!--begin::Form Group "Redeem Starts"-->
+            <!--begin::Form Group "Support Ends"-->
             <div class="form-group">
               <mat-form-field>
                 <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.SUPPORT_ENDS.TITLE' | translate}}</mat-label>
@@ -460,10 +472,10 @@
                 </mat-hint>
               </mat-form-field>
             </div>
-            <!--end::Form Group "Redeem Starts"-->
+            <!--end::Form Group "Support Ends"-->
 
             <!--begin::Form Group "Redeem Ends"-->
-            <div class="form-group">
+            <div class="form-group" *ngIf="isRedeemable">
               <mat-form-field>
                 <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.REDEEM_ENDS.TITLE' | translate}}</mat-label>
                 <input matInput [matDatepicker]="redeemEndsPicker" [min]="minDate" name="RedeemEnds"
@@ -475,7 +487,8 @@
                 </mat-error>
                 <mat-error
                   *ngIf="submitForm.get('redeemEnds').errors && submitForm.get('redeemEnds').errors.RedeemStartsGreaterThanRedeemEnds"
-                  class="error text-danger">{{ 'FORM.VALIDATION.CAMPAIGN_DATES.REDEEMSTARTSTOREDEEMENDS' | translate }}
+                  class="error text-danger">{{ 'FORM.VALIDATION.CAMPAIGN_DATES.REDEEMSTARTSTOREDEEMENDS' | translate
+                  }}
                 </mat-error>
                 <mat-error
                   *ngIf="submitForm.get('redeemEnds').errors && submitForm.get('redeemEnds').errors.SupportEndsGreaterThanRedeemEnds"
@@ -492,14 +505,16 @@
         </div>
 
         <!--begin::Form Actions-->
-        <div class="form-actions row col-md-4">
-          <button mat-raised-button type="button" (click)="onSubmit('draft')" (keyup.enter)="onSubmit('draft')"
-            class="btn btn-block btn-primary">
-            {{ 'FIELDS.MICROCREDIT_CAMPAIGN.SUBMIT_DRAFT' | translate }}
-          </button>
-          <button mat-raised-button type="button" (click)="onSubmit('publish')" class="btn btn-block btn-warning">
+        <div class="form-actions row">
+          <div class="col-md-12">
+            <button mat-raised-button type="button" (click)="onSubmit('draft')" (keyup.enter)="onSubmit('draft')"
+              class="btn btn-block btn-primary">
+              {{ 'FIELDS.MICROCREDIT_CAMPAIGN.SUBMIT_DRAFT' | translate }}
+            </button>
+            <!--<button mat-raised-button type="button" (click)="onSubmit('publish')" class="btn btn-block btn-warning">
             {{ 'FIELDS.MICROCREDIT_CAMPAIGN.SUBMIT_CAMPAIGN' | translate }}
-          </button>
+          </button>-->
+          </div>
         </div>
         <!--end::Form Actions-->
 

@@ -465,6 +465,7 @@ export const locale = {
           DESC: 'Please, enter when redeem can end.'
         },
         QUANTITATIVE: 'Is it Quantitative?',
+        REDEEMABLE: 'Is it redeemable (or a Donation);',
         SUBMIT_DRAFT: 'Save as Draft',
         SUBMIT_CAMPAIGN: 'Publish Campaign',
         SUBSECTIONS: {

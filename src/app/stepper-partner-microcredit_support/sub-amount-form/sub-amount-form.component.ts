@@ -41,9 +41,9 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription;
 
-	/**
-	 * Component Constructor
-	 */
+  /**
+   * Component Constructor
+   */
   constructor(
     private fb: FormBuilder,
     private stepperService: LocalMicrocreditService
@@ -71,7 +71,7 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
       amount: [0, Validators.compose([
         Validators.required,
         (control: AbstractControl) => Validators.min(this.campaign.minAllowed)(control),
-        (control: AbstractControl) => Validators.max((this.campaign.maxAllowed) > 0 ? this.campaign.maxAllowed : this.campaign.maxAmount)(control)
+        (control: AbstractControl) => Validators.max((this.campaign.quantitative == true) ? this.campaign.maxAllowed : this.campaign.maxAmount)(control)
       ])
       ],
       paid: [true, Validators.compose([

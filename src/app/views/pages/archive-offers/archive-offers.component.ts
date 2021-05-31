@@ -11,7 +11,7 @@ import { ItemsService } from '../../../core/services/items.service';
 /**
  * Models & Interfaces
  */
-import { Offer } from 'sng-core';
+import { LoyaltyOffer } from 'sng-core';
 
 @Component({
 	selector: 'app-archive-offers',
@@ -23,7 +23,7 @@ export class ArchiveOffersComponent implements OnInit {
 	/**
 	 * Content Variables
 	 */
-	public offers: Offer[] = [];
+	public offers: LoyaltyOffer[] = [];
 
 	counter: number = 0;
 

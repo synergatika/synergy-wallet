@@ -99,7 +99,7 @@ export class StepperPartnerMicrocreditCampaignComponent implements OnInit, OnDes
     this.campaign = this.data.campaign;
     this.stepperService.changeMicrocreditCampaign(this.campaign);
 
-    this.transaction.campaign_id = this.campaign.campaign_id;
+    this.transaction.campaign_id = this.campaign._id;
     this.transaction.campaign_title = this.campaign.title;
     this.stepperService.changeTransaction(this.transaction);
   }
@@ -157,7 +157,7 @@ export class StepperPartnerMicrocreditCampaignComponent implements OnInit, OnDes
 
     this.loading = true;
 
-    this.microcreditService.redeemTokens(this.authenticationService.currentUserValue.user["_id"], this.campaign.campaign_id, redeemTokens._to, redeemTokens._tokens, redeemTokens.password, redeemTokens.support_id)
+    this.microcreditService.redeemTokens(this.authenticationService.currentUserValue.user["_id"], this.campaign._id, redeemTokens._to, redeemTokens._tokens, redeemTokens.password, redeemTokens.support_id)
       .pipe(
         tap(
           data => {
@@ -180,7 +180,7 @@ export class StepperPartnerMicrocreditCampaignComponent implements OnInit, OnDes
 
   fetchBackerData() {
     const identifier = this.user.identifier;
-    this.microcreditService.readBackerSupportsByMicrocreditCampaign(this.authenticationService.currentUserValue.user["_id"], this.campaign.campaign_id, (identifier).toLowerCase())
+    this.microcreditService.readBackerSupportsByMicrocreditCampaign(this.authenticationService.currentUserValue.user["_id"], this.campaign._id, (identifier).toLowerCase())
       .pipe(
         tap(
           data => {

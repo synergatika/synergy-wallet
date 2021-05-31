@@ -160,7 +160,7 @@ export class EditSectorsComponent implements OnInit {
               icon: 'success',
               timer: 2500,
             }).then((result) => {
-              this.router.navigate(['/a-content']);
+              this.router.navigate(['/a-sectors']);
             });
           },
           error => {

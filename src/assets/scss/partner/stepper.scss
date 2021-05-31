@@ -1,0 +1,173 @@
+//Scann Caller
+.scanner .mat-card.item-card {
+  height: 100%;
+}
+
+//Stepper Modal
+.stepper-modal-container {
+  max-height: 90vh;
+  position: relative;
+
+  h3.heading {
+    font-size: 1.3rem;
+    margin-top: 20px;
+    margin-bottom: 25px;
+  }
+
+  h4.stepper-subtitle {
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  .stepper-label {
+    margin-bottom: 5px;
+  }
+
+  .stepper-info.microcredit-info {
+    font-size: 16px;
+
+    .col-head {
+      &.init {
+        color: $tertiary;
+      }
+
+      &.redeemed {
+        color: $secondary;
+      }
+
+      &.remaining {
+        color: $primary;
+      }
+    }
+
+    .token-num {
+      font-size: 26px;
+    }
+  }
+
+  .stepper-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 0; // margin: 0 0 15px;
+
+    .stepper-radio-buttons {
+      margin: 5px;
+    }
+  }
+
+  .stepper-info.offer-info {
+    margin-bottom: 20px;
+
+    .col-head {
+      &.offer-id {
+        color: $tertiary;
+      }
+
+      &.cost {
+        color: $secondary;
+      }
+
+      &.points {
+        color: $primary;
+      }
+    }
+
+    .offer-num {
+      font-size: 26px;
+      height: 35px;
+      line-height: 35px;
+
+      &.small {
+        font-size: 16px;
+      }
+    }
+  }
+
+  //Special for Email input
+  app-sub-identifier-form, app-sub-email-form{
+    .mat-form-field-infix{
+        width:250px;
+    }
+  }
+
+  .step-container {
+    padding-top: 20px;
+    text-align: center;
+
+    button {
+      margin: 0 auto;
+    }
+  }
+
+  .hint {
+    font-size: 13px;
+  }
+
+  form {
+    padding-bottom: 20px;
+
+    input:read-only {
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+
+    input:-moz-read-only {
+      -moz-appearance: textfield;
+    }
+  }
+
+  .amounts-table {
+    text-align: left;
+    display: table;
+    margin-bottom: 30px;
+
+    p {
+      margin-bottom: 0;
+      display: table-row;
+      border-bottom: 1px solid #000;
+    }
+
+    label {
+      padding: 10px;
+      background: #e7e7e7;
+      margin-bottom: 0;
+      display: table-cell;
+    }
+
+    span {
+      padding: 10px;
+      font-weight: bold;
+      background: #c3c3c3;
+      display: inline-block;
+      display: table-cell;
+    }
+  }
+}
+
+//In Mobile
+@media (max-width: 576px) {
+  .fullscreen-modal {
+    .modal-dialog {
+      margin-top: 65px;
+    }
+    .close-btn {
+      position: fixed;
+      z-index: 999;
+      top: 4px;
+      right: 20px;
+      font-size: 45px;
+      background: #fff;
+      //  background: none;
+      span {
+        top: -18px;
+      }
+    }
+  }
+}

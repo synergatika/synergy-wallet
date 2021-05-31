@@ -9,8 +9,8 @@
       <label>{{'MEMBER.WIZARD.SUB_AMOUNT.AMOUNT' | translate}}</label>
       <div class="input-group">
         <span class="input-group-text">€</span>
-        <input type="number" [readonly]="!campaign.quantitative||campaign.stepAmount>0" class="form-control"
-          name="amount" formControlName="amount" placeholder="Amount" value="0">
+        <input type="number" [readonly]="campaign.redeemable&&!campaign.quantitative||campaign.stepAmount>0"
+          class="form-control" name="amount" formControlName="amount" placeholder="Amount" value="0">
         <div *ngIf="campaign.quantitative&&campaign.stepAmount>0" class="amount-controller">
           <button [disabled]="!showSubStep" mat-mini-fab class="remove" (click)="onChangeAmount(false)">
             -

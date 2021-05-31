@@ -74,7 +74,7 @@ export class StepperPartnerLoyaltyOfferComponent implements OnInit, OnDestroy {
     this.offer = this.data.offer;
     this.stepperService.changeLoyaltyOffer(this.offer);
 
-    this.transaction.offer_id = this.offer.offer_id;
+    this.transaction.offer_id = this.offer._id;
     this.transaction.offer_title = this.offer.title;
     this.transaction.cost = this.offer.cost;
     this.stepperService.changeTransaction(this.transaction);

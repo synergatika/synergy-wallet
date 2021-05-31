@@ -1,10 +1,6 @@
 <div class="m-offers">
-  <div class="heading-container">
-    <h1 class="heading"> {{'OFFER.PLURAL' | translate}} </h1>
-  </div>
-
   <div class="row">
-
+    
     <!--begin::Button (Create Offer)-->
     <div class="item item-wrapper col-md-4">
       <mat-card class="item-card new-item-card" routerLink="create">
@@ -18,7 +14,7 @@
     <!--begin::Loyalty Offers List-->
     <ng-container *ngIf="offers">
       <div class="item item-wrapper col-md-4" *ngFor="let item of offers">
-        <sng-offer-card class="item-card" [offer]="item" type="'internal'" routerLink="edit/{{item.offer_id}}">
+        <sng-offer-card class="item-card" [offer]="item" type="'internal'" routerLink="edit/{{item._id}}">
         </sng-offer-card>
       </div>
     </ng-container>

@@ -78,8 +78,8 @@ export class StepperMemberMicrocreditSupportComponent implements OnInit, OnDestr
     this.campaign = this.data.campaign;
     this.stepperService.changeMicrocreditCampaign(this.campaign);
 
-    this.transaction.partner_id = this.campaign.partner_id;
-    this.transaction.campaign_id = this.campaign.campaign_id;
+    this.transaction.partner_id = this.campaign.partner._id;
+    this.transaction.campaign_id = this.campaign._id;
     this.stepperService.changeTransaction(this.transaction);
   }
 
@@ -104,7 +104,7 @@ export class StepperMemberMicrocreditSupportComponent implements OnInit, OnDestr
       paid: this.transaction.paid
     };
 
-    this.microcreditService.earnTokens(this.campaign.partner_id, this.campaign.campaign_id, earnTokens._amount, earnTokens._method, earnTokens.paid)
+    this.microcreditService.earnTokens(this.campaign.partner._id, this.campaign._id, earnTokens._amount, earnTokens._method, earnTokens.paid)
       .pipe(
         tap(
           data => {
@@ -119,7 +119,7 @@ export class StepperMemberMicrocreditSupportComponent implements OnInit, OnDestr
               } :
               {
                 title: this.paymentsList.filter((el) => { return el.bic == this.transaction.method })[0].title,
-                value: this.campaign.partner_payments.filter((el) => { return el.bic == this.transaction.method })[0].value
+                value: this.campaign.partner.payments.filter((el) => { return el.bic == this.transaction.method })[0].value
               }
 
             this.stepperService.changeTransaction(this.transaction);

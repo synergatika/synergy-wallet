@@ -1,5 +1,4 @@
 <div class="microcredit">
-  <h1 class="heading"> {{'CAMPAIGN.PLURAL' | translate}} </h1>
 
   <div class="row">
 
@@ -17,7 +16,7 @@
     <ng-container *ngIf="campaigns">
       <div class="item item-wrapper col-md-4" *ngFor="let item of campaigns">
         <sng-microcredit_campaign-card [campaign]="item" type="'internal'"
-          [routerLink]="item.status=='draft' ? ['edit/'+item.campaign_id] : ['manage/'+item.campaign_id]">
+          [routerLink]="item.status=='draft' ? ['edit/'+item._id] : ['manage/'+item._id]">
         </sng-microcredit_campaign-card>
       </div>
     </ng-container>

@@ -1,51 +1,40 @@
-@import "../../variables.scss";
+@import "../../variables.scss"; //2.1 Configue Material
 
-//2.1 Configue Material
-
-//Materialize Card
+//Card
 .mat-card {
   font-family: $main-font, sans-serif;
   color: $darker-font;
 }
-
 mat-card {
   font-family: $main-font, sans-serif;
-
   .mdi.share-icon {
     color: $grey-font;
     font-size: 35px;
     cursor: pointer;
   }
-
   .mdi {
     color: $primary;
     font-size: 18px;
     margin-right: 5px;
-
     &.white {
       color: #fff;
     }
   }
 }
-
 .mat-card:not([class*="mat-elevation-z"]) {
   @extend .light-shadow;
   border-bottom-left-radius: 9px;
   border-bottom-right-radius: 9px;
   overflow: hidden;
 }
-
 .owl-theme .mat-card {
   box-shadow: none !important;
 }
-
 .mat-card.wallet-card:not([class*="mat-elevation-z"]) {
   overflow: visible;
 }
-
 .mat-card.item-card {
   cursor: pointer;
-
   .item-draft {
     position: absolute;
     right: -1px;
@@ -64,7 +53,6 @@ mat-card {
 .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
   background-color: $tertiary;
 }
-
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
   border-color: $tertiary;
 }
@@ -76,10 +64,11 @@ mat-card {
 .mat-icon-button,
 .mat-mini-fab,
 .mat-raised-button,
-.mat-stroked-button {
+.mat-stroked-button,
+.mat-tab-label,
+.mat-tab-link {
   font-family: $main-font, sans-serif;
 }
-
 .mat-mini-fab {
   width: 30px;
   height: 30px;
@@ -87,84 +76,108 @@ mat-card {
   font-size: 22px;
   margin-left: 8px;
   margin-top: 5px;
-
   &.mat-accent {
     background-color: $tertiary;
   }
-
   span.mat-button-wrapper {
     padding: 1px 0;
     line-height: inherit;
   }
 }
-
-// button.mat-mini-fab.mat-accent {
-//   background-color: #0c1a33;
-// }
 th .mat-sort-header-sorted {
   color: $secondary;
 }
-
 .cdk-overlay-container {
   z-index: 9999;
 }
+
+//Tabs
+.mat-tab-group{
+  font-family: $main-font, sans-serif;
+}
+.mat-tab-label-content {
+  font-size: 17px;
+  color: #000;
+}
+.mat-tab-label-active {
+  background: #e1e1e1;
+}
+
+//Table
+.mat-table{
+  font-family: $main-font, sans-serif;
+}
+
+//Spinner
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: $primary !important;
+}
+
+//Mobile
+@media (min-width: 992px) {
+  body {
+    .mat-card {
+      padding: 25px;
+
+      .row {
+        margin-right: -25px;
+        margin-left: -25px;
+      }
+    }
+  }
+}
+
 
 //2.2 Configue Bootsrtap
 .btn {
   transition: background-color 0.3s;
 }
-
-.btn-success,
-.btn-primary {
+.btn-primary,
+.btn-success {
   background-color: $primary;
   border-color: $primary-light;
-
-  &:hover,
   &:active,
-  &:not(:disabled):not(.disabled):active,
-  &:focus {
+  &:focus,
+  &:hover,
+  &:not(:disabled):not(.disabled):active {
     background-color: $primary-light;
     border-color: $primary-light;
   }
 }
-
 .btn-danger,
 .btn-secondary {
   background-color: $secondary;
   border-color: $secondary-light;
-
-  &:hover,
   &:active,
-  &:not(:disabled):not(.disabled):active,
-  &:focus {
+  &:focus,
+  &:hover,
+  &:not(:disabled):not(.disabled):active {
     background-color: $secondary-light;
     border-color: $secondary-light;
   }
 }
-
-.btn-warning,
-.btn-tertiary {
+.btn-tertiary,
+.btn-warning {
   color: #fff;
   background-color: $tertiary;
   border-color: $tertiary;
-
-  &:hover,
-  &:active {
+  &:active,
+  &:hover {
     background-color: $tertiary-dark;
     border-color: $tertiary-dark;
   }
 }
-
 .dropdown-menu {
   border: none;
   box-shadow: 0 0 40px 0 rgba(40, 70, 120, 0.15);
 }
-
 .dropdown-toggle {
   &:after {
     content: none;
   }
 }
+
 
 //2.2 Configue Owl carousel
 .owl-theme {
@@ -175,10 +188,12 @@ th .mat-sort-header-sorted {
     width: 100%;
     justify-content: space-between;
     pointer-events: none;
+
     [class*="owl-"] {
       font-size: 34px;
       line-height: 1.1;
       background-color: $primary;
+
       &:hover {
         background-color: $primary-light;
       }
@@ -204,8 +219,10 @@ th .mat-sort-header-sorted {
       }
     }
   }
+
   .owl-dots {
     margin-bottom: 20px;
+
     .owl-dot {
       &.active,
       &:hover {
@@ -216,14 +233,15 @@ th .mat-sort-header-sorted {
     }
   }
 }
-.owl-carousel .owl-stage-outer{
+
+.owl-carousel .owl-stage-outer {
   margin-bottom: 20px;
 }
 
-///2.3 Modal Diaglog
+
+//2.3 Modal Diaglog
 .modal-dialog {
   margin: 5rem auto;
-
   @media (max-width: 576px) {
     max-width: 92%;
   }
@@ -269,20 +287,21 @@ th .mat-sort-header-sorted {
     border: none;
   }
 }
-
 //2.4 Forms
-.single-form {
-   .mat-form-field {
-     display: block;
-     max-width: 400px;
-     //max-width: 100%;
+.mat-form-field{
+  font-family: $main-font;
+}
 
-   //margin-bottom: 40px;
+.single-form {
+  .mat-form-field {
+    display: block;
+    max-width: 400px;
+
     .mat-form-field-flex {
       background-color: #f8f6f6;
       padding: 10px;
     }
-   }
+  }
 
   .payment {
     width: 50%;
@@ -335,7 +354,6 @@ th .mat-sort-header-sorted {
     display: flex;
     max-width: 400px;
 
-    //justify-content: space-between;
     &-date {
       flex-grow: 6;
       margin-right: 30px;
@@ -389,7 +407,6 @@ th .mat-sort-header-sorted {
 
   .form-actions {
     margin-top: 20px;
-
     float: right;
 
     button {
@@ -399,80 +416,6 @@ th .mat-sort-header-sorted {
     }
   }
 }
-
-.profile-form {
-	margin-bottom: 1.5rem;
-
-	.form-group {
-		padding-left: 30px;
-		padding-right: 30px;
-		margin-bottom: 1.5rem;
-
-		.payment {
-			margin-bottom: 1.5rem;
-		}
-	}
-
-	.form-actions {
-		margin-top: 20px;
-		button {
-			float: right;
-			font-size: 18px;
-			padding: 4px 22px;
-		}
-	}
-
-	.upload-img {
-		&-holder {
-			max-width: 250px;
-			margin-bottom: 15px;
-		}
-
-		&-container {
-			position: relative;
-			display: inline-block;
-		}
-
-		&-btn {
-			margin-bottom: 10px;
-		}
-
-		.image-cancel {
-			position: absolute;
-			top: -6px;
-			right: -6px;
-			font-size: 24px;
-			width: 20px;
-			height: 20px;
-			background: #fff;
-			border-radius: 50%;
-
-			span {
-				position: relative;
-				top: -10px;
-				right: 5px;
-				font-size: 28px;
-				cursor: pointer;
-			}
-		}
-	}
-
-	mat-form-field {
-    width: 100%;
-    padding: 10px;
-	}
-
-}
-
-
-.single-delete {
-  float: right;
-
-  button {
-    float: right;
-  }
-}
-
 
 .avatar {
   &-holder {
@@ -528,8 +471,8 @@ app-sub-offer-form {
   width: 100%;
   max-width: 500px;
 }
-
 //2.5 Wizards
+
 aw-wizard-navigation-bar.horizontal.small ul.steps-indicator li {
   &.current {
     .step-indicator {
@@ -563,21 +506,14 @@ aw-wizard-navigation-bar.horizontal.small ul.steps-indicator li {
   }
 }
 
-// TEMPORARY
-/*aw-wizard-navigation-bar ul.steps-indicator li {
-    pointer-events: auto;
-  }*/
-// -------
 aw-wizard-navigation-bar ul.steps-indicator li a {
   .label {
     font-weight: 400;
     font-size: 12px;
   }
 }
+//2.6 Paginator
 
-//2.6 Othes
-
-//Paginator
 .pagination-wrapper {
   text-align: center;
 

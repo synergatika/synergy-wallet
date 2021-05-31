@@ -79,8 +79,8 @@ export class StepperPartnerMicrocreditSupportComponent implements OnInit, OnDest
     this.campaign = this.data.campaign;
     this.stepperService.changeMicrocreditCampaign(this.campaign);
 
-    this.transaction.partner_id = this.campaign.partner_id;
-    this.transaction.campaign_id = this.campaign.campaign_id;
+    this.transaction.partner_id = this.campaign.partner._id;
+    this.transaction.campaign_id = this.campaign._id;
     this.stepperService.changeTransaction(this.transaction);
   }
 
@@ -348,7 +348,7 @@ export class StepperPartnerMicrocreditSupportComponent implements OnInit, OnDest
       _amount: this.transaction.amount,
     };
 
-    this.microcreditService.earnTokensByPartner(this.authenticationService.currentUserValue.user["_id"], this.campaign.campaign_id, earnTokens._to, earnTokens._amount,
+    this.microcreditService.earnTokensByPartner(this.authenticationService.currentUserValue.user["_id"], this.campaign._id, earnTokens._to, earnTokens._amount,
       // (this.support.paid) ? 'store' : 'none', this.support.paid)
       'store', this.transaction.paid)
       .pipe(

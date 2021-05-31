@@ -21,8 +21,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { EmailSettingsComponent } from './email-settings/email-settings.component';
 import { InvitationComponent } from './invitation/invitation.component';
 import { PartnerPaymentsComponent } from './partner-payments/partner-payments.component';
-import { WidgetsModule } from '../../core/components/widgets.module';
-import { PipesModule } from '../../pipes/pipes.module';
+import { SngCoreModule } from 'sng-core';
+// import { WidgetsModule } from '../../core/_components/widgets.module';
 
 
 const routes: Routes = [
@@ -85,9 +85,7 @@ const routes: Routes = [
     MatDialogModule,
     MatCardModule,
     MatSelectModule,
-    WidgetsModule,
-
-    PipesModule
+    SngCoreModule
   ],
   providers: [
   ],

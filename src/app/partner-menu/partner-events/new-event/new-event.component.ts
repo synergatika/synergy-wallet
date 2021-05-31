@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 /**
  * Components
  */
-import { ContentImagesComponent } from '../../../core/components/content-images/content-images.component';
+import { RichEditorCreateComponent } from 'sng-core';
 
 
 /**
@@ -32,8 +32,8 @@ export class NewEventComponent implements OnInit, OnDestroy {
   /**
    * Imported Component
    */
-  @ViewChild(ContentImagesComponent, { static: true })
-  public editorTextarea: ContentImagesComponent;
+  @ViewChild(RichEditorCreateComponent, { static: true })
+  public editorTextarea: RichEditorCreateComponent;
 
   timePickerTheme: any = {
     container: {
@@ -117,7 +117,7 @@ export class NewEventComponent implements OnInit, OnDestroy {
         Validators.maxLength(this.validator.title.maxLength)
       ])
       ],
-      content: ['', Validators.compose([
+      description: ['', Validators.compose([
         Validators.required,
         //     Validators.minLength(this.validator.content.minLength),
         //     Validators.maxLength(this.validator.content.maxLength)
@@ -180,7 +180,7 @@ export class NewEventComponent implements OnInit, OnDestroy {
     formData.append('title', controls.title.value);
     formData.append('imageURL', controls.image_url.value);
     formData.append('subtitle', controls.subtitle.value);
-    formData.append('content', controls.content.value);
+    formData.append('description', controls.description.value);
     formData.append('contentFiles', editorFiles.join())
     formData.append('access', controls.access.value);
     formData.append('location', controls.location.value);

@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 /**
  * Components
  */
-import { ContentImagesComponent } from '../../../core/components/content-images/content-images.component';
+import { RichEditorCreateComponent } from 'sng-core';
 
 /**
  * Services
@@ -37,8 +37,8 @@ export class NewPostComponent implements OnInit, OnDestroy {
   /**
    * Imported Component
    */
-  @ViewChild(ContentImagesComponent, { static: true })
-  public editorTextarea: ContentImagesComponent;
+  @ViewChild(RichEditorCreateComponent, { static: true })
+  public editorTextarea: RichEditorCreateComponent;
 
   /**
    * Configuration and Static Data
@@ -103,7 +103,7 @@ export class NewPostComponent implements OnInit, OnDestroy {
       ])
       ],
       subtitle: [''],
-      content: ['', Validators.compose([
+      description: ['', Validators.compose([
         Validators.required,
         //    Validators.minLength(this.validator.content.minLength),
         //    Validators.maxLength(this.validator.content.maxLength)
@@ -150,7 +150,7 @@ export class NewPostComponent implements OnInit, OnDestroy {
     formData.append('title', controls.title.value);
     formData.append('imageURL', controls.image_url.value);
     formData.append('subtitle', controls.subtitle.value);
-    formData.append('content', controls.content.value);
+    formData.append('description', controls.description.value);
     formData.append('contentFiles', editorFiles.join())
     formData.append('access', controls.access.value);
 

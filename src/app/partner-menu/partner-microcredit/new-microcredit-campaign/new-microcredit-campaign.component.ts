@@ -11,13 +11,14 @@ import Swal from 'sweetalert2';
  * Services
  */
 import { StaticDataService } from 'src/app/core/helpers/static-data.service';
+import { ContentService } from '../../../core/services/content.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { ItemsService } from '../../../core/services/items.service';
 
 /**
  * Models & Interfaces
  */
-import { GeneralList } from 'sng-core';
+import { RichEditorCreateComponent, GeneralList } from 'sng-core';
 
 /**
  * Validators
@@ -32,6 +33,12 @@ import { AmountValidator } from '../amount.validator';
 })
 
 export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
+  /**
+  * Imported Component
+  */
+  @ViewChild(RichEditorCreateComponent, { static: true })
+  public editorTextarea: RichEditorCreateComponent;
+
   @ViewChild('publish_item') publish_item;
 
   /**
@@ -40,18 +47,14 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
   public accessList: GeneralList[];
 
   /**
-   * File Variables
-   */
-  // fileData: File = null;
-  // previewUrl: any = null;
-  // showImageError: boolean = false;
-
-  /**
    * Content Variables
    */
   public title: string = '';
+  private campaignAction: string = '';
   public minDate: Date;
   isQuantitative = false;
+  isRedeemable: boolean = true;
+  public intro: any;
 
   /**
    * Form
@@ -72,6 +75,7 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     * @param modalService: NgbModal
     * @param translate: TranslateService
     * @param staticDataService: StaticDataService
+    * @param contentService: ContentService
     * @param authenticationService: AuthenticationService
     * @param itemsService: ItemsService
     */
@@ -82,6 +86,7 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private translate: TranslateService,
     private staticDataService: StaticDataService,
+    private contentService: ContentService,
     private authenticationService: AuthenticationService,
     private itemsService: ItemsService
   ) {
@@ -96,8 +101,10 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() + 1);
-
+    //Initiate Form
     this.initForm();
+    //Get Intro
+    this.fetchCampaignIntro();
   }
 
   /**
@@ -126,8 +133,8 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
       ],
       description: ['', Validators.compose([
         Validators.required,
-        Validators.minLength(this.validator.description.minLength),
-        Validators.maxLength(this.validator.description.maxLength)
+        // Validators.minLength(this.validator.description.minLength),
+        // Validators.maxLength(this.validator.description.maxLength)
       ])
       ],
       category: ['', Validators.compose([
@@ -143,10 +150,15 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
         Validators.required
       ])
       ],
+
+
+      redeemable: [true, Validators.compose([
+        Validators.required
+      ])
+      ],
+
       minAllowed: [0, Validators.compose([
         Validators.required,
-        Validators.min(this.validator.minAllowed.minValue),
-        Validators.max(this.validator.minAllowed.maxValue)
       ])
       ],
       maxAllowed: [0, Validators.compose([
@@ -156,11 +168,8 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
       stepAmount: [''],
       maxAmount: [0, Validators.compose([
         Validators.required,
-        Validators.min(this.validator.maxAmount.minValue),
-        Validators.max(this.validator.maxAmount.maxValue)
       ])
       ],
-
       supportStarts: ['', Validators.compose([
         Validators.required
       ])
@@ -177,60 +186,75 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
         Validators.required
       ])
       ],
-      // profile_avatar: ['', Validators.compose([
-      //   Validators.required
-      // ])
-      // ],
       image_url: ['', Validators.compose([
         Validators.required
       ])
       ],
+      contentFiles: [null]
     },
       {
         validator: [DatesValidator.DatesValidator, AmountValidator.AmountValidator]
       });
+
+    this.checkAmountValidators();
   }
 
-  /**
-   * Image Upload
-   */
-  // fileProgress(fileInput: any) {
-  //   this.fileData = <File>fileInput.target.files[0];
-  //   this.preview();
-  // }
+  checkAmountValidators() {
+    const controls = this.submitForm.controls;
 
-  // preview() {
-  //   if (this.fileData == null) {
-  //     this.onImageCancel();
-  //     return;
-  //   }
-  //   this.showImageError = false;
-
-  //   var mimeType = this.fileData.type;
-  //   if (mimeType.match(/image\/*/) == null) {
-  //     return;
-  //   }
-
-  //   var reader = new FileReader();
-  //   reader.readAsDataURL(this.fileData);
-  //   reader.onload = (_event) => {
-  //     if (this.previewUrl !== reader.result) {
-  //       this.cdRef.markForCheck();
-  //     }
-  //     this.previewUrl = reader.result;
-  //   }
-  // }
-
-  // onImageCancel() {
-  //   console.log('Image canceled');
-  //   this.previewUrl = null;
-  //   this.fileData = null;
-  //   this.showImageError = true;
-  //   this.cdRef.markForCheck();
-  // }
+    if (!this.isRedeemable) {
+      this.isQuantitative = false;
+      controls["minAllowed"].setValidators(null);
+      controls["maxAllowed"].setValidators(null);
+      controls["stepAmount"].setValidators(null);
+      controls["maxAmount"].setValidators(null);
+      controls["redeemStarts"].setValidators(null);
+      controls["redeemEnds"].setValidators(null);
+    } else if (this.isRedeemable && !this.isQuantitative) {
+      controls["minAllowed"].setValidators([Validators.required,
+      Validators.min(this.validator.minAllowed.minValue), Validators.max(this.validator.minAllowed.maxValue)]);
+      controls["maxAllowed"].setValidators(null);
+      controls["stepAmount"].setValidators(null);
+      controls["maxAmount"].setValidators([Validators.required,
+      Validators.min(this.validator.maxAmount.minValue), Validators.max(this.validator.maxAmount.maxValue)]);
+      controls["redeemStarts"].setValidators([Validators.required]);
+      controls["redeemEnds"].setValidators([Validators.required]);
+    } else {
+      controls["minAllowed"].setValidators([Validators.required,
+      Validators.min(this.validator.minAllowed.minValue), Validators.max(this.validator.minAllowed.maxValue)]);
+      controls["maxAllowed"].setValidators([Validators.required,
+      Validators.min(this.validator.maxAllowed.minValue), Validators.max(this.validator.maxAllowed.maxValue)]);
+      controls["stepAmount"].setValidators([Validators.required,
+      Validators.min(this.validator.stepAmount.minValue), Validators.max(this.validator.stepAmount.maxValue)]);
+      controls["maxAmount"].setValidators([Validators.required,
+      Validators.min(this.validator.maxAmount.minValue), Validators.max(this.validator.maxAmount.maxValue)]);
+      controls["redeemStarts"].setValidators([Validators.required]);
+      controls["redeemEnds"].setValidators([Validators.required]);
+    }
+    controls["minAllowed"].updateValueAndValidity();
+    controls["maxAllowed"].updateValueAndValidity();
+    controls["stepAmount"].updateValueAndValidity();
+    controls["maxAmount"].updateValueAndValidity();
+    controls["redeemStarts"].updateValueAndValidity();
+    controls["redeemEnds"].updateValueAndValidity();
+  }
 
   onIsQuantitativeCheckboxChange() {
     this.isQuantitative = !this.isQuantitative;
+    this.checkAmountValidators();
+  }
+
+  onIsRedeemableCheckboxChange() {
+    this.isRedeemable = !this.isRedeemable;
+    this.checkAmountValidators();
+  }
+
+  formatDate(date: any, days: number, hours: number) {
+    let _date = new Date(date);
+    _date.setDate(_date.getDate() + days);
+    _date.setHours(hours, 0, 0, 0);
+
+    return _date.getTime().toString();
   }
 
   createCampaign(campaignStatus: string) {
@@ -238,7 +262,6 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
 
     const formData = new FormData();
     formData.append('imageURL', controls.image_url.value);
-    //    formData.append('imageURL', this.fileData);
     formData.append('title', controls.title.value);
     formData.append('subtitle', controls.subtitle.value);
     formData.append('terms', controls.terms.value);
@@ -247,26 +270,21 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     formData.append('access', controls.access.value);
 
     formData.append('quantitative', controls.quantitative.value);
-    formData.append('minAllowed', controls.minAllowed.value);
+    formData.append('redeemable', controls.redeemable.value);
+    formData.append('minAllowed', (controls.redeemable.value) ? controls.minAllowed.value : '0');
     formData.append('maxAllowed', (controls.quantitative.value) ? controls.maxAllowed.value : controls.minAllowed.value);
     formData.append('stepAmount', (controls.quantitative.value) ? controls.stepAmount.value : '0');
-    formData.append('maxAmount', controls.maxAmount.value);
+    formData.append('maxAmount', (controls.redeemable.value) ? controls.maxAmount.value : '100000');
 
-    console.log(controls.supportStarts.value.getTime().toString())
-    console.log(controls.supportEnds.value.getTime().toString())
-    console.log(controls.redeemStarts.value.getTime().toString())
-    console.log(controls.redeemEnds.value.getTime().toString())
-    formData.append('startsAt', controls.supportStarts.value.getTime().toString());
-    formData.append('expiresAt', controls.supportEnds.value.getTime().toString());
-    formData.append('redeemStarts', controls.redeemStarts.value.getTime().toString());
-    formData.append('redeemEnds', controls.redeemEnds.value.getTime().toString());
+    formData.append('startsAt', this.formatDate(controls.supportStarts.value, 0, 12));
+    formData.append('expiresAt', this.formatDate(controls.supportEnds.value, 0, 12));
+    formData.append('redeemStarts', (controls.redeemable.value) ? this.formatDate(controls.redeemStarts.value, 0, 12) : this.formatDate(new Date(), 730, 12));
+    formData.append('redeemEnds', (controls.redeemable.value) ? this.formatDate(controls.redeemEnds.value, 0, 12) : this.formatDate(new Date(), 730, 12));
 
     this.itemsService.createMicrocreditCampaign(formData)
       .pipe(
         tap(
           data => {
-            console.log('data');
-            console.log(data);
             if (campaignStatus == 'publish') {
               this.publishCampaign(formData, data._id);
             } else {
@@ -331,14 +349,12 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
   /**
    * On Submit Form
    */
-  onSubmit(campaignStatus: string) {
+  async onSubmit(campaignStatus: string) {
     if (this.loading) return;
 
     const controls = this.submitForm.controls;
     /** check form */
-    if (this.submitForm.invalid) {// || !this.fileData) {
-      console.log(controls);
-      // if (!this.fileData) this.showImageError = true;
+    if (this.submitForm.invalid) {
       Object.keys(controls).forEach(controlName =>
         controls[controlName].markAsTouched()
       );
@@ -347,25 +363,29 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     this.loading = true;
 
     this.title = controls.title.value;
+    this.campaignAction = campaignStatus;
+    await this.editorTextarea.uploadContentFiles();
 
-    if (campaignStatus === 'draft') this.createCampaign('draft');
-    else if (campaignStatus === 'publish') this.publishItemModal();
+    // if (campaignStatus === 'draft') this.createCampaign('draft');
+    // else if (campaignStatus === 'publish') this.publishItemModal();
   }
 
+  onFinalStep(editorFiles: string[]) {
+    if (this.campaignAction === 'draft') this.createCampaign('draft');
+    else if (this.campaignAction === 'publish') this.publishItemModal();
+  }
   publishItemModal() {
     this.modalService.open(this.publish_item).result.then((result) => {
       console.log('closed');
     }, (reason) => {
+      this.loading = false;
       console.log('dismissed');
     });
   }
 
   publishItem() {
-    console.log('publishItem');
     this.createCampaign('publish')
   }
-
-
 
   /**
    * Checking control validation
@@ -382,4 +402,24 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     const result = control.hasError(validationType) && (control.dirty || control.touched);
     return result;
   }
+
+  fetchCampaignIntro() {
+    this.contentService.readContentById('newcampaign')
+      .pipe(
+        tap(
+          data => {
+            this.intro = data;
+          },
+          error => {
+            console.log(error);
+          }
+        ),
+        takeUntil(this.unsubscribe),
+        finalize(() => {
+          this.loading = false;
+          this.cdRef.markForCheck();
+        })
+      ).subscribe();
+  }
+
 }

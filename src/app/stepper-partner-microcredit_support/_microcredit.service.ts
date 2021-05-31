@@ -24,50 +24,57 @@ export class LocalMicrocreditService {
     });
     actions = this.actionsSource.asObservable();
 
-    private microcreditCampaignSource = new BehaviorSubject({
-        partner_id: '',
-        partner_name: '',
-        partner_email: '',
-        partner_slug: '',
-        partner_imageURL: '',
-        partner_phone: '',
+    private microcreditCampaignSource = new BehaviorSubject(
 
-        partner_address: { street: '', city: '', postCode: '', coordinates: ['', ''] },
-        partner_payments: [{ bic: '', name: '', value: '' }, { bic: '', name: '', value: '' }],
-        partner_contacts: [{ slug: '', name: '', value: '' }],
+        null//{
 
-        campaign_id: '',
-        campaign_imageURL: '',
-        campaign_slug: '',
-        title: '',
-        subtitle: '',
-        terms: '',
-        description: '',
-        category: '',
-        access: 'public',
-        status: 'published',
+        // _id: '',
+        // imageURL: '',
+        // slug: '',
+        // title: '',
+        // subtitle: '',
+        // terms: '',
+        // description: '',
+        // category: '',
+        // access: 'public',
+        // status: 'published',
 
-        quantitative: false,
-        stepAmount: 0,
-        minAllowed: 0,
-        maxAllowed: 0,
-        maxAmount: 0,
-        startsAt: 0,
-        expiresAt: 0,
-        redeemStarts: 0,
-        redeemEnds: 0,
+        // quantitative: false,
+        // redeemable: false,
+        // stepAmount: 0,
+        // minAllowed: 0,
+        // maxAllowed: 0,
+        // maxAmount: 0,
+        // startsAt: 0,
+        // expiresAt: 0,
+        // redeemStarts: 0,
+        // redeemEnds: 0,
 
-        tokens: {
-            _id: '', earnedTokens: 0, paidTokens: 0, redeemedTokens: 0
-        },
-        // confirmationTokens: {
-        //     _id: '', initialTokens: 0, redeemedTokens: 0
+        // tokens: {
+        //     _id: '', earnedTokens: 0, paidTokens: 0, redeemedTokens: 0
         // },
-        // orderedTokens: {
-        //     _id: '', initialTokens: 0, redeemedTokens: 0
-        // },
-        createdAt: new Date()
-    });
+        // // confirmationTokens: {
+        // //     _id: '', initialTokens: 0, redeemedTokens: 0
+        // // },
+        // // orderedTokens: {
+        // //     _id: '', initialTokens: 0, redeemedTokens: 0
+        // // },
+        // createdAt: new Date(),
+
+        // partner: {
+        //     _id: '',
+        //     name: '',
+        //     email: '',
+        //     slug: '',
+        //     imageURL: '',
+
+        //     phone: '',
+        //     address: { street: '', city: '', postCode: '', coordinates: ['', ''] },
+        //     payments: [{ bic: '', name: '', value: '' }, { bic: '', name: '', value: '' }],
+        //     contacts: [{ slug: '', name: '', value: '' }],
+        // }
+        //}
+    );
     microcreditCampaign = this.microcreditCampaignSource.asObservable();
 
     private transactionSource = new BehaviorSubject({

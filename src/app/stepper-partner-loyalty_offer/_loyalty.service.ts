@@ -20,29 +20,34 @@ export class LocalLoyaltyService {
     });
     checks = this.checksSource.asObservable();
 
-    private loyaltyOfferSource = new BehaviorSubject({
-        partner_id: '',
-        partner_name: '',
-        partner_email: '',
-        partner_slug: '',
-        partner_imageURL: '',
+    private loyaltyOfferSource = new BehaviorSubject(
+        null
+        //{
+        // _id: '',
+        // imageURL: '',
+        // slug: '',
+        // title: '',
+        // subtitle: '',
+        // description: '',
+        // instructions: '',
+        // cost: 0,
+        // expiresAt: 0,
+        // createdAt: new Date(),
+        // updatedAt: new Date(),
+        // partner: {
+        //     _id: '',
+        //     name: '',
+        //     email: '',
+        //     slug: '',
+        //     imageURL: '',
 
-        partner_phone: '',
-        partner_address: { street: '', city: '', postCode: '', coordinates: ['', ''] },
-        partner_payments: [{ bic: '', name: '', value: '' }, { bic: '', name: '', value: '' }],
-        partner_contacts: [{ slug: '', name: '', value: '' }],
-
-        offer_id: '',
-        offer_imageURL: '',
-        offer_slug: '',
-        title: '',
-        subtitle: '',
-        description: '',
-        instructions: '',
-        cost: 0,
-        expiresAt: 0,
-        createdAt: ''
-    });
+        //     phone: '',
+        //     address: { street: '', city: '', postCode: '', coordinates: ['', ''] },
+        //     payments: [{ bic: '', name: '', value: '' }, { bic: '', name: '', value: '' }],
+        //     contacts: [{ slug: '', name: '', value: '' }],
+        // }
+        //}
+    );
     loyaltyOffer = this.loyaltyOfferSource.asObservable();
 
     private transactionSource = new BehaviorSubject({

@@ -1,4 +1,7 @@
-<div class="new-offer">
+<div class="new-offer edit-item">
+  <div class="back-link">
+    <a routerLink="/m-offers"><span class="mdi mdi-chevron-triple-left"></span></a>
+  </div>
   <mat-card>
     <mat-card-content>
 
@@ -145,43 +148,22 @@
             <!--end::Form Group "Cost"-->
 
             <!--begin::Form Group "Image"-->
-            <app-image-upload [parentForm]="submitForm" previousURL=''>
-            </app-image-upload>
-            <!-- <div class="form-group">
-              <label class="">{{'FIELDS.OFFER.IMAGE.TITLE' | translate}}</label>
-              <div class="">
-                <div class="upload-img">
-                  <div class="upload-img-container">
-                    <img *ngIf="previewUrl" class="upload-img-holder" [src]="previewUrl">
-                    <div *ngIf="previewUrl" class="image-cancel">
-                      <span class="mdi mdi-close-circle" (click)="onImageCancel()">
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <button class="upload-img-btn" type="button" mat-raised-button (click)="fileInput.click()">
-                  {{'FIELDS.OFFER.IMAGE.ACTION' | translate}}
-                </button>
-                <label class="avatar__upload">
-                  <i class="fa fa-pen"></i>
-                  <input type="file" hidden (change)="fileProgress($event)" name="profile_avatar"
-                    formControlName="profile_avatar" accept=".png, .jpg, .jpeg" #fileInput>
-                </label>
-                <mat-error *ngIf="showImageError" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-              </div>
-            </div> -->
+            <sng-image-upload [parentForm]="submitForm" previousURL=''>
+            </sng-image-upload>
             <!--end::Form Group "Image"-->
 
           </div>
         </div>
 
         <!--begin::Form Actions-->
-        <div class="form-actions row col-md-4">
-          <button mat-raised-button (click)="onSubmit()" (keyup.enter)="onSubmit()" class="btn btn-block btn-primary">
-            {{ 'FORM.BUTTONS.SUBMIT' | translate }}
-          </button>
+        <div class="form-actions row">
+          <div class="col-md-12">
+            <!--start::Button (Publish Offer)-->
+            <button mat-raised-button (click)="onSubmit()" (keyup.enter)="onSubmit()" class="btn btn-block btn-primary">
+              {{ 'FORM.BUTTONS.PUBLISH' | translate }}
+            </button>
+            <!--end::Button (Publish Offer)-->
+          </div>
         </div>
         <!--end::Form Actions-->
 

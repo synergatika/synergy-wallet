@@ -44,8 +44,8 @@
             <mat-form-field>
               <mat-label>{{'FIELDS.PROFILE.SECTOR.TITLE' | translate}}</mat-label>
               <mat-select formControlName="sector">
-                <!-- <mat-option *ngFor="let item of sectorList$ | async" value="{{item._id}}"> -->
-                <mat-option *ngFor="let item of sectorList" value="{{item.title}}">
+                <mat-option *ngFor="let item of sectorList$ | async" value="{{item._id}}">
+                  <!-- <mat-option *ngFor="let item of sectorList" value="{{item.title}}"> -->
                   {{item | content_translate: 'title' }}
                 </mat-option>
               </mat-select>
@@ -111,8 +111,8 @@
 
         <div class="col-md-6">
           <!--begin::Form Group "Image"-->
-          <app-image-upload *ngIf="loadImageUploader" [parentForm]="partnerForm" previousURL="{{initialImage}}">
-          </app-image-upload>
+          <sng-image-upload *ngIf="loadImageUploader" [parentForm]="partnerForm" previousURL="{{initialImage}}">
+          </sng-image-upload>
           <!--end::Form Group "Image"-->
         </div>
 
@@ -487,8 +487,8 @@
         <div class="col-md-6">
 
           <!--begin::Form Group "Image"-->
-          <app-image-upload *ngIf="loadImageUploader" [parentForm]="memberForm" previousURL="{{initialImage}}">
-          </app-image-upload>
+          <sng-image-upload *ngIf="loadImageUploader" [parentForm]="memberForm" previousURL="{{initialImage}}">
+          </sng-image-upload>
           <!-- <div class="form-group">
             <label class="">{{'FIELDS.PROFILE.MEMBER_IMAGE.TITLE' | translate}}</label>
             <div class="">

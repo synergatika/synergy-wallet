@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
-  Offer,
+  LoyaltyOffer,
   Event,
   Message,
   Post,
@@ -33,14 +33,14 @@ export class ItemsService extends IItemsService {
   /**
     * Offers
     */
-  readAllOffers(offset: string): Observable<Offer[]> {
+  readAllOffers(offset: string): Observable<LoyaltyOffer[]> {
     return this.http.get<any>(`${environment.apiUrl}/loyalty/offers/public/${offset}`)
       .pipe(map(response => {
         return response.data;
       }));
   }
 
-  readOffersByStore(partner_id: string, offset: string): Observable<Offer[]> {
+  readOffersByStore(partner_id: string, offset: string): Observable<LoyaltyOffer[]> {
     return this.http.get<any>(`${environment.apiUrl}/loyalty/offers/public/${partner_id}/${offset}`)
       .pipe(map(response => {
         return response.data;
@@ -61,14 +61,14 @@ export class ItemsService extends IItemsService {
       }));
   }
 
-  readOffer(partner_id: string, offer_id: string): Observable<Offer> {
+  readOffer(partner_id: string, offer_id: string): Observable<LoyaltyOffer> {
     return this.http.get<any>(`${environment.apiUrl}/loyalty/offers/${partner_id}/${offer_id}`)
       .pipe(map(response => {
         return response.data;
       }));
   }
 
-  deleteOffer(partner_id: string, offer_id: string): Observable<Offer> {
+  deleteOffer(partner_id: string, offer_id: string): Observable<LoyaltyOffer> {
     return this.http.delete<any>(`${environment.apiUrl}/loyalty/offers/${partner_id}/${offer_id}`)
       .pipe(map(response => {
         return response.data;
@@ -120,7 +120,7 @@ export class ItemsService extends IItemsService {
       }));
   }
 
-  deleteEvent(partner_id: string, event_id: string): Observable<Offer> {
+  deleteEvent(partner_id: string, event_id: string): Observable<LoyaltyOffer> {
     return this.http.delete<any>(`${environment.apiUrl}/events/${partner_id}/${event_id}`)
       .pipe(map(response => {
         return response.data;
@@ -172,7 +172,7 @@ export class ItemsService extends IItemsService {
       }));
   }
 
-  deletePost(partner_id: string, post_id: string): Observable<Offer> {
+  deletePost(partner_id: string, post_id: string): Observable<LoyaltyOffer> {
     return this.http.delete<any>(`${environment.apiUrl}/posts/${partner_id}/${post_id}`)
       .pipe(map(response => {
         return response.data;
@@ -226,6 +226,12 @@ export class ItemsService extends IItemsService {
       .pipe(map(response => {
         return response.data;
       }));
+  }
+
+  microcreditContentImage(image: FormData): Observable<any> {
+    return this.http
+      .post<any>(`${environment.apiUrl}/microcredit/campaigns/image`, image)
+      .pipe(map((response: any) => response));
   }
 
   editCampaign(partner_id: string, campaign_id: string, formData: FormData): Observable<Message> {

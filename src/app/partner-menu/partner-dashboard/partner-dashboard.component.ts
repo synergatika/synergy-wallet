@@ -29,7 +29,7 @@ import { ItemsService } from '../../core/services/items.service';
 /**
  * Models & Interfaces
  */
-import { Offer, MicrocreditCampaign } from 'sng-core';
+import { LoyaltyOffer, MicrocreditCampaign } from 'sng-core';
 
 @Component({
   selector: 'app-partner-dashboard',
@@ -46,7 +46,7 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
   /**
    * Content Variables
    */
-  public offers: Offer[];
+  public offers: LoyaltyOffer[];
   public microcreditRedeem: MicrocreditCampaign[];
   public microcreditSupport: MicrocreditCampaign[];
 
@@ -151,7 +151,7 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
           data => {
             const seconds = this.seconds;
             this.microcreditRedeem = data.filter((item) => {
-              return ((item.status == 'published') && (item.redeemStarts < seconds) && (seconds < item.redeemEnds));
+              return ((item.status == 'published') && (item.redeemable) && (item.redeemStarts < seconds) && (seconds < item.redeemEnds));
             });;
             this.microcreditSupport = data.filter((item) => {
               return ((item.status == 'published') && (item.startsAt < seconds) && (seconds < item.expiresAt));
@@ -183,7 +183,7 @@ export class PartnerDashboardComponent implements OnInit, OnDestroy {
   /**
    * Open Wizard (Scan for Offer)
    */
-  openModalOffer(offer: Offer) {
+  openModalOffer(offer: LoyaltyOffer) {
     const dialogConfig = new MatDialogConfig();
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;

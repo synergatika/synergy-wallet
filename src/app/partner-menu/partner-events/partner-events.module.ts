@@ -28,7 +28,7 @@ import { AuthGuard } from '../../core/guards/auth.guard';
 import {
     SngCoreModule,
 } from 'sng-core';
-import { WidgetsModule } from '../../core/components/widgets.module';
+// import { WidgetsModule } from '../../core/_components/widgets.module';
 
 
 const routes: Routes = [
@@ -75,7 +75,7 @@ const routes: Routes = [
         NgxMaterialTimepickerModule,
         NgbDropdownModule,
         SngCoreModule,
-        WidgetsModule
+        // WidgetsModule
     ],
     providers: [
     ],

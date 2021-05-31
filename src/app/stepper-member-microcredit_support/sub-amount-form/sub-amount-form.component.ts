@@ -78,7 +78,7 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
   }
 
   initializePayments() {
-    const currentMethodsArray = (this.campaign.partner_payments).map(a => a.bic);
+    const currentMethodsArray = (this.campaign.partner.payments).map(a => a.bic);
     const validatePaymentList = this.paymentsList.filter(function (el) {
       return currentMethodsArray.includes(el.bic);
     });
@@ -91,7 +91,7 @@ export class SubAmountFormComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.min(1),
         (control: AbstractControl) => Validators.min(this.campaign.minAllowed)(control),
-        (control: AbstractControl) => Validators.max((this.campaign.maxAllowed) > 0 ? this.campaign.maxAllowed : this.campaign.maxAmount)(control)
+        (control: AbstractControl) => Validators.max((this.campaign.quantitative == true) ? this.campaign.maxAllowed : this.campaign.maxAmount)(control)
       ])
       ],
       method: ['', Validators.compose([

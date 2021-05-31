@@ -1,0 +1,46 @@
+//General
+.statistics{
+  overflow-x: hidden;
+  mat-card-title{
+    font-size: 17px;
+    color:grey;
+  }
+  mat-card-content{
+    font-size:28px;
+  }
+  .date-filter{
+    color:#000;
+    font-size: 18px;
+  }
+  .export-button {
+    background-color: var(--primary-color);
+    font-size: 16px;
+    color: #fff;
+    margin: 20px 0px 10px 0px !important;
+    pointer-events: auto;
+  }
+  .clear-button {
+    padding: 0px;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    background-color: var(--tertiary);
+    border:0px;
+    color:#fff;
+  }
+  .stat-heading{
+    font-size: 23px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+//Cutsom
+.statistics{
+  &-loyalty{
+      min-height: 600px;
+  }
+  &-redeem{
+    margin-top:25px;
+  }
+}

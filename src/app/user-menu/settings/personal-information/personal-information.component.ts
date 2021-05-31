@@ -48,8 +48,8 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
   public subAccessConfig: Boolean[] = environment.subAccess;
   //public paymentsList: PaymentList[];
   public contactsList: ContactList[];
-  public sectorList: any[];
-  // public sectorList$: Observable<Sector[]>;
+  //public sectorList: any[];
+  public sectorList$: Observable<Sector[]>;
 
   /**
    * Flag Variables
@@ -114,56 +114,56 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
    * On Init
    */
   ngOnInit() {
-    // this.sectorList$ = this.contentService.readSectors();
-    this.sectorList = [{
-      "_id": "606daa442bc8e70588534115",
-      "title": "Durables (Technology)",
-      "slug": "durables_(technology)",
-      "el_title": "Αναλώσιμα (Τεχνολογία)",
-      "en_title": "Durables (Technology)",
-    }, {
-      "_id": "606daa442bc8e70588534116",
-      "title": "Education",
-      "slug": "education",
-      "el_title": "Εκπαίδευση",
-      "en_title": "Education",
-    }, {
-      "_id": "606daa442bc8e70588534117",
-      "title": "Food",
-      "slug": "food",
-      "el_title": "Τρόφιμα",
-      "en_title": "Food",
-    }, {
-      "_id": "606daa442bc8e70588534118",
-      "title": "Hotels, Cafés and Restaurants",
-      "slug": "hotels,_cafes_and_restaurants",
-      "el_title": "Ξενοδοχεία, καφέ και εστιατόρια",
-      "en_title": "Hotels, Cafés and Restaurants",
-    }, {
-      "_id": "606daa442bc8e70588534119",
-      "title": "Recreation and Culture",
-      "slug": "recreation_and_culture",
-      "el_title": "Αναψυχή και Πολιτισμός",
-      "en_title": "Recreation and Culture",
-    }, {
-      "_id": "606daa442bc8e7058853411a",
-      "title": "Other",
-      "slug": "other",
-      "el_title": "Άλλο",
-      "en_title": "Other",
-    }, {
-      "_id": "606daa442bc8e7058853411b",
-      "title": "Β2Β Services",
-      "slug": "β2β_services",
-      "el_title": "Υπηρεσίες B2B και άλλα αγαθά και υπηρεσίες",
-      "en_title": "Β2Β Services",
-    }, {
-      "_id": "606daa442bc8e7058853411c",
-      "title": "Durables",
-      "slug": "durables",
-      "el_title": "Αναλώσιμα",
-      "en_title": "Durables",
-    }]
+    this.sectorList$ = this.contentService.readSectors();
+    // this.sectorList = [{
+    //   "_id": "606daa442bc8e70588534115",
+    //   "title": "Durables (Technology)",
+    //   "slug": "durables_(technology)",
+    //   "el_title": "Αναλώσιμα (Τεχνολογία)",
+    //   "en_title": "Durables (Technology)",
+    // }, {
+    //   "_id": "606daa442bc8e70588534116",
+    //   "title": "Education",
+    //   "slug": "education",
+    //   "el_title": "Εκπαίδευση",
+    //   "en_title": "Education",
+    // }, {
+    //   "_id": "606daa442bc8e70588534117",
+    //   "title": "Food",
+    //   "slug": "food",
+    //   "el_title": "Τρόφιμα",
+    //   "en_title": "Food",
+    // }, {
+    //   "_id": "606daa442bc8e70588534118",
+    //   "title": "Hotels, Cafés and Restaurants",
+    //   "slug": "hotels,_cafes_and_restaurants",
+    //   "el_title": "Ξενοδοχεία, καφέ και εστιατόρια",
+    //   "en_title": "Hotels, Cafés and Restaurants",
+    // }, {
+    //   "_id": "606daa442bc8e70588534119",
+    //   "title": "Recreation and Culture",
+    //   "slug": "recreation_and_culture",
+    //   "el_title": "Αναψυχή και Πολιτισμός",
+    //   "en_title": "Recreation and Culture",
+    // }, {
+    //   "_id": "606daa442bc8e7058853411a",
+    //   "title": "Other",
+    //   "slug": "other",
+    //   "el_title": "Άλλο",
+    //   "en_title": "Other",
+    // }, {
+    //   "_id": "606daa442bc8e7058853411b",
+    //   "title": "Β2Β Services",
+    //   "slug": "β2β_services",
+    //   "el_title": "Υπηρεσίες B2B και άλλα αγαθά και υπηρεσίες",
+    //   "en_title": "Β2Β Services",
+    // }, {
+    //   "_id": "606daa442bc8e7058853411c",
+    //   "title": "Durables",
+    //   "slug": "durables",
+    //   "el_title": "Αναλώσιμα",
+    //   "en_title": "Durables",
+    // }]
 
     // console.log(this.authenticationService.currentUserValue.user["access"])
     this.access = this.authenticationService.currentUserValue.user["access"];

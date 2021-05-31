@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 /**
  * Components
  */
-import { ContentImagesComponent } from '../../../core/components/content-images/content-images.component';
+import { RichEditorCreateComponent } from 'sng-core';
 
 
 /**
@@ -37,8 +37,8 @@ export class EditEventComponent implements OnInit {
   /**
    * Imported Component
    */
-  @ViewChild(ContentImagesComponent, { static: true })
-  public editorTextarea: ContentImagesComponent;
+  @ViewChild(RichEditorCreateComponent, { static: true })
+  public editorTextarea: RichEditorCreateComponent;
 
   /**
    * Configuration and Static Data
@@ -191,7 +191,7 @@ export class EditEventComponent implements OnInit {
         tap(
           data => {
             this.title = data.title;
-            this.initialImage = data.event_imageURL;
+            this.initialImage = data.imageURL;
             //this.previewUrl = this.initialImage;
 
             const eventDate = ((this.minDate).getDate() > data.dateTime) ? this.minDate : (new Date(data.dateTime));
@@ -245,7 +245,7 @@ export class EditEventComponent implements OnInit {
     //    formData.append('imageURL', this.fileData);
     formData.append('title', controls.title.value);
     formData.append('subtitle', controls.subtitle.value);
-    formData.append('content', controls.content.value);
+    formData.append('description', controls.description.value);
     formData.append('contentFiles', editorFiles.join())
     formData.append('access', controls.access.value);
     formData.append('location', controls.location.value);
@@ -280,45 +280,6 @@ export class EditEventComponent implements OnInit {
       .subscribe();
   }
 
-  // private swalWithBootstrapButtons = Swal.mixin({
-  //   customClass: {
-  //     confirmButton: 'btn btn-success',
-  //     cancelButton: 'btn btn-danger'
-  //   },
-  //   buttonsStyling: true
-  // })
-
-  // deleteItemModal() {
-  //   this.swalWithBootstrapButtons.fire({
-  //     title: this.translate.instant('EVENT.DELETE'),     // title: 'Are you sure?',
-  //     text: this.translate.instant('EVENT.DELETE_CONFIRM') + '<<' + this.title + '>>',  // text: "You won't be able to revert this!",
-  //     icon: 'warning',
-  //     timer: 0,
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Yes, delete it!',
-  //     cancelButtonText: 'No, cancel!',
-  //     reverseButtons: true
-  //   }).then((result) => {
-  //     if (result.value) {
-  //       this.swalWithBootstrapButtons.fire({
-  //         title: this.translate.instant('MESSAGE.SUCCESS.TITLE'),
-  //         text: this.translate.instant('MESSAGE.SUCCESS.EVENT_DELETED'),
-  //         icon: 'success',
-  //         timer: 2500
-  //       }).then((result) => {
-  //         this.router.navigate(['/m-events']);
-  //       });
-  //     } else if (result.dismiss === Swal.DismissReason.cancel) {
-  //       this.swalWithBootstrapButtons.fire({
-  //         title: 'Cancelled',
-  //         text: 'Your imaginary file is safe :)',
-  //         icon: 'error',
-  //         timer: 2500
-  //       });
-  //     }
-  //   })
-  // }
-
   deleteItemModal() {
     this.modalService.open(this.remove_item).result.then((result) => {
       console.log('closed');
@@ -328,7 +289,6 @@ export class EditEventComponent implements OnInit {
   }
 
   deleteItem() {
-    console.log('delete');
     this.itemsService.deleteEvent(this.authenticationService.currentUserValue.user["_id"], this.event_id)
       .pipe(
         tap(

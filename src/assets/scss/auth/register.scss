@@ -1,0 +1,62 @@
+.profile-form {
+  margin-bottom: 1.5rem;
+
+  .form-group {
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-bottom: 1.5rem;
+
+    .payment {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .form-actions {
+    margin-top: 20px;
+
+    button {
+      float: right;
+      font-size: 18px;
+      padding: 4px 22px;
+    }
+  }
+
+  .upload-img {
+    &-holder {
+      max-width: 250px;
+      margin-bottom: 15px;
+    }
+
+    &-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    &-btn {
+      margin-bottom: 10px;
+    }
+
+    .image-cancel {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      font-size: 24px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+
+      span {
+        position: relative;
+        top: -10px;
+        right: 5px;
+        font-size: 28px;
+        cursor: pointer;
+      }
+    }
+  }
+  mat-form-field {
+    width: 100%;
+    padding: 10px;
+  }
+}

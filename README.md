@@ -33,10 +33,10 @@ npx ng serve
 
 ## Credits
 
-This application is part of a project that has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 825268. 
+This application is part of a project that has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 825268.
 
 *****
-Insert the following code into the two "secrets.environment.ts" files that have been created: 
+Insert the following code into the two "secrets.environment.ts" files that have been created:
 ```javascript
   const secrets = {
   // URLs
@@ -47,5 +47,7 @@ Insert the following code into the two "secrets.environment.ts" files that have 
     // Map Key
     mapApiKey: 'your key goes here',
 }
+
+export default secrets;
 ```
 *****
