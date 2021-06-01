@@ -9,6 +9,9 @@ const envConfigFile = `export const environment = {
     openUrl: '${process.env.OPEN_URL}',
     mapApiKey: '${process.env.MAP_API_KEY}',
   
+    authTimeOuter: 5000,
+    mapOptions: { "latitude": 37.9709831, "longitude": 23.7224135, "zoom": 12 },
+  
     access: [
         true, // community,
         true, // loyalty,
