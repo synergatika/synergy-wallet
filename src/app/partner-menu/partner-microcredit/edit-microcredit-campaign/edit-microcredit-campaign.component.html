@@ -298,24 +298,11 @@
             <div class="form-group">
               <mat-form-field>
                 <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.STEP.TITLE' | translate}}</mat-label>
-                <<<<<<< HEAD <input matInput type="number" name="stepAmount" formControlName="stepAmount"
+                <input matInput type="number" name="stepAmount" formControlName="stepAmount"
                   placeholder="{{'FIELDS.MICROCREDIT_CAMPAIGN.STEP.PLACEHOLDER' | translate}}">
-                  <mat-error *ngIf="isControlHasError('stepAmount','required')" class="error text-danger">
-                    {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                  </mat-error>
-                  <mat-error *ngIf="isControlHasError('stepAmount','min')" class="error text-danger">
-                    {{ 'FORM.VALIDATION.MIN_VALUE_FIELD' | translate }}: {{validator.stepAmount.minValue}}
-                  </mat-error>
-                  <mat-error *ngIf="isControlHasError('stepAmount','max')" class="error text-danger">
-                    {{ 'FORM.VALIDATION.MAX_VALUE_FIELD' | translate }}: {{validator.stepAmount.maxValue}}
-                  </mat-error>
-                  =======
-                  <input matInput type="number" name="stepAmount" formControlName="stepAmount"
-                    placeholder="{{'FIELDS.MICROCREDIT_CAMPAIGN.STEP.PLACEHOLDER' | translate}}">
-                  >>>>>>> ux
-                  <mat-hint class="form-text text-muted">
-                    {{'FIELDS.MICROCREDIT_CAMPAIGN.STEP.DESC' | translate}}
-                  </mat-hint>
+                <mat-hint class="form-text text-muted">
+                  {{'FIELDS.MICROCREDIT_CAMPAIGN.STEP.DESC' | translate}}
+                </mat-hint>
               </mat-form-field>
             </div>
             <!--end::Form Group "Step"-->
@@ -384,7 +371,6 @@
         <div class="row">
           <div class="sub-heading col-md-12">{{ 'FIELDS.MICROCREDIT_CAMPAIGN.SUBSECTIONS.DATES' | translate }}</div>
         </div>
-
         <div class="row">
           <div class="col-md-6">
 
@@ -436,8 +422,8 @@
                 </mat-error>
                 <mat-error
                   *ngIf="submitForm.get('redeemStarts').errors && submitForm.get('redeemStarts').errors.RedeemStartsGreaterThanRedeemEnds"
-                  class="error text-danger">{{ 'FORM.VALIDATION.CAMPAIGN_DATES.REDEEMSTARTSTOREDEEMENDS' | translate
-                  }}
+                  class="error text-danger">
+                  {{ 'FORM.VALIDATION.CAMPAIGN_DATES.REDEEMSTARTSTOREDEEMENDS' | translate }}
                 </mat-error>
                 <mat-hint class="form-text text-muted">
                   {{'FIELDS.MICROCREDIT_CAMPAIGN.REDEEM_STARTS.DESC' | translate}}
@@ -462,13 +448,14 @@
                 <mat-error *ngIf="isControlHasError('supportEnds','required')" class="error text-danger">
                   {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
                 </mat-error>
-                <mat-error *ngIf="submitForm.get('supportEnds').errors
-                  && submitForm.get('supportEnds').errors.SupportStartsGreaterThanSupportEnds"
+                <mat-error
+                  *ngIf="submitForm.get('supportEnds').errors && submitForm.get('supportEnds').errors.SupportStartsGreaterThanSupportEnds"
                   class="error text-danger">
                   {{ 'FORM.VALIDATION.CAMPAIGN_DATES.SUPPORTSTARTSTOSUPPORTENDS' | translate }}
                 </mat-error>
-                <mat-error *ngIf="submitForm.get('supportEnds').errors
-                  && submitForm.get('supportEnds').errors.SupportEndsGreaterThanRedeemEnds" class="error text-danger">
+                <mat-error
+                  *ngIf="submitForm.get('supportEnds').errors && submitForm.get('supportEnds').errors.SupportEndsGreaterThanRedeemEnds"
+                  class="error text-danger">
                   {{ 'FORM.VALIDATION.CAMPAIGN_DATES.SUPPORTENDSTOREDEEMENDS' | translate }}
                 </mat-error>
                 <mat-hint class="form-text text-muted">
@@ -477,38 +464,6 @@
               </mat-form-field>
             </div>
             <!--end::Form Group "Support Ends"-->
-
-          </div>
-          <div class="col-md-6">
-
-            <!--begin::Form Group "Redeem Starts"-->
-            <div class="form-group">
-              <mat-form-field>
-                <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.REDEEM_STARTS.TITLE' | translate}}</mat-label>
-                <input matInput [matDatepicker]="redeemStartsPicker" [min]="minDate" name="RedeemStarts"
-                  formControlName="redeemStarts"
-                  placeholder="{{'FIELDS.MICROCREDIT_CAMPAIGN.REDEEM_STARTS.PLACEHOLDER' | translate}}">
-                <mat-datepicker-toggle matSuffix [for]="redeemStartsPicker"></mat-datepicker-toggle>
-                <mat-datepicker #redeemStartsPicker></mat-datepicker>
-                <mat-error *ngIf="isControlHasError('redeemStarts','required')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-                <mat-error
-                  *ngIf="submitForm.get('redeemStarts').errors && submitForm.get('redeemStarts').errors.SupportStartsGreaterThanRedeemStarts"
-                  class="error text-danger">
-                  {{ 'FORM.VALIDATION.CAMPAIGN_DATES.SUPPORTSTARTSTOREDEEMSTARTS' | translate }}
-                </mat-error>
-                <mat-error
-                  *ngIf="submitForm.get('redeemStarts').errors && submitForm.get('redeemStarts').errors.RedeemStartsGreaterThanRedeemEnds"
-                  class="error text-danger">{{ 'FORM.VALIDATION.CAMPAIGN_DATES.REDEEMSTARTSTOREDEEMENDS' | translate
-                  }}
-                </mat-error>
-                <mat-hint class="form-text text-muted">
-                  {{'FIELDS.MICROCREDIT_CAMPAIGN.REDEEM_STARTS.DESC' | translate}}
-                </mat-hint>
-              </mat-form-field>
-            </div>
-            <!--end::Form Group "Redeem Starts"-->
 
             <!--begin::Form Group "Redeem Ends"-->
             <div class="form-group" *ngIf="isRedeemable">
@@ -523,13 +478,12 @@
                 </mat-error>
                 <mat-error
                   *ngIf="submitForm.get('redeemEnds').errors && submitForm.get('redeemEnds').errors.RedeemStartsGreaterThanRedeemEnds"
-                  class="error text-danger">{{ 'FORM.VALIDATION.CAMPAIGN_DATES.REDEEMSTARTSTOREDEEMENDS' |
-                  translate }}
+                  class="error text-danger">{{ 'FORM.VALIDATION.CAMPAIGN_DATES.REDEEMSTARTSTOREDEEMENDS' | translate
+                  }}
                 </mat-error>
                 <mat-error
                   *ngIf="submitForm.get('redeemEnds').errors && submitForm.get('redeemEnds').errors.SupportEndsGreaterThanRedeemEnds"
-                  class="error text-danger">
-                  {{ 'FORM.VALIDATION.CAMPAIGN_DATES.SUPPORTENDSTOREDEEMENDS' | translate }}
+                  class="error text-danger">{{ 'FORM.VALIDATION.CAMPAIGN_DATES.SUPPORTENDSTOREDEEMENDS' | translate }}
                 </mat-error>
                 <mat-hint class="form-text text-muted">
                   {{'FIELDS.MICROCREDIT_CAMPAIGN.REDEEM_ENDS.DESC' | translate}}
