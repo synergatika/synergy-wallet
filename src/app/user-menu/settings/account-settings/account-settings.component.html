@@ -19,21 +19,74 @@
       </div>
     </div>
 
+    <div class="form-actions">
+      <!--begin::Button (Deactivate User)-->
+      <!-- <div class="single-delete"> -->
+      <button [disabled]="!activated" mat-raised-button (click)="deactivateUserModal()" class="btn btn-danger">
+        <!-- class="btn btn-block btn-danger"> -->
+        {{'SETTINGS.DEACTIVATE' | translate}}
+      </button>
+      <!-- </div> -->
+      <!--end::Button (Deactivate User)-->
+
+      <!--begin::Button (Delete User)-->
+      <!-- <div class="single-delete"> -->
+      <button mat-raised-button (click)="deleteUserModal()" class="btn  btn-danger">
+        {{'SETTINGS.DELETE' | translate}}
+      </button>
+      <!-- </div> -->
+      <!--end::Button (Delete User)-->
+    </div>
   </form>
   <!--end::Form-->
 
 </div>
 
-<!--begin::Button (Deactivate User)-->
-<div class="single-delete">
-  <button [disabled]="!activated" mat-raised-button (click)="deleteItemModal()" class="btn btn-block btn-danger">
-    {{'SETTINGS.DEACTIVATE' | translate}}
-  </button>
-</div>
-<!--end::Button (Deactivate User)-->
 
-<!--begin::Confirmation Modal (Remove Item)-->
-<ng-template #remove_item let-c="close" let-d="dismiss">
+
+<!--begin::Confirmation Modal (Delete User)-->
+<ng-template #delete_user let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{'SETTINGS.DELETE' | translate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="form profile-form" [formGroup]="submitForm">
+      <!--begin::Form Group "Email"-->
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>{{ 'FIELDS.PROFILE.PASSWORD.TITLE' | translate }}</mat-label>
+          <input matInput type="password" name="password" formControlName="password">
+          <mat-error *ngIf="isControlHasError('password','required')" class="error text-danger">
+            {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
+          </mat-error>
+          <mat-error *ngIf="isControlHasError('password','minlength')" class="error text-danger">
+            {{ 'FORM.VALIDATION.MIN_LENGTH_FIELD' | translate }}: {{validator.password.minLength}}
+          </mat-error>
+          <mat-error *ngIf="isControlHasError('password','maxlength')" class="error text-danger">
+            {{ 'FORM.VALIDATION.MAX_LENGTH_FIELD' | translate }}: {{validator.password.maxLength}}
+          </mat-error>
+          <mat-hint class="form-text text-muted">
+            {{ 'FIELDS.PROFILE.CURRENT_PASSWORD.DESC' | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <!--end::Form Group "Email"-->
+    </form>
+    {{'SETTINGS.DELETE_CONFRIRM' | translate}}?
+  </div>
+  <div class="modal-footer">
+    <button mat-raised-button class="btn btn-secondary mr-3" (click)="deleteUser();">{{'SETTINGS.DELETE' |
+      translate}}</button>
+    <button mat-raised-button class="btn" (click)="c('Close click');">{{'SETTINGS.CANCEL' | translate}}</button>
+  </div>
+</ng-template>
+<!--end::Confirmation Modal (Delete User)-->
+
+<!--begin::Confirmation Modal (Deactivate User)-->
+<ng-template #deactivate_user let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">{{'SETTINGS.DEACTIVATE' | translate}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -44,9 +97,9 @@
     {{'SETTINGS.DEACTIVATE_CONFRIRM' | translate}}?
   </div>
   <div class="modal-footer">
-    <button mat-raised-button class="btn btn-secondary mr-3"
-      (click)="deleteItem();c('Close click'); ">{{'SETTINGS.DEACTIVATE' | translate}}</button>
+    <button mat-raised-button class="btn btn-secondary mr-3" (click)="deactivateUser();">{{'SETTINGS.DEACTIVATE' |
+      translate}}</button>
     <button mat-raised-button class="btn" (click)="c('Close click');">{{'SETTINGS.CANCEL' | translate}}</button>
   </div>
 </ng-template>
-<!--end::Confirmation Modal (Remove Item)-->
+<!--end::Confirmation Modal (Deactivate User)-->

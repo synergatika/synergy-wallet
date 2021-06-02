@@ -434,9 +434,10 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
   publishItemModal() {
     this.modalService.open(this.publish_item).result.then((result) => {
       console.log('closed');
-    }, (reason) => {
       this.loading = false;
+    }, (reason) => {
       console.log('dismissed');
+      this.loading = false;
     });
   }
 
@@ -447,9 +448,10 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
   deleteItemModal() {
     this.modalService.open(this.remove_item).result.then((result) => {
       console.log('closed');
-    }, (reason) => {
       this.loading = false;
+    }, (reason) => {
       console.log('dismissed');
+      this.loading = false;
     });
   }
 

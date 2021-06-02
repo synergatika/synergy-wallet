@@ -21,7 +21,8 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   /**
    * Children Modals
    */
-  @ViewChild('remove_item') remove_item: NgbModalRef;
+  @ViewChild('deactivate_user') deactivate_user: NgbModalRef;
+  @ViewChild('delete_user') delete_user: NgbModalRef;
 
   /**
    * Content Variables
@@ -84,64 +85,34 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
   initializeForm() {
     this.submitForm = this.fb.group({
       email: [{ value: this.email, disabled: true }, Validators.compose([])
-      ]
+      ],
+      password: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(this.validator.password.minLength),
+        Validators.maxLength(this.validator.password.maxLength)
+      ])
+      ],
+    });
+  }
+  deleteUserModal() {
+    this.modalService.open(this.delete_user).result.then((result) => {
+      console.log('closed');
+      this.loading = false;
+    }, (reason) => {
+      console.log('dismissed');
+      this.loading = false;
     });
   }
 
-  // private swalWithBootstrapButtons = Swal.mixin({
-  //   customClass: {
-  //     confirmButton: 'btn btn-success',
-  //     cancelButton: 'btn btn-danger'
-  //   },
-  //   buttonsStyling: true
-  // })
-  // 
-  // deleteItemModal() {
-  //   this.swalWithBootstrapButtons.fire({
-  //     title: this.translate.instant('SETTINGS.DEACTIVATE_CONFRIRM'),
-  //     input: 'textarea',
-  //     inputPlaceholder: this.translate.instant('FIELDS.PROFILE.DEACTIVATION_REASON.PLACEHOLDER'),
-  //     icon: 'warning',
-  //     timer: 0,
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Yes, delete it!',
-  //     cancelButtonText: 'No, cancel!',
-  //     reverseButtons: true,
-  //     inputValidator: (value) => {
-  //       if (value && (value.length > this.validator.deactivation_reason.maxLength)) {
-  //         return this.translate.instant('FORM.VALIDATION.MAX_LENGTH_FIELD') + ' ' + this.validator.deactivation_reason.maxLength
-  //       }
-  //     }
-  //   }).then((result) => {
-  //     console.log(result);
-  //     if (result.value) {
-  //       this.swalWithBootstrapButtons.fire({
-  //         title: this.translate.instant('MESSAGE.SUCCESS.TITLE'),
-  //         text: this.translate.instant('MESSAGE.SUCCESS.ACCOUNT_DEACTIVATED'),
-  //         icon: 'success',
-  //         timer: 2500
-  //       }).then((result) => {
-  //       });
-  //     } else if (result.dismiss === Swal.DismissReason.cancel) {
-  //       // this.swalWithBootstrapButtons.fire({
-  //       //   title: this.translate.instant('MESSAGE.CANCEL.TITLE'),
-  //       //   //text: 'Your imaginary file is safe :)',
-  //       //   icon: 'error',
-  //       //   timer: 2500
-  //       // });
-  //     }
-  //   })
-  // }
-
-  deleteItemModal() {
-    this.modalService.open(this.remove_item).result.then((result) => {
+  deactivateUserModal() {
+    this.modalService.open(this.deactivate_user).result.then((result) => {
       console.log('closed');
     }, (reason) => {
       console.log('dismissed');
     });
   }
 
-  deleteItem() {
+  deactivateUser() {
     console.log('delete');
     this.authenticationService.deactivate('Other')
       .pipe(
@@ -149,7 +120,7 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
           data => {
             Swal.fire({
               title: this.translate.instant('MESSAGE.SUCCESS.TITLE'),
-              text: this.translate.instant('MESSAGE.SUCCESS.ACCOUNT_DEACTIVATED'),
+              text: this.translate.instant('MESSAGE.SUCCESS.ACCOUNT_DELETED'),
               icon: 'success',
               timer: 2500
             }).then((result) => {
@@ -170,5 +141,66 @@ export class AccountSettingsComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  deleteUser() {
+
+    if (this.loading) return;
+
+    const controls = this.submitForm.controls;
+    /** check form */
+    if (this.submitForm.invalid) {
+      Object.keys(controls).forEach(controlName =>
+        controls[controlName].markAsTouched()
+      );
+      return;
+    }
+    this.loading = true;
+
+    this.modalService.dismissAll();
+
+    this.authenticationService.delete(controls.password.value)
+      .pipe(
+        tap(
+          data => {
+            Swal.fire({
+              title: this.translate.instant('MESSAGE.SUCCESS.TITLE'),
+              text: this.translate.instant('MESSAGE.SUCCESS.ACCOUNT_DELETED'),
+              icon: 'success',
+              timer: 2500
+            }).then((result) => {
+              this.authenticationService.logout();
+            });
+          },
+          error => {
+            Swal.fire(
+              this.translate.instant('MESSAGE.ERROR.TITLE'),
+              this.translate.instant(error),
+              'error'
+            );
+          }),
+        takeUntil(this.unsubscribe),
+        finalize(() => {
+          this.loading = false;
+          this.cdRef.markForCheck();
+        })
+      )
+      .subscribe();
+  }
+
+  /**
+   * Checking control validation
+   *
+   * @param controlName: string => Equals to formControlName
+   * @param validationType: string => Equals to valitors name
+   */
+  isControlHasError(controlName: string, validationType: string): boolean {
+    const control = this.submitForm.controls[controlName];
+    if (!control) {
+      return false;
+    }
+
+    const result = control.hasError(validationType) && (control.dirty || control.touched);
+    return result;
   }
 }
