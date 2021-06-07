@@ -19,27 +19,40 @@
       </div>
     </div>
 
-    <div class="form-actions">
-      <!--begin::Button (Deactivate User)-->
-      <!-- <div class="single-delete"> -->
-      <button [disabled]="!activated" mat-raised-button (click)="deactivateUserModal()" class="btn btn-danger">
-        <!-- class="btn btn-block btn-danger"> -->
-        {{'SETTINGS.DEACTIVATE' | translate}}
-      </button>
-      <!-- </div> -->
-      <!--end::Button (Deactivate User)-->
-
-      <!--begin::Button (Delete User)-->
-      <!-- <div class="single-delete"> -->
-      <button mat-raised-button (click)="deleteUserModal()" class="btn  btn-danger">
-        {{'SETTINGS.DELETE' | translate}}
-      </button>
-      <!-- </div> -->
-      <!--end::Button (Delete User)-->
-    </div>
   </form>
   <!--end::Form-->
 
+  <hr>
+
+  <p class="section-description">
+    {{'SETTINGS.DEACTIVATE_DESC' | translate}}
+  </p>
+  <div class="row">
+    <!--begin::Button (Deactivate User)-->
+    <!-- <div class="single-delete"> -->
+    <div class="col-md-12">
+      <button [disabled]="!activated" mat-raised-button (click)="deactivateUserModal()"
+        class="btn btn-block btn-danger">
+        {{'SETTINGS.DEACTIVATE' | translate}}
+      </button>
+      <!--end::Button (Deactivate User)-->
+    </div>
+  </div>
+
+  <hr>
+
+  <p class="section-description">
+    {{'SETTINGS.DELETE_DESC' | translate}}
+  </p>
+  <!--begin::Button (Delete User)-->
+  <div class="row">
+    <div class="col-md-12">
+      <button mat-raised-button (click)="deleteUserModal()" class="btn btn-block btn-danger">
+        {{'SETTINGS.DELETE' | translate}}
+      </button>
+    </div>
+    <!--end::Button (Delete User)-->
+  </div>
 </div>
 
 
