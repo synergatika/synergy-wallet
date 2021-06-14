@@ -102,7 +102,7 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
     private staticDataService: StaticDataService,
     private contentService: ContentService,
     private authenticationService: AuthenticationService,
-    private itemsService: ItemsService
+    private itemsService: ItemsService,
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.campaign_id = params['_id'];
@@ -123,7 +123,7 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
     //Initiate Form
     this.initForm();
     //Get Intro
-    this.fetchCampaignIntro();
+    // this.fetchCampaignIntro();
   }
 
   /**
@@ -501,23 +501,23 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  fetchCampaignIntro() {
-    this.contentService.readContentById('newcampaign')
-      .pipe(
-        tap(
-          data => {
-            this.intro = data;
-          },
-          error => {
-            console.log(error);
-          }
-        ),
-        takeUntil(this.unsubscribe),
-        finalize(() => {
-          this.loading = false;
-          this.cdRef.markForCheck();
-        })
-      ).subscribe();
-  }
+  // fetchCampaignIntro() {
+  //   this.contentService.readContentById('newcampaign')
+  //     .pipe(
+  //       tap(
+  //         data => {
+  //           this.intro = data;
+  //         },
+  //         error => {
+  //           console.log(error);
+  //         }
+  //       ),
+  //       takeUntil(this.unsubscribe),
+  //       finalize(() => {
+  //         this.loading = false;
+  //         this.cdRef.markForCheck();
+  //       })
+  //     ).subscribe();
+  // }
 
 }

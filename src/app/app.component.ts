@@ -29,13 +29,13 @@ export class AppComponent implements OnInit, OnDestroy {
   // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
   /**
-	 * Component Constructor
-	 *
-	 * @param router: Router
-	 * @param translationService: TranslationService
-	 * @param layoutConfigService: LayoutCongifService
-	 * @param splashScreenService: SplashScreenService
-	 */
+   * Component Constructor
+   *
+   * @param router: Router
+   * @param translationService: TranslationService
+   * @param layoutConfigService: LayoutCongifService
+   * @param splashScreenService: SplashScreenService
+   */
   constructor(
     private router: Router,
     private translationService: TranslationService,
@@ -48,15 +48,17 @@ export class AppComponent implements OnInit, OnDestroy {
     // register translations
     this.translationService.loadTranslations(enLang, elLang);
     // this.translationService.loadTranslations(enLang, elLang, chLang, esLang, jpLang, deLang, frLang);
+
+
   }
 
-	/**
-	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
-	 */
+  /**
+   * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
+   */
 
-	/**
-	 * On Init
-	 */
+  /**
+   * On Init
+   */
   ngOnInit(): void {
     this.setSelectedLanguage();
     // this.router.events

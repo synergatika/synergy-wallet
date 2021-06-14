@@ -104,7 +104,7 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     //Initiate Form
     this.initForm();
     //Get Intro
-    this.fetchCampaignIntro();
+    // this.fetchCampaignIntro();
   }
 
   /**
@@ -404,23 +404,23 @@ export class NewMicrocreditCampaignComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  fetchCampaignIntro() {
-    this.contentService.readContentById('newcampaign')
-      .pipe(
-        tap(
-          data => {
-            this.intro = data;
-          },
-          error => {
-            console.log(error);
-          }
-        ),
-        takeUntil(this.unsubscribe),
-        finalize(() => {
-          this.loading = false;
-          this.cdRef.markForCheck();
-        })
-      ).subscribe();
-  }
+  // fetchCampaignIntro() {
+  //   this.contentService.readContentById('newcampaign')
+  //     .pipe(
+  //       tap(
+  //         data => {
+  //           this.intro = data;
+  //         },
+  //         error => {
+  //           console.log(error);
+  //         }
+  //       ),
+  //       takeUntil(this.unsubscribe),
+  //       finalize(() => {
+  //         this.loading = false;
+  //         this.cdRef.markForCheck();
+  //       })
+  //     ).subscribe();
+  // }
 
 }
