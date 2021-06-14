@@ -551,6 +551,7 @@ export const locale = {
         PASSWORD_UPDATED: 'Your password has been successfully updated!',
         PROFILE_UPDATED: 'Your Personal Information has been successfully updated!',
         ACCOUNT_DEACTIVATED: 'Your account has been succesfully deactivated!',
+        ACCOUNT_DELETED: 'Your account has been succesfully deleted!',
         INVITATION_SEND: 'Invtation has been successfully sent!',
 
         /* Partner Messages (Μηνύματα Συνεργάτη) */
@@ -666,7 +667,11 @@ export const locale = {
       PERSONAL_INFO: 'Setup Your Personal Information',
       CHANGE_PASSWORD: 'Update Your Password',
       DEACTIVATE: 'Deactivate Account',
+      DEACTIVATE_DESC: 'Deactivating your account will be limited you to Synergy functionalities. In case you want to re-activate your account in the future, you have to communicate with administrator',
       DEACTIVATE_CONFRIRM: 'Are you sure that you want to deactivate your account',
+      DELETE: 'Delete Account',
+      DELETE_DESC: 'If you choose to delete your account, all your data will be removed from the system',
+      DELETE_CONFRIRM: 'Are you sure that you want to delete your account',
       INVITATION: 'Submit your friend\'s email and we will send an invite',
       CANCEL: 'Cancel',
     },

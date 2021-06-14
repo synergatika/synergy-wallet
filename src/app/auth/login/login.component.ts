@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MessageNoticeService } from '../../core/helpers/message-notice/message-notice.service';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import { StaticDataService } from '../../core/helpers/static-data.service';
+import { StaticContentService } from 'src/app/core/services/static_content.service';
 
 
 @Component({

@@ -23,11 +23,13 @@ export class JwtInterceptor implements HttpInterceptor {
             });
         }
 
-        request = request.clone({
-            setHeaders: {
-                "content-language": `${this.translateService.currentLang}-${(this.translateService.currentLang).toUpperCase()}`
-            }
-        });
+        if (this.translateService.currentLang) {
+            request = request.clone({
+                setHeaders: {
+                    "content-language": `${this.translateService.currentLang}-${(this.translateService.currentLang).toUpperCase()}`
+                }
+            });
+        }
 
         return next.handle(request);
     }

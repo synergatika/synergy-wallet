@@ -184,6 +184,13 @@ export class AuthenticationService {
       }));
   }
 
+  delete(password: string): Observable<Message> {
+    return this.http.put<any>(`${environment.apiUrl}/auth/delete`, { password: password })
+      .pipe(map(response => {
+        return response;
+      }));
+  }
+
   activateUser(user_id: string): Observable<Message> {
     return this.http.put<any>(`${environment.apiUrl}/auth/activate/${user_id}`, {})
       .pipe(map(response => {
