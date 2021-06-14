@@ -1,5 +1,5 @@
 <div class="support">
-
+  <p class="desc" [innerHTML]=" 'support_desc' | content_translate: 'content'"></p>
   <!--begin::Microcredit Campaigns List(Scroll)-->
   <sng-microcredit_campaigns-list-scroll *ngIf="configAccess[2]" [type]="'all'">
   </sng-microcredit_campaigns-list-scroll>

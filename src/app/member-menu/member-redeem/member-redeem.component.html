@@ -1,5 +1,5 @@
 <div class="redeem">
-
+  <p class="desc" [innerHTML]=" 'offer_desc' | content_translate: 'content'"></p>
   <!--begin::Loyalty Offers List(Scroll)-->
   <sng-offers-list-scroll *ngIf="configAccess[1]" [type]="'all'"></sng-offers-list-scroll>
   <!--end::Loyalty Offers List(Scroll)-->
