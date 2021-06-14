@@ -128,6 +128,7 @@ import {
 	IContentService,
 	IEnvironmentService,
 	IStepperService,
+	IStaticContentService,
 } from 'sng-core';
 
 import { StaticDataService } from './core/helpers/static-data.service';
@@ -142,6 +143,8 @@ import { MicrocreditService } from './core/services/microcredit.service';
 import { StepperService } from './core/services/stepper.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { APP_INITIALIZER } from '@angular/core';
+import { StaticContentService } from './core/services/static_content.service';
 
 @NgModule({
 	declarations: [
@@ -228,6 +231,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 	],
 	exports: [CarouselModule],
 	providers: [
+		// {
+		// 	provide: APP_INITIALIZER, useFactory: contentProviderFactory, deps: [StaticContentService], multi: true
+		// },
+		// {
+		// 	provide: APP_INITIALIZER, useFactory: sectorProviderFactory, deps: [StaticContentService], multi: true
+		// },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: IMenuService, useClass: MenuService },
@@ -240,6 +249,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 		{ provide: ILoyaltyService, useClass: LoyaltyService },
 		{ provide: IMicrocreditService, useClass: MicrocreditService },
 		{ provide: IStepperService, useClass: StepperService },
+		{ provide: IStaticContentService, useClass: StaticContentService },
 		{ provide: IEnvironmentService, useValue: environment },
 		/*{
 			provide: SWIPER_CONFIG,
@@ -251,3 +261,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// export function contentProviderFactory(provider: StaticContentService) {
+// 	console.log("Call Provider")
+// 	return () => provider.readContent();
+// }
+
+// export function sectorProviderFactory(provider: StaticContentService) {
+// 	console.log("Call Provider")
+// 	return () => provider.readSectors();
+// }
