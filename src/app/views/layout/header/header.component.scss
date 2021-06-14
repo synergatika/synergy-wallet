@@ -8,7 +8,6 @@
     padding-top: 5px;
     width: 220px;
   }
-
   box-shadow: 1px 1px 10px #ddd;
 
   .header__wrapper {
@@ -18,6 +17,13 @@
     .header_left__wrapper {
       align-items: center;
       display: flex;
+
+      span {
+        color: #fff;
+        font-size: 21px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
 
       a {
         margin-right: 20px;
@@ -29,7 +35,6 @@
     }
   }
 }
-
 @media (max-width: 576px) {
   .app-header {
     .header__wrapper {

@@ -693,7 +693,7 @@ export const locale = {
 
 
     /**
-     * ITEMS - OFFER, POST, EVENT, CAMPAIGN - TRANSLATION (Μετάφραση Ειδών - Προσφορά, Ανάρτηση, Εκδήλωση, Καμπάνια - )
+     * ITEMS -  OFFER, POST, EVENT, CAMPAIGN - TRANSLATION (Μετάφραση Ειδών - Προσφορά, Ανάρτηση, Εκδήλωση, Καμπάνια - )
      */
     OFFER: {
       TITLE: 'ΠΡΟΣΦΟΡΑ',
@@ -730,8 +730,8 @@ export const locale = {
       CANCEL: 'Ακύρωση'
     },
     POST_EVENT: {
-      PLURAL: 'Αναρτήσεις & Εκδηλώσεις',
-      ALL: 'Όλες οι Αναρτήσεις & οι Εκδηλώσεις',
+      PLURAL: 'Νέα & Εκδηλώσεις',
+      ALL: 'Όλα τα Νέα και οι Εκδηλώσεις',
     },
     CAMPAIGN: {
       TITLE: 'ΚΑΜΠΑΝΙΑ',
@@ -825,8 +825,8 @@ export const locale = {
       ACTIVATE_DISABLE: 'Ο Χρήστης είναι ενεργοποιημένος',
       DEACTIVATE_DISABLE: 'Ο Χρήστης είναι απενεργοποιημένος',
       PARTNER: {
-        PLURAL: 'Συνεργάτες',
-        ALL: 'Όλοι οι Συνεργάτες',
+        PLURAL: 'Συνεργατικά',
+        ALL: 'Όλα τα συνεργατικά',
         CREATE: 'Προσθήκη Συνεργάτη',
         CREATE_SUB: 'Δημιούργησε έναν νέο συνεργάτη της κοινότητας',
       },
