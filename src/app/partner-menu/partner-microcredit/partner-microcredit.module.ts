@@ -42,6 +42,7 @@ import { AuthGuard } from '../../core/guards/auth.guard';
 import {
     SngCoreModule,
 } from 'sng-core';
+import { MatRadioModule } from '@angular/material/radio';
 // import { WidgetsModule } from '../../core/_components/widgets.module';
 
 const routes: Routes = [
@@ -97,6 +98,7 @@ const routes: Routes = [
         MatProgressSpinnerModule,
         MatTooltipModule,
         MatPaginatorModule,
+        MatRadioModule,
         NgxMaterialTimepickerModule,
         NgbDropdownModule,
         SngCoreModule,

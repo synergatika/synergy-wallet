@@ -261,6 +261,24 @@ export class StaticDataService {
   ];
 
   /**
+ * Microcredit Campaign Type List
+ */
+  microcreditTypeList: GeneralList[] = [
+    {
+      title: 'FIELDS.MICROCREDIT_CAMPAIGN.TYPE_CHOICES.A',
+      value: '11',
+    },
+    {
+      title: 'FIELDS.MICROCREDIT_CAMPAIGN.TYPE_CHOICES.B',
+      value: '10',
+    },
+    {
+      title: 'FIELDS.MICROCREDIT_CAMPAIGN.TYPE_CHOICES.C',
+      value: '00',
+    }
+  ];
+
+  /**
    * Map Style & Pin Style
    */
 
@@ -589,6 +607,10 @@ export class StaticDataService {
 
   public get getAccessList(): GeneralList[] {
     return this.accessList;
+  }
+
+  public get getMicrocreditTypeList(): GeneralList[] {
+    return this.microcreditTypeList;
   }
 
   public get getValidators() {

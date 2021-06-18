@@ -47,6 +47,7 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
    * Configuration and Static Data
    */
   public accessList: GeneralList[];
+  public microcreditTypeList: GeneralList[];
 
   /**
    * Parameters
@@ -59,9 +60,11 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
   public title: string = '';
   private campaignAction: string = '';
   public minDate: Date;
-  isQuantitative: boolean = false;
-  isRedeemable: boolean = true;
-  public intro: any;
+  public microcreditType: string = '';
+
+  // isQuantitative: boolean = true;
+  // isRedeemable: boolean = true;
+  // public intro: any;
 
   /**
    * File Variables
@@ -108,6 +111,7 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
       this.campaign_id = params['_id'];
     });
     this.accessList = this.staticDataService.getAccessList;
+    this.microcreditTypeList = this.staticDataService.getMicrocreditTypeList;
     this.validator = this.staticDataService.getValidators.microcredit;
     this.unsubscribe = new Subject();
   }
@@ -165,16 +169,19 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
       ])
       ],
 
-      quantitative: ['', Validators.compose([
+      type: [this.microcreditTypeList[0].value, Validators.compose([
         Validators.required
       ])
       ],
 
-
-      redeemable: [true, Validators.compose([
-        Validators.required
-      ])
-      ],
+      // redeemable: [this.isQuantitative, Validators.compose([
+      //   Validators.required
+      // ])
+      // ],
+      // quantitative: [this.isRedeemable, Validators.compose([
+      //   Validators.required
+      // ])
+      // ],
 
       minAllowed: [0, Validators.compose([
         Validators.required,
@@ -219,45 +226,55 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
 
   }
 
-  checkAmountValidators() {
-    const controls = this.submitForm.controls;
+  // checkAmountValidators() {
+  //   const controls = this.submitForm.controls;
 
-    if (!this.isRedeemable) {
-      this.isQuantitative = false;
-      controls["minAllowed"].setValidators(null);
-      controls["maxAllowed"].setValidators(null);
-      controls["stepAmount"].setValidators(null);
-      controls["maxAmount"].setValidators(null);
-      controls["redeemStarts"].setValidators(null);
-      controls["redeemEnds"].setValidators(null);
-    } else if (this.isRedeemable && !this.isQuantitative) {
-      controls["minAllowed"].setValidators([Validators.required,
-      Validators.min(this.validator.minAllowed.minValue), Validators.max(this.validator.minAllowed.maxValue)]);
-      controls["maxAllowed"].setValidators(null);
-      controls["stepAmount"].setValidators(null);
-      controls["maxAmount"].setValidators([Validators.required,
-      Validators.min(this.validator.maxAmount.minValue), Validators.max(this.validator.maxAmount.maxValue)]);
-      controls["redeemStarts"].setValidators([Validators.required]);
-      controls["redeemEnds"].setValidators([Validators.required]);
-    } else {
-      controls["minAllowed"].setValidators([Validators.required,
-      Validators.min(this.validator.minAllowed.minValue), Validators.max(this.validator.minAllowed.maxValue)]);
-      controls["maxAllowed"].setValidators([Validators.required,
-      Validators.min(this.validator.maxAllowed.minValue), Validators.max(this.validator.maxAllowed.maxValue)]);
-      controls["stepAmount"].setValidators([Validators.required,
-      Validators.min(this.validator.stepAmount.minValue), Validators.max(this.validator.stepAmount.maxValue)]);
-      controls["maxAmount"].setValidators([Validators.required,
-      Validators.min(this.validator.maxAmount.minValue), Validators.max(this.validator.maxAmount.maxValue)]);
-      controls["redeemStarts"].setValidators([Validators.required]);
-      controls["redeemEnds"].setValidators([Validators.required]);
-    }
-    controls["minAllowed"].updateValueAndValidity();
-    controls["maxAllowed"].updateValueAndValidity();
-    controls["stepAmount"].updateValueAndValidity();
-    controls["maxAmount"].updateValueAndValidity();
-    controls["redeemStarts"].updateValueAndValidity();
-    controls["redeemEnds"].updateValueAndValidity();
-  }
+  //   if (!this.isRedeemable) {
+  //     this.isQuantitative = false;
+  //     controls["minAllowed"].setValidators(null);
+  //     controls["maxAllowed"].setValidators(null);
+  //     controls["stepAmount"].setValidators(null);
+  //     controls["maxAmount"].setValidators(null);
+  //     controls["redeemStarts"].setValidators(null);
+  //     controls["redeemEnds"].setValidators(null);
+  //   } else if (this.isRedeemable && !this.isQuantitative) {
+  //     controls["minAllowed"].setValidators([Validators.required,
+  //     Validators.min(this.validator.minAllowed.minValue), Validators.max(this.validator.minAllowed.maxValue)]);
+  //     controls["maxAllowed"].setValidators(null);
+  //     controls["stepAmount"].setValidators(null);
+  //     controls["maxAmount"].setValidators([Validators.required,
+  //     Validators.min(this.validator.maxAmount.minValue), Validators.max(this.validator.maxAmount.maxValue)]);
+  //     controls["redeemStarts"].setValidators([Validators.required]);
+  //     controls["redeemEnds"].setValidators([Validators.required]);
+  //   } else {
+  //     controls["minAllowed"].setValidators([Validators.required,
+  //     Validators.min(this.validator.minAllowed.minValue), Validators.max(this.validator.minAllowed.maxValue)]);
+  //     controls["maxAllowed"].setValidators([Validators.required,
+  //     Validators.min(this.validator.maxAllowed.minValue), Validators.max(this.validator.maxAllowed.maxValue)]);
+  //     controls["stepAmount"].setValidators([Validators.required,
+  //     Validators.min(this.validator.stepAmount.minValue), Validators.max(this.validator.stepAmount.maxValue)]);
+  //     controls["maxAmount"].setValidators([Validators.required,
+  //     Validators.min(this.validator.maxAmount.minValue), Validators.max(this.validator.maxAmount.maxValue)]);
+  //     controls["redeemStarts"].setValidators([Validators.required]);
+  //     controls["redeemEnds"].setValidators([Validators.required]);
+  //   }
+  //   controls["minAllowed"].updateValueAndValidity();
+  //   controls["maxAllowed"].updateValueAndValidity();
+  //   controls["stepAmount"].updateValueAndValidity();
+  //   controls["maxAmount"].updateValueAndValidity();
+  //   controls["redeemStarts"].updateValueAndValidity();
+  //   controls["redeemEnds"].updateValueAndValidity();
+  // }
+
+  // onIsQuantitativeCheckboxChange() {
+  //   this.isQuantitative = !this.isQuantitative;
+  //   this.checkAmountValidators();
+  // }
+
+  // onIsRedeemableCheckboxChange() {
+  //   this.isRedeemable = !this.isRedeemable;
+  //   this.checkAmountValidators();
+  // }
 
   fetchCampaignData() {
     this.itemsService.readCampaign(this.authenticationService.currentUserValue.user["_id"], this.campaign_id)
@@ -268,16 +285,20 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
             this.initialImage = data.imageURL;
             // this.previewUrl = this.initialImage;
 
-            this.isQuantitative = data.quantitative;
-            this.isRedeemable = data.redeemable;
-            this.checkAmountValidators();
+            this.microcreditType = `${Number(data.redeemable).toString()}${Number(data.quantitative).toString()}`;
+
+            // this.isQuantitative = data.quantitative;
+            // this.isRedeemable = data.redeemable;
             this.submitForm.patchValue({
               ...data,
+              type: this.microcreditType,
               supportStarts: ((this.minDate).getDate() > data.startsAt) ? this.minDate : (new Date(data.startsAt)),
               supportEnds: ((this.minDate).getDate() > data.expiresAt) ? this.minDate : (new Date(data.expiresAt)),
               redeemStarts: ((this.minDate).getDate() > data.redeemStarts) ? this.minDate : (new Date(data.redeemStarts)),
               redeemEnds: ((this.minDate).getDate() > data.redeemEnds) ? this.minDate : (new Date(data.redeemEnds)),
             });
+            this.checkAmountValidators();
+
           },
           error => {
           }),
@@ -290,13 +311,56 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  onIsQuantitativeCheckboxChange() {
-    this.isQuantitative = !this.isQuantitative;
-    this.checkAmountValidators();
+
+  checkAmountValidators() {
+    const controls = this.submitForm.controls;
+
+    switch (controls.type.value) {
+      case "00":
+        console.log("In 00")
+        controls["minAllowed"].setValidators(null);
+        controls["maxAllowed"].setValidators(null);
+        controls["stepAmount"].setValidators(null);
+        controls["redeemStarts"].setValidators(null);
+        controls["redeemEnds"].setValidators(null);
+        break;
+      case "10":
+        console.log("In 10")
+        controls["minAllowed"].setValidators([Validators.required,
+        Validators.min(this.validator.minAllowed.minValue), Validators.max(this.validator.minAllowed.maxValue)]);
+        controls["maxAllowed"].setValidators(null);
+        controls["stepAmount"].setValidators(null);
+        controls["maxAmount"].setValidators([Validators.required,
+        Validators.min(this.validator.maxAmount.minValue), Validators.max(this.validator.maxAmount.maxValue)]);
+        controls["redeemStarts"].setValidators([Validators.required]);
+        controls["redeemEnds"].setValidators([Validators.required]);
+        break;
+      case "11":
+        console.log("In 11")
+        controls["minAllowed"].setValidators([Validators.required,
+        Validators.min(this.validator.minAllowed.minValue), Validators.max(this.validator.minAllowed.maxValue)]);
+        controls["maxAllowed"].setValidators([Validators.required,
+          //  Validators.min(this.validator.maxAllowed.minValue), Validators.max(this.validator.maxAllowed.maxValue)
+        ]);
+        // controls["stepAmount"].setValidators(
+        //   [Validators.required, Validators.min(this.validator.stepAmount.minValue), Validators.max(this.validator.stepAmount.maxValue)]);
+        controls["maxAmount"].setValidators([Validators.required,
+        Validators.min(this.validator.maxAmount.minValue), Validators.max(this.validator.maxAmount.maxValue)]);
+        controls["redeemStarts"].setValidators([Validators.required]);
+        controls["redeemEnds"].setValidators([Validators.required]);
+        break;
+    }
+
+    controls["minAllowed"].updateValueAndValidity();
+    controls["maxAllowed"].updateValueAndValidity();
+    controls["stepAmount"].updateValueAndValidity();
+    controls["maxAmount"].updateValueAndValidity();
+    controls["redeemStarts"].updateValueAndValidity();
+    controls["redeemEnds"].updateValueAndValidity();
   }
 
-  onIsRedeemableCheckboxChange() {
-    this.isRedeemable = !this.isRedeemable;
+  onTypeRadioButtonChange(event) {
+    this.microcreditType = event.value;
     this.checkAmountValidators();
   }
 
@@ -308,12 +372,20 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
     return _date.getTime().toString();
   }
 
-  editCampaign(campaignStatus: string) {
+  isMicrocreditRedeemable(type: string) {
+    return type.charAt(0) == '1';
+  }
+
+  isMicrocreditQuantitative(type: string) {
+    return type.charAt(1) == '1';
+  }
+
+  formatCampaignData(): FormData {
     const controls = this.submitForm.controls;
 
     const formData = new FormData();
     formData.append('imageURL', controls.image_url.value);
-    // formData.append('imageURL', this.fileData);
+
     formData.append('title', controls.title.value);
     formData.append('subtitle', controls.subtitle.value);
     formData.append('terms', controls.terms.value);
@@ -321,18 +393,25 @@ export class EditMicrocreditCampaignComponent implements OnInit, OnDestroy {
     formData.append('category', controls.category.value);
     formData.append('access', controls.access.value);
 
-    formData.append('quantitative', controls.quantitative.value);
-    formData.append('redeemable', controls.redeemable.value);
+    formData.append('redeemable', (this.isMicrocreditRedeemable(controls.type.value)) ? "true" : "false");
+    formData.append('quantitative', (this.isMicrocreditQuantitative(controls.type.value)) ? "true" : "false");
 
-    formData.append('stepAmount', (controls.quantitative.value) ? controls.stepAmount.value : '0');
-    formData.append('minAllowed', (controls.redeemable.value) ? controls.minAllowed.value : '0');
-    formData.append('maxAllowed', (controls.quantitative.value) ? controls.maxAllowed.value : controls.minAllowed.value);
-    formData.append('maxAmount', (controls.redeemable.value) ? controls.maxAmount.value : '100000');
+    formData.append('minAllowed', (this.isMicrocreditRedeemable(controls.type.value)) ? controls.minAllowed.value : '0');
+    formData.append('maxAllowed', (this.isMicrocreditQuantitative(controls.type.value)) ? controls.maxAllowed.value : controls.minAllowed.value);
+    formData.append('stepAmount', (this.isMicrocreditQuantitative(controls.type.value) && controls.stepAmount.value) ? controls.stepAmount.value : '0');
+    formData.append('maxAmount', controls.maxAmount.value);
 
     formData.append('startsAt', this.formatDate(controls.supportStarts.value, 0, 12));
     formData.append('expiresAt', this.formatDate(controls.supportEnds.value, 0, 12));
-    formData.append('redeemStarts', (controls.redeemable.value) ? this.formatDate(controls.redeemStarts.value, 0, 12) : this.formatDate(new Date(), 730, 12));
-    formData.append('redeemEnds', (controls.redeemable.value) ? this.formatDate(controls.redeemEnds.value, 0, 12) : this.formatDate(new Date(), 730, 12));
+    formData.append('redeemStarts', (this.isMicrocreditRedeemable(controls.type.value)) ? this.formatDate(controls.redeemStarts.value, 0, 12) : this.formatDate(new Date(), 730, 12));
+    formData.append('redeemEnds', (this.isMicrocreditRedeemable(controls.type.value)) ? this.formatDate(controls.redeemEnds.value, 0, 12) : this.formatDate(new Date(), 730, 12));
+
+    return formData;
+  }
+
+  editCampaign(campaignStatus: string) {
+
+    const formData = this.formatCampaignData();
 
     this.itemsService.editCampaign(this.authenticationService.currentUserValue.user["_id"], this.campaign_id, formData)
       .pipe(
