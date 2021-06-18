@@ -444,6 +444,11 @@ export const locale = {
           B: 'Private',
           C: 'Partners'
         },
+        TYPE_CHOICES: {
+          A: 'Redeemable with a choice of amount range',
+          B: 'Redeemable with a fixed amount',
+          C: 'Donation'
+        },
         SUPPORT_STARTS: {
           TITLE: 'Initiation Date',
           PLACEHOLDER: 'Date',
@@ -739,8 +744,10 @@ export const locale = {
       REDEEM_PERIOD_SUB: 'This is the period in which you can get the items you pledged for',
       PRICE: 'Price',
       PRICE_PER_ITEM: 'Price per item',
+      TARGET: 'Target',
       PLEDGE: 'Pledge',
-      PLEDGE_DISABLE: 'You cannot add a "Pledge" outside the supporting period',
+      PLEDGE_DISABLE_TIME: '*You cannot add a "Pledge" outside the supporting period',
+      PLEDGE_DISABLE_AMOUNT: '*Max Amount has been reached',
       REDEEM_DISABLE: 'You cannot redeem a "Support" outside the redemption period',
       PARTNER: 'Partner Info',
       TERMS: 'What do I get?',

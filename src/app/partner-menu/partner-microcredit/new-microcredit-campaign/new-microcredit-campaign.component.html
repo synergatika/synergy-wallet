@@ -71,22 +71,6 @@
               <sng-rich-editor-create (finalize)="onFinalStep($event)" [formGroup]="submitForm"
                 parentService='microcreditContentImage'>
               </sng-rich-editor-create>
-              <!-- <mat-form-field>
-                <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.DESCRIPTION.TITLE' | translate}}</mat-label>
-                <textarea matInput rows="5" type="text" name="Description" formControlName="description" placeholder="{{'FIELDS.MICROCREDIT_CAMPAIGN.DESCRIPTION.PLACEHOLDER' | translate}}"></textarea>
-                <mat-error *ngIf="isControlHasError('description','required')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('description','minlength')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MIN_LENGTH_FIELD' | translate }}: {{validator.description.minLength}}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('description','maxlength')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MAX_LENGTH_FIELD' | translate }}: {{validator.description.maxLength}}
-                </mat-error>
-                <mat-hint class="form-text text-muted">
-                  {{'FIELDS.MICROCREDIT_CAMPAIGN.DESCRIPTION.DESC' | translate}}
-                </mat-hint>
-              </mat-form-field> -->
             </div>
             <!--end::Form Group "Description"-->
 
@@ -177,105 +161,21 @@
           <div class="sub-heading col-md-12">{{ 'FIELDS.MICROCREDIT_CAMPAIGN.SUBSECTIONS.FINANCIAL' | translate }}</div>
         </div>
 
+        <div class="form-group">
+          <mat-radio-group aria-label="Select an option" formControlName="type"
+            (change)="onTypeRadioButtonChange($event)">
+            <mat-radio-button class="economic-type" *ngFor="let item of microcreditTypeList" value="{{item.value}}">
+              {{item.title | translate}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+
         <div class="row">
-          <div class="col-md-6">
-
-            <!--begin::Form Group "Redeemable"-->
-            <div class="form-group">
-              <mat-checkbox (click)="onIsRedeemableCheckboxChange()" type="checkbox" class="" name="redeem"
-                formControlName="redeemable" value="false" labelPosition="before">
-                {{'FIELDS.MICROCREDIT_CAMPAIGN.REDEEMABLE' | translate}}
-              </mat-checkbox>
-            </div>
-            <!--end::Form Group "Redeemable"-->
-
-          </div>
-        </div>
-
-        <div class="row" *ngIf="isRedeemable">
-          <div class="col-md-6">
-
-            <!--begin::Form Group "Quantitative"-->
-            <div class="form-group">
-              <mat-checkbox (click)="onIsQuantitativeCheckboxChange()" type="checkbox" class="" name="redeem"
-                formControlName="quantitative" value="false" labelPosition="before">
-                {{'FIELDS.MICROCREDIT_CAMPAIGN.QUANTITATIVE' | translate}}
-              </mat-checkbox>
-            </div>
-            <!--end::Form Group "Quantitative"-->
-
-          </div>
-        </div>
-
-        <!--begin::Case !isQuantitative-->
-        <div class="row" *ngIf="!isQuantitative&&isRedeemable">
-          <div class="col-md-6">
+          <div class="col-md-6" *ngIf="microcreditType!='00'">
 
             <!--begin::Form Group "Min_Allowed"-->
-            <div class="form-group">
-              <mat-form-field>
-                <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.MIN_ALLOWED_PRICE.TITLE' | translate}}</mat-label>
-                <input matInput type="number" name="MinAllowed" formControlName="minAllowed"
-                  placeholder="{{'FIELDS.MICROCREDIT_CAMPAIGN.MIN_ALLOWED_PRICE.PLACEHOLDER' | translate}}">
-                <mat-error *ngIf="isControlHasError('minAllowed','required')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('minAllowed','min')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MIN_VALUE_FIELD' | translate }}: {{validator.minAllowed.minValue}}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('minAllowed','max')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MAX_VALUE_FIELD' | translate }}: {{validator.minAllowed.maxValue}}
-                </mat-error>
-                <mat-hint class="form-text text-muted">
-                  {{'FIELDS.MICROCREDIT_CAMPAIGN.MIN_ALLOWED_PRICE.DESC' | translate}}
-                </mat-hint>
-              </mat-form-field>
-            </div>
-            <!--end::Form Group "Min_Allowed"-->
-
-          </div>
-
-          <div class="col-md-6">
-
-            <!--begin::Form Group "Max_Amount"-->
-            <div class="form-group">
-              <mat-form-field>
-                <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.MAX_AMOUNT.TITLE' | translate}}</mat-label>
-                <input matInput type="number" name="MaxAmount" formControlName="maxAmount"
-                  placeholder="{{'FIELDS.MICROCREDIT_CAMPAIGN.MAX_AMOUNT.PLACEHOLDER' | translate}}">
-                <mat-error *ngIf="isControlHasError('maxAmount','required')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('maxAmount','min')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MIN_VALUE_FIELD' | translate }}: {{validator.maxAmount.minValue}}
-                </mat-error>
-                <mat-error *ngIf="isControlHasError('maxAmount','max')" class="error text-danger">
-                  {{ 'FORM.VALIDATION.MAX_VALUE_FIELD' | translate }}: {{validator.maxAmount.maxValue}}
-                </mat-error>
-                <mat-error
-                  *ngIf="submitForm.get('maxAmount').errors && submitForm.get('maxAmount').errors.MaxAmountGreaterThanMinAllowed"
-                  class="error text-danger">
-                  {{ 'FORM.VALIDATION.CAMPAIGN_AMOUNTS.NOTQUANTITATIVEMAXAMOUNTMINALLOWED' | translate }}
-                </mat-error>
-                <mat-hint class="form-text text-muted">
-                  {{'FIELDS.MICROCREDIT_CAMPAIGN.MAX_AMOUNT.DESC' | translate}}
-                </mat-hint>
-              </mat-form-field>
-            </div>
-            <!--end::Form Group "Max_Amount"-->
-
-
-
-          </div>
-        </div>
-        <!--end::Case !isQuantitative-->
-
-        <!--begin::Case isQuantitative-->
-        <div class="row" *ngIf="isQuantitative&&isRedeemable">
-          <div class="col-md-6">
-
-            <!--begin::Form Group "Min_Allowed"-->
-            <div class="form-group">
+            <div class="form-group" *ngIf="microcreditType=='11'">
               <mat-form-field>
                 <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.MIN_ALLOWED.TITLE' | translate}}</mat-label>
                 <input matInput type="number" name="MinAllowed" formControlName="minAllowed"
@@ -296,8 +196,30 @@
             </div>
             <!--end::Form Group "Min_Allowed"-->
 
+            <!--begin::Form Group "Min_Allowed (as Price)"-->
+            <div class="form-group" *ngIf="microcreditType=='10'">
+              <mat-form-field>
+                <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.MIN_ALLOWED_PRICE.TITLE' | translate}}</mat-label>
+                <input matInput type="number" name="MinAllowed" formControlName="minAllowed"
+                  placeholder="{{'FIELDS.MICROCREDIT_CAMPAIGN.MIN_ALLOWED_PRICE.PLACEHOLDER' | translate}}">
+                <mat-error *ngIf="isControlHasError('minAllowed','required')" class="error text-danger">
+                  {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
+                </mat-error>
+                <mat-error *ngIf="isControlHasError('minAllowed','min')" class="error text-danger">
+                  {{ 'FORM.VALIDATION.MIN_VALUE_FIELD' | translate }}: {{validator.minAllowed.minValue}}
+                </mat-error>
+                <mat-error *ngIf="isControlHasError('minAllowed','max')" class="error text-danger">
+                  {{ 'FORM.VALIDATION.MAX_VALUE_FIELD' | translate }}: {{validator.minAllowed.maxValue}}
+                </mat-error>
+                <mat-hint class="form-text text-muted">
+                  {{'FIELDS.MICROCREDIT_CAMPAIGN.MIN_ALLOWED_PRICE.DESC' | translate}}
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <!--end::Form Group "Min_Allowed (as Price)"-->
+
             <!--begin::Form Group "Step"-->
-            <div class="form-group">
+            <div class="form-group" *ngIf="microcreditType=='11'">
               <mat-form-field>
                 <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.STEP.TITLE' | translate}}</mat-label>
                 <input matInput type="number" name="stepAmount" formControlName="stepAmount"
@@ -322,7 +244,7 @@
           <div class="col-md-6">
 
             <!--begin::Form Group "Max_Allowed"-->
-            <div class="form-group">
+            <div class="form-group" *ngIf="microcreditType=='11'">
               <mat-form-field>
                 <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.MAX_ALLOWED.TITLE' | translate}}</mat-label>
                 <input matInput type="number" name="MaxAllowed" formControlName="maxAllowed"
@@ -330,14 +252,12 @@
                 <mat-error *ngIf="isControlHasError('maxAllowed','required')" class="error text-danger">
                   {{ 'FORM.VALIDATION.REQUIRED_FIELD' | translate }}
                 </mat-error>
-                <mat-error
-                  *ngIf="submitForm.get('maxAllowed').errors && submitForm.get('maxAllowed').errors.MinAllowedGreaterThanMaxAllowed"
-                  class="error text-danger">
+                <mat-error *ngIf="submitForm.get('maxAllowed').errors 
+                  && submitForm.get('maxAllowed').errors.MinAllowedGreaterThanMaxAllowed" class="error text-danger">
                   {{ 'FORM.VALIDATION.CAMPAIGN_AMOUNTS.QUANTITATIVEMINALLOWEDMAXALLOWED' | translate }}
                 </mat-error>
-                <mat-error
-                  *ngIf="submitForm.get('maxAllowed').errors && submitForm.get('maxAllowed').errors.StepAmountGreaterThanMaxAllowed"
-                  class="error text-danger">
+                <mat-error *ngIf="submitForm.get('maxAllowed').errors
+                  && submitForm.get('maxAllowed').errors.StepAmountGreaterThanMaxAllowed" class="error text-danger">
                   {{ 'FORM.VALIDATION.CAMPAIGN_AMOUNTS.QUANTITATIVESTEPAMOUNTMAXALLOWED' | translate }}
                 </mat-error>
                 <mat-hint class="form-text text-muted">
@@ -362,10 +282,13 @@
                 <mat-error *ngIf="isControlHasError('maxAmount','max')" class="error text-danger">
                   {{ 'FORM.VALIDATION.MAX_VALUE_FIELD' | translate }}: {{validator.maxAmount.maxValue}}
                 </mat-error>
-                <mat-error
-                  *ngIf="submitForm.get('maxAmount').errors && submitForm.get('maxAmount').errors.MaxAllowedGreaterThanMaxAmount"
-                  class="error text-danger">
+                <mat-error *ngIf="submitForm.get('maxAmount').errors 
+                  && submitForm.get('maxAmount').errors.MaxAllowedGreaterThanMaxAmount" class="error text-danger">
                   {{ 'FORM.VALIDATION.CAMPAIGN_AMOUNTS.QUANTITATIVEMAXALLOWEDMAXAMOUNT' | translate }}
+                </mat-error>
+                <mat-error *ngIf="submitForm.get('maxAmount').errors 
+                  && submitForm.get('maxAmount').errors.MaxAmountGreaterThanMinAllowed" class="error text-danger">
+                  {{ 'FORM.VALIDATION.CAMPAIGN_AMOUNTS.NOTQUANTITATIVEMAXAMOUNTMINALLOWED' | translate }}
                 </mat-error>
                 <mat-hint class="form-text text-muted">
                   {{'FIELDS.MICROCREDIT_CAMPAIGN.MAX_AMOUNT.DESC' | translate}}
@@ -376,7 +299,6 @@
 
           </div>
         </div>
-        <!--end::Case isQuantitative-->
 
         <hr>
         <div class="row">
@@ -416,7 +338,7 @@
             <!--end::Form Group "Support Starts"-->
 
             <!--begin::Form Group "Redeem Starts"-->
-            <div class="form-group" *ngIf="isRedeemable">
+            <div class="form-group" *ngIf="microcreditType!='00'">
               <mat-form-field>
                 <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.REDEEM_STARTS.TITLE' | translate}}</mat-label>
                 <input matInput [matDatepicker]="redeemStartsPicker" [min]="minDate" name="RedeemStarts"
@@ -478,7 +400,7 @@
             <!--end::Form Group "Support Ends"-->
 
             <!--begin::Form Group "Redeem Ends"-->
-            <div class="form-group" *ngIf="isRedeemable">
+            <div class="form-group" *ngIf="microcreditType!='00'">
               <mat-form-field>
                 <mat-label>{{'FIELDS.MICROCREDIT_CAMPAIGN.REDEEM_ENDS.TITLE' | translate}}</mat-label>
                 <input matInput [matDatepicker]="redeemEndsPicker" [min]="minDate" name="RedeemEnds"
