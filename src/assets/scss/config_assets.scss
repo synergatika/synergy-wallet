@@ -200,8 +200,11 @@ th .mat-sort-header-sorted {
     }
 
     .owl-prev {
-      margin-left: -25px;
+      margin-left: -15px;
       pointer-events: all;
+      @media (max-width: 576px) {
+          margin-left: -6px;
+      }
 
       &:before {
         content: "\f141";
@@ -210,9 +213,11 @@ th .mat-sort-header-sorted {
     }
 
     .owl-next {
-      margin-right: -25px;
+      margin-right: -15px;
       pointer-events: all;
-
+      @media (max-width: 576px) {
+          margin-left: -6px;
+      }
       &:before {
         content: "\f142";
         font-family: "Material Design Icons";

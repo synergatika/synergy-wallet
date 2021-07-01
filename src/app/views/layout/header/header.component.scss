@@ -1,9 +1,7 @@
-@import "../../../../variables.scss";
 
 .app-header {
   background-color: var(--top-toolbar-background-color);
   padding: 6px 30px;
-
   .logo {
     padding-top: 5px;
     width: 220px;
@@ -35,11 +33,21 @@
     }
   }
 }
+//Responsive
 @media (max-width: 576px) {
   .app-header {
     .header__wrapper {
       .header_left__wrapper {
         display: block;
+        .logo{
+          width: 100px;
+          float: left;
+        }
+        sng-topbar{
+          float: left;
+      margin-left: 10px;
+      line-height: 50px;
+        }
       }
     }
   }

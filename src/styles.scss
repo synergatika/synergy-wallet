@@ -3,27 +3,27 @@
 
 :root {
     //Config Colours
-
     --background-default: #f4f4f4;
     --background-secondary: #a3b9cc;
     --background-tertiary: #5c7d99;
     --background-light: #ffffff;
-
     --top-toolbar-color: #f4f4f4;
     --top-toolbar-background-color: #{$primary};
-
     --primary-color: #{$primary};
     --primary-light-color: #{$primary-light};
-
     --secondary-color: #{$secondary};
     --tertiary-color: #{$tertiary};
-
     --main-font-color:#{$main-font-color};
     --menu-font-color: #{$menu-color};
     --font-primary-color: #{$primary};
     --font-dark-color: #{$dark-font};
-
     --amount-color: #{$amount-color};
+    //Breakpoints (for some reason don't work)
+    --sm:576px;
+    --md:768px;
+    --lg:992px;
+    --xl:1200px;
+    --xxl:1400px;
 }
 
 
@@ -142,7 +142,7 @@ body {
   }
 }
 
-/* 4. CUSTOM ASSETS */
+/* 3 CUSTOM ASSETS */
 
 //Card list
 .list-tiltle {
@@ -169,7 +169,7 @@ body {
   z-index: 200;
 }
 
-/* 5. PAGES */
+/* 4. PAGES */
 
 //Auth Page
 .auth-page {
