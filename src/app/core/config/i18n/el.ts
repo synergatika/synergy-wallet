@@ -736,6 +736,8 @@ export const locale = {
     },
     POST_EVENT: {
       PLURAL: 'Αναρτήσεις & Εκδηλώσεις',
+      INTERNAL: 'Εσωτερικές',
+      GENERAL: 'Γενικές',
       ALL: 'Όλες οι Αναρτήσεις & οι Εκδηλώσεις',
     },
     CAMPAIGN: {

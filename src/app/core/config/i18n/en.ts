@@ -721,6 +721,8 @@ export const locale = {
     },
     POST_EVENT: {
       PLURAL: 'News & Events',
+      INTERNAL: 'Internal',
+      GENERAL: 'General',
       ALL: 'All News & Events',
     },
     CAMPAIGN: {

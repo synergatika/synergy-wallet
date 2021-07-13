@@ -252,6 +252,14 @@ const routes: Routes = [
 
 			},
 			{
+				path: 'posts/:access',
+				component: ArchivePostsEventsComponent,
+				canActivate: [ConfigGuard],
+				data: { title: 'MENU.POSTS', accessIndex: 0 }
+
+			},
+
+			{
 				path: 'offers',
 				component: ArchiveOffersComponent,
 				canActivate: [ConfigGuard],

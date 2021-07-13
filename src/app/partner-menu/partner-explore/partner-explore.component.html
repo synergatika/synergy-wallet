@@ -1,5 +1,14 @@
 <div class="explore">
   <p class="section-description">{{'PARTNER.EXPLORE.DESCRIPTION' | translate }}</p>
+
+  <!--begin::Internal Posts/Events List(Carousel)-->
+  <sng-posts_events-list-carousel *ngIf="configAccess[0]" [type]="'all'" [access]="'internal'">
+  </sng-posts_events-list-carousel>
+  <!--end::Internal Posts/Events List(Carousel)-->
+
+  <hr>
+  <br>
+
   <!--begin::Partners List(Carousel)-->
   <sng-partners-list-carousel>
   </sng-partners-list-carousel>
@@ -8,9 +17,9 @@
   <hr>
   <br>
 
-  <!--begin::Posts/Events List(Carousel)-->
-  <sng-posts_events-list-carousel *ngIf="configAccess[0]" [type]="'all'">
+  <!--begin::General Posts/Events List(Carousel)-->
+  <sng-posts_events-list-carousel *ngIf="configAccess[0]" [type]="'all'" [access]="'general'">
   </sng-posts_events-list-carousel>
-  <!--end::Posts/Events List(Carousel)-->
+  <!--end::General Posts/Events List(Carousel)-->
 
 </div>
