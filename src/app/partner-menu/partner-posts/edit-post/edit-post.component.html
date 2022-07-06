@@ -131,14 +131,9 @@
     {{ 'POST.DELETE_CONFIRM' | translate }} '{{title}}'?
   </div>
   <div class="modal-footer">
-    <<<<<<< HEAD <button mat-raised-button class="btn btn-secondary mr-3" (click)="deleteItem();c('Close click'); ">{{
-      'POST.DELETE'
-      | translate }}</button>
-      =======
-      <button mat-raised-button class="btn btn-secondary mr-3" (click)="deleteItem();c('Close click'); ">{{
-        'POST.DELETE' | translate }}</button>
-      >>>>>>> ux
-      <button mat-raised-button class="btn" (click)="c('Close click');">{{ 'POST.CANCEL' | translate }}</button>
+    <button mat-raised-button class="btn btn-secondary mr-3" (click)="deleteItem();c('Close click'); ">{{
+      'POST.DELETE' | translate }}</button>
+    <button mat-raised-button class="btn" (click)="c('Close click');">{{ 'POST.CANCEL' | translate }}</button>
   </div>
 </ng-template>
 <!--end::Confirmation Modal (Remove Item)-->

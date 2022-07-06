@@ -186,14 +186,9 @@
     {{'EVENT.DELETE_CONFIRM' | translate}} '{{title}}'?
   </div>
   <div class="modal-footer">
-    <<<<<<< HEAD <button mat-raised-button class="btn btn-secondary mr-3" (click)="deleteItem();c('Close click'); ">
-      {{'EVENT.DELETE'
+    <button mat-raised-button class="btn btn-secondary mr-3" (click)="deleteItem();c('Close click'); ">{{'EVENT.DELETE'
       | translate}}</button>
-      =======
-      <button mat-raised-button class="btn btn-secondary mr-3"
-        (click)="deleteItem();c('Close click'); ">{{'EVENT.DELETE' | translate}}</button>
-      >>>>>>> ux
-      <button mat-raised-button class="btn" (click)="c('Close click');">{{'EVENT.CANCEL' | translate}}</button>
+    <button mat-raised-button class="btn" (click)="c('Close click');">{{'EVENT.CANCEL' | translate}}</button>
   </div>
 </ng-template>
 <!--end::Confirmation Modal (Remove Item)-->

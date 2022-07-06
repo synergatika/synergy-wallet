@@ -128,7 +128,7 @@ import {
 	IContentService,
 	IEnvironmentService,
 	IStepperService,
-	// IStaticContentService,
+	IStaticContentService,
 } from 'sng-core';
 
 import { StaticDataService } from './core/helpers/static-data.service';
@@ -249,7 +249,7 @@ import { StaticContentService } from './core/services/static_content.service';
 		{ provide: ILoyaltyService, useClass: LoyaltyService },
 		{ provide: IMicrocreditService, useClass: MicrocreditService },
 		{ provide: IStepperService, useClass: StepperService },
-		// { provide: IStaticContentService, useClass: StaticContentService },
+		{ provide: IStaticContentService, useClass: StaticContentService },
 		{ provide: IEnvironmentService, useValue: environment },
 		/*{
 			provide: SWIPER_CONFIG,
