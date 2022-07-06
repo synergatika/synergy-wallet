@@ -1,7 +1,8 @@
 //Single Item
+
 .fullscreen-modal {
   .close-btn {
-    top: 0px;
+    top: 0;
   }
 }
 
@@ -24,6 +25,7 @@
     font-size: 1.6rem;
     margin-bottom: 20px;
     color: $dark-font;
+    margin-right: 35px;
   }
 
   &-img-area {
@@ -78,8 +80,8 @@
   &-category {
     position: absolute;
     z-index: 1;
-    right: 0px;
-    bottom: 0px; // bottom: -10px;
+    right: 0;
+    bottom: 0; // bottom: -10px;
     background-color: $primary;
     color: #fff;
     padding: 5px 15px;
@@ -173,7 +175,7 @@
       background-color: $primary;
       font-size: 18px;
       color: #fff;
-      padding: 6px 20px 6px 20px;
+      padding: 6px 20px;
     }
   }
 
@@ -181,8 +183,8 @@
     .partner-info {
       padding-right: 15px;
       padding-left: 15px;
-      padding-top: 0px;
-      border-bottom: 0px;
+      padding-top: 0;
+      border-bottom: 0;
 
       h6 {
         text-transform: uppercase;
@@ -193,6 +195,17 @@
       img {
         max-width: 100%;
       }
+    }
+  }
+  //Cards in Single
+
+  .synergy-card {
+    .item-card {
+      background: #f1f1f1;
+    }
+
+    .s_archive-subtitle {
+      color: var(--font-dark-color);
     }
   }
 }

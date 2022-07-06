@@ -9,6 +9,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication.serv
 export class HeaderComponent implements OnInit {
   user: any;
   logo: string = './assets/media/images/logo.png';
+  logoSmall: string = './assets/media/images/logo-small.png';
 
 
   constructor(private authenticationService: AuthenticationService) { }

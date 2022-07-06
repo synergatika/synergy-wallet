@@ -35,7 +35,6 @@ export class ArchivePostsEventsComponent implements OnInit {
 	 *
 	 * @param cdRef: ChangeDetectorRef
 	 * @param translate: TranslateService
-	 * @param itemsService: ItemsService
 	 */
 	constructor(
 		private cdRef: ChangeDetectorRef,

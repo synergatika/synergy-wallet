@@ -21,8 +21,8 @@ export class StaticContentService {//extends IStaticContentService {
   }
 
   get content(): Content[] {
-    console.log("Provider");
-    console.log(this._content)
+    //console.log("Provider");
+    //console.log(this._content)
     return this._content;
   }
 
@@ -37,7 +37,7 @@ export class StaticContentService {//extends IStaticContentService {
       this.http.get<Observable<Content[]>>(`${environment.apiUrl}/content`)
         .subscribe(response => {
           this._content = response['data'];
-          console.log(this._content)
+          //console.log(this._content)
           resolve(true);
         })
     })

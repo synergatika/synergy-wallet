@@ -1,14 +1,11 @@
-@import "../../../../variables.scss";
 
 .app-header {
   background-color: var(--top-toolbar-background-color);
   padding: 6px 30px;
-
   .logo {
     padding-top: 5px;
     width: 220px;
   }
-
   box-shadow: 1px 1px 10px #ddd;
 
   .header__wrapper {
@@ -18,6 +15,13 @@
     .header_left__wrapper {
       align-items: center;
       display: flex;
+
+      span {
+        color: #fff;
+        font-size: 21px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
 
       a {
         margin-right: 20px;
@@ -29,12 +33,21 @@
     }
   }
 }
-
+//Responsive
 @media (max-width: 576px) {
   .app-header {
     .header__wrapper {
       .header_left__wrapper {
         display: block;
+        .logo{
+          width: 100px;
+          float: left;
+        }
+        sng-topbar{
+          float: left;
+      margin-left: 10px;
+      line-height: 50px;
+        }
       }
     }
   }

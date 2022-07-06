@@ -155,16 +155,14 @@
 @media (max-width: 576px) {
   .fullscreen-modal {
     .modal-dialog {
-      margin-top: 65px;
+      margin-top: 20px;
     }
     .close-btn {
       position: fixed;
       z-index: 999;
-      top: 4px;
+      top: 17px;
       right: 20px;
       font-size: 45px;
-      background: #fff;
-      //  background: none;
       span {
         top: -18px;
       }

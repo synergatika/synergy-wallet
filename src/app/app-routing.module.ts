@@ -242,13 +242,13 @@ const routes: Routes = [
 			{
 				path: 'partners',
 				component: ArchivePartnersComponent,
-				data: { title: 'MENU.PARTNERS' }
+				data: { title: 'USER.PARTNER.PLURAL' }
 			},
 			{
 				path: 'posts',
 				component: ArchivePostsEventsComponent,
 				canActivate: [ConfigGuard],
-				data: { title: 'MENU.POSTS', accessIndex: 0 }
+				data: { title: 'POST_EVENT.PLURAL', accessIndex: 0 }
 
 			},
 			{
