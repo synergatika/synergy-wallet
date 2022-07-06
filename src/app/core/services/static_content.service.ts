@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Content, IStaticContentService, Sector } from 'sng-core';
+import { Content, Sector } from 'sng-core';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
