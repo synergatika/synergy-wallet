@@ -6,9 +6,25 @@
       <sng-loyalty_badge-card *ngIf="configAccess[1]"></sng-loyalty_badge-card>
       <!--end::Loyalty Badge-->
 
+      <!--begin::Loyalty Badge Modal-->
+      <span class="badge-more" (click)="openBadgeExplainer()" >{{'MEMBER.DASHBOARD.BADGE_READ' | translate}}</span>
+      <ng-template #badgeModal let-c="close" let-d="dismiss">
+        <div class="container wallet-popup">
+          <button type="button" class="close-btn" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="badge-text mt-3">
+            <p [innerHTML]="'badge_explain' | content_translate: 'content'"></p>
+          </div>
+        </div>
+      </ng-template>
+      <!--end::Loyalty Badge Modal-->
+
       <!--begin::Microcredit Badge-->
       <sng-microcredit_badge-card *ngIf="!configAccess[1]&&configAccess[2]"></sng-microcredit_badge-card>
       <!--end::Microcredit Badge-->
+
+
 
     </div>
 

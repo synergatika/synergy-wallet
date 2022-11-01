@@ -24,6 +24,14 @@
   }
 }
 
+.badge-more{
+  text-decoration: underline;
+  cursor: pointer;
+  &:hover{
+    color:$primary;
+  }
+}
+
 .wallet-card {
   &-header {
     border-bottom: 2px solid #eee;
