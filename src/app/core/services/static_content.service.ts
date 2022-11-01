@@ -55,7 +55,7 @@ export class StaticContentService {//extends IStaticContentService {
   }
 
   getWPContent(pageId): Observable<any> {
-    return this.http.get<any>(environment.staticUrl + "/pages/" + pageId);
+    return this.http.get<any>("https://wp.synergatika.gr/wp-json/wp/v2/pages/" + pageId);
   }
 
   // return new Promise<boolean>((resolve) => {
