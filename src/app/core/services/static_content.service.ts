@@ -54,6 +54,10 @@ export class StaticContentService {//extends IStaticContentService {
     })
   }
 
+  getWPContent(pageId): Observable<any> {
+    return this.http.get<any>(environment.staticUrl + "/pages/" + pageId);
+  }
+
   // return new Promise<boolean>((resolve) => {
   //   // this.http.get(`${environment.apiUrl}/content`).subscribe((response) => {
   //   //  this.content$ = response['data'];

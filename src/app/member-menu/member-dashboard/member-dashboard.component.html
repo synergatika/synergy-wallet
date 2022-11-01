@@ -17,7 +17,10 @@
       <mat-card class="dashboard-card wallet-card">
 
         <mat-card-header class="wallet-card-header">
-          <mat-card-title>{{'MEMBER.DASHBOARD.WALLET_TITLE' | translate}}</mat-card-title>
+          <mat-card-title>
+            <h3>{{'MEMBER.DASHBOARD.WALLET_TITLE' | translate}}</h3>
+            <span>{{'MEMBER.DASHBOARD.WALLET_DESC' | translate}}</span>
+          </mat-card-title>
 
           <!--begin::QR Code-->
           <sng-qr_code-card></sng-qr_code-card>
