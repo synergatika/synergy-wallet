@@ -1,7 +1,7 @@
-
 .app-header {
   background-color: var(--top-toolbar-background-color);
   padding: 6px 30px;
+
   .logo {
     padding-top: 5px;
     width: 220px;
@@ -29,7 +29,10 @@
     }
 
     .header_right__wrapper {
-      display: flex;
+      //display: flex;
+      position: absolute;
+      right: 20px;
+      top: 15px;
     }
   }
 }
@@ -39,16 +42,21 @@
     .header__wrapper {
       .header_left__wrapper {
         display: block;
-        .logo{
+
+        .logo {
           width: 100px;
           float: left;
         }
-        sng-topbar{
+
+        sng-topbar {
           float: left;
-      margin-left: 10px;
-      line-height: 50px;
+          margin-left: 10px;
+          line-height: 50px;
         }
       }
+        .header_right__wrapper {
+            top: 23px;
+        }
     }
   }
 }
