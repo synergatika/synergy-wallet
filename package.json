@@ -43,7 +43,7 @@
     "ngx-owl-carousel-o": "4.0.0",
     "ngx-pagination": "^5.0.0",
     "ngx-paypal": "^6.1.0",
-    "npm-registry-fetch": ">=4.0.5",
+    "npm-registry-fetch": ">=14.0.3",
     "rxjs": "~6.6.0",
     "sweetalert2": "^9.17.0",
     "tslib": "^2.0.0",
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.3",
-    "@angular/cli": "~10.0.3",
+    "@angular/cli": "~15.1.4",
     "@angular/compiler-cli": "~10.0.5",
     "@angular/language-service": "~10.0.5",
     "@types/googlemaps": "^3.39.11",
