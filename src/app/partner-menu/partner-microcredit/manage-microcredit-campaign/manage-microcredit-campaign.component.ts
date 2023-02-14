@@ -233,6 +233,7 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
         tap(
           data => {
             this.supports = data;
+            console.log(this.supports)
             this.dataSource = new MatTableDataSource(data);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
