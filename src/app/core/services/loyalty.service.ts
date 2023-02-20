@@ -85,10 +85,36 @@ export class LoyaltyService {
       }));
   }
 
-  readStatistics(): Observable<Statistics> {
-    return this.http.get<any>(`${environment.apiUrl}/loyalty/statistics`)
+  readLoyaltyStatistics(_date): Observable<Statistics> {
+    console.log("Statistics")
+    return this.http.get<any>(`${environment.apiUrl}/loyalty/statistics/${_date}?page=0&size=0`)
       .pipe(map(response => {
         return response.data;
       }));
+  }
+
+  exportLoyaltyStatistics(_date: string, _type: string) {
+    window.open(`${environment.apiUrl}/loyalty/statistics/${_date}/${_type}/export?page=0&size=0`, "_self");
+    return 'ok';
+    // return this.http.get<any>(`${environment.apiUrl}/loyalty/statistics/${_date}/${_type}/export?page=0&size=0`)
+    //   .pipe(map(response => {
+    //     return response.data;
+    //   }));
+  }
+
+  readOfferStatistics(partner_id: string, offer_id: string, _date: string): Observable<Statistics> {
+    return this.http.get<any>(`${environment.apiUrl}/loyalty/offers/${partner_id}/${offer_id}/statistics/${_date}?page=0&size=0`)
+      .pipe(map(response => {
+        return response.data;
+      }));
+  }
+
+  exportOfferStatistics(partner_id: string, offer_id: string, _date: string): string {
+    window.open(`${environment.apiUrl}/loyalty/offers/${partner_id}/${offer_id}/statistics/${_date}/export?page=0&size=0`, "_self");
+    return 'ok';
+    // return this.http.get<any>(`${environment.apiUrl}/loyalty/offers/${partner_id}/${offer_id}/statistics/${_date}/export?page=0&size=0`)
+    //   .pipe(map(response => {
+    //     return response.data;
+    //   }));
   }
 }
