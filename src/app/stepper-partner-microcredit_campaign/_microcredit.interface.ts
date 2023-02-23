@@ -14,6 +14,7 @@ interface Actions {
 }
 
 interface Transaction {
+    support: MicrocreditSupport;
     campaign_id: string;
     campaign_title: string;
     support_id: string;

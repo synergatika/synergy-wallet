@@ -97,7 +97,7 @@ export class MicrocreditService {
   }
 
   exportCampaignStatistics(partner_id: string, campaign_id: string, _date: string, _type: string): string {
-    window.open(`${environment.apiUrl}/loyalty/offers/${partner_id}/${campaign_id}/statistics/${_date}/${_type}/export?page=0&size=0`, "_self");
+    window.open(`${environment.apiUrl}/microcredit/campaigns/${partner_id}/${campaign_id}/statistics/${_date}/${_type}/export?page=0&size=0`, "_self");
     return 'ok';
     // return this.http.get<any>(`${environment.apiUrl}/loyalty/offers/${partner_id}/${offer_id}/statistics/${_date}/export?page=0&size=0`)
     //   .pipe(map(response => {

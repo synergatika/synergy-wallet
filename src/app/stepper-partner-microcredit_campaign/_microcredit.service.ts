@@ -150,6 +150,7 @@ export class LocalMicrocreditService {
     microcreditSupports = this.microcreditSupportsSource.asObservable();
 
     private transactionSource = new BehaviorSubject({
+        support: null,
         campaign_id: '0',
         campaign_title: '0',
         support_id: '0',

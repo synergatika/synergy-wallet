@@ -94,7 +94,7 @@ export class SubMicrocreditFormComponent implements OnInit, OnDestroy {
   }
 
   initializeSupportData(support: LocalMicrocreditInterface["MicrocreditSupport"]) {
-    this.transaction.support_id = support.support_id;
+    this.transaction.support_id = support._id;
     this.transaction.initial_tokens = support.initialTokens;
     this.transaction.redeemed_tokens = support.initialTokens - support.currentTokens;
     this.transaction.possible_tokens = (this.transaction.initial_tokens - this.transaction.redeemed_tokens);
@@ -119,13 +119,13 @@ export class SubMicrocreditFormComponent implements OnInit, OnDestroy {
   }
 
   isRadioButtonChecked(support: LocalMicrocreditInterface["MicrocreditSupport"]) {
-    return (support.support_id === this.transaction.support_id);
+    return (support._id === this.transaction.support._id);
   }
 
   onRadioButtonChange(support: LocalMicrocreditInterface["MicrocreditSupport"]) {
     if (this.isRadioButtonDisable(support)) return;
 
-    const currentOrder = this.supports[this.supports.map(function (e) { return e.support_id; }).indexOf(support.support_id)];
+    const currentOrder = this.supports[this.supports.map(function (e) { return e._id; }).indexOf(support._id)];
     if (currentOrder) {
       this.initializeSupportData(currentOrder)
     }
