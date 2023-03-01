@@ -16,7 +16,8 @@ import {
   Points,
   LoyaltyTransaction,
   Message,
-  Statistics
+  Statistics,
+  Balance
 } from 'sng-core';
 
 @Injectable({
@@ -43,7 +44,7 @@ export class LoyaltyService {
       }));
   }
 
-  readBalanceByPartner(_to: string): Observable<Points> {
+  readBalanceByPartner(_to: string): Observable<Balance> {
     return this.http.get<any>(`${environment.apiUrl}/loyalty/balance/${_to}`)
       .pipe(map(response => {
         return response.data;
@@ -64,24 +65,24 @@ export class LoyaltyService {
       }));
   }
 
-  earnPoints(_to: string, password: string, _amount: number): Observable<Message> {
+  earnPoints(_to: string, password: string, _amount: number): Observable<Balance> {
     return this.http.post<any>(`${environment.apiUrl}/loyalty/earn/${_to}`, { password, _amount })
-      .pipe(map(data => {
-        return data;
+      .pipe(map(response => {
+        return response.data;
       }));
   }
 
-  redeemPoints(_to: string, password: string, _points: number, _amount: number): Observable<Message> {
+  redeemPoints(_to: string, password: string, _points: number, _amount: number): Observable<Balance> {
     return this.http.post<any>(`${environment.apiUrl}/loyalty/redeem/${_to}`, { password, _points, _amount })
-      .pipe(map(data => {
-        return data;
+      .pipe(map(response => {
+        return response.data;
       }));
   }
 
-  redeemOffer(partner_id: string, offer_id: string, _to: string, password: string, _points: number, quantity: number): Observable<Message> {
+  redeemOffer(partner_id: string, offer_id: string, _to: string, password: string, _points: number, quantity: number): Observable<Balance> {
     return this.http.post<any>(`${environment.apiUrl}/loyalty/redeem/${partner_id}/${offer_id}/${_to}`, { password, _points, quantity })
-      .pipe(map(data => {
-        return data;
+      .pipe(map(response => {
+        return response.data;
       }));
   }
 

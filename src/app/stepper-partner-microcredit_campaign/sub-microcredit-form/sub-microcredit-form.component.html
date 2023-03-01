@@ -11,9 +11,9 @@
   <div class="row justify-content-md-center">
     <mat-radio-group aria-labelledby="token-radio-group-label" class="stepper-radio-group">
       <mat-radio-button type="radio" class="stepper-radio-buttons" *ngFor="let item of supports"
-        [value]='item.support_id' name="item.support_id" [checked]="isRadioButtonChecked(item)"
+        [value]='item._id' name="item._id" [checked]="isRadioButtonChecked(item)"
         [disabled]="isRadioButtonDisable(item)" (click)="onRadioButtonChange(item)">
-        {{item.payment_id}}
+        {{item.payment._id}}
         <span *ngIf="item.status === 'completed'"><i>({{'SUPPORT.STATUS.COMPLETED' | translate}})</i></span>
         <span *ngIf="item.status === 'unpaid'"><i>({{'SUPPORT.STATUS.PENDING' | translate}})</i></span>
       </mat-radio-button>
@@ -83,7 +83,7 @@
 
   <!-- Transaction History -->
   <hr>
-  <div class="mb-3">
+  <!-- <div class="mb-3">
     <h4 class="heading">{{ 'PARTNER.WIZARD.SUB_MICROCREDIT_FORM.SUB_HEADING_3' | translate }} </h4>
     <div class="history" *ngIf="transactions">
       <div class="row" *ngFor="let tran of transactions">
@@ -104,7 +104,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 </div>

@@ -11,7 +11,7 @@ import { MicrocreditService } from '../../core/services/microcredit.service';
 /**
  * Models & Interfaces
  */
-import { MicrocreditTransaction } from 'sng-core';
+import { MicrocreditTransaction, MicrocreditSupportStatus } from 'sng-core';
 
 /**
  * Local Services & Interfaces
@@ -94,14 +94,14 @@ export class SubMicrocreditFormComponent implements OnInit, OnDestroy {
   }
 
   initializeSupportData(support: LocalMicrocreditInterface["MicrocreditSupport"]) {
-    this.transaction.support_id = support._id;
+    this.transaction.support = support;
     this.transaction.initial_tokens = support.initialTokens;
     this.transaction.redeemed_tokens = support.initialTokens - support.currentTokens;
     this.transaction.possible_tokens = (this.transaction.initial_tokens - this.transaction.redeemed_tokens);
     this.stepperService.changeTransaction(this.transaction);
     // this.fetchTransactions();
-    this.transactions = support.transactions.sort((a: MicrocreditTransaction, b: MicrocreditTransaction) => { return (a._id < b._id) ? -1 : 1 });
-    this.transactions = this.transactions.reverse();
+    // this.transactions = support.transactions.sort((a: MicrocreditTransaction, b: MicrocreditTransaction) => { return (a._id < b._id) ? -1 : 1 });
+    // this.transactions = this.transactions.reverse();
   }
 
   initializeSelectedSupport() {
@@ -114,7 +114,7 @@ export class SubMicrocreditFormComponent implements OnInit, OnDestroy {
   }
 
   isRadioButtonDisable(support: LocalMicrocreditInterface["MicrocreditSupport"]) {
-    return (support.status === 'completed') || (support.status === 'unpaid');
+    return (support.status === MicrocreditSupportStatus.COMPLETED) || (support.status === MicrocreditSupportStatus.UNPAID);
     // return (support.currentTokens === 0) || ((support.status === 'PromiseFund') || (support.status === 'RevertFund'));
   }
 

@@ -167,10 +167,10 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
   setFilters() {
     this.dataSource.filterPredicate = (data: MicrocreditSupport, filter: any) =>
       (data.payment?._id.includes(filter)) ||
-      (data.method == filter) ||
+      (data.payment.method.bic == filter) ||
       ((typeof filter != "string") && ((parseInt(((new Date(data.createdAt)).setHours(0, 0, 0, 0)).toString())) == parseInt(filter.toString())));
 
-    const availableMethods = [...new Set(this.supports.map(item => item.method))];
+    const availableMethods = [...new Set(this.supports.map(item => item.payment.method.bic))];
     this.currentMethods = this.paymentsList.filter(obj => {
       return availableMethods.includes(obj.bic);
     })
@@ -234,6 +234,8 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
             this.supports = data;
             console.log("this.supports")
             console.log(this.supports)
+            this.validatedDates = this.supports.map(obj => { return this.dateformat(new Date(obj.createdAt)) });
+
             this.dataSource = new MatTableDataSource(data);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;

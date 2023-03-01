@@ -146,8 +146,7 @@ export class StepperPartnerLoyaltyPointlessOfferComponent implements OnInit, OnD
         tap(
           (data) => {
             this.stepperNoticeService.setNotice(null);
-            this.transaction.final_points = parseInt(data.points, 16);
-            console.log(data.points)
+            this.transaction.final_points = data.currentPoints;
             this.onNextStep();
           },
           (error) => {

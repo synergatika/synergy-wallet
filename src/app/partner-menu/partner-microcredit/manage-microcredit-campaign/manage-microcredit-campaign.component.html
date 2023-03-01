@@ -190,7 +190,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'SUPPORT.ARRAY.STATUS' | translate}} </th>
                 <td mat-cell *matCellDef="let item">
                   <mat-checkbox name="" value="{{item.status}}" [checked]="item.status=='paid'"
-                    (change)="changeSupportState(item.support_id, $event)"
+                    (change)="changeSupportState(item._id, $event)"
                     [disabled]="(item.status=='paid'&&!canRevertPayment)||(item.status=='unpaid'&&!canConfirmPayment)"
                     matTooltip="{{'SUPPORT.CHANGE_STATUS_TOOLTIP' | translate}}" [matTooltipPosition]="'left'"
                     [matTooltipDisabled]="(item.status=='unpaid'&&canConfirmPayment)||(item.status=='paid'&&canRevertPayment)">

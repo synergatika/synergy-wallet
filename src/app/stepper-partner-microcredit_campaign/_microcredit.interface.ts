@@ -15,9 +15,6 @@ interface Actions {
 
 interface Transaction {
     support: MicrocreditSupport;
-    campaign_id: string;
-    campaign_title: string;
-    support_id: string;
     initial_tokens: any;
     redeemed_tokens: any;
     possible_tokens: number;

@@ -345,18 +345,19 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
     // if (this.actions.identifier  '000') STEP B, REGISTRATION
     // if (this.actions.identifier  '101', '100') STEP B, ?
 
+    const action = `${this.actions.email}${this.actions.identifier}`;
 
-    switch (`${this.actions.email}${this.actions.identifier}`) {
+    switch (action) {
       case 'xxx000': { // only email
-        this.actionRegistration(user.identifier, null)
+        this.actionRegistration(action, user.identifier, null)
         break;
       }
       case 'xxx100': { // only card
-        this.actionRegistration(null, user.identifier);
+        this.actionRegistration(action, null, user.identifier);
         break;
       }
       case '000100': { // email_card
-        this.actionRegistration(user.email, user.identifier);
+        this.actionRegistration(action, user.email, user.identifier);
         break;
       }
       case '010100': { // link_card
@@ -385,7 +386,7 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
     }
   }
 
-  actionRegistration(email: string, card: string) {
+  actionRegistration(action, email: string, card: string) {
     this.loading = true;
     console.log("actionRegistration", this.loading)
 
@@ -394,7 +395,7 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
         tap(
           (data) => {
             this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.USER_CREATED'), 'success');
-            this.onNextStep();
+            (action == 'xxx000') ? this.onSpecificStep(2) : this.onNextStep();
           },
           (error) => {
             this.stepperNoticeService.setNotice(
@@ -468,7 +469,7 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
             console.log("Balance")
             console.log(data);
 
-            this.transaction.points = parseInt(data.points, 16);
+            this.transaction.points = data.currentPoints;
             this.stepperService.changeTransaction(this.transaction);
 
             this.initializeDiscountAmount();
@@ -493,26 +494,38 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
 
     this.loyaltyService.earnPoints(earnPoints._to, earnPoints.password, earnPoints._amount)
       .pipe(
-        switchMap(
+        tap(
           (data) => {
-            return this.loyaltyService.readBalanceByPartner(earnPoints._to)
-              .pipe(
-                tap(
-                  (data) => {
-                    this.transaction.final_points = parseInt(data.points, 16);
-                    this.transaction.added_points = this.transaction.final_points + (this.transaction.discount_points - this.transaction.points);
-                    this.stepperService.changeTransaction(this.transaction);
+            console.log(data);
+            this.transaction.final_points = data.currentPoints;
+            this.transaction.added_points = this.transaction.final_points + (this.transaction.discount_points - this.transaction.points);
+            this.stepperService.changeTransaction(this.transaction);
 
-                    this.stepE_actions();
-                  },
-                  (error) => {
-                    this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
-                  })
-              );
+            this.stepE_actions();
           },
           (error) => {
-
+            this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
           }),
+        // switchMap(
+        //   (data) => {
+        //     return this.loyaltyService.readBalanceByPartner(earnPoints._to)
+        //       .pipe(
+        //         tap(
+        //           (data) => {
+        //             this.transaction.final_points = parseInt(data.points, 16);
+        //             this.transaction.added_points = this.transaction.final_points + (this.transaction.discount_points - this.transaction.points);
+        //             this.stepperService.changeTransaction(this.transaction);
+
+        //             this.stepE_actions();
+        //           },
+        //           (error) => {
+        //             this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
+        //           })
+        //       );
+        //   },
+        //   (error) => {
+
+        //   }),
         takeUntil(this.unsubscribe),
         finalize(() => {
           setTimeout(() => { this.loading = false; }, 1000);
@@ -535,30 +548,40 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
           (data) => {
             return this.loyaltyService.redeemPoints(redeemPoints._to, redeemPoints.password, redeemPoints._points, redeemPoints._amount)
               .pipe(
-                switchMap(
+                tap(
                   (data) => {
-                    return this.loyaltyService.readBalanceByPartner(earnPoints._to)
-                      .pipe(
-                        tap(
-                          (data) => {
-                            this.transaction.final_points = parseInt(data.points, 16);
-                            this.transaction.added_points = this.transaction.final_points + (this.transaction.discount_points - this.transaction.points);
-                            this.stepperService.changeTransaction(this.transaction);
+                    console.log(data);
+                    this.transaction.final_points = data.currentPoints;
+                    this.transaction.added_points = this.transaction.final_points + (this.transaction.discount_points - this.transaction.points);
+                    this.stepperService.changeTransaction(this.transaction);
 
-                            this.stepE_actions();
-                          },
-                          (error) => {
-                            this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
-                          })
-                      );
+                    this.stepE_actions();
                   },
                   (error) => {
-
+                    this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
                   })
-              );
-          },
-          (error) => {
 
+                // switchMap(
+                //   (data) => {
+                //     return this.loyaltyService.readBalanceByPartner(earnPoints._to)
+                //       .pipe(
+                //         tap(
+                //           (data) => {
+                //             this.transaction.final_points = parseInt(data.points, 16);
+                //             this.transaction.added_points = this.transaction.final_points + (this.transaction.discount_points - this.transaction.points);
+                //             this.stepperService.changeTransaction(this.transaction);
+
+                //             this.stepE_actions();
+                //           },
+                //           (error) => {
+                //             this.stepperNoticeService.setNotice(this.translate.instant(error), 'danger');
+                //           })
+                //       );
+                //   },
+                //   (error) => {
+
+                //   })
+              );
           }
         ),
         takeUntil(this.unsubscribe),
