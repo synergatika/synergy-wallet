@@ -47,3 +47,5 @@ Thumbs.db
 
 # Keys & Links
 src/environments/secrets.environment.ts
+
+package-lock.json

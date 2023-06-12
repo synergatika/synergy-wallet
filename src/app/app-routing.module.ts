@@ -26,7 +26,7 @@ import { ArchivePartnersComponent } from './views/pages/archive-partners/archive
 import { ArchivePostsEventsComponent } from './views/pages/archive-posts_events/archive-posts_events.component';
 import { ArchiveOffersComponent } from './views/pages/archive-offers/archive-offers.component';
 import { ArchiveMicrocreditCampaignsComponent } from './views/pages/archive-microcredit_campaigns/archive-microcredit_campaigns.component';
-
+import { MaintenanceComponent } from './views/pages/maintenance/maintenance.component';
 
 /**
  * CanActivate/CanDeactivate Guards
@@ -34,6 +34,7 @@ import { ArchiveMicrocreditCampaignsComponent } from './views/pages/archive-micr
 import { AuthGuard } from './core/guards/auth.guard';
 import { UserGuard } from './core/guards/user.guard';
 import { ConfigGuard } from './core/guards/config.guard';
+import { MaintenanceGuard } from './core/guards/maintenance.guard';
 
 
 import { EditSectorsComponent } from '../app/admin-menu/edit-sectors/edit-sectors.component';
@@ -43,11 +44,16 @@ const routes: Routes = [
 	{
 		path: 'auth',
 		loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+		canActivate: [MaintenanceGuard]
+	},
+	{
+		path: 'maintenance',
+		component: MaintenanceComponent,
 	},
 	{
 		path: '',
 		component: LayoutComponent,
-		canActivate: [AuthGuard],
+		canActivate: [AuthGuard && MaintenanceGuard],
 		children: [
 			/**
 			 * Member Main Routes
@@ -274,9 +280,8 @@ const routes: Routes = [
 			},
 		]
 	},
-
-	//{ path: '', redirectTo: 'create', pathMatch: 'full' },
-	//{ path: '**', redirectTo: 'qr-code', pathMatch: 'full' },
+	// { path: '', redirectTo: 'create', pathMatch: 'full' },
+	// { path: '**', redirectTo: 'qr-code', pathMatch: 'full' },
 	{ path: '**', component: NotFoundComponent },
 ]
 

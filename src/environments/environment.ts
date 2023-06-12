@@ -9,6 +9,8 @@ export const environment = {
   authTimeOuter: 5000,
   mapOptions: { "latitude": 37.9709831, "longitude": 23.7224135, "zoom": 12 },
 
+  maintenance: false,
+
   access: [
     true, // community,
     true, // loyalty,

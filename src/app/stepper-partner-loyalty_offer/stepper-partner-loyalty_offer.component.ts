@@ -121,14 +121,16 @@ export class StepperPartnerLoyaltyOfferComponent implements OnInit, OnDestroy {
             console.log(data);
 
             if (final) {
-              this.transaction.final_points = parseInt(data.points, 16);
+              this.transaction.final_points = data['currentPoints'];
+              // this.transaction.final_points = parseInt(data.points, 16);
               this.stepperService.changeTransaction(this.transaction);
 
               this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.SUCCESS_TRANSACTION'), 'success');
               this.onNextStep();
             } else {
-              console.log(parseInt(data.points, 16));
-              this.transaction.points = parseInt(data.points, 16);
+              // console.log(parseInt(data.points, 16));
+              // this.transaction.points = parseInt(data.points, 16);
+              this.transaction.points = data['currentPoints'];
               this.transaction.possible_quantity = Math.floor(this.transaction.points / this.transaction.cost);
               this.stepperService.changeTransaction(this.transaction);
               this.onNextStep();
@@ -190,7 +192,8 @@ export class StepperPartnerLoyaltyOfferComponent implements OnInit, OnDestroy {
               .pipe(
                 tap(
                   (data) => {
-                    this.transaction.final_points = parseInt(data.points, 16);
+                    this.transaction.final_points = data['currentPoints'];
+                    //parseInt(data.points, 16);
                     this.stepperService.changeTransaction(this.transaction);
 
                     this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.SUCCESS_TRANSACTION'), 'success');

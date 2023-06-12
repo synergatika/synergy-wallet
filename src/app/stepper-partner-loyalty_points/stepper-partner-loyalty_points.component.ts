@@ -468,7 +468,8 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
             console.log("Balance")
             console.log(data);
 
-            this.transaction.points = parseInt(data.points, 16);
+            this.transaction.points = data['currentPoints'];
+            // parseInt(data.points, 16);
             this.stepperService.changeTransaction(this.transaction);
 
             this.initializeDiscountAmount();
@@ -499,7 +500,8 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
               .pipe(
                 tap(
                   (data) => {
-                    this.transaction.final_points = parseInt(data.points, 16);
+                    this.transaction.final_points = data['currentPoints'];
+                    //  parseInt(data.points, 16);
                     this.transaction.added_points = this.transaction.final_points + (this.transaction.discount_points - this.transaction.points);
                     this.stepperService.changeTransaction(this.transaction);
 
@@ -541,7 +543,8 @@ export class StepperPartnerLoyaltyPointsComponent implements OnInit, OnDestroy {
                       .pipe(
                         tap(
                           (data) => {
-                            this.transaction.final_points = parseInt(data.points, 16);
+                            this.transaction.final_points = data['currentPoints'];
+                            //  parseInt(data.points, 16);
                             this.transaction.added_points = this.transaction.final_points + (this.transaction.discount_points - this.transaction.points);
                             this.stepperService.changeTransaction(this.transaction);
 

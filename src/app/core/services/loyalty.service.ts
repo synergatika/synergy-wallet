@@ -32,6 +32,7 @@ export class LoyaltyService {
   readBalance(): Observable<Points> {
     return this.http.get<any>(`${environment.apiUrl}/loyalty/balance`)
       .pipe(map(response => {
+        console.log(response)
         return response.data;
       }));
   }

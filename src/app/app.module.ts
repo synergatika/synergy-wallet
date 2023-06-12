@@ -36,6 +36,7 @@ import { LayoutComponent } from './views/layout/layout.component';
 import { HeaderComponent } from './views/layout/header/header.component';
 
 import { NotFoundComponent } from './views/pages/not-found/not-found.component';
+import { MaintenanceComponent } from './views/pages/maintenance/maintenance.component';
 //import { LanguageSwitcherComponent } from './views/layout/header/language-switcher/language-switcher.component';
 
 import { MenuService } from './core/helpers/menu.service';
@@ -156,6 +157,7 @@ import { StaticContentService } from './core/services/static_content.service';
 		LayoutComponent,
 		HeaderComponent,
 		NotFoundComponent,
+		MaintenanceComponent,
 
 		/**
 		 * Admin Menu Pages
