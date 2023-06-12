@@ -22,6 +22,7 @@ import { MicrocreditService } from '../core/services/microcredit.service';
  */
 import { LocalMicrocreditService } from './_microcredit.service';
 import { LocalMicrocreditInterface } from './_microcredit.interface';
+import { MicrocreditSupportStatus } from 'sng-core';
 
 @Component({
   selector: 'app-stepper-partner-microcredit_campaign',
@@ -99,8 +100,8 @@ export class StepperPartnerMicrocreditCampaignComponent implements OnInit, OnDes
     this.campaign = this.data.campaign;
     this.stepperService.changeMicrocreditCampaign(this.campaign);
 
-    this.transaction.campaign_id = this.campaign._id;
-    this.transaction.campaign_title = this.campaign.title;
+    // this.transaction.campaign_id = this.campaign._id;
+    // this.transaction.campaign_title = this.campaign.title;
     this.stepperService.changeTransaction(this.transaction);
   }
 
@@ -152,7 +153,7 @@ export class StepperPartnerMicrocreditCampaignComponent implements OnInit, OnDes
       _to: (identifier).toLowerCase(),
       _tokens: this.transaction.discount_tokens,
       password: 'all_ok',
-      support_id: this.transaction.support_id
+      support_id: this.transaction.support._id
     };
 
     this.loading = true;
@@ -189,12 +190,14 @@ export class StepperPartnerMicrocreditCampaignComponent implements OnInit, OnDes
             this.supports = data as any;
             this.stepperService.changeMicrocreditSupports(this.supports);
 
-            const canRedeem = (this.supports.filter(support =>
-              (support.currentTokens > 0) && ((support.type === 'ReceiveFund') || (support.type === 'SpendFund'))).length > 0);
+            const canRedeem = this.supports.filter(support => support.status == MicrocreditSupportStatus.PAID)
+            // (this.supports.filter(support =>
+            //   (support.currentTokens > 0) && ((support.type === 'ReceiveFund') || (support.type === 'SpendFund'))).length > 0);
+
             if (!canRedeem) {
               this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.NOT_ENOUGH_TOKENS'), 'danger');
 
-              this.transaction.support_id = '';
+              this.transaction.support = null;
               this.transaction.initial_tokens = 0;
               this.transaction.redeemed_tokens = 0;
               this.transaction.possible_tokens = (this.transaction.initial_tokens - this.transaction.redeemed_tokens);

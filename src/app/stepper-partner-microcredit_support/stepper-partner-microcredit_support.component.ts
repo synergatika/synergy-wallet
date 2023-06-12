@@ -211,17 +211,18 @@ export class StepperPartnerMicrocreditSupportComponent implements OnInit, OnDest
 
     console.log("Actions Handler");
     console.log(`${this.actions.email}${this.actions.identifier}`);
-    switch (`${this.actions.email}${this.actions.identifier}`) {
+    const action = `${this.actions.email}${this.actions.identifier}`;
+    switch (action) {
       case 'xxx000': { // only email
-        this.actionRegistration(user.identifier, null)
+        this.actionRegistration(action, user.identifier, null)
         break;
       }
       case 'xxx100': { // only card
-        this.actionRegistration(null, user.identifier);
+        this.actionRegistration(action, null, user.identifier);
         break;
       }
       case '000100': { // email_card
-        this.actionRegistration(user.email, user.identifier);
+        this.actionRegistration(action, user.email, user.identifier);
         break;
       }
       case '010100': { // link_card
@@ -248,7 +249,7 @@ export class StepperPartnerMicrocreditSupportComponent implements OnInit, OnDest
     }
   }
 
-  actionRegistration(email: string, card: string) {
+  actionRegistration(action:string, email: string, card: string) {
     this.loading = true;
     console.log("actionRegistration", this.loading)
 
@@ -257,7 +258,7 @@ export class StepperPartnerMicrocreditSupportComponent implements OnInit, OnDest
         tap(
           (data) => {
             this.stepperNoticeService.setNotice(this.translate.instant('WIZARD_MESSAGES.USER_CREATED'), 'success');
-            this.onNextStep();
+           (action == 'xxx000')  ? this.onSpecificStep(2) : this.onNextStep();
           },
           (error) => {
             this.stepperNoticeService.setNotice(

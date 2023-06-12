@@ -11,6 +11,7 @@ import {
   MicrocreditSupport,
   PaymentDetails,
   MicrocreditTransaction,
+  Statistics,
 } from 'sng-core';
 
 
@@ -86,5 +87,21 @@ export class MicrocreditService {
       .pipe(map(response => {
         return response;
       }));
+  }
+
+  readCampaignStatistics(partner_id: string, campaign_id: string, _date: string): Observable<Statistics> {
+    return this.http.get<any>(`${environment.apiUrl}/microcredit/campaigns/${partner_id}/${campaign_id}/statistics/${_date}?page=0&size=0`)
+      .pipe(map(response => {
+        return response.data;
+      }));
+  }
+
+  exportCampaignStatistics(partner_id: string, campaign_id: string, _date: string, _type: string): string {
+    window.open(`${environment.apiUrl}/microcredit/campaigns/${partner_id}/${campaign_id}/statistics/${_date}/${_type}/export?page=0&size=0`, "_self");
+    return 'ok';
+    // return this.http.get<any>(`${environment.apiUrl}/loyalty/offers/${partner_id}/${offer_id}/statistics/${_date}/export?page=0&size=0`)
+    //   .pipe(map(response => {
+    //     return response.data;
+    //   }));
   }
 }

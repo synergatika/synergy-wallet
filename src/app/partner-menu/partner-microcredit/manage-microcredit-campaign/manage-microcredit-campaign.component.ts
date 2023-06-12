@@ -166,11 +166,11 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
 
   setFilters() {
     this.dataSource.filterPredicate = (data: MicrocreditSupport, filter: any) =>
-      (data.payment_id.includes(filter)) ||
-      (data.method == filter) ||
+      (data.payment?._id.includes(filter)) ||
+      (data.payment.method.bic == filter) ||
       ((typeof filter != "string") && ((parseInt(((new Date(data.createdAt)).setHours(0, 0, 0, 0)).toString())) == parseInt(filter.toString())));
 
-    const availableMethods = [...new Set(this.supports.map(item => item.method))];
+    const availableMethods = [...new Set(this.supports.map(item => item.payment.method.bic))];
     this.currentMethods = this.paymentsList.filter(obj => {
       return availableMethods.includes(obj.bic);
     })
@@ -204,11 +204,10 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
           data => {
             console.log("Campaign in ManageCampaign");
             console.log(data);
-
             this.campaign = data;
-            const datesRedeem = (this.campaign.statistics.redeemed) ? this.campaign.statistics.redeemed.byDate.map(obj => { return obj.date }) : [];
-            const datesPromise = (this.campaign.statistics.earned) ? this.campaign.statistics.earned.byDate.map(obj => { return obj.date }) : [];
-            this.validatedDates = datesRedeem.concat(datesPromise);
+            // const datesRedeem = (this.campaign.statistics.redeemed) ? this.campaign.statistics.redeemed.byDate.map(obj => { return obj.date }) : [];
+            // const datesPromise = (this.campaign.statistics.earned) ? this.campaign.statistics.earned.byDate.map(obj => { return obj.date }) : [];
+            // this.validatedDates = datesRedeem.concat(datesPromise);
             this.campaign = data;
 
             this.checkAvailableActions();
@@ -233,6 +232,10 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
         tap(
           data => {
             this.supports = data;
+            console.log("this.supports")
+            console.log(this.supports)
+            this.validatedDates = this.supports.map(obj => { return this.dateformat(new Date(obj.createdAt)) });
+
             this.dataSource = new MatTableDataSource(data);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
@@ -266,7 +269,7 @@ export class ManageMicrocreditCampaignComponent implements OnInit, OnDestroy {
             })
           },
           error => {
-            event.source.checked = ((this.supports[this.supports.map((x) => { return x.support_id; }).
+            event.source.checked = ((this.supports[this.supports.map((x) => { return x._id; }).
               indexOf(support_id)].status === 'unpaid')) ?
               false : true;
             Swal.fire(

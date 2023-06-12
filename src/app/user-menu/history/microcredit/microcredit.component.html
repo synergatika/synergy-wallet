@@ -22,7 +22,8 @@
     <!--begin::Transaction Template-->
     <ng-template #itemTemplate let-item="item">
       <div class="transaction-receipt row">
-        <div class="transaction-desc col"><span class="title">{{ 'HISTORY.RECEIPT' | translate }}:</span> {{item.tx}}
+        <div class="transaction-desc col"><span class="title">{{ 'HISTORY.RECEIPT' | translate }}:</span>
+          {{item.tx || item._id}}
         </div>
       </div>
       <div class="transaction-item transaction-subtitle row">
@@ -33,7 +34,7 @@
       <div class="transaction-item transaction-subtitle row">
         <div class="transaction-info col">
           <span class="transaction-title"><span class="title">{{ 'HISTORY.SUPPORT' | translate }}:</span>
-            {{item.payment_id}}</span>
+            {{item.payment_id || item.support.payment._id}}</span>
         </div>
       </div>
       <div class="transaction-details row">
@@ -51,7 +52,7 @@
         </div>
         <div *ngIf="(item.type === 'RevertFund') || ((item.type === 'ReceiveFund'))" class="transaction-info col">
           <span class="transaction-number" [ngClass]="(item.type==='ReceiveFund') ? 'font-success' : 'font-danger'">
-            {{ (item.type==='ReceiveFund') ? ('HISTORY.PAID' | translate) :  ('HISTORY.UNPAID' | translate) }}
+            {{ (item.type==='ReceiveFund') ? ('HISTORY.PAID' | translate) : ('HISTORY.UNPAID' | translate) }}
           </span>
         </div>
       </div>
@@ -83,7 +84,7 @@
     <ng-template #itemTemplate let-item="item">
       <div class="transaction-item transaction-receipt row">
         <div class="transaction-info col">
-          <span class="transaction-desc">{{ 'HISTORY.RECEIPT' | translate }}: {{item.tx}} <br> </span>
+          <span class="transaction-desc">{{ 'HISTORY.RECEIPT' | translate }}: {{item.tx || item._id}} <br> </span>
         </div>
       </div>
       <div class="transaction-item transaction-subtitle row">
@@ -94,7 +95,7 @@
       <div class="transaction-item transaction-subtitle row">
         <div class="transaction-info col">
           <span class="transaction-title"><span class="title">{{ 'HISTORY.SUPPORT' | translate }}:</span>
-            {{item.payment_id}}</span>
+            {{item.payment_id || item.support.payment._id}}</span>
         </div>
       </div>
       <div class="transaction-details row">
@@ -107,12 +108,12 @@
         <div *ngIf="(item.type === 'PromiseFund') || ((item.type === 'SpendFund'))" class="transaction-info col">
           <span class="transaction-number" [ngClass]="(item.type==='PromiseFund') ? 'font-success' : 'font-danger'">
             <div *ngIf="item.type==='PromiseFund'"> {{item.tokens | currency: 'EUR'}} </div>
-            <div *ngIf="item.type!=='PromiseFund'"> ~ {{item.tokens}} {{'HISTORY.TOKENS' | translate}} </div>
+            <div *ngIf="item.type!=='PromiseFund'"> {{item.tokens}} {{'HISTORY.TOKENS' | translate}} </div>
           </span>
         </div>
         <div *ngIf="(item.type === 'RevertFund') || ((item.type === 'ReceiveFund'))" class="transaction-info col">
           <span class="transaction-number" [ngClass]="(item.type==='ReceiveFund') ? 'font-success' : 'font-danger'">
-            {{ (item.type==='ReceiveFund') ? ('HISTORY.PAID' | translate) :  ('HISTORY.UNPAID' | translate) }}
+            {{ (item.type==='ReceiveFund') ? ('HISTORY.PAID' | translate) : ('HISTORY.UNPAID' | translate) }}
           </span>
         </div>
       </div>

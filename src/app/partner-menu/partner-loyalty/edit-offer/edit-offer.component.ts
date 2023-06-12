@@ -161,7 +161,9 @@ export class EditOfferComponent implements OnInit, OnDestroy {
       .pipe(
         tap(
           data => {
-            this.offer = data;
+            this.offer = { ...data };
+            console.log(this.offer);
+
             this.hasExpired = this.offer.expiresAt < this.seconds;
             this.title = data.title;
             this.initialImage = data.imageURL;
